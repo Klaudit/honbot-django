@@ -1,4 +1,4 @@
-heroes = { 
+heroes = {
     'Hero_Andromeda': 102,
     'Hero_Engineer': 122,
     'Hero_Javaras': 37,
@@ -114,9 +114,8 @@ heroes = {
     'Hero_Rhapsody': 203,
     'Hero_Kenisis': 215,
     'Hero_Berzerker': 213,
-    'Hero_Tremble': 170,
-    
-    }
+    'Hero_Tremble': 170}
+
 
 def hero(name):
     return heroes[name]

@@ -29,6 +29,8 @@ class Magic:
         """
         this will do my required math and sorting
         """
+        self.hapm = [0] * len(self.apm[1])
+        self.lapm = [0] * len(self.apm[1])
         myorder = [None] * 10
         newplayers = [None] * 10
         newitems = [None] * 10
@@ -77,6 +79,15 @@ class Magic:
         self.id = newid
         self.apm = newapm
         self.psr = newpsr
+        #get average apm
+        for i, player in enumerate(self.apm):
+            for d, chunk in enumerate(player):
+                if i < 5:
+                    self.lapm[d] += chunk
+                else:
+                    self.hapm[d] += chunk
+        self.lapm = [x/5 for x in self.lapm]
+        self.hapm = [x/5 for x in self.hapm]
 
     def INFO_DATE(self, line):
         """
@@ -196,25 +207,27 @@ class Magic:
         PLAYER_ACTIONS time:10050 player:1 count:60 period:20000 team:2
         """
         l = line.split()
-        if self.chunk != 9:
-            if len(l) == 5:
+        if int(l[1].split(':')[1]) == 10 or int(l[2].split(':')[1]) == 10:
+            return
+        if self.chunk != 8:
+            if len(l) == 5:  # length is 5 if before time 0
                 self.add[int(l[1].split(':')[1])] += int(l[2].split(':')[1])
                 if int(l[1].split(':')[1]) == 0:
                     self.chunk += 1
-            elif int(l[2].split(':')[1]) < 10:
+            else:
                 self.add[int(l[2].split(':')[1])] += int(l[3].split(':')[1])
                 if int(l[2].split(':')[1]) == 0:
                     self.chunk += 1
         else:
             if len(l) == 5:
                 self.add[int(l[1].split(':')[1])] += int(l[2].split(':')[1])
-                self.apm[int(l[1].split(':')[1])].append(self.add[int(l[1].split(':')[1])] / (self.chunk / 3))
+                self.apm[int(l[1].split(':')[1])].append(self.add[int(l[1].split(':')[1])] / 3)
                 self.add[int(l[1].split(':')[1])] = 0
-                if int(l[1].split(':')[1]) == 9:
+                if int(l[1].split(':')[1]) == 0:
                     self.chunk = 0
-            elif int(l[2].split(':')[1]) < 10:
+            else:
                 self.add[int(l[2].split(':')[1])] += int(l[3].split(':')[1])
-                self.apm[int(l[2].split(':')[1])].append(self.add[int(l[2].split(':')[1])] / (self.chunk / 3))
+                self.apm[int(l[2].split(':')[1])].append(self.add[int(l[2].split(':')[1])] / 3)
                 self.add[int(l[2].split(':')[1])] = 0
-                if int(l[2].split(':')[1]) == 9:
+                if int(l[2].split(':')[1]) == 0:
                     self.chunk = 0

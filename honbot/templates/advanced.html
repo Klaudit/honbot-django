@@ -442,7 +442,7 @@ $(function () {
         credits: {
             enabled: false
         },
-        colors: ['#003fe2', '#00c19e', '#5d0072', '#FAF614', '#ff7d29'],
+        colors: ['#003fe2', '#00c19e', '#5d0072', '#FAF614', '#ff7d29', '#000000'],
         series: [{
             name: '{{ data.players.0 }}',
             data: [{% for a in data.apm.0 %}{{ a }},{% endfor %}]
@@ -458,6 +458,9 @@ $(function () {
         }, {
             name: '{{ data.players.4 }}',
             data: [{% for a in data.apm.4 %}{{ a }},{% endfor %}]
+        }, {
+            name: 'Team Average',
+            data: [{% for a in data.lapm %}{{ a }},{% endfor %}]
         }]
     });
 });
@@ -482,7 +485,7 @@ $(function () {
         credits: {
             enabled: false
         },
-        colors: ['#ff44ab', '#959698', '#4cc3ee', '#006448', '#562507'],
+        colors: ['#ff44ab', '#959698', '#4cc3ee', '#006448', '#562507', '#000000'],
         series: [{
             name: '{{ data.players.5 }}',
             data: [{% for a in data.apm.5 %}{{ a }},{% endfor %}]
@@ -498,6 +501,9 @@ $(function () {
         }, {
             name: '{{ data.players.9 }}',
             data: [{% for a in data.apm.9 %}{{ a }},{% endfor %}]
+        }, {
+            name: 'Team Average',
+            data: [{% for a in data.hapm %}{{ a }},{% endfor %}]
         }]
     });
 });

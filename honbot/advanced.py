@@ -2,7 +2,7 @@ import requests
 import zipfile
 import codecs
 import magic
-from match import checkfile, get_download
+from match import checkfile, get_download, get_player_names
 from os import remove, path
 from django.conf import settings
 
@@ -54,9 +54,12 @@ def main(match_id):
 
 
 def parse(match_id):
-    logfile = codecs.open(directory + 'm' + match_id + '.log', encoding='utf-16-le', mode='rb').readlines()
-    data = magic.Magic(match_id)
-    data.INFO_DATE(logfile.pop(0))
+    # get names from api. This needs to be fixed for if I use alternate download method.
+    names = get_player_names(match_id)
+    logfile = codecs.open(directory + 'm' + match_id + '.log', encoding='utf-16-le', mode='rb').readlines()  # open file with proper encoding
+    data = magic.Magic(match_id)  # init the magic
+    data.INFO_DATE(logfile.pop(0))  # first line cannot be parsed for whatever reason
+    # parse the rest
     for line in logfile:
         for word in line.split():
             try:
@@ -66,5 +69,5 @@ def parse(match_id):
             except AttributeError:
                 #print "Error: " + word + " does not have a function. Match:" + match_id
                 break
-    data.finish()
+    data.finish(names)
     return data

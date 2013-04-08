@@ -11,6 +11,7 @@
             <div class="row">
                 <div class="span2 offset1">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/0.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.0 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.0 }}</h4>
                     </div>
@@ -50,6 +51,7 @@
                 </div>
                 <div class="span2">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/1.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.1 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.1 }}</h4>
                     </div>
@@ -89,6 +91,7 @@
                 </div>
                 <div class="span2">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/2.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.2 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.2 }}</h4>
                     </div>
@@ -128,6 +131,7 @@
                 </div>
                  <div class="span2">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/3.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.3 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.3 }}</h4>
                     </div>
@@ -167,6 +171,7 @@
                 </div>
                  <div class="span2">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/4.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.4 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.4 }}</h4>
                     </div>
@@ -209,6 +214,7 @@
             <div class="row">
                 <div class="span2 offset1">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/5.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.5 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.5 }}</h4>
                     </div>
@@ -248,6 +254,7 @@
                 </div>
                 <div class="span2">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/6.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.6 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.6 }}</h4>
                     </div>
@@ -287,6 +294,7 @@
                 </div>
                 <div class="span2">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/7.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.7 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.7 }}</h4>
                     </div>
@@ -326,6 +334,7 @@
                 </div>
                 <div class="span2">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/8.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.8 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.8 }}</h4>
                     </div>
@@ -365,6 +374,7 @@
                 </div>
                 <div class="span2">
                     <div class="clearfix content-heading marketing">
+                        <img class="pull-left" src='/static/img/p/9.jpg'>
                         <img class="pull-left" src='/static/img/heroes/{{ data.hero.9 }}/icon_30.jpg'>
                         <h4 class="pull-left">{{ data.players.9 }}</h4>
                     </div>
@@ -411,7 +421,6 @@
         <div class="span12 well stats-title">
             <h1>Average APM</h1>
             <h4>Each tick = 3 Min</h4>
-            <hr class="soften">
             <div class="row">
                 <div class="span12 stats-title">
                     <div id="lapm" style=" height: 400px; margin: 0 auto"></div>
@@ -432,6 +441,11 @@ $(function () {
             plotBorderWidth: null,
             plotShadow: false,
         },
+        plotOptions: {
+            line: {
+                animation: false
+            }
+        },
         title: {
             text: ''
         },
@@ -441,6 +455,11 @@ $(function () {
         },
         credits: {
             enabled: false
+        },
+        yAxis: {
+            title: {
+                text: false
+            },
         },
         colors: ['#003fe2', '#00c19e', '#5d0072', '#FAF614', '#ff7d29', '#000000'],
         series: [{
@@ -475,6 +494,11 @@ $(function () {
             plotBorderWidth: null,
             plotShadow: false,
         },
+        plotOptions: {
+            line: {
+                animation: false
+            }
+        },
         title: {
             text: ''
         },
@@ -484,6 +508,11 @@ $(function () {
         },
         credits: {
             enabled: false
+        },
+        yAxis: {
+            title: {
+                text: false
+            },
         },
         colors: ['#ff44ab', '#959698', '#4cc3ee', '#006448', '#562507', '#000000'],
         series: [{

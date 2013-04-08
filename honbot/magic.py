@@ -4,7 +4,7 @@ from hero_id import hero
 
 class Magic:
     def __init__(self, match_id):
-        self.date = "FUCK"
+        self.date = ''
         self.time = ''
         self.match_id = match_id
         self.server = ''
@@ -25,13 +25,14 @@ class Magic:
         self.hapm = []
         self.lapm = []
 
-    def finish(self):
+    def finish(self, names):
         """
         this will do my required math and sorting
         """
+        #init
         self.hapm = [0] * len(self.apm[1])
         self.lapm = [0] * len(self.apm[1])
-        myorder = [None] * 10
+        myorder = []
         newplayers = [None] * 10
         newitems = [None] * 10
         newteam = [None] * 10
@@ -40,28 +41,10 @@ class Magic:
         newid = [None] * 10
         newapm = [None] * 10
         newpsr = [None] * 10
-        team1 = []
-        name1 = []
-        name2 = []
-        team2 = []
-        for i, p in enumerate(self.psr):
-            if self.team[i] == 1:
-                team1.append(p)
-                name1.append(self.players[i])
-            else:
-                team2.append(p)
-                name2.append(self.players[i])
-        count = 0
-        while count != 5:
-            index = self.players.index(name1[team1.index(max(team1))])
-            myorder[index] = count
-            count += 1
-            team1[team1.index(max(team1))] = 0
-        while count != 10:
-            index = self.players.index(name2[team2.index(max(team2))])
-            myorder[index] = count
-            count += 1
-            team2[team2.index(max(team2))] = 0
+        # compare names from api and get order
+        for p in self.players:
+            myorder.append(names.index(p))
+        # copy into new order
         for i, order in enumerate(myorder):
             newplayers[order] = self.players[i]
             newitems[order] = self.items[i]
@@ -207,7 +190,7 @@ class Magic:
         PLAYER_ACTIONS time:10050 player:1 count:60 period:20000 team:2
         """
         l = line.split()
-        if int(l[1].split(':')[1]) == 10 or int(l[2].split(':')[1]) == 10:
+        if int(l[-1].split(':')[1]) == 0:
             return
         if self.chunk != 8:
             if len(l) == 5:  # length is 5 if before time 0

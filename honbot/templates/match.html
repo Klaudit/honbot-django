@@ -113,11 +113,11 @@ fb_param.value = '0.00';
             <legend>Gold Per Minute</legend>
                 <div id="lgpm" style="min-width: 300px; height: 350px; margin: 0 auto"></div>
         </div>
-        <div class="span5">
+        <div class="span5 well">
             <legend>Extras</legend>
-                <a href='/chat/{{ match_id }}/' class="btn btn-large btn-block btn-inverse">Chat Logs</a>
-                <a href="/advanced/{{ match_id }}" class='btn btn-large btn-block'>View Advanced Stats</a>
-                <small><muted>Match must be less than 28 days old</muted></small>
+                <a href='/chat/{{ match_id }}/' class="btn btn-large btn-block">Chat Logs</a>
+                <a href="/advanced/{{ match_id }}" class='btn btn-large btn-block btn-info'>View Advanced Stats</a>
+                <small><strong class="text-error">Match must be less than 28 days old</strong></small>
         </div>
     </div>
 </div>

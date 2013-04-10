@@ -71,8 +71,8 @@ body {
     text-align: center;
 }
 
-.alert{
-    width: 99%;
+.playercolor{
+    margin-right: 1px;
 }
 
 .recent-match tr:hover {
@@ -84,28 +84,10 @@ body {
     cursor: pointer;
 }
 
-.hero-small {
-    height: 30px;
-}
-
-.hero-table td {
-    vertical-align: middle;
-    display: table-cell;
-}
-
 .navbar {
     padding-bottom: 20px;
 }
 
-.login-container {
-    margin: 0 auto;
-    width: 275px; /* Whatever exact width you are looking for (not bound by preset bootstrap widths) */
-}
-
-.login-container .control-group {
-    margin: 0px;
-    width: 500px;
-}
 
 small a {
     color: #808080;
@@ -115,10 +97,6 @@ small a {
     border-radius: 0px;
     border: 1px solid;
     border-color: rgb(227, 227, 227);
-}
-
-.form-actions {
-    background-color: rgb(249, 249, 249);
 }
 
 .well {
@@ -236,14 +214,6 @@ body > .navbar .brand:hover {
     bottom: 0;
     left: 0;
     background: url('/static/img/classy_fabric.png') repeat center center;
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (   min--moz-device-pixel-ratio: 2), only screen and (     -o-min-device-pixel-ratio: 2/1) {
-
-    .jumbotron:after {
-        background-size: 150px 150px;
-    }
-
 }
 
 /* Masthead (docs home)
@@ -455,32 +425,10 @@ body > .navbar .brand:hover {
         font-size: 18px;
     }
 
-    /* center example sites */
-    .example-sites {
-        margin-left: 0;
-    }
-
-    .example-sites > li {
-        float: none;
-        display: block;
-        max-width: 280px;
-        margin: 0 auto 18px;
-        text-align: center;
-    }
-
-    .example-sites .thumbnail > img {
-        max-width: 270px;
-    }
-
     /* Do our best to make tables work in narrow viewports */
     table code {
         white-space: normal;
         word-wrap: break-word;
         word-break: break-all;
-    }
-    /* Tighten up footer */
-    .footer {
-        padding-top: 20px;
-        padding-bottom: 20px;
     }
 }

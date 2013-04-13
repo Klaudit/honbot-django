@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="span12 well">
-            <h1 class="stats-title">Skill Build</h1>
+            <h1 class="stats-title">Build</h1>
             <hr class="soften">
             <div class="row">
                 <div class="span2 offset1">
@@ -15,6 +15,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.0 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.0}}/"><h4 class="pull-left">{{ data.players.0 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.0 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.0 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.0 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.0 }}/ability3_128.jpg">
@@ -55,6 +66,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.1 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.1}}/"><h4 class="pull-left">{{ data.players.1 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.1 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.1 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.1 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.1 }}/ability3_128.jpg">
@@ -95,6 +117,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.2 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.2}}/"><h4 class="pull-left">{{ data.players.2 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.2 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.2 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.2 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.2 }}/ability3_128.jpg">
@@ -135,6 +168,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.3 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.3}}/"><h4 class="pull-left">{{ data.players.3 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.3 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.3 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.3 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.3 }}/ability3_128.jpg">
@@ -175,6 +219,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.4 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.4}}/"><h4 class="pull-left">{{ data.players.4 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.4 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.4 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.4 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.4 }}/ability3_128.jpg">
@@ -218,6 +273,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.5 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.5}}/"><h4 class="pull-left">{{ data.players.5 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.5 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.5 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.5 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.5 }}/ability3_128.jpg">
@@ -258,6 +324,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.6 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.6}}/"><h4 class="pull-left">{{ data.players.6 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.6 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.6 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.6 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.6 }}/ability3_128.jpg">
@@ -298,6 +375,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.7 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.7}}/"><h4 class="pull-left">{{ data.players.7 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.7 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.7 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.7 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.7 }}/ability3_128.jpg">
@@ -338,6 +426,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.8 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.8}}/"><h4 class="pull-left">{{ data.players.8 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.8 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.8 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.8 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.8 }}/ability3_128.jpg">
@@ -378,6 +477,17 @@
                         <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.9 }}/icon_30.jpg'>
                         <a href="/player/{{data.players.9}}/"><h4 class="pull-left">{{ data.players.9 }}</h4></a>
                     </div>
+                    Starting<br>
+                    {% for item in data.items.9 %}
+                        {% ifchanged %}
+                            {% if item.time > 0 %}
+                                <br>Assembled<br>
+                            {% endif %}
+                        {% endifchanged %}
+                        <img style="width: 30px" class="icon" src="/static/img/item_name/{{ item.item }}.jpg">
+                    {% endfor %}
+                    <br>
+                    <hr class="soften">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.9 }}/ability1_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.9 }}/ability2_128.jpg">
                     <img style="width: 30px" class="pull-left" src="/static/img/heroes/{{ data.hero.9 }}/ability3_128.jpg">
@@ -420,11 +530,28 @@
     <div class="row">
         <div class="span12 well stats-title">
             <h1>Average APM</h1>
-            <h4>Each tick = 3 Min</h4>
+            <hr class="soften">
             <div class="row">
                 <div class="span12 stats-title">
                     <div id="lapm" style=" height: 400px; margin: 0 auto"></div>
                     <div id="hapm" style=" height: 400px; margin: 0 auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span12 well stats-title">
+            <h1>Other Info</h1>
+            <hr class="soften">
+            <div class="row">
+                <div class="span2 offset1">
+                    <div class="clearfix content-heading marketing">
+                        <img class="pull-left playercolor" src='/static/img/p/0.jpg'>
+                        <img class="pull-left playercolor" src='/static/img/heroes/{{ data.hero.0 }}/icon_30.jpg'>
+                        <a href="/player/{{data.players.0}}/"><h4 class="pull-left">{{ data.players.0 }}</h4></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -447,7 +574,7 @@ $(function () {
             }
         },
         title: {
-            text: ''
+            text: 'Legion'
         },
         tooltip: {
             crosshairs: true,
@@ -461,15 +588,22 @@ $(function () {
                 text: false
             },
         },
-        colors: ['#003fe2', '#00c19e', '#5d0072', '#FAF614', '#ff7d29', '#000000'],
+        xAxis: {
+            labels: {
+                formatter: function() {
+                    return this.value * 3 + 'm';
+                }
+            }
+        },
+        colors: ['#003fe2', '#00c19e', '#5d0072', '#e1df72', '#ff7d29', '#e00707'],
         tooltip: {
             formatter: function() {
-                var c = ['#003fe2', '#00c19e', '#5d0072', '#FAF614', '#ff7d29', '#000000']
+                var c = ['#003fe2', '#00c19e', '#5d0072', '#e1df72', '#ff7d29', '#e00707']
                 var s = '<b>'+ this.x * 3 + 'min' +'</b>';
                 
                 $.each(this.points, function(i, point) {
-                    s += '<br/>'+ '<span style=' + '"' + 'color:' + c[i] + '">' + point.series.name +': '+
-                        point.y +'m' + '</span>';
+                    s += '<br/>' + '<span style=' + '"' + 'color:' + c[i] + '">'  + point.series.name +': '+
+                        point.y + '</span>';
                 });
                 
                 return s;
@@ -515,7 +649,7 @@ $(function () {
             }
         },
         title: {
-            text: ''
+            text: 'Hellborne'
         },
         credits: {
             enabled: false
@@ -525,10 +659,17 @@ $(function () {
                 text: false
             },
         },
-        colors: ['#ff44ab', '#959698', '#4cc3ee', '#006448', '#562507', '#000000'],
+        xAxis: {
+            labels: {
+                formatter: function() {
+                    return this.value * 3 + 'm';
+                }
+            }
+        },
+        colors: ['#ff44ab', '#959698', '#4cc3ee', '#006448', '#562507', '#1f9400'],
         tooltip: {
             formatter: function() {
-                var c = ['#ff44ab', '#959698', '#4cc3ee', '#006448', '#562507', '#000000']
+                var c = ['#ff44ab', '#959698', '#4cc3ee', '#006448', '#562507', '#1f9400']
                 var s = '<b>'+ this.x * 3 + 'min' +'</b>';
                 
                 $.each(this.points, function(i, point) {

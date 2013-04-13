@@ -167,6 +167,45 @@ class Magic:
         item['item'] = l[7].split('"')[1]
         item['price'] = int(l[8].split(':')[1])
         item['time'] = int(l[1].split(':')[1])
+        if item['time'] == 0:
+            self.items[int(l[5].split(':')[1])].append(item)
+
+    def ITEM_SELL(self, line):
+        """
+        ITEM_SELL time:925200 x:11803 y:7957 z:128 player:8 team:2 item:"Item_MinorTotem" value:26
+        """
+        l = line.split()
+        item = {}
+        item['item'] = l[7].split('"')[1]
+        item['price'] = int(l[8].split(':')[1])
+        item['time'] = int(l[1].split(':')[1])
+        player = int(l[5].split(':')[1])
+        # check last three items if item has been returned
+        try:
+            if self.items[player][-1]['price'] == item['price']:
+                self.items[player].pop()
+            elif self.items[player][-2]['price'] == item['price']:
+                self.items[player].pop(-2)
+            elif self.items[player][-3]['price'] == item['price']:
+                self.items[player].pop(-3)
+            elif self.items[player][-4]['price'] == item['price']:
+                self.items[player].pop(-4)
+            elif self.items[player][-5]['price'] == item['price']:
+                self.items[player].pop(-5)
+            elif self.items[player][-6]['price'] == item['price']:
+                self.items[player].pop(-6)
+        except:
+            pass
+
+    def ITEM_ASSEMBLE(self, line):
+        """
+        ITEM_ASSEMBLE time:926200 x:15320 y:3993 z:128 player:1 team:1 item:"Item_EnhancedMarchers"
+        """
+        l = line.split()
+        item = {}
+        item['item'] = l[7].split('"')[1]
+        item['price'] = 9999999
+        item['time'] = int(l[1].split(':')[1])
         self.items[int(l[5].split(':')[1])].append(item)
 
     def ABILITY_UPGRADE(self, line):

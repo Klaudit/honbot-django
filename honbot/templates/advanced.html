@@ -462,6 +462,21 @@ $(function () {
             },
         },
         colors: ['#003fe2', '#00c19e', '#5d0072', '#FAF614', '#ff7d29', '#000000'],
+        tooltip: {
+            formatter: function() {
+                var c = ['#003fe2', '#00c19e', '#5d0072', '#FAF614', '#ff7d29', '#000000']
+                var s = '<b>'+ this.x * 3 + 'min' +'</b>';
+                
+                $.each(this.points, function(i, point) {
+                    s += '<br/>'+ '<span style=' + '"' + 'color:' + c[i] + '">' + point.series.name +': '+
+                        point.y +'m' + '</span>';
+                });
+                
+                return s;
+            },
+            crosshairs: true,
+            shared: true
+        },
         series: [{
             name: '{{ data.players.0 }}',
             data: [{% for a in data.apm.0 %}{{ a }},{% endfor %}]
@@ -502,10 +517,6 @@ $(function () {
         title: {
             text: ''
         },
-        tooltip: {
-            crosshairs: true,
-            shared: true
-        },
         credits: {
             enabled: false
         },
@@ -515,6 +526,21 @@ $(function () {
             },
         },
         colors: ['#ff44ab', '#959698', '#4cc3ee', '#006448', '#562507', '#000000'],
+        tooltip: {
+            formatter: function() {
+                var c = ['#ff44ab', '#959698', '#4cc3ee', '#006448', '#562507', '#000000']
+                var s = '<b>'+ this.x * 3 + 'min' +'</b>';
+                
+                $.each(this.points, function(i, point) {
+                    s += '<br/>'+ '<span style=' + '"' + 'color:' + c[i] + '">' + point.series.name +': '+
+                        point.y +'m' + '</span>';
+                });
+                
+                return s;
+            },
+            crosshairs: true,
+            shared: true
+        },
         series: [{
             name: '{{ data.players.5 }}',
             data: [{% for a in data.apm.5 %}{{ a }},{% endfor %}]

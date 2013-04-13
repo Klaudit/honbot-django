@@ -24,6 +24,10 @@ class Magic:
         self.chunk = 1
         self.hapm = []
         self.lapm = []
+        self.pause = [0] * 10
+        self.cc = [0] * 10
+        self.remake = [0] * 10
+        self.ability = [[0] * 5 for i in range(10)]
 
     def finish(self, names):
         """
@@ -41,6 +45,10 @@ class Magic:
         newid = [None] * 10
         newapm = [None] * 10
         newpsr = [None] * 10
+        newpause = [None] * 10
+        newcc = [None] * 10
+        newremake = [None] * 10
+        newability = [None] * 10
         # compare names from api and get order
         for p in self.players:
             myorder.append(names.index(p))
@@ -54,6 +62,10 @@ class Magic:
             newability_upgrade[order] = self.ability_upgrade[i]
             newapm[order] = self.apm[i]
             newpsr[order] = self.psr[i]
+            newpause[order] = self.pause[i]
+            newcc[order] = self.cc[i]
+            newremake[order] = self.remake[i]
+            newability[order] = self.ability[i]
         self.players = newplayers
         self.items = newitems
         self.ability_upgrade = newability_upgrade
@@ -62,6 +74,10 @@ class Magic:
         self.id = newid
         self.apm = newapm
         self.psr = newpsr
+        self.pause = newpause
+        self.cc = newcc
+        self.remake = newremake
+        self.ability = newability
         #get average apm
         for i, player in enumerate(self.apm):
             for d, chunk in enumerate(player):
@@ -223,6 +239,24 @@ class Magic:
         a['ability'] = ability
         self.ability_upgrade[int(l[5].split(':')[1])].append(a)
 
+    def PLAYER_CALL_VOTE(self, line):
+        """
+        PLAYER_CALL_VOTE time:419500 player:6 type:pause
+        """
+        l = line.split()
+        if len(l) > 3:
+            player = int(l[2].split(':')[1])
+            t = l[3].split(':')[1]
+        else:
+            player = int(l[1].split(':')[1])
+            t = l[2].split(':')[1]
+        if t == "pause":
+            self.pause[player] += 1
+        elif t == "remake":
+            self.remake[player] += 1
+        elif t == "concede":
+            self.cc[player] += 1
+
     def PLAYER_ACTIONS(self, line):
         """
         PLAYER_ACTIONS player:6 count:16 period:20000 team:2
@@ -253,3 +287,16 @@ class Magic:
                 self.add[int(l[2].split(':')[1])] = 0
                 if int(l[2].split(':')[1]) == 0:
                     self.chunk = 0
+
+    def ABILITY_ACTIVATE(self, line):
+        """
+        ABILITY_ACTIVATE time:2265050 x:9762 y:8540 z:0 player:1 team:1 name:"Ability_Devourer2" level:4 slot:1
+        """
+        l = line.split()
+        player = int(l[5].split(':')[1])
+        ability = l[7].split('"')[1]
+        if ability != "Ability_Taunt":
+            ability = int(re.sub("\D", "", ability)[-1:])
+        else:
+            ability = 5
+        self.ability[player][ability-1] += 1

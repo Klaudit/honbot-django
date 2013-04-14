@@ -2,6 +2,22 @@
 
 {% block page_title %}{{ nick }} Player Stats | HonBot {% endblock %}
 
+{% block headers%}
+<script type="text/javascript">
+var fb_param = {};
+fb_param.pixel_id = '6008631575457';
+fb_param.value = '0.00';
+(function(){
+  var fpw = document.createElement('script');
+  fpw.async = true;
+  fpw.src = '//connect.facebook.net/en_US/fp.js';
+  var ref = document.getElementsByTagName('script')[0];
+  ref.parentNode.insertBefore(fpw, ref);
+})();
+</script>
+<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6008631575457&amp;value=0" /></noscript>
+{% endblock %}
+
 {% block main_content %}
 <header class="jumbotron subhead" id="overview">
     <div class='container'>
@@ -12,7 +28,7 @@
             <span class="text-success">W: {{ stats.wins }}</span> <span class="muted">|</span>
             <span class="text-error">L: {{ stats.losses }}</span> <span class="muted">|</span>
             <span class="muted">{{ stats.winpercent }}</span> <span class="muted">|</span>
-            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out {{nick}}'s stats!" data-hashtags="honbot" data-dnt="true">Tweet</a>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out {{nick}}'s stats" data-hashtags="honbot" data-dnt="true">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         </p>
     </div>

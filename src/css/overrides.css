@@ -1,6 +1,5 @@
 /* Sticky Footer
 -------------------------------------------------- */
-
 html,
 body {
     height: 100%;
@@ -41,10 +40,6 @@ body {
     color: #777;
 }
 
-.footer-links {
-    margin: 10px 0;
-}
-
 /* Faded out hr */
 hr.soften {
   height: 1px;
@@ -67,12 +62,18 @@ body {
     background-image: url('/static/img/white_plaster.png');
 }
 
+.icon{
+    width: 30px;
+    margin-right: -3px;
+    margin-top: 1px;
+}
+
 .stats-title {
     text-align: center;
 }
 
-.alert{
-    width: 99%;
+.playercolor{
+    margin-right: 1px;
 }
 
 .recent-match tr:hover {
@@ -84,41 +85,12 @@ body {
     cursor: pointer;
 }
 
-.hero-small {
-    height: 30px;
-}
-
-.hero-table td {
-    vertical-align: middle;
-    display: table-cell;
-}
-
 .navbar {
     padding-bottom: 20px;
 }
 
-.login-container {
-    margin: 0 auto;
-    width: 275px; /* Whatever exact width you are looking for (not bound by preset bootstrap widths) */
-}
-
-.login-container .control-group {
-    margin: 0px;
-    width: 500px;
-}
-
 small a {
     color: #808080;
-}
-
-.breadcrumb {
-    border-radius: 0px;
-    border: 1px solid;
-    border-color: rgb(227, 227, 227);
-}
-
-.form-actions {
-    background-color: rgb(249, 249, 249);
 }
 
 .well {
@@ -136,21 +108,6 @@ small a {
 
 .navbar .nav li a:hover {
     background-color: #111111;
-}
-
-/* Add additional stylesheets below
--------------------------------------------------- */
-/*
-  Bootstrap's documentation styles
-  Special styles for presenting Bootstrap's documentation and examples
-*/
-
-/* Body and structure
--------------------------------------------------- */
-
-body {
-    position: relative;
-    padding-top: 0px;
 }
 
 /* Code in headings */
@@ -238,14 +195,6 @@ body > .navbar .brand:hover {
     background: url('/static/img/classy_fabric.png') repeat center center;
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (   min--moz-device-pixel-ratio: 2), only screen and (     -o-min-device-pixel-ratio: 2/1) {
-
-    .jumbotron:after {
-        background-size: 150px 150px;
-    }
-
-}
-
 /* Masthead (docs home)
 ------------------------- */
 .masthead {
@@ -326,14 +275,6 @@ body > .navbar .brand:hover {
 .marketing p {
     font-size: 16px;
     line-height: 1.5;
-}
-
-.marketing .marketing-byline {
-    margin-bottom: 40px;
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 1.25;
-    color: #999;
 }
 
 .marketing-img {
@@ -449,38 +390,5 @@ body > .navbar .brand:hover {
     /* Marketing on home */
     .marketing h1 {
         font-size: 30px;
-    }
-
-    .marketing-byline {
-        font-size: 18px;
-    }
-
-    /* center example sites */
-    .example-sites {
-        margin-left: 0;
-    }
-
-    .example-sites > li {
-        float: none;
-        display: block;
-        max-width: 280px;
-        margin: 0 auto 18px;
-        text-align: center;
-    }
-
-    .example-sites .thumbnail > img {
-        max-width: 270px;
-    }
-
-    /* Do our best to make tables work in narrow viewports */
-    table code {
-        white-space: normal;
-        word-wrap: break-word;
-        word-break: break-all;
-    }
-    /* Tighten up footer */
-    .footer {
-        padding-top: 20px;
-        padding-bottom: 20px;
     }
 }

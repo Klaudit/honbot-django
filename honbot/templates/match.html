@@ -2,22 +2,6 @@
 
 {% block page_title %}{{ match_id }} Match Stats | HonBot {% endblock %}
 
-{% block headers%}
-<script type="text/javascript">
-var fb_param = {};
-fb_param.pixel_id = '6008631575457';
-fb_param.value = '0.00';
-(function(){
-  var fpw = document.createElement('script');
-  fpw.async = true;
-  fpw.src = '//connect.facebook.net/en_US/fp.js';
-  var ref = document.getElementsByTagName('script')[0];
-  ref.parentNode.insertBefore(fpw, ref);
-})();
-</script>
-<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6008631575457&amp;value=0" /></noscript>
-{% endblock %}
-
 {% block main_content %}
 <header class="jumbotron subhead" id="overview">
     <div class='container'>
@@ -113,11 +97,11 @@ fb_param.value = '0.00';
             <legend>Gold Per Minute</legend>
                 <div id="lgpm" style="min-width: 300px; height: 350px; margin: 0 auto"></div>
         </div>
-        <div class="span5">
+        <div class="span5 well">
             <legend>Extras</legend>
-                <a href='/chat/{{ match_id }}/' class="btn btn-large btn-block btn-inverse">Chat Logs*</a>
-                <a class='btn btn-large btn-block disabled'>View Advanced Stats (soon)</a>
-                <small><muted>*Match must be less than 28 days old</muted></small>
+                <a href='/chat/{{ match_id }}/' class="btn btn-large btn-block">Chat Logs</a>
+                <a href="/advanced/{{ match_id }}" class='btn btn-large btn-block btn-success'>View Advanced Stats</a>
+                <small><strong class="text-error">Match must be less than 28 days old</strong></small>
         </div>
     </div>
 </div>
@@ -167,9 +151,6 @@ Highcharts.setOptions({
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-            },
-            tooltip: {
-                enabled: false
             },
             plotOptions: {
                 pie: {
@@ -254,9 +235,6 @@ Highcharts.setOptions({
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false
-            },
-            tooltip: {
-                enabled: false
             },
             plotOptions: {
                 pie: {

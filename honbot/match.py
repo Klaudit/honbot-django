@@ -100,6 +100,15 @@ def get_download(match_id):
     return data['replay_url']
 
 
+def get_player_names(match_id):
+    with open(directory + str(match_id) + '.json', 'rb') as f:
+        data = json.load(f)
+    names = [None] * 10
+    for p in data['players']:
+        names[int(data['players'][p]['position'])] = data['players'][p]['nickname']
+    return names
+
+
 def multimatch(data, history):
     """
     pass this multimatch api results and the number of matches. it will parse and save the useful bits

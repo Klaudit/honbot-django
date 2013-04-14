@@ -3,6 +3,7 @@
 {% block page_title %}Advanced Stats | HonBot {% endblock %}
 
 {% block main_content %}
+<br>
 <div class="container">
     <div class="row">
         <div class="span12 well">
@@ -887,30 +888,5 @@ $(function () {
     });
 });
 </script>
-<div class="container">
-    <div class="row">
-        <div class="span12 well">
-            Match: {{ data.match_id }} <br>
-            Date: {{ data.date }} <br>
-            Time: {{ data.time }} <br>
-            Server: {{ data.server }} <br>
-            Version: {{ data.version }} <br>
-            Map: {{ data.map }} <br>
-            Mode: {{ data.mode }} <br>
-            Players: {{ data.players }} <br>
-            Spectators: {{ data.spectators }} <br>
-            Team: {{ data.team }} <br>
-            ID: {{ data.id }} <br>
-            PSR: {{ data.psr }} <br>
-            Hero: {{ data.hero }} <br>
-            Item:  data.items  <br>
-            Ability: data.ability_upgrade  <br>
-            Pause: {{data.pause}}  <br>
-            remake: {{data.remake}}  <br>
-            cc: {{data.cc}}  <br>
-            ability1: {{data.ability}}  <br>
-        </div>
-    </div>
-</div>
 
 {% endblock main_content %}

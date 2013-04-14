@@ -11,12 +11,13 @@
             TSR: {{ stats.TSR }} <span class="muted">|</span>
             <span class="text-success">W: {{ stats.wins }}</span> <span class="muted">|</span>
             <span class="text-error">L: {{ stats.losses }}</span> <span class="muted">|</span>
-            <span class="muted">{{ stats.winpercent }}</span>
+            <span class="muted">{{ stats.winpercent }}</span> <span class="muted">|</span>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out {{nick}}'s stats!" data-hashtags="honbot" data-dnt="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         </p>
     </div>
 </header>
 <br>
-
 <div class='container'>
     <div class="row">
         <div class="span3 well well-small marketing stats-title">
@@ -147,6 +148,13 @@ $(document).ready(function(){
         window.location = $(this).attr('href');
         return false;
     });
+});
+</script>
+<script>
+$(".twitter").click(function(e) {
+    e.preventDefault();
+    var href = $(e.target).attr('href');
+    window.open(href, "tweet", "height=300,width=650,resizable=1") 
 });
 </script>
 {% endblock main_content %}

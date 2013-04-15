@@ -1,20 +1,52 @@
+import os.path
+from os import remove
+import time
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, loader
-from django.http import HttpResponse
+from PIL import Image
+import advanced
+import api_call
+import banner
+import chat
 import match
 import player
-import api_call
-import chat
-import advanced
-import banner
+
+
+directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'banners')) + '/'
 
 
 def banner_view(request, name):
-    response = HttpResponse(mimetype="image/png")
-    img = banner.banner()
-    
-    img.save(response,'png')
-    return response
+    path = directory + str(name) + ".png"
+    if os.path.isfile(path):
+        now = time.time()
+        fileCreation = os.path.getctime(path)
+        day_ago = now - 60*60*24
+        if fileCreation < day_ago:
+            remove(path)
+        else:
+            response = HttpResponse(mimetype="image/png")
+            img = Image.open(path)
+            img.save(response, 'png')
+            return response
+    else:
+        url = '/player_statistics/ranked/nickname/' + name
+        data = api_call.get_json(url)
+        print data
+        if data is not None:
+            statsdict = data
+            s = player.player_math(statsdict)
+            now = time.time()
+            response = HttpResponse(mimetype="image/png")
+            img = banner.banner(s)
+            img.save(response, 'png')
+            img.save(directory + str(name) + ".png")
+            return response
+        else:
+            response = HttpResponse()
+            response.status_code = 404
+            return response
+
 
 def v404(request):
     return render_to_response('error.html')

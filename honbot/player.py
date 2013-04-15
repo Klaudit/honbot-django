@@ -10,6 +10,7 @@ def player_math(data):
     """
     stats = {}
     stats['id'] = int(data['account_id'])  # account id
+    stats['nickname'] = str(data['nickname'])  # name
     stats['matches'] = int(data['rnk_games_played'])  # matches
     stats['wins'] = int(data['rnk_wins'])  # wins
     stats['losses'] = int(data['rnk_losses'])  # losses
@@ -63,6 +64,8 @@ def player_math(data):
                 stats['TSR'] = 10
         else:
             stats['TSR'] = None
+    else:
+        stats['TSR'] = 0.0
     return stats
 
 

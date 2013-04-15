@@ -10,7 +10,7 @@ def banner(data):
     name_font = ImageFont.truetype(directory + "Prototype.ttf", 30)
     mmr_font = ImageFont.truetype(directory + "Prototype.ttf", 18)
     honbot_font = ImageFont.truetype(directory + "Prototype.ttf", 10)
-    img = Image.new("RGBA", (400, 60), (0, 0, 0))
+    img = Image.new("RGBA", (400, 60), (25, 25, 25))
     draw = ImageDraw.Draw(img)
     draw.text((2, -2), data['nickname'], (255, 255, 255), font=name_font)
     draw.text((335, 0), "honbot.com", (200, 200, 200), font=honbot_font)

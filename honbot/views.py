@@ -24,6 +24,7 @@ def banner_view(request, name):
         day_ago = now - 60*60*24
         if fileCreation < day_ago:
             remove(path)
+            return banner_view(request, name)
         else:
             response = HttpResponse(mimetype="image/png")
             img = Image.open(path)

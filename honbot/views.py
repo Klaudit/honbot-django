@@ -6,7 +6,15 @@ import player
 import api_call
 import chat
 import advanced
+import banner
 
+
+def banner_view(request, name):
+    response = HttpResponse(mimetype="image/png")
+    img = banner.banner()
+    
+    img.save(response,'png')
+    return response
 
 def v404(request):
     return render_to_response('error.html')

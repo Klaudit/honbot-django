@@ -32,7 +32,6 @@ def banner_view(request, name):
     else:
         url = '/player_statistics/ranked/nickname/' + name
         data = api_call.get_json(url)
-        print data
         if data is not None:
             statsdict = data
             s = player.player_math(statsdict)

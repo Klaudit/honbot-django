@@ -93,6 +93,34 @@ small a {
     color: #808080;
 }
 
+/* modal */
+.modal {
+  background-color: #222;
+  color: #fff;
+}
+
+.modal-header {
+  border-bottom: 1px solid #000;
+}
+.close{
+    color: #fff;
+}
+.modal h4 {
+    font-weight: 200;
+}
+.modal-body p {
+  color: #c6c6c6;
+}
+
+.modal-footer {
+  background-color: #373737;
+  border-top: 1px solid #222222;
+  -moz-box-shadow: 0 1px 0 #333333 inset;
+  -webkit-box-shadow: 0 1px 0 #333333 inset;
+  -o-box-shadow: 0 1px 0 #333333 inset;
+  box-shadow: 0 1px 0 #333333 inset;
+}
+
 .well {
     border-radius: 3px;
     -webkit-box-shadow: none;

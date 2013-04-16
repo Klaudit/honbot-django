@@ -133,7 +133,7 @@ def players(request, name):
         data = api_call.get_json(url)
         history = []
         if data is not None:
-            history = match.recent_matches(data, 9)
+            history = match.recent_matches(data, 10)
         ### Get Match History Data ###
         history_detail = player.match_history_data(history, s['id'])
         ### deliver to view ###

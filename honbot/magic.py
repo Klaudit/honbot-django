@@ -34,6 +34,7 @@ class Magic:
         this will do my required math and sorting
         """
         #init
+        print names
         self.hapm = [0] * len(self.apm[1])
         self.lapm = [0] * len(self.apm[1])
         myorder = []
@@ -48,10 +49,11 @@ class Magic:
         newpause = [None] * 10
         newcc = [None] * 10
         newremake = [None] * 10
-        newability = [None] * 10
+        newability = [[0] * 5 for i in range(10)]
         # compare names from api and get order
         for p in self.players:
             myorder.append(names.index(p))
+        print myorder
         # copy into new order
         for i, order in enumerate(myorder):
             newplayers[order] = self.players[i]
@@ -166,6 +168,14 @@ class Magic:
         """
         l = line.split()
         self.hero[int(l[1].split(':')[1])] = hero(l[2].split('"')[1])
+
+    def PLAYER_SWAP(self, line):
+        """
+        PLAYER_SWAP player:6 oldhero:"Hero_FlintBeastwood" newhero:"Hero_WitchSlayer"
+        PLAYER_SWAP player:1 oldhero:"Hero_WitchSlayer" newhero:"Hero_FlintBeastwood"
+        """
+        l = line.split()
+        self.hero[int(l[1].split(':')[1])] = hero(l[3].split('"')[1])
 
     def PLAYER_RANDOM(self, line):
         """

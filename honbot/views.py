@@ -18,7 +18,9 @@ directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__f
 
 def banner_view(request, name):
     path = directory + str(name) + ".png"
+    # check file exists
     if os.path.isfile(path):
+        # check file age
         now = time.time()
         fileCreation = os.path.getctime(path)
         day_ago = now - 60*60*24
@@ -26,6 +28,7 @@ def banner_view(request, name):
             remove(path)
             return banner_view(request, name)
         else:
+            # older than day remove
             response = HttpResponse(mimetype="image/png")
             img = Image.open(path)
             img.save(response, 'png')

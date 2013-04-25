@@ -2,6 +2,5 @@ Django==1.5
 PIL==1.1.7
 distribute==0.6.15
 requests==1.2.0
-simplejson==3.1.0
 virtualenv==1.6.1
 wsgiref==0.1.2

@@ -67,7 +67,7 @@ def parse(match_id):
                 methodToCall(line)
                 break
             except AttributeError:
-                #print "Error: " + word + " does not have a function. Match:" + match_id 
+                #print "Error: " + word + " does not have a function. Match:" + match_id
                 #print line
                 break
     data.finish(names)

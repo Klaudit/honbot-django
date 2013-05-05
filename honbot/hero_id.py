@@ -115,7 +115,8 @@ heroes = {
     'Hero_Kenisis': 215,
     'Hero_Berzerker': 213,
     'Hero_Tremble': 170,
-    'Hero_SirBenzington': 234}
+    'Hero_SirBenzington': 234,
+    'Hero_Monarch': 207}
 
 
 def hero(name):

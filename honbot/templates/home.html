@@ -1,38 +1,103 @@
-{% extends 'base.html' %}
 
-{% block page_title %}HonBot | HoN stats, players, matches, chat logs {% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HonBot | Stats for heroes of newerth!</title>
+    <meta name="description" content="Stats for Heroes of Newerth">
+    <meta name="distribution" content="global">
+    <link href="/static/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/bootstrap-responsive.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/overrides.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="/static/apple-touch-icon.png" />
 
-{% block main_content %}
-<div class="jumbotron masthead">
-    <div class="container">
-        <h1 class="dropshadow">HonBot</h1>
-        <p class="hidden-phone">Stats, Chat, Graphs for Heroes of Newerth</p>
-    </div>
-</div>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="span4 marketing stats-title well">
-            <h2>Stats Banners</h2>
-            <hr class="soften">
-            <h4>Player stats banners available now</h4>
-            <img src="/static/img/bannerdemo.png">
-            <p>Auto update every day!</p>
-        </div>
-        <div class="span4 marketing stats-title well">
-            <h2>Popular Players</h2>
-            <hr class="soften">
-            <ul class="unstyled">
-                <li><a href="/player/moonmeander%60/">MoonMeander`</a></li>
-                <li><a href="/player/Tralfamadore/">Tralfamadore</a></li>
-                <li><a href="/player/zfreek/">Zfreek</a></li>
-                <li><a href="/player/sLiCKz/">sLiCKz</a></li>
-                <li><a href="/player/AngryTestie/">AngryTestie</a></li>
-                <li><a href="/player/tremblerape/">Tremblerape</a></li>
-                <li><a href="/player/Hooloovoo/">Hooloovoo</a></li>
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="wrap">
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+
+          <a class="brand" href="/"><img style="width: 17px; padding-bottom: 1px;" src="/static/img/bars.png">HonBot</a>
+
+          <!-- Responsive Navbar -->
+            <ul class="nav">
+              <li><a href="/">Recent Matches</a></li>
+              <li><a href="/">Stats Banner</a></li>
             </ul>
-            <small class="muted">Think you should be listed? <a href="http://forums.heroesofnewerth.com/private.php?do=newpm&u=3258111"> pm me </a></small>
+
+        </div> <!-- /.container -->
+      </div><!-- /.navbar-inner -->
+    </div><!-- /.navbar -->
+
+    <div id="hero">
+      <div class="container">
+
+        <!-- Hero title -->
+        <div class="hero-title">
+          <h1><img style="padding-bottom: 3px;" src="/static/img/bars.png">HonBot</h1>
+        </div>
+
+        <!-- Hero search -->
+        <div class="hero-search">
+          <form role="search" method="get" id="searchform" class="form-search" action="#">
+            <label class="hide" for="s">Search for:</label>
+            <input type="text" id="autocomplete-dynamic" name="s" class="searchajax search-query" autocomplete="off" placeholder="Player Username" autofocus>
+            <input type="submit" id="searchsubmit" value="Search" class="btn-black">
+          </form>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="span4 text-center">
+                <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
+                <h2>Stats Banners</h2>
+                <hr class="soften">
+                <p class="home-box">
+                    Create a banner image with your ranked stats and a link to your honbot profile. Automagically updates daily!
+                </p>
+                <span><a class="btn btn-small">Swag</a></span>
+            </div>
+            <div class="span4 text-center">
+                <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
+                <h2>Popular Players</h2>
+                <hr class="soften">
+                <ul class="unstyled">
+                    <li><a href="/player/moonmeander%60/">MoonMeander`</a></li>
+                    <li><a href="/player/Tralfamadore/">Tralfamadore</a></li>
+                    <li><a href="/player/zfreek/">Zfreek</a></li>
+                    <li><a href="/player/sLiCKz/">sLiCKz</a></li>
+                    <li><a href="/player/AngryTestie/">AngryTestie</a></li>
+                    <li><a href="/player/tremblerape/">Tremblerape</a></li>
+                    <li><a href="/player/Hooloovoo/">Hooloovoo</a></li>
+                </ul>
+            </div>
+            <div class="span4 text-center">
+                <h1><i class="icon-comments-alt icon-large"></i></h1>
+                <h2>Discussion</h2>
+                <hr class="soften">
+                <p class="home-box">
+                    If you have an idea, spot a bug, or have feedback, leave a comment in the official thread on the Heroes of Newerth Forums.
+                </p>
+                <span><a class="btn">Post</a></span>
+            </div>
         </div>
     </div>
+    <div id="push"></div>
 </div>
-{% endblock main_content %}
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="copyright-text pull-left">&copy; 2013 honbot.com <a href="https://github.com/scttcper"> Scott Cooper</a></div>  
+    </div>
+</footer>
+
+</body>
+</html>

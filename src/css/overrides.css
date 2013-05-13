@@ -1,45 +1,5 @@
-/* Sticky Footer
--------------------------------------------------- */
-html,
-body {
-    height: 100%;
-}
-
-#wrap {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -101px;
-}
-
-#push,
-.footer {
-    padding-top: 30px;
-    height: 70px;
-    text-align: center;
-}
-.footer{
-    background-color: #f5f5f5;
-    border-top: 1px solid #e5e5e5;
-}
-.table-condensed{
-    margin-bottom: 0;
-    margin-top: 0;
-}
-@media (max-width: 767px) {
-.footer {
-  margin-left: -20px;
-  margin-right: -20px;
-  padding-left: 20px;
-  padding-right: 20px;
-    }
-}
-
-.footer p {
-    margin-bottom: 0;
-    color: #777;
-}
-
+/* Honbot Styles */
+@import url(http://fonts.googleapis.com/css?family=Questrial);
 /* Faded out hr */
 hr.soften {
   height: 1px;
@@ -51,372 +11,267 @@ hr.soften {
   border: 0;
 }
 
-
-/*  Custom classes */
-
-.dropshadow {
-    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
-}
-
+/* Background Image */
 body {
-    background-image: url('/static/img/white_plaster.png');
+    background-color: #fff;
 }
 
-.icon{
-    width: 30px;
-    margin-right: -3px;
-    margin-top: 1px;
-}
-
-.stats-title {
-    text-align: center;
-}
-
-.playercolor{
-    margin-right: 1px;
-}
-
-.recent-match tr:hover {
-    background-color: #D2DEE8 !important;
-}
-
-.recent-match td{
-    vertical-align: middle;
-    cursor: pointer;
-}
-
-.navbar {
-    padding-bottom: 20px;
-}
-
-small a {
-    color: #808080;
-}
-
-/* modal */
-.modal {
-  background-color: #222;
-  color: #fff;
-}
-
-.modal-header {
-  border-bottom: 1px solid #000;
-}
-.close{
-    color: #fff;
-}
-.modal h4 {
-    font-weight: 200;
-}
-.modal-body p {
-  color: #c6c6c6;
-}
-
-.modal-footer {
-  background-color: #373737;
-  border-top: 1px solid #222222;
-  -moz-box-shadow: 0 1px 0 #333333 inset;
-  -webkit-box-shadow: 0 1px 0 #333333 inset;
-  -o-box-shadow: 0 1px 0 #333333 inset;
-  box-shadow: 0 1px 0 #333333 inset;
-}
-
-.well {
-    border-radius: 3px;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-
-.navbar-inverse .navbar-inner {
-    background-color: #0f0f0f;
-    border-color: #333333;
-    background-image: none;
-}
-
-.navbar .nav li a:hover {
-    background-color: #111111;
-}
-
-/* Code in headings */
-h3 code {
-    font-size: 14px;
-    font-weight: normal;
-}
-
-/* Tweak navbar brand link to be super sleek
--------------------------------------------------- */
-
-body > .navbar {
-    font-size: 13px;
-}
-
-/* Change the docs' brand */
-body > .navbar .brand {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    transition: all .2s linear;
-    padding-left: 25px;
-}
-
-body > .navbar .brand:hover {
-    text-decoration: none;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .4);
-}
-
-/* Jumbotrons
--------------------------------------------------- */
-
-/* Base class
-------------------------- */
-.jumbotron {
-    position: relative;
-    color: #fff;
-    text-align: center;
-    margin-top: -20px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 0 30px rgba(0, 0, 0, .075);
-}
-
-.jumbotron h1 {
-    font-size: 80px;
-    font-weight: bold;
-    letter-spacing: -1px;
-    line-height: 1;
-}
-
-.jumbotron p {
-    font-size: 24px;
-    font-weight: 300;
-    line-height: 1.25;
-}
-
-/* Link styles (used on .masthead-links as well) */
-.jumbotron a {
-    color: #fff;
-    color: rgba(255, 255, 255, .5);
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-}
-
-.jumbotron a:hover {
-    color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, .25);
-}
-
-/* Pattern overlay
-------------------------- */
-.jumbotron .container {
-    position: relative;
-    z-index: 2;
-}
-
-.jumbotron:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: url('/static/img/classy_fabric.png') repeat center center;
-}
-
-/* Masthead (docs home)
-------------------------- */
-.masthead {
-    padding: 70px 0 100px;
-    color: #fff;
-}
-
-.masthead h1 {
-    font-size: 10px0px;
-    line-height: 1;
-    letter-spacing: -2px;
-}
-
-.masthead p {
-    font-size: 40px;
-    font-weight: 200;
-    line-height: 1.25;
-}
-
-/* Textual links in masthead */
-.masthead-links {
-    margin: 0;
-    list-style: none;
-}
-
-.masthead-links li {
-    display: inline;
-    padding: 0 10px;
-    color: rgba(255, 255, 255, .25);
-}
-
-/* Subhead (other pages)
-------------------------- */
-.subhead {
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.subhead h1 {
-    font-size: 50px;
-}
-
-.subhead p {
-    margin-bottom: 20px;
-}
-
-.subhead .navbar {
-    display: none;
-}
-
-/* Marketing section of Overview
--------------------------------------------------- */
-
-.marketing {
-    color: #5a5a5a;
-}
-
-.marketing h1 {
-    font-size: 60px;
-    font-weight: 200;
-    line-height: 1;
-    letter-spacing: -1px;
-}
-
-.marketing h2 {
-    font-weight: 200;
-    margin-bottom: 5px;
-    font-size: 25px;
-    line-height: 1;
- }
-.marketing h4 {
-    font-weight: 200;
-}
-.marketing h5 {
-    font-weight: 200;
-}
-
-.marketing p {
+/* Home Page Boxes */
+.home-box{
     font-size: 16px;
     line-height: 1.5;
 }
-
-.marketing-img {
-    display: block;
-    margin: 0 auto 30px;
-    max-height: 145px;
+/* Hero */
+.hero-title {
+  padding: 60px 0 50px;
 }
+.hero-title h1 {
+  font-size: 90px;
+  color: #fff;
+  line-height: 1em;
+  text-align: center;
+  vertical-align: top;
+  font-family: 'Questrial', sans-serif;
+  -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+    -moz-filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+    -ms-filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+    -o-filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+}
+.hero-search {
+  text-align: center; 
+  margin-bottom: 90px;
+}
+.hero-search .search-query {
+  width: 60%; 
+  max-width: 800px; 
+  float: none!important;
+}
+.hero-search input.search-query {
+  padding: 24px;
+  font-size: 20px;
+  color: #999;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  line-height: normal;
+  box-shadow: none;
+}
+.hero-search input.search-query, .page-header input.search-query {
+  border: solid 1px #bbb;
+}
+.hero-search input.search-query:focus {
+  outline: none; 
+  box-shadow: none;
+  line-height:normal;
+  color: #000;
+}
+.btn-black {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 7px 11px;
+  border: 2px solid #BBB;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  background-color: #252525;
+  color: white;
+  transition: background .10s ease-in-out;
+  -moz-transition: background .10s ease-in-out;
+  -webkit-transition: background .10s ease-in-out;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.btn-black:hover{
+    background-color: #111;
+}
+.hero-search .btn-black {
+  font-size: 20px;
+  width: 180px;
+  height: 70px;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
+  -webkit-font-smoothing: antialiased;
+  -moz-border-radius: 7px; 
+  -webkit-border-radius: 7px;
+  border-radius: 7px; 
+}
+#hero {
+    background-color: #2C3E50;
+    background-image: url('/static/img/home_hero/store-66.png');
+    background-position: 90% 50%;
+    background-size: 900px auto;
+    background-repeat:no-repeat;
 
-/* Responsive
--------------------------------------------------- */
-
-/* Desktop
-------------------------- */
-@media (max-width: 980px) {
-    /* Unfloat brand */
-    body > .navbar-fixed-top .brand {
-        float: left;
-        margin-left: 0;
-        padding-left: 0px;
-        padding-right: 0px;
+}
+@media(max-width:480px){
+  body{padding:0}
+  #hero h1 {
+        font-size: 75px;
+    }
+    #hero{
+        background-size: 0 0;
     }
 }
 
-/* Tablet to desktop
-------------------------- */
-@media (min-width: 768px) and (max-width: 979px) {
-    /* Remove any padding from the body */
-    body {
-        padding-top: 0;
-    }
-
-    /* Widen masthead and social buttons to fill body padding */
-    .jumbotron {
-        margin-top: -20px; /* Offset bottom margin on .navbar */
+@media(min-width:480px) and (max-width:767px){
+  body{padding:0}
+  #hero{
+        background-size: 0 0;
     }
 }
+/* Header Container and Logo Styles */
 
-/* Tablet
-------------------------- */
+.navbar-inverse .navbar-inner {
+  background: #252525;
+}
+.navbar-inner {
+  border: none;
+}
+.brand {
+    margin-top: 15px !important;
+    font-weight: 600 !important;
+    font-size: 30px !important;
+    font-family: 'Questrial', sans-serif;
+}
+
+.navbar .nav > li > a {
+    padding: 25px 14px;
+}
+.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+    color: #fff;
+}
+.navbar .nav {
+  float: right;
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+/* Sticky Footer */
+html,
+body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -61px;
+}
+
+#push,
+.footer {
+    padding-top: 20px;
+    height: 40px;
+    text-align: center;
+}
+.footer{
+    background-color: rgb(37, 37, 37);
+    border-top: 1px solid #e5e5e5;
+    color: #aaa;
+    font-size: 0.85em;
+}
+.footer a{
+    color: #fff;
+}
+
+.table-condensed{
+    margin-bottom: 0;
+    margin-top: 0;
+}
 @media (max-width: 767px) {
-    /* Remove any padding from the body */
-    body {
-        padding-top: 0;
+.footer {
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
     }
 
-    /* Widen masthead and social buttons to fill body padding */
-    .jumbotron {
-        padding: 40px 20px;
-        margin-top: -20px; /* Offset bottom margin on .navbar */
-        margin-right: -20px;
-        margin-left: -20px;
-    }
-
-    .masthead h1 {
-        font-size: 90px;
-    }
-
-    .masthead p,
-    .masthead .btn {
-        font-size: 24px;
-    }
-
-    .marketing .span4 {
-        margin-bottom: 40px;
-    }
-    /* Unfloat the back to top link in footer */
-    .footer {
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .footer p {
-        margin-bottom: 9px;
-    }
 }
 
-/* Landscape phones
-------------------------- */
-@media (max-width: 480px) {
-    /* Remove padding above jumbotron */
-    body {
-        padding-top: 0;
-    }
-
-    /* Change up some type stuff */
-    h2 small {
-        display: block;
-    }
-
-    /* Downsize the jumbotrons */
-    .jumbotron h1 {
-        font-size: 45px;
-    }
-
-    .jumbotron p,
-    .jumbotron .btn {
-        font-size: 18px;
-    }
-
-    .jumbotron .btn {
-        display: block;
-        margin: 0 auto;
-    }
-
-    /* center align subhead text like the masthead */
-    .subhead h1,
-    .subhead p {
-        text-align: center;
-    }
-
-    /* Marketing on home */
-    .marketing h1 {
-        font-size: 30px;
-    }
+.footer p {
+    margin-bottom: 0;
 }
+
+/* Flat Btn */
+.btn {
+  border: none;
+  background: #252525;
+  color: white;
+  font-size: 16.5px;
+  font-weight: 300;
+  text-decoration: none;
+  text-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+  -webkit-backface-visibility: hidden; }
+  .btn:hover, .btn:focus {
+    background-color: #2C3E50;
+    color: white;
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s;
+    -webkit-backface-visibility: hidden; }
+  .btn:active, .btn.active {
+    background-color: #2c3e50;
+    color: rgba(255, 255, 255, 0.75);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; }
+  .btn.disabled, .btn[disabled] {
+    background-color: #95a5a6;
+    color: white; }
+  .btn.btn-large {
+    padding-bottom: 12px;
+    padding-top: 13px; }
+  .btn.btn-primary {
+    background-color: #1abc9c; }
+    .btn.btn-primary:hover, .btn.btn-primary:focus {
+      background-color: #2fe2bf; }
+    .btn.btn-primary:active, .btn.btn-primary.active {
+      background-color: #16a085; }
+  .btn.btn-info {
+    background-color: #3498db; }
+    .btn.btn-info:hover, .btn.btn-info:focus {
+      background-color: #5dade2; }
+    .btn.btn-info:active, .btn.btn-info.active {
+      background-color: #2383c4; }
+  .btn.btn-danger {
+    background-color: #e74c3c; }
+    .btn.btn-danger:hover, .btn.btn-danger:focus {
+      background-color: #ec7063; }
+    .btn.btn-danger:active, .btn.btn-danger.active {
+      background-color: #dc2d1b; }
+  .btn.btn-success {
+    background-color: #2ecc71; }
+    .btn.btn-success:hover, .btn.btn-success:focus {
+      background-color: #55d98d; }
+    .btn.btn-success:active, .btn.btn-success.active {
+      background-color: #27ad60; }
+  .btn.btn-warning {
+    background-color: #f1c40f; }
+    .btn.btn-warning:hover, .btn.btn-warning:focus {
+      background-color: #f4d03f; }
+    .btn.btn-warning:active, .btn.btn-warning.active {
+      background-color: #cea70c; }
+  .btn-toolbar .btn {
+    font-size: 18px;
+    padding: 10px 14px 9px; }
+    .btn-toolbar .btn:first-child {
+      -webkit-border-radius: 6px 0 0 6px;
+      -moz-border-radius: 6px 0 0 6px;
+      border-radius: 6px 0 0 6px; }
+    .btn-toolbar .btn:last-child {
+      -webkit-border-radius: 0 6px 6px 0;
+      -moz-border-radius: 0 6px 6px 0;
+      border-radius: 0 6px 6px 0; }
+
+.btn-toolbar .btn.active {
+  color: white; }

@@ -23,7 +23,7 @@
       <div class="navbar-inner">
         <div class="container">
 
-          <a class="brand" href="/"><img style="width: 17px; padding-bottom: 1px;" src="/static/img/bars.png">HonBot</a>
+          <a class="brand" href="/"><img style="width: 17px; padding-bottom: 3px;" src="/static/img/bars.png">HonBot</a>
 
           <!-- Responsive Navbar -->
             <ul class="nav">
@@ -35,7 +35,7 @@
       </div><!-- /.navbar-inner -->
     </div><!-- /.navbar -->
 
-    <div id="hero">
+    <div id="hero" class="hero-{{ random }}">
       <div class="container">
 
         <!-- Hero title -->
@@ -47,7 +47,7 @@
         <div class="hero-search">
           <form role="search" method="get" id="searchform" class="form-search" action="#">
             <label class="hide" for="s">Search for:</label>
-            <input type="text" id="autocomplete-dynamic" name="s" class="searchajax search-query" autocomplete="off" placeholder="Player Username" autofocus>
+            <input type="text" id="player" name="s" class="searchajax search-query" autocomplete="off" placeholder="Player Username" autofocus>
             <input type="submit" id="searchsubmit" value="Search" class="btn-black">
           </form>
         </div>
@@ -58,18 +58,16 @@
         <div class="row">
             <div class="span4 text-center">
                 <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
-                <h2>Stats Banners</h2>
-                <hr class="soften">
+                <legend><h2>Stats Banners</h2></legend>
                 <p class="home-box">
-                    Create a banner image with your ranked stats and a link to your honbot profile. Automagically updates daily!
+                    Create a banner image with your ranked stats and a link to your honbot profile. Ready for use as a forum signature. Automagically updates daily!
                 </p>
-                <span><a class="btn btn-small">Swag</a></span>
+                <span><a class="btn">Get Swag</a></span>
             </div>
             <div class="span4 text-center">
                 <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
-                <h2>Popular Players</h2>
-                <hr class="soften">
-                <ul class="unstyled">
+                <legend><h2>Popular Players</h2></legend>
+                <ul class="unstyled home-box">
                     <li><a href="/player/moonmeander%60/">MoonMeander`</a></li>
                     <li><a href="/player/Tralfamadore/">Tralfamadore</a></li>
                     <li><a href="/player/zfreek/">Zfreek</a></li>
@@ -81,8 +79,7 @@
             </div>
             <div class="span4 text-center">
                 <h1><i class="icon-comments-alt icon-large"></i></h1>
-                <h2>Discussion</h2>
-                <hr class="soften">
+                <legend><h2>Discussion</h2></legend>
                 <p class="home-box">
                     If you have an idea, spot a bug, or have feedback, leave a comment in the official thread on the Heroes of Newerth Forums.
                 </p>
@@ -98,6 +95,12 @@
         <div class="copyright-text pull-left">&copy; 2013 honbot.com <a href="https://github.com/scttcper"> Scott Cooper</a></div>  
     </div>
 </footer>
-
 </body>
+<script>
+    $("#searchform").submit(function () {
+        var player = $('#player').val();
+        window.location.href = "/player/" + player + "/"
+        return false
+    });
+</script>
 </html>

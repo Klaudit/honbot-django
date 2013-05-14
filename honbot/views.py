@@ -5,12 +5,14 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, loader
 from PIL import Image
+from random import randint
 import advanced
 import api_call
 import banner
 import chat
 import match
 import player
+
 
 
 directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'banners')) + '/'
@@ -56,7 +58,10 @@ def v404(request):
 
 
 def home(request):
-    return render_to_response('home.html')
+    t = loader.get_template('home.html')
+    random = randint(1, 74)
+    c = Context({'random': random})
+    return HttpResponse(t.render(c))
 
 
 def chat_view(request, match_id):

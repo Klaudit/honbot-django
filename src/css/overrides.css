@@ -3,8 +3,43 @@
 
 /* Background Image */
 body {
-    background-color: #fff;
+    background-color: #ECF0F1;
 }
+
+/* shrink legen margin */
+legend{
+  margin-bottom: 5px;
+}
+/* headers */
+h1 {
+  font-size: 32px;
+  font-weight: 900; }
+
+h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 2px; }
+
+h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  margin-top: 2px; }
+
+h4 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 4px; }
+
+h5 {
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase; }
+
+h6 {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase; }
 
 /* Home Page Boxes */
 .home-box{
@@ -218,7 +253,6 @@ body {
   border: none;
   background: #252525;
   color: white;
-  font-size: 14px;
   font-weight: 300;
   text-decoration: none;
   text-shadow: none;
@@ -295,6 +329,19 @@ body {
 .btn-toolbar .btn.active {
   color: white; }
 
+/* Player Stats Header
+------------------------- */
+.player-head {
+    position: relative;
+    color: #fff;
+    background-color: #2C3E50;
+}
+
+.player-head h1{
+  font-size: 50px;
+}
+
+/* homepage backgrounds */
 .hero-0{
 background-image: url('/static/img/home_hero/store-0.png');
 }

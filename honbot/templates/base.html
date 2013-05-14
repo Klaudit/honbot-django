@@ -13,34 +13,26 @@
     <link rel="apple-touch-icon-precomposed" href="/static/apple-touch-icon.png" />
     {% block headers %}{% endblock %}
 </head>
-
 <body>
 <div id="wrap">
-    <header class="navbar navbar-inverse navbar-static-top"> <!-- alternative navbar navbar-inverse navbar-static-top -->
-        <nav class="navbar-inner">
-            <div class="container">
-                <a href="/" class="brand">HonBot</a>
-                <ul class="nav">
-                    <li>
-                        <form accept-charset="UTF-8" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" action="/players/" class="navbar-form" id="player_search"
-                              method="post">
-                            <input class="search-query" id="player" name="player" placeholder="Player Search" type="text"
-                                   value="" autofocus/>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <div class="navbar navbar-static-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/"><img style="width: 17px; padding-bottom: 3px;" src="/static/img/bars.png">HonBot</a>
+            <ul class="nav">
+              <li><a href="/">Recent Matches</a></li>
+              <li><a href="/">Stats Banner</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
     {% block main_content %}{% endblock main_content %}
     <div id="push"></div>
 </div>
 <footer class="footer">
-    <small class="muted">
-        <p><a href="https://github.com/scttcper/honbot-django">source code</a> | 
-        <a href="https://www.facebook.com/honbott">facebook page</a></p>
-        <p><small>honbot.com &copy;<a href="https://github.com/scttcper"> Scott Cooper</a></small></p>
-    </small>
+    <div class="container">
+        <div class="copyright-text pull-left">&copy; 2013 <a href="https://github.com/scttcper"> Scott Cooper</a></div>  
+    </div>
 </footer>
 </body>
 <script>

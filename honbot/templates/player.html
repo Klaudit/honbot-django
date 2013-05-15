@@ -45,7 +45,7 @@ fb_param.value = '0.00';
     <div class="row">
         <div class="span3 text-center">
             <h4>Lifetime</h4>
-            <table class="table table-condensed table-striped">
+            <table class="table table-condensed">
                 <tr>
                     <td>Hours</td>
                     <td>{{ stats.hours }}</td>
@@ -94,7 +94,7 @@ fb_param.value = '0.00';
         </div>
         <div class="span3 text-center">
             <h4>Average Match</h4>
-            <table class="table table-condensed table-border table-striped">
+            <table class="table table-condensed table-border">
                 <tr>
                     <td>Minutes</td>
                     <td>{{ stats.atime }}</td>
@@ -153,11 +153,12 @@ fb_param.value = '0.00';
                     </tr>
                 </thead>
                 {% for m in mdata %}
-                <tr href="/match/{{ m.match_id }}/">
                         {% if m.win %}
-                    <td class="match-loss">
+                <tr  class="match-loss" href="/match/{{ m.match_id }}/">
+                    <td>
                         {% else %}
-                    <td class="match-win">
+                <tr  class="match-win" href="/match/{{ m.match_id }}/">
+                    <td>
                         {% endif %}
                         <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30>
                     </td>
@@ -166,7 +167,7 @@ fb_param.value = '0.00';
                     <td><a href="/match/{{ m.match_id }}/">{{ m.match_id }}</a></td>
                 </tr>
                 {% endfor %}
-            </table>
+            </table><br>
             <a href="/history/{{ nick }}/" class="btn">More</a>
         </div>
     </div>

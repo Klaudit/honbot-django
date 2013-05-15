@@ -11,42 +11,42 @@ body {
   border-radius: 3px;
   border-width: 0 0 0 0;
 }
-.muted {
-  color: #BDC3C7;
-}
+
+
+/* Table Formatting */
 .recent-match tbody tr:hover {
-    background-color: #bdc3c7 !important;
-}
-
-.recent-match a{
-  color: #191919;
-}
-
-.match-loss{
-  border-left-width:4px !important;
-  border-left-color:#C0392B !important;
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
-}
-
-.match-win{
-  border-left-width:4px !important;
-  border-left-color:#27AE60 !important;
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
-}
-
-.table-bordered{
-  border-radius: 0px;
-}
-.table th{
-  text-align: center;
+    background-color: #bdc3c7;
 }
 .recent-match td{
     vertical-align: middle;
     cursor: pointer;
     text-align:center;
 }
+.recent-match a{
+  color: #191919;
+}
+
+.match-loss{
+  background: rgb(256,256,256);
+  background: rgba(256,265,256,.3);
+  border-collapse:separate;
+  border-left: 4px;
+  border-left-style: solid;
+  border-left-color: #c0392b;
+}
+
+.match-win {
+  background: rgb(256,256,256);
+  background: rgba(256,265,256,.3);
+  border-collapse:separate;
+  border-left: 4px;
+  border-left-style: solid;
+  border-left-color: #27ae60;
+}
+.table th{
+  text-align: center;
+}
+
 .white {
   background-color: #fff;
 }
@@ -67,7 +67,10 @@ body {
 .text-error {
   color: #C0392B;
 }
-/* shrink legen margin */
+.muted {
+  color: #BDC3C7;
+}
+/* shrink legend margin */
 legend{
   margin-bottom: 5px;
 }
@@ -89,7 +92,7 @@ h3 {
 
 h4 {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 400;
   margin-top: 4px; }
 
 h5 {

@@ -130,8 +130,6 @@ def players(request, name):
     """
     controls the player show
     """
-    while "undefined" in name:
-        name = name[:-10]
     url = '/player_statistics/ranked/nickname/' + name
     data = api_call.get_json(url)
     print json.dumps(data)
@@ -148,7 +146,7 @@ def players(request, name):
         history_detail = player.match_history_data(history, s['id'])
         ### deliver to view ###
         t = loader.get_template('player.html')
-        c = Context({'nick': name, 'stats': s, 'mdata': history_detail})
+        c = Context({'stats': s, 'mdata': history_detail})
         return HttpResponse(t.render(c))
     else:
         t = loader.get_template('error.html')

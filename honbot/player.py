@@ -2,7 +2,7 @@ import match
 import api_call
 
 
-def player_math(data):
+def player_math(data, nick):
     """
     This will get all the right information for the players view and store it in dict
     returns dict
@@ -10,7 +10,10 @@ def player_math(data):
     """
     stats = {}
     stats['id'] = int(data['account_id'])  # account id
-    stats['nickname'] = str(data['nickname'])  # name
+    try:
+        stats['nickname'] = str(data['nickname'])  # name
+    except:
+        stats['nickname'] = nick
     stats['matches'] = int(data['rnk_games_played'])  # matches
     stats['wins'] = int(data['rnk_wins'])  # wins
     stats['losses'] = int(data['rnk_losses'])  # losses

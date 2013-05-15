@@ -132,10 +132,9 @@ def players(request, name):
     """
     url = '/player_statistics/ranked/nickname/' + name
     data = api_call.get_json(url)
-    print json.dumps(data)
     if data is not None:
         statsdict = data
-        s = player.player_math(statsdict)
+        s = player.player_math(statsdict, name)
         ### Get Match history ### api.heroesofnewerth.com/match_history/ranked/accountid/123456/?token=yourtoken
         url = '/match_history/ranked/nickname/' + name
         data = api_call.get_json(url)

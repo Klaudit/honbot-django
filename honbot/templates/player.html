@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block page_title %}{{ nick }} Player Stats | HonBot {% endblock %}
+{% block page_title %}{{ stats.nickname }} Player Stats | HonBot {% endblock %}
 
 {% block headers%}
 <script type="text/javascript">
@@ -23,7 +23,7 @@ fb_param.value = '0.00';
     <div class='container'>
         <div class="row">
             <div class="span6">
-                <h1 class="pull-left">{{ stats.nickname }}</h1>
+                <div style="width: 50px; margin-top: 15px; padding-right: 4px;" class="pull-left" id="avatar"></div><h1 class="pull-left">{{ stats.nickname }}</h1>
             </div>
             <div class="span1 text-center player-tsr">
                 <strong>MMR</strong><br> {{ stats.mmr }}
@@ -201,5 +201,11 @@ $(".twitter").click(function(e) {
     var href = $(e.target).attr('href');
     window.open(href, "tweet", "height=300,width=650,resizable=1") 
 });
+</script>
+<script>
+$.get("/avatar/{{ stats.id }}/",
+    function(data) {
+        $('#avatar').append(data)
+    });
 </script>
 {% endblock main_content %}

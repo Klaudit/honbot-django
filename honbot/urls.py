@@ -4,7 +4,8 @@ from django.conf import settings
 from django.views.generic import TemplateView
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url('^$', 'honbot.views.home'),
     url(r'^player/(?P<name>.*)/$', 'honbot.views.players'),
     url(r'^history/(?P<name>.*)/$', 'honbot.views.history'),
@@ -12,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^match/(?P<match_id>\d+)/$', 'honbot.views.match_view'),
     url(r'^chat/(?P<match_id>\d+)/$', 'honbot.views.chat_view'),
     url(r'^advanced/(?P<match_id>\d+)/$', 'honbot.views.adv'),
+    url(r'^avatar/(?P<number>\d+)/$', 'honbot.avatar.avatar'),
     (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt")),
 )

@@ -27,8 +27,6 @@ body {
 }
 
 .match-loss{
-  background: rgb(256,256,256);
-  background: rgba(256,265,256,.3);
   border-collapse:separate;
   border-left: 4px;
   border-left-style: solid;
@@ -36,8 +34,6 @@ body {
 }
 
 .match-win {
-  background: rgb(256,256,256);
-  background: rgba(256,265,256,.3);
   border-collapse:separate;
   border-left: 4px;
   border-left-style: solid;

@@ -11,6 +11,7 @@
     <script src="/static/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="/static/favicon.ico" />
     <link rel="apple-touch-icon-precomposed" href="/static/apple-touch-icon.png" />
+    <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
     {% block headers %}{% endblock %}
 </head>
 <body>
@@ -18,7 +19,11 @@
     <div class="navbar navbar-static-top navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/"><img style="width: 17px; padding-bottom: 3px;" src="/static/img/bars.png">HonBot</a>
+          <a class="brand" href="/"><img style="padding-bottom: 3px;" src="/static/img/bars-small.png">HonBot</a>
+            <form id="searchform" class="navbar-form pull-left">
+                <input id="player" type="text" autocomplete="off" placeholder="Username" class="span2">
+                <button id="searchsubmit" type="submit" class="btn"><i class="icon-search icon-white"></i></button>
+            </form>
             <ul class="nav">
               <li><a href="/">Recent Matches</a></li>
               <li><a href="/">Stats Banner</a></li>
@@ -36,7 +41,7 @@
 </footer>
 </body>
 <script>
-    $("#player_search").submit(function () {
+    $("#searchform").submit(function () {
         var player = $('#player').val();
         window.location.href = "/player/" + player + "/"
         return false

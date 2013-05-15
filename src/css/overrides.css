@@ -1,11 +1,66 @@
 /* Honbot Styles */
-@import url(http://fonts.googleapis.com/css?family=Questrial);
 
 /* Background Image */
 body {
-    background-color: #ECF0F1;
+    background-image:url('/static/img/white_plaster.png');
 }
 
+/* flat wells */
+.well {
+  background-color: #fff;
+  border-radius: 3px;
+  border-width: 0 0 0 0;
+}
+.muted {
+  color: #BDC3C7;
+}
+.recent-match tr:hover {
+    background-color: #ECF0F1 !important;
+}
+
+
+.match-loss{
+  border-left-width:4px !important;
+  border-left-color:#C0392B !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.match-win{
+  border-left-width:4px !important;
+  border-left-color:#27AE60 !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.table-bordered{
+  border-radius: 0px;
+}
+.table th{
+  text-align: center;
+}
+.recent-match td{
+    vertical-align: middle;
+    cursor: pointer;
+    text-align:center;
+}
+.white {
+  background-color: #fff;
+}
+
+/* color changes */
+.text-info {
+  color: #2980B9;
+}
+.text-tsr {
+  color: #8E44AD;
+}
+.text-success {
+  color: #27AE60;
+}
+.text-error {
+  color: #C0392B;
+}
 /* shrink legen margin */
 legend{
   margin-bottom: 5px;
@@ -139,12 +194,6 @@ h6 {
     background-size: 900px auto;
     background-repeat:no-repeat;
 }
-.hero-1{
-    background-image: url('/static/img/home_hero/store-1.png');
-}
-.hero-2{
-    background-image: url('/static/img/home_hero/store-2.png');
-}
 @media(max-width:480px){
   body{padding:0}
   #hero h1 {
@@ -168,6 +217,9 @@ h6 {
 }
 .navbar-inner {
   border: none;
+}
+.navbar form{
+  padding-top: 15px;
 }
 .brand {
     margin-top: 15px !important;
@@ -245,7 +297,7 @@ body {
 }
 
 .footer p {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 /* Flat Btn */
@@ -285,9 +337,9 @@ body {
     padding-bottom: 12px;
     padding-top: 13px; }
   .btn.btn-primary {
-    background-color: #1abc9c; }
+    background-color: #7F8C8D; }
     .btn.btn-primary:hover, .btn.btn-primary:focus {
-      background-color: #2fe2bf; }
+      background-color: #95A5A6; }
     .btn.btn-primary:active, .btn.btn-primary.active {
       background-color: #16a085; }
   .btn.btn-info {
@@ -333,12 +385,18 @@ body {
 ------------------------- */
 .player-head {
     position: relative;
+    background-color: #2c3e50;
     color: #fff;
-    background-color: #2C3E50;
+}
+.lead {
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .player-head h1{
   font-size: 50px;
+  margin-bottom: 5px;
+  color: #fff;
 }
 
 /* homepage backgrounds */

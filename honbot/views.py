@@ -12,6 +12,7 @@ import banner
 import chat
 import match
 import player
+import json
 
 
 
@@ -133,6 +134,7 @@ def players(request, name):
         name = name[:-10]
     url = '/player_statistics/ranked/nickname/' + name
     data = api_call.get_json(url)
+    print json.dumps(data)
     if data is not None:
         statsdict = data
         s = player.player_math(statsdict)

@@ -24,149 +24,142 @@ fb_param.value = '0.00';
         <h1>{{ nick }}</h1>
         <p class="lead">
             <span class="text-info">MMR: {{ stats.mmr }}</span> <span class="muted">|</span>
-            TSR: {{ stats.TSR }} <span class="muted">|</span>
+            <span class="text-tsr">TSR: {{ stats.TSR }}</span> <span class="muted">|</span>
             <span class="text-success">W: {{ stats.wins }}</span> <span class="muted">|</span>
             <span class="text-error">L: {{ stats.losses }}</span> <span class="muted">|</span>
-            <span class="muted">{{ stats.winpercent }}</span>
+            <span>{{ stats.winpercent }}</span>
         </p>
     </div>
 </header>
 <br>
 <div class="container">
     <div class="row">
-        <div class="span12">
-            <div class="row">
-                <div class="span6">
-                    <div class="row">
-                        <div class="span3 marketing stats-title">
-                            <div class="well well-small">
-                                <h4>Lifetime</h4>
-                                <table class="table table-condensed table-striped">
-                                    <tr>
-                                        <td>Hours</td>
-                                        <td>{{ stats.hours }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kills</td>
-                                        <td>{{ stats.kills }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deaths</td>
-                                        <td>{{ stats.deaths }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Assists</td>
-                                        <td>{{ stats.assists }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Matches</td>
-                                        <td>{{ stats.matches }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>KDR</td>
-                                        <td>{{ stats.kdr }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>K+ADR</td>
-                                        <td>{{ stats.kadr }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CC Games</td>
-                                        <td>{{ stats.cc }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CC Calls</td>
-                                        <td>{{ stats.cccalls }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>DC</td>
-                                        <td>{{ stats.left }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kicked</td>
-                                        <td>{{ stats.kicked }}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="span3 marketing stats-title">
-                            <div class="well well-small">
-                                <h4>Average</h4>
-                                <table class="table table-condensed table-striped">
-                                    <tr>
-                                        <td>Minutes</td>
-                                        <td>{{ stats.atime }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kills</td>
-                                        <td>{{ stats.akills }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deaths</td>
-                                        <td>{{ stats.adeaths }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Assists</td>
-                                        <td>{{ stats.aassists }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Creeps</td>
-                                        <td>{{ stats.acs }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Denies</td>
-                                        <td>{{ stats.adenies }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>XP/min</td>
-                                        <td>{{ stats.axpmin }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gold/min</td>
-                                        <td>{{ stats.agoldmin }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Actions/min</td>
-                                        <td>{{ stats.aactionsmin }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Wards</td>
-                                        <td>{{ stats.awards }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Consumeables</td>
-                                        <td>{{ stats.aconsumables }}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="span4 offset1">
-                            <a href="#bannerModal" role="button" class="btn btn-large btn-block" data-toggle="modal">Stats Banner</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="span5 well well-small marketing stats-title">
-                    <h4>Recent Matches</h4>
-                    <table class="table table-condensed recent-match">
-                        {% for m in mdata %}
-                        <tr href="/match/{{ m.match_id }}/">
-                            <td>
-                                {% if m.win %}
-                                <img src='/static/img/win.jpg'>
-                                {% else %}
-                                <img src='/static/img/loss.jpg'>
-                                {% endif %}
-                                <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30>
-                            </td>
-                            <td>{{ m.kills }} / {{ m.deaths }} / {{ m.assists }}</td>
-                            <td>{{ m.date }}</td>
-                            <td><a href="/match/{{ m.match_id }}/">{{ m.match_id }}</a></td>
+        <div class="span3 text-center">
+            <h4>Lifetime</h4>
+            <table class="table table-condensed table-striped">
+                <tr>
+                    <td>Hours</td>
+                    <td>{{ stats.hours }}</td>
+                </tr>
+                <tr>
+                    <td>Kills</td>
+                    <td>{{ stats.kills }}</td>
+                </tr>
+                <tr>
+                    <td>Deaths</td>
+                    <td>{{ stats.deaths }}</td>
+                </tr>
+                <tr>
+                    <td>Assists</td>
+                    <td>{{ stats.assists }}</td>
+                </tr>
+                <tr>
+                    <td>Matches</td>
+                    <td>{{ stats.matches }}</td>
+                </tr>
+                <tr>
+                    <td>KDR</td>
+                    <td>{{ stats.kdr }}</td>
+                </tr>
+                <tr>
+                    <td>K+ADR</td>
+                    <td>{{ stats.kadr }}</td>
+                </tr>
+                <tr>
+                    <td>CC Games</td>
+                    <td>{{ stats.cc }}</td>
+                </tr>
+                <tr>
+                    <td>CC Calls</td>
+                    <td>{{ stats.cccalls }}</td>
+                </tr>
+                <tr>
+                    <td>DC</td>
+                    <td>{{ stats.left }}</td>
+                </tr>
+                <tr>
+                    <td>Kicked</td>
+                    <td>{{ stats.kicked }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="span3 text-center">
+            <h4>Average</h4>
+            <table class="table table-condensed table-striped">
+                <tr>
+                    <td>Minutes</td>
+                    <td>{{ stats.atime }}</td>
+                </tr>
+                <tr>
+                    <td>Kills</td>
+                    <td>{{ stats.akills }}</td>
+                </tr>
+                <tr>
+                    <td>Deaths</td>
+                    <td>{{ stats.adeaths }}</td>
+                </tr>
+                <tr>
+                    <td>Assists</td>
+                    <td>{{ stats.aassists }}</td>
+                </tr>
+                <tr>
+                    <td>Creeps</td>
+                    <td>{{ stats.acs }}</td>
+                </tr>
+                <tr>
+                    <td>Denies</td>
+                    <td>{{ stats.adenies }}</td>
+                </tr>
+                <tr>
+                    <td>XP/min</td>
+                    <td>{{ stats.axpmin }}</td>
+                </tr>
+                <tr>
+                    <td>Gold/min</td>
+                    <td>{{ stats.agoldmin }}</td>
+                </tr>
+                <tr>
+                    <td>Actions/min</td>
+                    <td>{{ stats.aactionsmin }}</td>
+                </tr>
+                <tr>
+                    <td>Wards</td>
+                    <td>{{ stats.awards }}</td>
+                </tr>
+                <tr>
+                    <td>Consumeables</td>
+                    <td>{{ stats.aconsumables }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="span6 text-center">
+            <div class="well well-small">
+                <h4>Recent Matches</h4>
+                <table class="table table-condensed recent-match">
+                    <thead>
+                        <tr>
+                            <th>Hero</th>
+                            <th>K / D / A</th>
+                            <th>Date</th>
+                            <th>Match #</th>
                         </tr>
-                        {% endfor %}
-                    </table>
-                    <hr class="soften">
-                    <a href="/history/{{ nick }}/" class="btn btn-success">More</a>
-                </div>
+                    </thead>
+                    {% for m in mdata %}
+                    <tr href="/match/{{ m.match_id }}/">
+                            {% if m.win %}
+                        <td class="match-loss">
+                            {% else %}
+                        <td class="match-win">
+                            {% endif %}
+                            <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30>
+                        </td>
+                        <td>{{ m.kills }} / {{ m.deaths }} / {{ m.assists }}</td>
+                        <td>{{ m.date }}</td>
+                        <td><a href="/match/{{ m.match_id }}/">{{ m.match_id }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <a href="/history/{{ nick }}/" class="btn">More</a>
             </div>
         </div>
     </div>

@@ -42,8 +42,12 @@ fb_param.value = '0.00';
 </header>
 <br>
 <div class="container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a class="square" href="#">Ranked</a></li>
+        <li><a href="/">Casual</a></li>
+    </ul>
     <div class="row">
-        <div class="span3 text-center">
+        <div class="span3 text-center table-striped">
             <h4>Lifetime</h4>
             <table class="table table-condensed">
                 <tr>
@@ -94,7 +98,7 @@ fb_param.value = '0.00';
         </div>
         <div class="span3 text-center">
             <h4>Average Match</h4>
-            <table class="table table-condensed table-border">
+            <table class="table table-condensed table-border table-striped">
                 <tr>
                     <td>Minutes</td>
                     <td>{{ stats.atime }}</td>
@@ -154,10 +158,10 @@ fb_param.value = '0.00';
                 </thead>
                 {% for m in mdata %}
                         {% if m.win %}
-                <tr  class="match-loss" href="/match/{{ m.match_id }}/">
+                <tr class="match-loss" href="/match/{{ m.match_id }}/">
                     <td>
                         {% else %}
-                <tr  class="match-win" href="/match/{{ m.match_id }}/">
+                <tr class="match-win" href="/match/{{ m.match_id }}/">
                     <td>
                         {% endif %}
                         <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30>
@@ -172,20 +176,6 @@ fb_param.value = '0.00';
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div id="bannerModal" class="modal hide fade text-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">HonBot Stats Banner</h3>
-    </div>
-    <div class="modal-body">
-        <img src="/banner/{{nick}}/">
-        <br>
-        <h4>BB Code</h4>
-        <pre>[url=http://honbot.com/player/{{nick}}/][img]http://honbot.com/banner/{{nick}}[/img][/url]</pre>
-        <h4>URL</h4>
-        <pre>http://honbot.com/banner/{{nick}}/</pre>
-    </div>
 </div>
 <script>
 $(document).ready(function(){
@@ -193,13 +183,6 @@ $(document).ready(function(){
         window.location = $(this).attr('href');
         return false;
     });
-});
-</script>
-<script>
-$(".twitter").click(function(e) {
-    e.preventDefault();
-    var href = $(e.target).attr('href');
-    window.open(href, "tweet", "height=300,width=650,resizable=1") 
 });
 </script>
 <script>

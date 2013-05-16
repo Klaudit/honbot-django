@@ -13,6 +13,11 @@
     <link rel="apple-touch-icon-precomposed" href="/static/apple-touch-icon.png" />
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+    .hero-background{
+        background-image: url('/static/img/home_hero/store-{{ random }}.png');
+    }
+    </style>
 </head>
 <body>
 <div id="wrap">
@@ -27,8 +32,7 @@
         </div>
       </div>
     </div>
-
-    <div id="hero" class="hero-{{ random }}">
+    <div id="hero" class="hero-background">
       <div class="container">
         <div class="hero-title">
           <h1><img style="padding-bottom: 3px;" src="/static/img/bars.png">HonBot</h1>
@@ -82,7 +86,6 @@
         <div class="copyright-text pull-left">&copy; 2013 <a href="https://github.com/scttcper"> Scott Cooper</a></div>  
     </div>
 </footer>
-</body>
 <script>
     $("#searchform").submit(function () {
         var player = $('#player').val();
@@ -90,4 +93,5 @@
         return false
     });
 </script>
+</body>
 </html>

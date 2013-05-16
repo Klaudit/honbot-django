@@ -34,7 +34,7 @@ def player_math(data, nick):
         else:
             stats['kadr'] = 0
             stats['kdr'] = 0
-        stats['winpercent'] = str(int(float(stats['wins']) / float(stats['matches']) * 100)) + '%'  # win percent
+        stats['winpercent'] = str(int(float(stats['wins']) / float(stats['wins'] + stats['losses']) * 100)) + '%'  # win percent
         stats['atime'] = int(data['rnk_secs']) / stats['matches'] / 60  # average time
         stats['akills'] = round(float(stats['kills']) / stats['matches'], 1)  # average kills
         stats['adeaths'] = round(float(stats['deaths']) / stats['matches'], 1)  # average deaths

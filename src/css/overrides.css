@@ -1,20 +1,23 @@
 /* Honbot Styles */
 
-/* Background Image */
-body {
-    background-image:url('/static/img/white_plaster.png');
-}
-
 /* flat wells */
 .well {
   background-color: #fff;
   border-radius: 3px;
   border-width: 0 0 0 0;
 }
-
+/* square tabs */
+.nav-tabs > li > a{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  color: #252525;
+}
 
 /* Table Formatting */
 .recent-match tbody tr:hover {
+    background-color: #bdc3c7;
+}
+.table-striped tbody tr:nth-child(odd) tr:hover{
     background-color: #bdc3c7;
 }
 .recent-match td{
@@ -31,6 +34,8 @@ body {
   border-left: 4px;
   border-left-style: solid;
   border-left-color: #c0392b;
+  background-color: rgb(192,57,43);
+  background-color: rgba(192,57,43, .1);
 }
 
 .match-win {
@@ -38,6 +43,8 @@ body {
   border-left: 4px;
   border-left-style: solid;
   border-left-color: #27ae60;
+  background-color: rgb(39,174,96);
+  background-color: rgba(39,174,96, .1);
 }
 .table th{
   text-align: center;
@@ -58,7 +65,7 @@ body {
   color: #000;
 }
 .text-success {
-  color: #27AE60;
+  color: #1f8b4c;
 }
 .text-error {
   color: #C0392B;
@@ -162,6 +169,12 @@ h6 {
   line-height:normal;
   color: #000;
 }
+
+/* Match Stats table */
+.match-table{
+
+}
+
 .btn-black {
   font-size: 14px;
   line-height: 20px;
@@ -413,231 +426,4 @@ body {
   font-weight: 100;
   padding-top: 20px;
   padding-bottom: 20px
-}
-
-/* homepage backgrounds */
-.hero-0{
-background-image: url('/static/img/home_hero/store-0.png');
-}
-.hero-1{
-background-image: url('/static/img/home_hero/store-1.png');
-}
-.hero-2{
-background-image: url('/static/img/home_hero/store-2.png');
-}
-.hero-3{
-background-image: url('/static/img/home_hero/store-3.png');
-}
-.hero-4{
-background-image: url('/static/img/home_hero/store-4.png');
-}
-.hero-5{
-background-image: url('/static/img/home_hero/store-5.png');
-}
-.hero-6{
-background-image: url('/static/img/home_hero/store-6.png');
-}
-.hero-7{
-background-image: url('/static/img/home_hero/store-7.png');
-}
-.hero-8{
-background-image: url('/static/img/home_hero/store-8.png');
-}
-.hero-9{
-background-image: url('/static/img/home_hero/store-9.png');
-}
-.hero-10{
-background-image: url('/static/img/home_hero/store-10.png');
-}
-.hero-11{
-background-image: url('/static/img/home_hero/store-11.png');
-}
-.hero-12{
-background-image: url('/static/img/home_hero/store-12.png');
-}
-.hero-13{
-background-image: url('/static/img/home_hero/store-13.png');
-}
-.hero-14{
-background-image: url('/static/img/home_hero/store-14.png');
-}
-.hero-15{
-background-image: url('/static/img/home_hero/store-15.png');
-}
-.hero-16{
-background-image: url('/static/img/home_hero/store-16.png');
-}
-.hero-17{
-background-image: url('/static/img/home_hero/store-17.png');
-}
-.hero-18{
-background-image: url('/static/img/home_hero/store-18.png');
-}
-.hero-19{
-background-image: url('/static/img/home_hero/store-19.png');
-}
-.hero-20{
-background-image: url('/static/img/home_hero/store-20.png');
-}
-.hero-21{
-background-image: url('/static/img/home_hero/store-21.png');
-}
-.hero-22{
-background-image: url('/static/img/home_hero/store-22.png');
-}
-.hero-23{
-background-image: url('/static/img/home_hero/store-23.png');
-}
-.hero-24{
-background-image: url('/static/img/home_hero/store-24.png');
-}
-.hero-25{
-background-image: url('/static/img/home_hero/store-25.png');
-}
-.hero-26{
-background-image: url('/static/img/home_hero/store-26.png');
-}
-.hero-27{
-background-image: url('/static/img/home_hero/store-27.png');
-}
-.hero-28{
-background-image: url('/static/img/home_hero/store-28.png');
-}
-.hero-29{
-background-image: url('/static/img/home_hero/store-29.png');
-}
-.hero-30{
-background-image: url('/static/img/home_hero/store-30.png');
-}
-.hero-31{
-background-image: url('/static/img/home_hero/store-31.png');
-}
-.hero-32{
-background-image: url('/static/img/home_hero/store-32.png');
-}
-.hero-33{
-background-image: url('/static/img/home_hero/store-33.png');
-}
-.hero-34{
-background-image: url('/static/img/home_hero/store-34.png');
-}
-.hero-35{
-background-image: url('/static/img/home_hero/store-35.png');
-}
-.hero-36{
-background-image: url('/static/img/home_hero/store-36.png');
-}
-.hero-37{
-background-image: url('/static/img/home_hero/store-37.png');
-}
-.hero-38{
-background-image: url('/static/img/home_hero/store-38.png');
-}
-.hero-39{
-background-image: url('/static/img/home_hero/store-39.png');
-}
-.hero-40{
-background-image: url('/static/img/home_hero/store-40.png');
-}
-.hero-41{
-background-image: url('/static/img/home_hero/store-41.png');
-}
-.hero-42{
-background-image: url('/static/img/home_hero/store-42.png');
-}
-.hero-43{
-background-image: url('/static/img/home_hero/store-43.png');
-}
-.hero-44{
-background-image: url('/static/img/home_hero/store-44.png');
-}
-.hero-45{
-background-image: url('/static/img/home_hero/store-45.png');
-}
-.hero-46{
-background-image: url('/static/img/home_hero/store-46.png');
-}
-.hero-47{
-background-image: url('/static/img/home_hero/store-47.png');
-}
-.hero-48{
-background-image: url('/static/img/home_hero/store-48.png');
-}
-.hero-49{
-background-image: url('/static/img/home_hero/store-49.png');
-}
-.hero-50{
-background-image: url('/static/img/home_hero/store-50.png');
-}
-.hero-51{
-background-image: url('/static/img/home_hero/store-51.png');
-}
-.hero-52{
-background-image: url('/static/img/home_hero/store-52.png');
-}
-.hero-53{
-background-image: url('/static/img/home_hero/store-53.png');
-}
-.hero-54{
-background-image: url('/static/img/home_hero/store-54.png');
-}
-.hero-55{
-background-image: url('/static/img/home_hero/store-55.png');
-}
-.hero-56{
-background-image: url('/static/img/home_hero/store-56.png');
-}
-.hero-57{
-background-image: url('/static/img/home_hero/store-57.png');
-}
-.hero-58{
-background-image: url('/static/img/home_hero/store-58.png');
-}
-.hero-59{
-background-image: url('/static/img/home_hero/store-59.png');
-}
-.hero-60{
-background-image: url('/static/img/home_hero/store-60.png');
-}
-.hero-61{
-background-image: url('/static/img/home_hero/store-61.png');
-}
-.hero-62{
-background-image: url('/static/img/home_hero/store-62.png');
-}
-.hero-63{
-background-image: url('/static/img/home_hero/store-63.png');
-}
-.hero-64{
-background-image: url('/static/img/home_hero/store-64.png');
-}
-.hero-65{
-background-image: url('/static/img/home_hero/store-65.png');
-}
-.hero-66{
-background-image: url('/static/img/home_hero/store-66.png');
-}
-.hero-67{
-background-image: url('/static/img/home_hero/store-67.png');
-}
-.hero-68{
-background-image: url('/static/img/home_hero/store-68.png');
-}
-.hero-69{
-background-image: url('/static/img/home_hero/store-69.png');
-}
-.hero-70{
-background-image: url('/static/img/home_hero/store-70.png');
-}
-.hero-71{
-background-image: url('/static/img/home_hero/store-71.png');
-}
-.hero-72{
-background-image: url('/static/img/home_hero/store-72.png');
-}
-.hero-73{
-background-image: url('/static/img/home_hero/store-73.png');
-}
-.hero-74{
-background-image: url('/static/img/home_hero/store-74.png');
 }

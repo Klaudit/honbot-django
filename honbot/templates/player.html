@@ -2,22 +2,6 @@
 
 {% block page_title %}{{ stats.nickname }} Player Stats | HonBot {% endblock %}
 
-{% block headers%}
-<script type="text/javascript">
-var fb_param = {};
-fb_param.pixel_id = '6008631575457';
-fb_param.value = '0.00';
-(function(){
-  var fpw = document.createElement('script');
-  fpw.async = true;
-  fpw.src = '//connect.facebook.net/en_US/fp.js';
-  var ref = document.getElementsByTagName('script')[0];
-  ref.parentNode.insertBefore(fpw, ref);
-})();
-</script>
-<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6008631575457&amp;value=0" /></noscript>
-{% endblock %}
-
 {% block main_content %}
 <header class="player-head" id="overview">
     <div class='container'>
@@ -147,7 +131,7 @@ fb_param.value = '0.00';
         </div>
         <div class="span6 text-center">
             <h4>Recent Matches</h4>
-            <table class="table table-condensed recent-match">
+            <table id="history" class="table table-condensed recent-match">
                 <thead>
                     <tr>
                         <th>Hero</th>
@@ -156,27 +140,38 @@ fb_param.value = '0.00';
                         <th>Match #</th>
                     </tr>
                 </thead>
-                {% for m in mdata %}
-                        {% if m.win %}
-                <tr class="match-win" href="/match/{{ m.match_id }}/">
-                    <td>
-                        {% else %}
-                <tr class="match-loss" href="/match/{{ m.match_id }}/">
-                    <td>
-                        {% endif %}
-                        <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30>
-                    </td>
-                    <td>{{ m.kills }} / {{ m.deaths }} / {{ m.assists }}</td>
-                    <td>{{ m.date }}</td>
-                    <td><a href="/match/{{ m.match_id }}/">{{ m.match_id }}</a></td>
-                </tr>
-                {% endfor %}
-            </table><br>
-            <a href="/history/{{ nick }}/" class="btn">More</a>
+                <tbody id="recent-matches">
+                </tbody>
+            </table>
+            <a id="more" class="btn">More</a>
+            <div id="no-more"></div>
         </div>
     </div>
 </div>
-</div>
+<script>
+$.get("/ranked_match_history/{{ stats.id }}/?more=0",
+    function(data) {
+        $('#recent-matches').append(data)
+    });
+</script>
+<script>
+var counter = 0;
+$("#more").click(function() {
+    var table = $('#recent-matches')
+    counter++;
+    url = "/ranked_match_history/{{ stats.id }}/?more=" + String(counter)
+    $.get(url,
+    function(data) {
+        if(data == "stop") {
+            $('#more').remove();
+            $('#no-more').append("HonBot has reached the end of your recent matches")
+        } 
+        else {
+            table.append(data);
+        }
+    });
+});
+</script>
 <script>
 $(document).ready(function(){
     $('table tr').click(function(){

@@ -38,7 +38,7 @@ def prepare_match(data, match_id):
     return match
 
 
-def recent_matches(match_json, results):
+def recent_matches(match_json, results, count):
     """
     returns specifed number of recent matches and win loss status as bool
     """
@@ -58,7 +58,7 @@ def recent_matches(match_json, results):
             else:
                 matches.append(temp)
         matches.reverse()
-        return matches[:results]
+        return matches[count:results+count]
     else:
         matches = []
         return matches
@@ -155,7 +155,10 @@ def multimatch(data, history):
         player['win'] = bool(int(m['wins']))
         player['smackdown'] = m['smackdown']
         player['bdmg'] = m['bdmg']
-        player['nickname'] = m['nickname']
+        try:
+            player['nickname'] = m['nickname']
+        except:
+            pass
         allmatches[m['match_id']]['players'][m['account_id']] = player
         allmatches[m['match_id']]['players'][m['account_id']]['items'] = None
     for m in data[1]:

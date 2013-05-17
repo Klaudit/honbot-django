@@ -95,7 +95,7 @@ def history(request, name):
     data = api_call.get_json(url)
     if data is not None:
         statsdict = data
-        s = player.player_math(statsdict)
+        s = player.player_math(statsdict, name)
         ### Get Match history ### api.heroesofnewerth.com/match_history/ranked/accountid/123456/?token=yourtoken
         url = '/match_history/ranked/nickname/' + name
         data = api_call.get_json(url)
@@ -135,17 +135,9 @@ def players(request, name):
     if data is not None:
         statsdict = data
         s = player.player_math(statsdict, name)
-        ### Get Match history ### api.heroesofnewerth.com/match_history/ranked/accountid/123456/?token=yourtoken
-        url = '/match_history/ranked/nickname/' + name
-        data = api_call.get_json(url)
-        history = []
-        if data is not None:
-            history = match.recent_matches(data, 10)
-        ### Get Match History Data ###
-        history_detail = player.match_history_data(history, s['id'])
         ### deliver to view ###
         t = loader.get_template('player.html')
-        c = Context({'stats': s, 'mdata': history_detail})
+        c = Context({'stats': s})
         return HttpResponse(t.render(c))
     else:
         t = loader.get_template('error.html')

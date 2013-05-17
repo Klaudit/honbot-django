@@ -20,70 +20,68 @@
     </style>
 </head>
 <body>
-<div id="wrap">
-    <div class="navbar navbar-static-top navbar-inverse">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="/"><img style="padding-bottom: 3px;" src="/static/img/bars-small.png">HonBot</a>
-            <ul class="nav">
-              <li><a href="/">Recent Matches</a></li>
-              <li><a href="/">Stats Banner</a></li>
+<div class="navbar navbar-static-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/"><img style="padding-bottom: 3px;" src="/static/img/bars-small.png">HonBot</a>
+        <ul class="nav">
+          <li><a href="/">Recent Matches</a></li>
+          <li><a href="/">Stats Banner</a></li>
+        </ul>
+    </div>
+  </div>
+</div>
+<div id="hero" class="hero-background">
+  <div class="container">
+    <div class="hero-title">
+      <h1><img style="padding-bottom: 3px;" src="/static/img/bars.png">HonBot</h1>
+    </div>
+    <div class="hero-search">
+      <form role="search" method="get" id="searchform" class="form-search" action="#">
+        <input type="text" id="player" name="s" class="searchajax search-query" autocomplete="off" placeholder="Player Username" autofocus>
+        <input type="submit" id="searchsubmit" value="Search" class="btn-black">
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="span4 text-center">
+            <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
+            <legend><h2>Stats Banners</h2></legend>
+            <p class="home-box">
+                Create a banner image with your ranked stats and a link to your honbot profile. Ready for use as a forum signature. Automagically updates daily!
+            </p>
+            <span><a class="btn">Get Swag</a></span>
+        </div>
+        <div class="span4 text-center">
+            <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
+            <legend><h2>Popular Players</h2></legend>
+            <ul class="unstyled home-box">
+                <li><a href="/player/moonmeander%60/">MoonMeander`</a></li>
+                <li><a href="/player/Tralfamadore/">Tralfamadore</a></li>
+                <li><a href="/player/zfreek/">Zfreek</a></li>
+                <li><a href="/player/sLiCKz/">sLiCKz</a></li>
+                <li><a href="/player/AngryTestie/">AngryTestie</a></li>
+                <li><a href="/player/tremblerape/">Tremblerape</a></li>
+                <li><a href="/player/Hooloovoo/">Hooloovoo</a></li>
             </ul>
         </div>
-      </div>
-    </div>
-    <div id="hero" class="hero-background">
-      <div class="container">
-        <div class="hero-title">
-          <h1><img style="padding-bottom: 3px;" src="/static/img/bars.png">HonBot</h1>
-        </div>
-        <div class="hero-search">
-          <form role="search" method="get" id="searchform" class="form-search" action="#">
-            <input type="text" id="player" name="s" class="searchajax search-query" autocomplete="off" placeholder="Player Username" autofocus>
-            <input type="submit" id="searchsubmit" value="Search" class="btn-black">
-          </form>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="span4 text-center">
-                <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
-                <legend><h2>Stats Banners</h2></legend>
-                <p class="home-box">
-                    Create a banner image with your ranked stats and a link to your honbot profile. Ready for use as a forum signature. Automagically updates daily!
-                </p>
-                <span><a class="btn">Get Swag</a></span>
-            </div>
-            <div class="span4 text-center">
-                <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
-                <legend><h2>Popular Players</h2></legend>
-                <ul class="unstyled home-box">
-                    <li><a href="/player/moonmeander%60/">MoonMeander`</a></li>
-                    <li><a href="/player/Tralfamadore/">Tralfamadore</a></li>
-                    <li><a href="/player/zfreek/">Zfreek</a></li>
-                    <li><a href="/player/sLiCKz/">sLiCKz</a></li>
-                    <li><a href="/player/AngryTestie/">AngryTestie</a></li>
-                    <li><a href="/player/tremblerape/">Tremblerape</a></li>
-                    <li><a href="/player/Hooloovoo/">Hooloovoo</a></li>
-                </ul>
-            </div>
-            <div class="span4 text-center">
-                <h1><i class="icon-comments-alt icon-large"></i></h1>
-                <legend><h2>Discussion</h2></legend>
-                <p class="home-box">
-                    If you have an idea, spot a bug, or have feedback, leave a comment in the official thread on the Heroes of Newerth Forums.
-                </p>
-                <span><a class="btn">Post</a></span>
-            </div>
+        <div class="span4 text-center">
+            <h1><i class="icon-comments-alt icon-large"></i></h1>
+            <legend><h2>Discussion</h2></legend>
+            <p class="home-box">
+                If you have an idea, spot a bug, or have feedback, leave a comment in the official thread on the Heroes of Newerth Forums.
+            </p>
+            <span><a class="btn">Post</a></span>
         </div>
     </div>
-    <div id="push"></div>
 </div>
 <footer class="footer">
     <div class="container">
-        <div class="copyright-text pull-left">&copy; 2013 <a href="https://github.com/scttcper"> Scott Cooper</a></div>  
+        <hr>
+        <div class="copyright-text pull-left">&copy; 2013 <a href="https://github.com/scttcper"> Scott Cooper</a></div>
     </div>
 </footer>
 <script>

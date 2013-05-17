@@ -6,6 +6,10 @@
   border-radius: 3px;
   border-width: 0 0 0 0;
 }
+/* hr style */
+hr{
+  border-top-color: #bbb;
+}
 /* square tabs */
 .nav-tabs > li > a{
   border-top-left-radius: 0;
@@ -271,51 +275,18 @@ h6 {
   font-size: 13px;
   text-transform: uppercase;
 }
-/* Sticky Footer */
-html,
-body {
-    height: 100%;
-}
-
-#wrap {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -61px;
-}
-
-#push,
-.footer {
-    padding-top: 20px;
-    height: 40px;
-    text-align: center;
-}
-.footer{
-    background-color: rgb(37, 37, 37);
-    border-top: 1px solid #e5e5e5;
-    color: #aaa;
-    font-size: 0.85em;
-}
-.footer a{
-    color: #fff;
-}
 
 .table-condensed{
     margin-bottom: 0;
     margin-top: 0;
 }
-@media (max-width: 767px) {
-.footer {
-  margin-left: -20px;
-  margin-right: -20px;
-  padding-left: 20px;
-  padding-right: 20px;
-    }
-
+.footer{
+  margin-top: 60px;
+  color: #777;
+  font-size: 12px;
 }
-
-.footer p {
-  margin-bottom: 0;
+.footer a{
+  color: #444;
 }
 
 /* Flat Btn */

@@ -2,6 +2,7 @@ import match
 import api_call
 import pretty
 import datetime
+import json
 
 
 def player_math(data, nick, mode):
@@ -19,7 +20,10 @@ def player_math(data, nick, mode):
     stats['matches'] = int(data[mode + '_games_played'])  # matches
     stats['wins'] = int(data[mode + '_wins'])  # wins
     stats['losses'] = int(data[mode + '_losses'])  # losses
-    stats['mmr'] = int(float(data[mode + '_amm_team_rating']))  # mmr
+    if mode == "cs" or mode == "rnk":
+        stats['mmr'] = int(float(data[mode + '_amm_team_rating']))  # mmr
+    else:
+        stats['mmr'] = int(float(data['acc_pub_skill']))
     stats['kills'] = int(data[mode + '_herokills'])  # total kills
     stats['deaths'] = int(data[mode + '_deaths'])  # total deaths
     stats['assists'] = int(data[mode + '_heroassists'])  # total deaths

@@ -33,8 +33,8 @@
 <div class="container">
     <ul class="nav nav-tabs">
         <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}">Ranked</a></li>
-        <li {% if mode == "cs" %}class="active"{% endif %}><a href="/casual/player/{{ stats.nickname }}">Casual</a></li>
-        <li {% if mode == "ps" %}class="active"{% endif %}><a href="/public/player/{{ stats.nickname }}">Public</a></li>
+        <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}">Casual</a></li>
+        <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}">Public</a></li>
     </ul>
     <div class="row">
         <div class="span3 text-center table-striped">
@@ -156,7 +156,13 @@
 <script>
 $.get("/match_history/{{ stats.id }}/?more=0&mode={{ mode }}",
     function(data) {
-        $('#recent-matches').append(data)
+        if(data == "stop") {
+            $('#more').remove();
+            $('#no-more').append("HonBot has reached the end of your recent matches")
+        } 
+        else {
+            $('#recent-matches').append(data);
+        }
     });
 </script>
 <script>
@@ -179,7 +185,7 @@ $("#more").click(function() {
 </script>
 <script>
 $(document).ready(function(){
-    $('table tr').click(function(){
+    $('#recent-matches tr').click(function(){
         window.location = $(this).attr('href');
         return false;
     });

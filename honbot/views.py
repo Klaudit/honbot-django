@@ -136,7 +136,7 @@ def players(request, name):
         mode = "cs"
     elif mode == "p":
         url = '/player_statistics/public/nickname/' + name
-        mode = "ps"
+        mode = "acc"
     else:
         url = '/player_statistics/ranked/nickname/' + name
         mode = "rnk"

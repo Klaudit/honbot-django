@@ -15,7 +15,7 @@ def ranked(request, number):
         url = '/match_history/ranked/accountid/' + number
     elif mode == "cs":
         url = '/match_history/casual/accountid/' + number
-    elif mode == "public":
+    elif mode == "acc":
         url = '/match_history/public/accountid/' + number
     data = get_json(url)
     history = []

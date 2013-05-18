@@ -27,7 +27,7 @@ def PLAYER_CHAT(line):
 def PLAYER_CONNECT(line):
     """
     PLAYER_CONNECT player:0 name:"NAMENAMENAME" id:3252583 psr:1522.0000
-    returns the player name as I don't believe I need any other data. Players connect in order
+    returns the player name as I don't believe I need any other data. Players do not connect in order
     """
     l = line.split()
     return l[2].split(':')[1][1:-1]

@@ -130,14 +130,23 @@ def players(request, name):
     """
     controls the player show
     """
-    url = '/player_statistics/ranked/nickname/' + name
+    mode = request.get_full_path().split('/')[1]
+    if mode == "c":
+        url = '/player_statistics/casual/nickname/' + name
+        mode = "cs"
+    elif mode == "p":
+        url = '/player_statistics/public/nickname/' + name
+        mode = "ps"
+    else:
+        url = '/player_statistics/ranked/nickname/' + name
+        mode = "rnk"
     data = api_call.get_json(url)
     if data is not None:
         statsdict = data
-        s = player.player_math(statsdict, name)
+        s = player.player_math(statsdict, name, mode)
         ### deliver to view ###
         t = loader.get_template('player.html')
-        c = Context({'stats': s})
+        c = Context({'stats': s, 'mode': mode})
         return HttpResponse(t.render(c))
     else:
         t = loader.get_template('error.html')

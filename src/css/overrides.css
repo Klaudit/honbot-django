@@ -16,6 +16,12 @@ hr{
   border-top-right-radius: 0;
   color: #252525;
 }
+.nav-tabs > .active > a{
+  color: #000;
+}
+.nav-tabs > .active > a:hover{
+  color: #000;
+}
 
 /* Table Formatting */
 .recent-match tbody tr:hover {
@@ -249,7 +255,7 @@ h6 {
     font-family: 'Questrial', sans-serif;
 }
 .brand:hover{
-    color: #2C3E50 !important;
+    color: #777 !important;
     -webkit-transition: 0.25s;
     -moz-transition: 0.25s;
     -o-transition: 0.25s;
@@ -260,7 +266,7 @@ h6 {
     padding: 25px 14px;
 }
 .navbar .nav > li > a:hover {
-    color: #2C3E50;
+    color: #777;
     -webkit-transition: 0.25s;
     -moz-transition: 0.25s;
     -o-transition: 0.25s;

@@ -1,8 +1,10 @@
 import match
 import api_call
+import pretty
+import datetime
 
 
-def player_math(data, nick):
+def player_math(data, nick, mode):
     """
     This will get all the right information for the players view and store it in dict
     returns dict
@@ -14,20 +16,20 @@ def player_math(data, nick):
         stats['nickname'] = str(data['nickname'])  # name
     except:
         stats['nickname'] = nick
-    stats['matches'] = int(data['rnk_games_played'])  # matches
-    stats['wins'] = int(data['rnk_wins'])  # wins
-    stats['losses'] = int(data['rnk_losses'])  # losses
-    stats['mmr'] = int(float(data['rnk_amm_team_rating']))  # mmr
-    stats['kills'] = int(data['rnk_herokills'])  # total kills
-    stats['deaths'] = int(data['rnk_deaths'])  # total deaths
-    stats['assists'] = int(data['rnk_heroassists'])  # total deaths
-    stats['cc'] = int(data['rnk_concedes'])  # total concedes
-    stats['cccalls'] = int(data['rnk_concedevotes'])  # total concede votes
-    stats['left'] = int(data['rnk_discos'])  # disconnects
-    stats['kicked'] = int(data['rnk_kicked'])  # kicked
+    stats['matches'] = int(data[mode + '_games_played'])  # matches
+    stats['wins'] = int(data[mode + '_wins'])  # wins
+    stats['losses'] = int(data[mode + '_losses'])  # losses
+    stats['mmr'] = int(float(data[mode + '_amm_team_rating']))  # mmr
+    stats['kills'] = int(data[mode + '_herokills'])  # total kills
+    stats['deaths'] = int(data[mode + '_deaths'])  # total deaths
+    stats['assists'] = int(data[mode + '_heroassists'])  # total deaths
+    stats['cc'] = int(data[mode + '_concedes'])  # total concedes
+    stats['cccalls'] = int(data[mode + '_concedevotes'])  # total concede votes
+    stats['left'] = int(data[mode + '_discos'])  # disconnects
+    stats['kicked'] = int(data[mode + '_kicked'])  # kicked
     if stats['matches'] > 0:
-        stats['hours'] = (int(data['rnk_secs']) / 60) / 60  # hours played
-        stats['acs'] = round(int(data['rnk_teamcreepkills']) / float(stats['matches']), 1)  # average creep score
+        stats['hours'] = (int(data[mode + '_secs']) / 60) / 60  # hours played
+        stats['acs'] = round(int(data[mode + '_teamcreepkills']) / float(stats['matches']), 1)  # average creep score
         if stats['deaths'] > 0 and stats['kills'] > 0:
             stats['kadr'] = round((float(stats['kills']) + float(stats['assists'])) / float(stats['deaths']), 2)  # k+A : d
             stats['kdr'] = round(float(stats['kills']) / float(stats['deaths']), 2)  # kill death ratio
@@ -35,17 +37,17 @@ def player_math(data, nick):
             stats['kadr'] = 0
             stats['kdr'] = 0
         stats['winpercent'] = str(int(float(stats['wins']) / float(stats['wins'] + stats['losses']) * 100)) + '%'  # win percent
-        stats['atime'] = int(data['rnk_secs']) / stats['matches'] / 60  # average time
+        stats['atime'] = int(data[mode + '_secs']) / stats['matches'] / 60  # average time
         stats['akills'] = round(float(stats['kills']) / stats['matches'], 1)  # average kills
         stats['adeaths'] = round(float(stats['deaths']) / stats['matches'], 1)  # average deaths
         stats['aassists'] = round(float(stats['assists']) / stats['matches'], 1)  # average assists
-        stats['aconsumables'] = round(float(data['rnk_consumables']) / stats['matches'], 1)  # average consumables
-        stats['awards'] = round(float(data['rnk_wards']) / stats['matches'], 1)  # average wards
-        stats['acs'] = round(float(data['rnk_teamcreepkills']) / stats['matches'], 1)  # average creep score
-        stats['adenies'] = round(float(data['rnk_denies']) / stats['matches'], 1)  # average creep score
-        stats['axpmin'] = int(float(data['rnk_exp']) / (float(data['rnk_secs']) / 60))  # average xp / min
-        stats['agoldmin'] = int(float(data['rnk_gold']) / (float(data['rnk_secs']) / 60))  # average gold / min
-        stats['aactionsmin'] = int(float(data['rnk_actions']) / (float(data['rnk_secs']) / 60))  # average actions / min
+        stats['aconsumables'] = round(float(data[mode + '_consumables']) / stats['matches'], 1)  # average consumables
+        stats['awards'] = round(float(data[mode + '_wards']) / stats['matches'], 1)  # average wards
+        stats['acs'] = round(float(data[mode + '_teamcreepkills']) / stats['matches'], 1)  # average creep score
+        stats['adenies'] = round(float(data[mode + '_denies']) / stats['matches'], 1)  # average creep score
+        stats['axpmin'] = int(float(data[mode + '_exp']) / (float(data[mode + '_secs']) / 60))  # average xp / min
+        stats['agoldmin'] = int(float(data[mode + '_gold']) / (float(data[mode + '_secs']) / 60))  # average gold / min
+        stats['aactionsmin'] = int(float(data[mode + '_actions']) / (float(data[mode + '_secs']) / 60))  # average actions / min
         ### TSR CALC ###
         # How many Kills per Death you have, scaled by 1.1/1.15 KpD - 13% of your TSR
         # How many Assits per Death you have, scaled by 1.5/1.55 ApD - 24% of your TSR
@@ -59,9 +61,9 @@ def player_math(data, nick):
                 + (((float(stats['wins'])/(float(stats['wins'])+float(stats['losses'])))/0.55)*0.9) \
                 + ((float(stats['agoldmin'])/230)*0.35) \
                 + (((float(stats['axpmin']))/380)*0.40) \
-                + ((((((float(data['rnk_denies'])/float(stats['matches']))/12))*0.70)
-                + ((((float(data['rnk_teamcreepkills'])/float(stats['matches']))/93))*0.50)
-                + ((float(data['rnk_wards'])/float(stats['matches']))/1.45*0.30))*(37.5/(float(data['rnk_secs'])/float(stats['matches'])/60)))
+                + ((((((float(data[mode + '_denies'])/float(stats['matches']))/12))*0.70)
+                + ((((float(data[mode + '_teamcreepkills'])/float(stats['matches']))/93))*0.50)
+                + ((float(data[mode + '_wards'])/float(stats['matches']))/1.45*0.30))*(37.5/(float(data[mode + '_secs'])/float(stats['matches'])/60)))
             stats['TSR'] = round(stats['TSR'], 1)
             if stats['TSR'] > 10:
                 stats['TSR'] = 10
@@ -113,7 +115,7 @@ def get_player_from_matches(history, account_id):
             try:
                 temp = raw['players'][str(account_id)]
                 temp['match_id'] = m[0]
-                temp['date'] = m[1]
+                temp['date'] = pretty.date(datetime.datetime.strptime(raw['mdt'], '%Y-%m-%d %H:%M:%S'))
                 matches.append(temp)
             except KeyError:
                 pass

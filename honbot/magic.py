@@ -34,7 +34,6 @@ class Magic:
         this will do my required math and sorting
         """
         #init
-        print names
         self.hapm = [0] * len(self.apm[1])
         self.lapm = [0] * len(self.apm[1])
         myorder = []
@@ -53,7 +52,6 @@ class Magic:
         # compare names from api and get order
         for p in self.players:
             myorder.append(names.index(p))
-        print myorder
         # copy into new order
         for i, order in enumerate(myorder):
             newplayers[order] = self.players[i]

@@ -3,13 +3,20 @@ from django.http import HttpResponse
 from api_call import get_json
 from match import recent_matches
 from player import match_history_data
+import json
 
 
 def ranked(request, number):
     ### Get Match history ### api.heroesofnewerth.com/match_history/ranked/accountid/123456/?token=yourtoken
     return_size = 10  # total result size
     count = int(request.GET.get('more', '')) * return_size
-    url = '/match_history/ranked/accountid/' + number
+    mode = str(request.GET.get('mode', ''))
+    if mode == "rnk":
+        url = '/match_history/ranked/accountid/' + number
+    elif mode == "cs":
+        url = '/match_history/casual/accountid/' + number
+    elif mode == "public":
+        url = '/match_history/public/accountid/' + number
     data = get_json(url)
     history = []
     if data is not None:

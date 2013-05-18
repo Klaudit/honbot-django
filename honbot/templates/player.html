@@ -9,17 +9,22 @@
             <div class="span6">
                 <div style="width: 50px; margin-top: 15px; padding-right: 4px;" class="pull-left" id="avatar"></div><h1 class="pull-left">{{ stats.nickname }}</h1>
             </div>
-            <div class="span1 text-center player-tsr">
-                <strong>MMR</strong><br> {{ stats.mmr }}
-            </div>
-            <div class="span1 text-center player-tsr">
-                <strong>TSR</strong><br> {{ stats.TSR }}
-            </div>
-            <div class="span2 text-center player-tsr">
-                <strong>Win - Loss</strong><br>{{ stats.wins }}-{{ stats.losses }}
-            </div>
-            <div class="span1 text-center player-tsr">
-                <strong>Wins</strong><br> {{ stats.winpercent }}
+            <div class="span6 player-tsr">
+                <div class="span1 text-center">
+                    <strong>MMR</strong><br> {{ stats.mmr }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>TSR</strong><br> {{ stats.TSR }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Wins</strong><br> {{ stats.wins }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Losses</strong><br>{{ stats.losses }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Wins</strong><br> {{ stats.winpercent }}
+                </div>
             </div>
         </div>
     </div>
@@ -27,8 +32,9 @@
 <br>
 <div class="container">
     <ul class="nav nav-tabs">
-        <li class="active"><a class="square" href="#">Ranked</a></li>
-        <li><a href="/">Casual</a></li>
+        <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}">Ranked</a></li>
+        <li {% if mode == "cs" %}class="active"{% endif %}><a href="/casual/player/{{ stats.nickname }}">Casual</a></li>
+        <li {% if mode == "ps" %}class="active"{% endif %}><a href="/public/player/{{ stats.nickname }}">Public</a></li>
     </ul>
     <div class="row">
         <div class="span3 text-center table-striped">
@@ -130,7 +136,6 @@
             </table>
         </div>
         <div class="span6 text-center">
-            <h4>Recent Matches</h4>
             <table id="history" class="table table-condensed recent-match">
                 <thead>
                     <tr>
@@ -149,7 +154,7 @@
     </div>
 </div>
 <script>
-$.get("/ranked_match_history/{{ stats.id }}/?more=0",
+$.get("/match_history/{{ stats.id }}/?more=0&mode={{ mode }}",
     function(data) {
         $('#recent-matches').append(data)
     });
@@ -159,7 +164,7 @@ var counter = 0;
 $("#more").click(function() {
     var table = $('#recent-matches')
     counter++;
-    url = "/ranked_match_history/{{ stats.id }}/?more=" + String(counter)
+    url = "/match_history/{{ stats.id }}/?more=" + String(counter) + "&mode={{ mode }}"
     $.get(url,
     function(data) {
         if(data == "stop") {

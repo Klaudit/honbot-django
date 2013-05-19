@@ -3,25 +3,34 @@
 {% block page_title %}{{ match_id }} Match Stats | HonBot {% endblock %}
 
 {% block main_content %}
-<header class="jumbotron subhead" id="overview">
+<header class="player-head" id="overview">
     <div class='container'>
-        {% if stats.players.0.win %}
-            <h1 class="text-success">Legion Wins!</h1>
-        {% else %}
-            <h1 class="text-error">Hellbourne Wins!</h1>
-        {% endif %}
-        <p class="lead">
-            <span>{{ match_id }}</span>
-            <span class="muted">|</span>
-            <span class="muted">{{ stats.matchlength }}</span>
-            
-        </p>
+        <div class="row">
+            <div class="span5">
+                <h1>{{ match_id }}</h1>
+            </div>
+            <div class="span7 player-tsr">
+                <div class="span1 text-center">
+                    <strong>Type</strong><br>Normal
+                </div>
+                <div class="span1 text-center">
+                    <strong>Mode</strong><br>All Pick
+                </div>
+                <div class="span2 text-center">
+                    <strong>Duration</strong><br>30 minutes
+                </div>
+                <div class="span2 text-center">
+                    <strong>Date</strong><br>10 Days Ago
+                </div>
+            </div>
+        </div>
     </div>
 </header>
 <br>
 <div class='container'>
     <div class="row">
         <div class="span12 text-center">
+            {% if stats.players.0.win %}Legion Wins!{% else %}Hellbourne Wins!{% endif %}
             <table class="table table-condensed table-striped">
                 <thead>
                     <tr>

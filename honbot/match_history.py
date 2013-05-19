@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from api_call import get_json
 from match import recent_matches
 from player import match_history_data
-import json
 
 
 def ranked(request, number):

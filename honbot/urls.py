@@ -12,10 +12,10 @@ urlpatterns = patterns(
     url(r'^p/player/(?P<name>.*)/$', 'honbot.views.players'),  # public player stats
     url(r'^history/(?P<name>.*)/$', 'honbot.views.history'),
     url(r'^banner/(?P<name>.*)/$', 'honbot.views.banner_view'),
-    url(r'^match/(?P<match_id>\d+)/$', 'honbot.views.match_view'),
-    url(r'^chat/(?P<match_id>\d+)/$', 'honbot.views.chat_view'),
-    url(r'^advanced/(?P<match_id>\d+)/$', 'honbot.views.adv'),
-    url(r'^avatar/(?P<number>\d+)/$', 'honbot.avatar.avatar'),
-    url(r'^match_history/(?P<number>\d+)/$', 'honbot.match_history.ranked'),
+    url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.views.match_view'),
+    url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.views.chat_view'),
+    url(r'^advanced/(?P<match_id>[0-9]+)/$', 'honbot.views.adv'),
+    url(r'^avatar/(?P<number>[0-9]+)/$', 'honbot.avatar.avatar'),
+    url(r'^match_history/(?P<number>[0-9]+)/$', 'honbot.match_history.ranked'),
     (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt")),
 )

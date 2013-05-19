@@ -399,14 +399,18 @@ h6 {
 }
 .player-tsr {
   background-color: #34495e;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 100;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 .player-tsr .span1{
-  margin-left: 5%;
+  margin-left: 0;
+  width: 114px;
 }
 .player-tsr .span2{
   margin-left: 0;
+  margin-right: 0;
+  padding-right: 0;
+  padding-left: 0;
 }

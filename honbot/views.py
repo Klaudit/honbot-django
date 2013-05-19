@@ -80,9 +80,10 @@ def chat_view(request, match_id):
 def match_view(request, match_id):
     mid = int(match_id)
     stats = match.match(mid)
+    mode = "match"
     if stats is not None:
         t = loader.get_template('match.html')
-        c = Context({'match_id': mid, 'stats': stats})
+        c = Context({'match_id': mid, 'stats': stats, 'mode': mode})
         return HttpResponse(t.render(c))
     else:
         t = loader.get_template('error.html')

@@ -39,6 +39,8 @@ def prepare_match(data, match_id):
     match['date'] = pretty.date(datetime.datetime.strptime(data['mdt'], '%Y-%m-%d %H:%M:%S'))
     match['players'] = players
     match['map'] = data['map']
+    match['type'] = data['type']
+    match['mode'] = data['mode']
     return match
 
 
@@ -118,7 +120,6 @@ def multimatch(data, history):
     pass this multimatch api results and the number of matches. it will parse and save the useful bits
     """
     allmatches = {}
-    print json.dumps(data)
     for m in history:
         match = {}
         match['match_id'] = m[0]
@@ -179,15 +180,14 @@ def multimatch(data, history):
             allmatches[m['match_id']]['players'][m['account_id']]['items'] = items
         except KeyError:
             pass
+    for m in data[0]:
+        if m['cas']:
+            allmatches[m['match_id']]['type'] = "Casual"
     for m in data[3]:
-        try:
-            allmatches[m['match_id']]['replay_url'] = m['replay_url']
-            allmatches[m['match_id']]['version'] = m['version']
-            allmatches[m['match_id']]['mdt'] = m['mdt']
-            allmatches[m['match_id']]['map'] = m['map']
-        except:
-            pass
+        allmatches[m['match_id']]['replay_url'] = m['replay_url']
+        allmatches[m['match_id']]['version'] = m['version']
+        allmatches[m['match_id']]['mdt'] = m['mdt']
+        allmatches[m['match_id']]['map'] = m['map']
     ### Save to file ###
     for m in history:
-        allmatches[m[0]]['date'] = m[1]
         match_save(allmatches[m[0]], m[0])

@@ -15,15 +15,15 @@
                     <strong>Winner</strong><br>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
                 </div>
                 <div class="span1 text-center">
-                    <strong>Type</strong><br>Normal
+                    <strong>Type</strong><br>{{ stats.type }}
                 </div>
                 <div class="span1 text-center">
-                    <strong>Mode</strong><br>All Pick
+                    <strong>Mode</strong><br>{{ stats.mode }}
                 </div>
                 <div class="span1 text-center">
                     <strong>Duration</strong><br>{{ stats.matchlength }}
                 </div>
-                <div class="span2 text-center">
+                <div class="span1 text-center">
                     <strong>Played</strong><br>{{ stats.date }}
                 </div>
             </div>

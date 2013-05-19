@@ -6,10 +6,14 @@
 <header class="player-head" id="overview">
     <div class='container'>
         <div class="row">
-            <div class="span5">
-                <h1>{{ match_id }}</h1>
+            <div class="span6">
+                <img class="pull-left" style="margin-top: 15px; padding-right: 4px;" src="/static/img/maps/{{ stats.map }}.jpg">
+                <h1 class="pull-left">{{ match_id }}</h1>
             </div>
-            <div class="span7 player-tsr">
+            <div class="span6 player-tsr">
+                <div class="span1 text-center">
+                    <strong>Winner</strong><br>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
+                </div>
                 <div class="span1 text-center">
                     <strong>Type</strong><br>Normal
                 </div>
@@ -22,15 +26,17 @@
                 <div class="span2 text-center">
                     <strong>Played</strong><br>{{ stats.date }}
                 </div>
-                <div class="span1 text-center">
-                    <strong>Winner</strong><br>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
-                </div>
             </div>
         </div>
     </div>
 </header>
 <br>
 <div class='container'>
+    <ul class="nav nav-tabs">
+        <li {% if mode == "match" %}class="active"{% endif %}><a href="/match/{{ match_id }}">Overview</a></li>
+        <li {% if mode == "chat" %}class="active"{% endif %}><a href="/chat/{{ match_id }}">Chat Logs</a></li>
+        <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}">Builds</a></li>
+    </ul>
     <div class="row">
         <div class="span12 text-center">
             <table class="table table-condensed table-striped">
@@ -123,39 +129,6 @@
 $(function () {
     var chart;
     $(document).ready(function() {
-Highcharts.setOptions({
-    colors: [{
-        linearGradient: [0, 0, 0, 300],
-        stops: [
-            [0, '#003fe2'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 300],
-        stops: [
-            [0, '#00F5C8'],
-            [1, '#005949']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 350],
-        stops: [
-            [0, '#A000C4'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 500],
-        stops: [
-            [0, '#FAF614'],
-            [1, '#403F00']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 300],
-        stops: [
-            [0, '#ff7d29'],
-            [1, '#000000']
-        ]
-    }]
-});
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'ldmg',
@@ -182,6 +155,7 @@ Highcharts.setOptions({
             title: {
                text: ''
             },
+            colors: ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29'],
             credits: {
                 enabled: false
             },
@@ -207,39 +181,6 @@ Highcharts.setOptions({
 $(function () {
     var chart;
     $(document).ready(function() {
-Highcharts.setOptions({
-    colors: [{
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#ff44ab'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#959698'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#4cc3ee'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#006448'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#4F1F02'],
-            [1, '#000000']
-        ]
-    }]
-});
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'hdmg',
@@ -269,6 +210,7 @@ Highcharts.setOptions({
             credits: {
                 enabled: false
             },
+            colors: ['#ff44ab', '#727272', '#00a0da', '#006448', '#562507'],
             exporting: { enabled: false },
             series: [{
                 type: 'pie',
@@ -288,69 +230,6 @@ Highcharts.setOptions({
 </script>
 <script>
 $(function () {
-    Highcharts.setOptions({
-    colors: [{
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#003fe2'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#00F5C8'],
-            [1, '#005949']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#A000C4'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 550],
-        stops: [
-            [0, '#FAF614'],
-            [1, '#403F00']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 550],
-        stops: [
-            [0, '#ff7d29'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#ff44ab'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#959698'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#4cc3ee'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#006448'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 490],
-        stops: [
-            [0, '#4F1F00'],
-            [1, '#000000']
-        ]
-    }]
-});
         $('#lgpm').highcharts({
             chart: {
                 type: 'column',
@@ -385,6 +264,7 @@ $(function () {
                     animation: false
                 }
             },
+            colors: ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29', '#ff44ab', '#727272', '#00a0da', '#006448', '#562507'],
             credits: {
                 enabled: false
             },

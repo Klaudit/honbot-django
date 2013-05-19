@@ -404,10 +404,9 @@ h6 {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
 .player-tsr .span1{
-  padding-left: 5px;
+  margin-left: 5%;
 }
 .player-tsr .span2{
-  padding-left: 0px;
+  margin-left: 0;
 }

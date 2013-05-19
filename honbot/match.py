@@ -38,6 +38,7 @@ def prepare_match(data, match_id):
     match['matchlength'] = data['realtime']
     match['date'] = pretty.date(datetime.datetime.strptime(data['mdt'], '%Y-%m-%d %H:%M:%S'))
     match['players'] = players
+    match['map'] = data['map']
     return match
 
 
@@ -117,6 +118,7 @@ def multimatch(data, history):
     pass this multimatch api results and the number of matches. it will parse and save the useful bits
     """
     allmatches = {}
+    print json.dumps(data)
     for m in history:
         match = {}
         match['match_id'] = m[0]
@@ -182,6 +184,7 @@ def multimatch(data, history):
             allmatches[m['match_id']]['replay_url'] = m['replay_url']
             allmatches[m['match_id']]['version'] = m['version']
             allmatches[m['match_id']]['mdt'] = m['mdt']
+            allmatches[m['match_id']]['map'] = m['map']
         except:
             pass
     ### Save to file ###

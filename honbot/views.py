@@ -9,7 +9,6 @@ from random import randint
 import advanced
 import api_call
 import banner
-import chat
 import match
 import player
 import json
@@ -63,26 +62,6 @@ def home(request):
     random = randint(1, 74)
     c = Context({'random': random})
     return HttpResponse(t.render(c))
-
-
-def chat_view(request, match_id):
-    logs = chat.get_chat(match_id)
-    stats = match.match(match_id)
-    names = {}
-    for p in stats['players']:
-        name = p['nickname']
-        names[str(name)] = p['position']
-    for l in logs:
-        name = l['name']
-        l['player'] = names[name]
-    if logs is not None:
-        t = loader.get_template('chat.html')
-        c = Context({'logs': logs, 'stats': stats, 'match_id': match_id})
-        return HttpResponse(t.render(c))
-    else:
-        t = loader.get_template('error.html')
-        c = Context({'id': match_id})
-        return HttpResponse(t.render(c))
 
 
 def match_view(request, match_id):

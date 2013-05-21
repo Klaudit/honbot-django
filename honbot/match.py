@@ -125,7 +125,6 @@ def multimatch(data, history, mode):
     elif mode == "acc":
         mode = "Public"
     allmatches = {}
-    print json.dumps(data)
     for m in history:
         match = {}
         match['match_id'] = m[0]
@@ -194,7 +193,10 @@ def multimatch(data, history, mode):
             allmatches[m['match_id']]['type'] = "Ranked"
 
     for m in data[3]:
-        allmatches[m['match_id']]['replay_url'] = m['replay_url']
+        try:
+            allmatches[m['match_id']]['replay_url'] = m['replay_url']
+        except:
+            allmatches[m['match_id']]['replay_url'] = None
         allmatches[m['match_id']]['version'] = m['version']
         allmatches[m['match_id']]['mdt'] = m['mdt']
         allmatches[m['match_id']]['map'] = m['map']

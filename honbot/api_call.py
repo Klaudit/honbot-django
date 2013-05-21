@@ -9,7 +9,6 @@ def get_json(endpoint):
     """
     url = ''.join(['http://api.heroesofnewerth.com', endpoint, '/?token=%s' % settings.TOKEN])
     raw = ''
-    print url
     while True:
         count = 0
         try:

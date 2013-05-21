@@ -41,7 +41,7 @@
                 <div class="chat-row">
                     <div class="chat-time">{{ l.time }}</div>
                     <div class="chat-team">{% if l.target == "Hellborne" %}<span class="text-error">{% elif l.target == "Legion" %}<span class="text-success">{% elif l.target == "All Chat" %}<span class="text-info">{% endif %}{{l.target}}</span></div>
-                    <div class="chat-name player-{{ l.player }}"><strong>{{ l.name }}:</strong></div>
+                    <div class="chat-name player-{{ l.player }}"><strong><a href="/player/{{l.name}}">{{ l.name }}</a>:</strong></div>
                     <div class="chat-msg">{{ l.msg }}</div>
                 </div>
                 {% endfor %}

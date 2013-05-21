@@ -440,33 +440,33 @@ h6 {
 .chat-row{
   display: block;
 }
-.player-0 {
+.player-0 a{
   color: #029;
 }
-.player-1 {
+.player-1 a{
   color: #187;
 }
-.player-2 {
+.player-2 a{
   color: #507;
 }
-.player-3 {
+.player-3 a{
   color: #d9bf00;
 }
-.player-4 {
-  color: #950;
+.player-4 a{
+  color: #ff7d29;
 }
-.player-5 {
+.player-5 a{
   color: #836;
 }
-.player-6 {
+.player-6 a{
   color: #555;
 }
-.player-7 {
+.player-7 a{
   color: #479;
 }
-.player-8 {
+.player-8 a{
   color: #132;
 }
-.player-9 {
-  color: #521;
+.player-9 a{
+  color: #562507;
 }

@@ -1,29 +1,31 @@
 import requests
 import zipfile
 import codecs
-from match import checkfile, get_download
-from log_parse import PLAYER_CHAT, PLAYER_CONNECT
-from os import remove, path
 from django.conf import settings
+from os import remove, path
+from error import error
 from time import strftime, gmtime
+from django.template import Context, loader
+from django.http import HttpResponse
+import match
+import json
+
 
 directory = settings.MEDIA_ROOT
 
 
-def get_chat(match_id):
-    """
-    handles the initial download/check of the .log file
-    """
-    # get proper url and change to .zip use match first or backup plan with php (slow)
+def chat(request, match_id):
     if path.exists(directory + 'm' + str(match_id) + '.log'):
-        return parse_chat_from_log(match_id)
-    if checkfile(match_id):
+        logs = parse_chat_from_log(match_id)
+    elif checkfile(match_id):
         url = get_download(match_id)
+        if url is None:
+            return error(request, "Match is older than 28 days or replay is unavailable.")
         url = url[:-9] + 'zip'
         # download file
         r = requests.get(url)
         if r.status_code == 404:
-            return None
+            return error(request, "Match is older than 28 days or replay is unavailable.")
         with open(directory + str(match_id)+".zip", "wb") as code:
             code.write(r.content)
         z = zipfile.ZipFile(directory + str(match_id) + '.zip')
@@ -31,9 +33,9 @@ def get_chat(match_id):
         z.close()
         # cleanup zip
         remove(directory + str(match_id) + '.zip')
-        return parse_chat_from_log(match_id)
+        logs = parse_chat_from_log(match_id)
     else:
-        # this method is janky. hence all the 404 checks to back out quickly if things go south
+        # this method is janky. hence all the 404 checks to back out quickly if things go south and is only used when they for some reason are going straight to chat?
         try:
             r = requests.get('http://replaydl.heroesofnewerth.com/replay_dl.php?file=&match_id=' + match_id, timeout=2)
             if r.status_code == 404:
@@ -49,9 +51,20 @@ def get_chat(match_id):
             z.close()
             # cleanup zip
             remove(directory + str(match_id) + '.zip')
-            return parse_chat_from_log(match_id)
+            logs = parse_chat_from_log(match_id)
         except:
             return None
+    stats = match.match(match_id)
+    names = {}
+    for p in stats['players']:
+        name = p['nickname']
+        names[str(name)] = p['position']
+    for l in logs:
+        name = l['name']
+        l['player'] = names[name]
+    t = loader.get_template('chat.html')
+    c = Context({'logs': logs, 'stats': stats, 'match_id': match_id})
+    return HttpResponse(t.render(c))
 
 
 def parse_chat_from_log(match_id):
@@ -94,3 +107,52 @@ def parse_chat_from_log(match_id):
         else:
             chat['time'] = "Lobby"
     return chatter
+
+
+def checkfile(match_id):
+    """
+    check if match has been parsed before returns bool
+    """
+    if path.exists(directory + str(match_id) + '.json'):
+        return True
+    else:
+        return False
+
+
+def get_download(match_id):
+    with open(directory + str(match_id) + '.json', 'rb') as f:
+        data = json.load(f)
+    return data['replay_url']
+
+
+def PLAYER_CHAT(line):
+    """
+    returns dict of chat line, two types of chat, one before start and after
+    works perfect now ladies
+    """
+    chat = {}
+    chat['msg'] = ''
+    l = line.split()
+    if l[0][0] == 'p':
+        chat['player'] = l[0].split(':')[1]
+        chat['target'] = l[1].split(':')[1][1:-1]
+        chat['time'] = None
+        for word in l[2:]:
+            chat['msg'] = chat['msg'] + word + ' '
+    else:
+        chat['time'] = l[0].split(':')[1]
+        chat['player'] = l[1].split(':')[1]
+        chat['target'] = l[2].split(':')[1][1:-1]
+        for word in l[3:]:
+            chat['msg'] = chat['msg'] + word + ' '
+    chat['msg'] = chat['msg'][5:-2]
+    return chat
+
+
+def PLAYER_CONNECT(line):
+    """
+    PLAYER_CONNECT player:0 name:"NAMENAMENAME" id:3252583 psr:1522.0000
+    returns the player name as I don't believe I need any other data. Players do not connect in order
+    """
+    l = line.split()
+    return l[2].split(':')[1][1:-1]

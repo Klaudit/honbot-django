@@ -3,14 +3,49 @@
 {% block page_title %}Chat Logs | HonBot {% endblock %}
 
 {% block main_content %}
+<header class="player-head" id="overview">
+    <div class='container'>
+        <div class="row">
+            <div class="span7">
+                <img class="pull-left" style="margin-top: 15px; padding-right: 4px;" src="/static/img/maps/{{ stats.map }}.jpg">
+                <h2 class="pull-left">{{ match_id }}</h2>
+            </div>
+            <div class="span5 player-tsr">
+                <div class="span1 text-center">
+                    <strong>Winner</strong><br>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Type</strong><br>{{ stats.mode }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Duration</strong><br>{{ stats.matchlength }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Played</strong><br>{{ stats.date }}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<br>
 <div class="container">
+    <ul class="nav nav-tabs">
+        <li><a href="/match/{{ match_id }}">Overview</a></li>
+        <li class="active"><a href="/chat/{{ match_id }}">Chat Logs</a></li>
+        <li><a href="/p/player/{{ stats.nickname }}">Builds</a></li>
+    </ul>
     <div class="row">
-        <div class="span12 well">
-            {% for l in logs %}
-                [{{ l.time }}]
-                [{% if l.target == "Hellborne" %}<span class="text-error">{% elif l.target == "Legion" %}<span class="text-success">{% elif l.target == "All" %}<span class="text-info">{% endif %}{{l.target}}</span>]
-                <strong>{{ l.name }}</strong>: {{ l.msg }}<br>
-            {% endfor %}
+        <div class="span12">
+            <div class="chat">
+                {% for l in logs %}
+                <div class="chat-row">
+                    <div class="chat-time">{{ l.time }}</div>
+                    <div class="chat-team">{% if l.target == "Hellborne" %}<span class="text-error">{% elif l.target == "Legion" %}<span class="text-success">{% elif l.target == "All Chat" %}<span class="text-info">{% endif %}{{l.target}}</span></div>
+                    <div class="chat-name player-{{ l.player }}"><strong>{{ l.name }}:</strong></div>
+                    <div class="chat-msg">{{ l.msg }}</div>
+                </div>
+                {% endfor %}
+            </div>  
         </div>
     </div>
 </div>

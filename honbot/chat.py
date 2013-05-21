@@ -84,7 +84,7 @@ def parse_chat_from_log(match_id):
         if chat['target'] == "team":
             chat['target'] = team[int(chat['player'])]
         else:
-            chat['target'] = "All"
+            chat['target'] = "All Chat"
         chat['name'] = players[int(chat['player'])]
         if chat['time'] is not None:
             if int(chat['time']) < 3599999:

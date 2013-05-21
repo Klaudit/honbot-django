@@ -67,9 +67,17 @@ def home(request):
 
 def chat_view(request, match_id):
     logs = chat.get_chat(match_id)
+    stats = match.match(match_id)
+    names = {}
+    for p in stats['players']:
+        name = p['nickname']
+        names[str(name)] = p['position']
+    for l in logs:
+        name = l['name']
+        l['player'] = names[name]
     if logs is not None:
         t = loader.get_template('chat.html')
-        c = Context({'logs': logs})
+        c = Context({'logs': logs, 'stats': stats, 'match_id': match_id})
         return HttpResponse(t.render(c))
     else:
         t = loader.get_template('error.html')
@@ -78,12 +86,10 @@ def chat_view(request, match_id):
 
 
 def match_view(request, match_id):
-    mid = int(match_id)
-    stats = match.match(mid)
-    mode = "match"
+    stats = match.match(match_id)
     if stats is not None:
         t = loader.get_template('match.html')
-        c = Context({'match_id': mid, 'stats': stats, 'mode': mode})
+        c = Context({'match_id': match_id, 'stats': stats})
         return HttpResponse(t.render(c))
     else:
         t = loader.get_template('error.html')

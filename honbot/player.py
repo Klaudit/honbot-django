@@ -78,7 +78,7 @@ def player_math(data, nick, mode):
     return stats
 
 
-def match_history_data(history, account_id):
+def match_history_data(history, account_id, mode):
     """
     this will take a player history and decide which matches need to be downloaded and pass
     them to a multimatch api call this will auto call the function to parse a single players match history
@@ -99,7 +99,7 @@ def match_history_data(history, account_id):
     if count > 0:
         data = api_call.get_json(url)
         if data is not None:
-            match.multimatch(data, needed)
+            match.multimatch(data, needed, mode)
             return get_player_from_matches(history, account_id)
         else:
             return get_player_from_matches(history, account_id)

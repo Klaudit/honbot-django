@@ -21,7 +21,7 @@ def ranked(request, number):
     if data is not None:
         history = recent_matches(data, return_size, count)
     ### Get Match History Data ###
-    history_detail = match_history_data(history, number)
+    history_detail = match_history_data(history, number, mode)
     ### deliver to view ###
     if len(history_detail) is not 0:
         t = loader.get_template('match_history.html')

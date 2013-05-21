@@ -21,7 +21,7 @@ def match(match_id):
         data = api_call.get_json(url)
         h = [[str(match_id), '1/1/1']]
         if data is not None:
-            multimatch(data, h)
+            multimatch(data, h, "rnk")
             return match(match_id)
         else:
             return None
@@ -38,9 +38,8 @@ def prepare_match(data, match_id):
     match['matchlength'] = data['realtime']
     match['date'] = pretty.date(datetime.datetime.strptime(data['mdt'], '%Y-%m-%d %H:%M:%S'))
     match['players'] = players
-    match['map'] = data['map']
-    match['type'] = data['type']
     match['mode'] = data['mode']
+    match['map'] = data['map']
     return match
 
 
@@ -115,14 +114,22 @@ def get_player_names(match_id):
     return names
 
 
-def multimatch(data, history):
+def multimatch(data, history, mode):
     """
     pass this multimatch api results and the number of matches. it will parse and save the useful bits
     """
+    if mode == "rnk":
+        mode = "Ranked"
+    elif mode == "cs":
+        mode = "Casual"
+    elif mode == "acc":
+        mode = "Public"
     allmatches = {}
+    print json.dumps(data)
     for m in history:
         match = {}
         match['match_id'] = m[0]
+        match['mode'] = mode
         allmatches[str(m[0])] = match
         players = {}
         allmatches[m[0]]['players'] = players
@@ -181,8 +188,11 @@ def multimatch(data, history):
         except KeyError:
             pass
     for m in data[0]:
-        if m['cas']:
+        if m['cas'] == 1:
             allmatches[m['match_id']]['type'] = "Casual"
+        elif m['officl'] == 1:
+            allmatches[m['match_id']]['type'] = "Ranked"
+
     for m in data[3]:
         allmatches[m['match_id']]['replay_url'] = m['replay_url']
         allmatches[m['match_id']]['version'] = m['version']

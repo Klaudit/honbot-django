@@ -136,7 +136,7 @@
             </table>
         </div>
         <div class="span6 text-center">
-            <table id="history" class="table table-condensed recent-match">
+            <table id="history" class="table center-headers table-condensed recent-match">
                 <thead>
                     <tr>
                         <th>Hero</th>
@@ -148,6 +148,7 @@
                 <tbody id="recent-matches">
                 </tbody>
             </table>
+            <i id="match-load" class="icon-spinner icon-spin icon-2x"></i><br>
             <a id="more" class="btn">More</a>
             <div id="no-more"></div>
         </div>
@@ -155,7 +156,6 @@
 </div>
 <script>
 $.get("/match_history/{{ stats.id }}/?more=0&mode={{ mode }}",
-
 function (data) {
     if (data == "stop") {
         $('#more').remove();
@@ -167,11 +167,13 @@ function (data) {
             return false;
         });
     }
+    $("#match-load").hide();
 });
 </script>
 <script>
 var counter = 0;
 $("#more").click(function() {
+    $("#match-load").show();
     var table = $('#recent-matches')
     counter++;
     url = "/match_history/{{ stats.id }}/?more=" + String(counter) + "&mode={{ mode }}"
@@ -188,6 +190,7 @@ $("#more").click(function() {
                 return false;
             });
         }
+        $("#match-load").hide();
     });
 });
 </script>

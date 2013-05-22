@@ -13,6 +13,7 @@ urlpatterns = patterns(
     url(r'^history/(?P<name>.*)/$', 'honbot.views.history'),
     url(r'^banner/(?P<name>.*)/$', 'honbot.views.banner_view'),
     url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.views.match_view'),
+    url(r'^builds/(?P<match_id>[0-9]+)/$', 'honbot.builds.build'),
     url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat'),
     url(r'^advanced/(?P<match_id>[0-9]+)/$', 'honbot.views.adv'),
     url(r'^avatar/(?P<number>[0-9]+)/$', 'honbot.avatar.avatar'),

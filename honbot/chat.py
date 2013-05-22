@@ -1,5 +1,5 @@
 import requests
-import zipfile
+from zipfile import ZipFile
 import codecs
 from django.conf import settings
 from os import remove, path
@@ -7,7 +7,7 @@ from error import error
 from time import strftime, gmtime
 from django.template import Context, loader
 from django.http import HttpResponse
-import match
+from match import match
 import json
 
 
@@ -15,6 +15,7 @@ directory = settings.MEDIA_ROOT
 
 
 def chat(request, match_id):
+    # download and parse logs
     if path.exists(directory + 'm' + str(match_id) + '.log'):
         logs = parse_chat_from_log(match_id)
     elif checkfile(match_id):
@@ -28,7 +29,7 @@ def chat(request, match_id):
             return error(request, "Match is older than 28 days or replay is unavailable.")
         with open(directory + str(match_id)+".zip", "wb") as code:
             code.write(r.content)
-        z = zipfile.ZipFile(directory + str(match_id) + '.zip')
+        z = ZipFile(directory + str(match_id) + '.zip')
         z.extract(z.namelist()[0], directory)
         z.close()
         # cleanup zip
@@ -39,14 +40,14 @@ def chat(request, match_id):
         try:
             r = requests.get('http://replaydl.heroesofnewerth.com/replay_dl.php?file=&match_id=' + match_id, timeout=2)
             if r.status_code == 404:
-                return None
+                return error(request, "Match is older than 28 days or replay is unavailable.")
             url = r.url[:-9] + 'zip'
             r = requests.get(url)
             if r.status_code == 404:
-                return None
+                return error(request, "Match is older than 28 days or replay is unavailable.")
             with open(directory + str(match_id)+".zip", "wb") as code:
                 code.write(r.content)
-            z = zipfile.ZipFile(directory + str(match_id) + '.zip')
+            z = ZipFile(directory + str(match_id) + '.zip')
             z.extract(z.namelist()[0], directory)
             z.close()
             # cleanup zip
@@ -54,7 +55,8 @@ def chat(request, match_id):
             logs = parse_chat_from_log(match_id)
         except:
             return None
-    stats = match.match(match_id)
+    # deliver chat logs
+    stats = match(match_id)
     names = {}
     for p in stats['players']:
         name = p['nickname']

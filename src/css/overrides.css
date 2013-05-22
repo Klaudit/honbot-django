@@ -470,3 +470,19 @@ h6 {
 .player-9 a{
   color: #562507;
 }
+.build-name{
+  display: inline-block;
+}
+.build-head{
+  display: block;
+}
+.build-container{
+  display: inline-block;
+}
+.build-block{
+  display: inline-block;
+}
+.build-block img{
+  width: 30px;
+  float: left;
+}

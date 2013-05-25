@@ -130,7 +130,6 @@ def get_download(match_id):
 def PLAYER_CHAT(line):
     """
     returns dict of chat line, two types of chat, one before start and after
-    works perfect now ladies
     """
     chat = {}
     chat['msg'] = ''
@@ -157,4 +156,10 @@ def PLAYER_CONNECT(line):
     returns the player name as I don't believe I need any other data. Players do not connect in order
     """
     l = line.split()
-    return l[2].split(':')[1][1:-1]
+    name = l[2].split(':')[1][1:-1]
+    for l in name:
+        if l == '[':
+            name = name.split(']')[1]
+        else:
+            break
+    return name

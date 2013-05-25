@@ -39,10 +39,10 @@
             <div class="chat">
                 {% for l in logs %}
                 <div class="chat-row">
-                    <div class="chat-time">{{ l.time }}</div>
-                    <div class="chat-team">{% if l.target == "Hellborne" %}<span class="text-error">{% elif l.target == "Legion" %}<span class="text-success">{% elif l.target == "All Chat" %}<span class="text-info">{% endif %}{{l.target}}</span></div>
-                    <div class="chat-name player-{{ l.player }}"><strong><a href="/player/{{l.name}}">{{ l.name }}</a>:</strong></div>
-                    <div class="chat-msg">{{ l.msg }}</div>
+                    <span class="chat-time">{{ l.time }}</span>
+                    <span class="chat-team">{% if l.target == "Hellborne" %}<span class="text-error">{% elif l.target == "Legion" %}<span class="text-success">{% elif l.target == "All Chat" %}<span class="text-info">{% endif %}{{l.target}}</span></span>
+                    <span class="chat-name player-{{ l.player }}"><a href="/player/{{l.name}}">{{ l.name }}</a>:</span>
+                    <span class="chat-msg">{{ l.msg }}</span>
                 </div>
                 {% endfor %}
             </div>  

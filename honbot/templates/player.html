@@ -37,9 +37,9 @@
         <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}">Public</a></li>
     </ul>
     <div class="row">
-        <div class="span3 text-center table-striped">
+        <div class="span3 text-center">
             <h4>Lifetime</h4>
-            <table class="table table-condensed">
+            <table class="table">
                 <tr>
                     <td>Hours</td>
                     <td>{{ stats.hours }}</td>
@@ -88,7 +88,7 @@
         </div>
         <div class="span3 text-center">
             <h4>Average Match</h4>
-            <table class="table table-condensed table-border table-striped">
+            <table class="table">
                 <tr>
                     <td>Minutes</td>
                     <td>{{ stats.atime }}</td>

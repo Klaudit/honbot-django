@@ -1,7 +1,7 @@
 import os.path
 from os import remove
 import time
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import Context, loader
 from PIL import Image
@@ -11,8 +11,8 @@ import api_call
 import banner
 import match
 import player
+from error import error
 import json
-
 
 
 directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'banners')) + '/'
@@ -77,27 +77,7 @@ def match_view(request, match_id):
 
 
 def history(request, name):
-    url = '/player_statistics/ranked/nickname/' + name
-    data = api_call.get_json(url)
-    if data is not None:
-        statsdict = data
-        s = player.player_math(statsdict, name)
-        ### Get Match history ### api.heroesofnewerth.com/match_history/ranked/accountid/123456/?token=yourtoken
-        url = '/match_history/ranked/nickname/' + name
-        data = api_call.get_json(url)
-        history = []
-        if data is not None:
-            history = match.recent_matches(data, 25)
-        ### Get Match History Data ###
-        history_detail = player.match_history_data(history, s['id'])
-        ### deliver to view ###
-        t = loader.get_template('history.html')
-        c = Context({'nick': name, 'stats': s, 'mdata': history_detail})
-        return HttpResponse(t.render(c))
-    else:
-        t = loader.get_template('error.html')
-        c = Context({'id': name})
-        return HttpResponse(t.render(c))
+    return HttpResponseRedirect("/player/" + name + "/")
 
 
 def adv(request, match_id):
@@ -107,9 +87,7 @@ def adv(request, match_id):
         c = Context({'data': data, 'match_id': match_id})
         return HttpResponse(t.render(c))
     else:
-        t = loader.get_template('error.html')
-        c = Context({'id': match_id})
-        return HttpResponse(t.render(c))
+        return error(request, "S2 Servers down or match id is incorrect. Try another match or try gently refreshing the page.")
 
 
 def players(request, name):
@@ -135,6 +113,4 @@ def players(request, name):
         c = Context({'stats': s, 'mode': mode})
         return HttpResponse(t.render(c))
     else:
-        t = loader.get_template('error.html')
-        c = Context({'id': name})
-        return HttpResponse(t.render(c))
+        return error(request, "S2 Servers down or name is incorrect. Try another name or try gently refreshing the page.")

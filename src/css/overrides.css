@@ -506,7 +506,8 @@ h6 {
   font-weight:bold;
 }
 .build-row img{
-  height: 44px;
+  height: 42px;
+  margin: 1px 1px 1px 1px;
 }
 .selected{
   width: 38px;

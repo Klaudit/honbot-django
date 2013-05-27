@@ -29,6 +29,9 @@ class Magic:
         self.remake = [0] * 10
         self.ability = [[0] * 5 for i in range(10)]
 
+    def builds(self):
+        return self.ability_upgrade
+
     def finish(self, names):
         """
         this will do my required math and sorting

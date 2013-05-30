@@ -445,42 +445,52 @@ h6 {
 
 .player-0 a{
   color: black;
+  padding-left: 1px;
   border-left:solid blue;
 }
 .player-1 a{
   color: black;
+  padding-left: 1px;
   border-left:solid teal;
 }
 .player-2 a{
   color: black;
+  padding-left: 1px;
   border-left:solid purple;
 }
 .player-3 a{
   color: black;
+  padding-left: 1px;
   border-left:solid #d0cb37;
 }
 .player-4 a{
   color: black;
+  padding-left: 1px;
   border-left:solid #ff7d29;
 }
 .player-5 a{
   color: black;
+  padding-left: 1px;
   border-left:solid hotpink;
 }
 .player-6 a{
   color: black;
+  padding-left: 1px;
   border-left:solid gray;
 }
 .player-7 a{
   color: black;
+  padding-left: 1px;
   border-left:solid #3ca9d0;
 }
 .player-8 a{
   color: black;
+  padding-left: 1px;
   border-left:solid darkgreen;
 }
 .player-9 a{
   color: black;
+  padding-left: 1px;
   border-left:solid brown;
 }
 .build-container{

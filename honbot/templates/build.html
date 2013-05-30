@@ -39,7 +39,7 @@
         <div class="span12">
         {% for player in players %}
             {% if forloop.counter0 == 0 %}
-            <h2 class="player-{{player.position}}"><img style="padding-bottom: 6px;" src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'> <a href="/player/{{ player.nickname }}">{{ player.nickname }}</a></h2>
+            <h4 class="player-{{player.position}}"><img style="padding-bottom: 6px;" src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'> <a href="/player/{{ player.nickname }}">{{ player.nickname }}</a></h4>
             <div class="build-container">
                 <div class="build-row">
                     <img src="/static/img/heroes/{{ player.hero }}/ability1_128.jpg">

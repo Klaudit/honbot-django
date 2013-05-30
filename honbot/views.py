@@ -71,9 +71,7 @@ def match_view(request, match_id):
         c = Context({'match_id': match_id, 'stats': stats})
         return HttpResponse(t.render(c))
     else:
-        t = loader.get_template('error.html')
-        c = Context({'id': match_id})
-        return HttpResponse(t.render(c))
+        return error(request, "S2 Servers down or match id is incorrect. Try another match or try gently refreshing the page.")
 
 
 def history(request, name):

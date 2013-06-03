@@ -22,6 +22,8 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'honbot-django')) + '/my.cnf',
         },
+        'USER': 'root',
+        'PASSWORD': 'cooper'
     }
 }
 

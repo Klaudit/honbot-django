@@ -41,7 +41,7 @@
                 <div class="chat-row">
                     <span class="chat-time">{{ l.time }}</span>
                     <span class="chat-team">{% if l.target == "Hellborne" %}<span class="text-error">{% elif l.target == "Legion" %}<span class="text-success">{% elif l.target == "All Chat" %}<span class="text-info">{% endif %}{{l.target}}</span></span>
-                    <span class="chat-name player-{{ l.player }}"><a href="/player/{{l.name}}">{{ l.name }}</a>:</span>
+                    <span class="chat-name player-{{ l.player }}"><img style="margin-top: -3px; width: 17px;" src='/static/img/heroes/{{ l.hero }}/icon_30.jpg'> <a href="/player/{{l.name}}">{{ l.name }}</a>:</span>
                     <span class="chat-msg">{{ l.msg }}</span>
                 </div>
                 {% endfor %}

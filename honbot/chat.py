@@ -58,12 +58,15 @@ def chat(request, match_id):
     # deliver chat logs
     stats = match(match_id)
     names = {}
+    heroes = {}
     for p in stats['players']:
         name = p['nickname']
         names[str(name)] = p['position']
+        heroes[str(name)] = p['hero']
     for l in logs:
         name = l['name']
         l['player'] = names[name]
+        l['hero'] = heroes[name]
     t = loader.get_template('chat.html')
     c = Context({'logs': logs, 'stats': stats, 'match_id': match_id})
     return HttpResponse(t.render(c))

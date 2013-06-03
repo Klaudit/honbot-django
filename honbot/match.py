@@ -4,6 +4,7 @@ import api_call
 import time
 import pretty
 import datetime
+from honbot.models import Matches
 from django.conf import settings
 
 
@@ -83,6 +84,8 @@ def match_save(data, match_id):
     """
     save match to directory in json format
     """
+    m = Matches(match_id=match_id, date=data['mdt'])
+    m.save()
     with open(directory + str(match_id) + '.json', 'w') as f:
         json.dump(data, f, ensure_ascii=False)
 

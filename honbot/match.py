@@ -6,6 +6,7 @@ import pretty
 import datetime
 from honbot.models import Matches
 from django.conf import settings
+from django.forms.models import model_to_dict
 
 
 directory = settings.MEDIA_ROOT
@@ -37,7 +38,7 @@ def prepare_match(data, match_id):
     for p in data['players']:
         players[int(data['players'][p]['position'])] = data['players'][p]
     match['matchlength'] = data['realtime']
-    match['date'] = pretty.date(datetime.datetime.strptime(data['mdt'], '%Y-%m-%d %H:%M:%S'))
+    match['date'] = pretty.date(datetime.datetime.strptime(data['date'], '%Y-%m-%d %H:%M:%S'))
     match['players'] = players
     match['mode'] = data['mode']
     match['map'] = data['map']
@@ -84,7 +85,10 @@ def match_save(data, match_id):
     """
     save match to directory in json format
     """
-    m = Matches(match_id=match_id, date=data['mdt'])
+    m = Matches(match_id=match_id, date=data['date'], replay_url=data['replay_url'],
+                realtime=data["realtime"], mode=data['mode'], major=data['major'],
+                minor=data['minor'], revision=data['revision'], build=data['build'],
+                _map=data['map'])
     m.save()
     with open(directory + str(match_id) + '.json', 'w') as f:
         json.dump(data, f, ensure_ascii=False)
@@ -94,12 +98,10 @@ def load_match(match_id):
     """
     open match from directory and return json
     """
-    if checkfile(match_id):
-        with open(directory + str(match_id) + '.json', 'rb') as f:
-            data = json.load(f)
-        return data
-    else:
-        return None
+    m = Matches.objects.filter(match_id=match_id)
+    if m.count() == 1:
+        print m.values()[0]
+        return m.values()[0]
 
 
 def get_download(match_id):
@@ -200,8 +202,18 @@ def multimatch(data, history, mode):
             allmatches[m['match_id']]['replay_url'] = m['replay_url']
         except:
             allmatches[m['match_id']]['replay_url'] = None
-        allmatches[m['match_id']]['version'] = m['version']
-        allmatches[m['match_id']]['mdt'] = m['mdt']
+        v = m['version'].split('.')
+        allmatches[m['match_id']]['major'] = int(v[0])
+        allmatches[m['match_id']]['minor'] = int(v[1])
+        if len(v) > 2:
+            allmatches[m['match_id']]['revision'] = int(v[2])
+        else:
+            allmatches[m['match_id']]['revision'] = 0
+        if len(v) > 3:
+            allmatches[m['match_id']]['build'] = int(v[3])
+        else:
+            allmatches[m['match_id']]['build'] = 0
+        allmatches[m['match_id']]['date'] = m['mdt']
         allmatches[m['match_id']]['map'] = m['map']
     ### Save to file ###
     for m in history:

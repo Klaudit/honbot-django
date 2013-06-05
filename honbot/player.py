@@ -119,7 +119,7 @@ def get_player_from_matches(history, account_id):
             try:
                 temp = raw['players'][str(account_id)]
                 temp['match_id'] = m[0]
-                temp['date'] = pretty.date(datetime.datetime.strptime(raw['mdt'], '%Y-%m-%d %H:%M:%S'))
+                temp['date'] = pretty.date(datetime.datetime.strptime(raw['date'], '%Y-%m-%d %H:%M:%S'))
                 matches.append(temp)
             except KeyError:
                 pass

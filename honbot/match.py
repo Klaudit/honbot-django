@@ -41,7 +41,6 @@ def prepare_match(data, match_id):
     match['players'] = players
     match['mode'] = data['mode']
     match['map'] = data['_map']
-    match['items'] = []
     return match
 
 
@@ -91,7 +90,31 @@ def match_save(data, match_id):
                 _map=data['map'])
     m.save()
     for p in data['players']:
-        s = PlayerMatches(player_id=int(p), match=m, kills=data['players'][p]['kills'])
+        if data['players'][p]['kdr'] == "Inf.":
+            data['players'][p]['kdr'] = 999
+        s = PlayerMatches(player_id=int(p), match=m,
+                          deaths=data['players'][p]['deaths'],
+                          kills=data['players'][p]['kills'],
+                          win=bool(data['players'][p]['win']),
+                          apm=float(data['players'][p]['apm']),
+                          cs=data['players'][p]['cs'],
+                          smackdown=data['players'][p]['smackdown'],
+                          secsdead=data['players'][p]['secsdead'],
+                          gpm=float(data['players'][p]['gpm']),
+                          bdmg=data['players'][p]['bdmg'],
+                          herodmg=data['players'][p]['herodmg'],
+                          xpm=float(data['players'][p]['xpm']),
+                          kdr=float(data['players'][p]['kdr']),
+                          goldlost2death=data['players'][p]['goldlost2death'],
+                          denies=data['players'][p]['denies'],
+                          hero=data['players'][p]['hero'],
+                          consumables=data['players'][p]['consumables'],
+                          assists=data['players'][p]['assists'],
+                          nickname=data['players'][p]['nickname'],
+                          level=data['players'][p]['level'],
+                          wards=data['players'][p]['wards'],
+                          team=data['players'][p]['team'],
+                          position=data['players'][p]['position'])
         s.save()
     with open(directory + str(match_id) + '.json', 'w') as f:
         json.dump(data, f, ensure_ascii=False)
@@ -101,15 +124,16 @@ def load_match(match_id):
     """
     open match from directory and return json
     """
-    print "loading"
     m = Matches.objects.filter(match_id=match_id).values()[0]
     m['players'] = {}
     m['date'] = datetime.datetime.strftime(m['date'], "%Y-%m-%d %H:%M:%S")
     p = {}
     for player in PlayerMatches.objects.filter(match_id=match_id).values():
         p[str(player['player_id'])] = player
+        p[str(player['player_id'])]['items'] = []
+        if p[str(player['player_id'])]['kdr'] == 999:
+            p[str(player['player_id'])]['kdr'] = "Inf."
     m['players'] = p
-    print json.dumps(m)
     return m
 
 

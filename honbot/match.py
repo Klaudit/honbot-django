@@ -4,9 +4,8 @@ import api_call
 import time
 import pretty
 import datetime
-from honbot.models import Matches
+from honbot.models import Matches, PlayerMatches
 from django.conf import settings
-from django.forms.models import model_to_dict
 
 
 directory = settings.MEDIA_ROOT
@@ -41,7 +40,8 @@ def prepare_match(data, match_id):
     match['date'] = pretty.date(datetime.datetime.strptime(data['date'], '%Y-%m-%d %H:%M:%S'))
     match['players'] = players
     match['mode'] = data['mode']
-    match['map'] = data['map']
+    match['map'] = data['_map']
+    match['items'] = []
     return match
 
 
@@ -90,6 +90,9 @@ def match_save(data, match_id):
                 minor=data['minor'], revision=data['revision'], build=data['build'],
                 _map=data['map'])
     m.save()
+    for p in data['players']:
+        s = PlayerMatches(player_id=int(p), match=m, kills=data['players'][p]['kills'])
+        s.save()
     with open(directory + str(match_id) + '.json', 'w') as f:
         json.dump(data, f, ensure_ascii=False)
 
@@ -98,10 +101,16 @@ def load_match(match_id):
     """
     open match from directory and return json
     """
-    m = Matches.objects.filter(match_id=match_id)
-    if m.count() == 1:
-        print m.values()[0]
-        return m.values()[0]
+    print "loading"
+    m = Matches.objects.filter(match_id=match_id).values()[0]
+    m['players'] = {}
+    m['date'] = datetime.datetime.strftime(m['date'], "%Y-%m-%d %H:%M:%S")
+    p = {}
+    for player in PlayerMatches.objects.filter(match_id=match_id).values():
+        p[str(player['player_id'])] = player
+    m['players'] = p
+    print json.dumps(m)
+    return m
 
 
 def get_download(match_id):

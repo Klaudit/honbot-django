@@ -16,6 +16,8 @@ MANAGERS = ADMINS
 
 ALLOWED_HOSTS = ['*']
 
+INTERNAL_IPS = ('127.0.0.1',)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -98,6 +100,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'honbot-django.urls'
@@ -110,6 +113,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'honbot',
     'south',
+    'debug_toolbar',
 )
 
 

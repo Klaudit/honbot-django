@@ -1,4 +1,3 @@
-import os.path
 import json
 import api_call
 import time
@@ -74,7 +73,7 @@ def checkfile(match_id):
     """
     check if match has been parsed before returns bool
     """
-    if os.path.exists(directory + str(match_id) + '.json'):
+    if Matches.objects.filter(match_id=match_id).count() == 1:
         return True
     else:
         return False
@@ -116,8 +115,6 @@ def match_save(data, match_id):
                           team=data['players'][p]['team'],
                           position=data['players'][p]['position'])
         s.save()
-    with open(directory + str(match_id) + '.json', 'w') as f:
-        json.dump(data, f, ensure_ascii=False)
 
 
 def load_match(match_id):

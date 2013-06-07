@@ -105,7 +105,32 @@
     <div class="row-fluid">
         <div class="span6">
             <h2 class="text-center">Gold Per Minute</h2>
-                <div id="lgpm" style="min-width: 300px; height: 350px; margin: 0 auto"></div>
+            <div id="lgpm" style="min-width: 300px; height: 350px; margin: 0 auto"></div>
+        </div>
+        <div class="span6">
+            <h2 class="text-center">Team Totals</h2>
+            <div class="row">
+                <div class="span4">
+                    <div id="kills" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+                <div class="span4">
+                    <div id="deaths" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+                <div class="span4">
+                    <div id="assists" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <div id="creeps" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+                <div class="span4">
+                    <div id="gpm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+                <div class="span4">
+                    <div id="apm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -130,8 +155,6 @@ $(function () {
                     animation: false,
                     dataLabels: {
                         enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -182,8 +205,6 @@ $(function () {
                     animation: false,
                     dataLabels: {
                         enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -297,7 +318,297 @@ $(function () {
             }]
         });
     });
+</script>
+<script>
+//total kills
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'kills',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'Kills',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'Kills',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.kills}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.kills}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
     
-
+});
+</script>
+<script>
+//total deaths
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'deaths',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'Deaths',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'Deaths',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.deaths}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.deaths}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
+</script>
+<script>
+//total assists
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'assists',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'Assists',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'Assists',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.assists}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.assists}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
+</script>
+<script>
+//total creeps
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'creeps',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'Creeps',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'Creeps',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.cs}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.cs}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
+</script>
+<script>
+//total gpm
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'gpm',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'GPM',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y:.1f}</b>',
+                percentageDecimals: 1
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'GPM',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.gpm}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.gpm}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
+</script>
+<script>
+//total apm
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'apm',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'APM',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'APM',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.apm}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.apm}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
 </script>
 {% endblock main_content %}

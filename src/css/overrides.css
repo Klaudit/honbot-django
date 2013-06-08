@@ -409,6 +409,13 @@ h6 {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+.player-tsr .span1:first-child{
+  padding-left: 10px;
+}
+.player-tsr .span1{
+  margin-left: 0;
+  width: 110px;
+}
 .player-tsr .span1{
   margin-left: 0;
   width: 110px;

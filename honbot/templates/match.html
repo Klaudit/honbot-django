@@ -58,27 +58,27 @@
                 {% for m in stats.players %}
                 {% if m.position == '5' %}</tbody><tbody>{% endif %}
                     <tr>
-                        <td data-title="Player">
+                        <td>
                             <img src='/static/img/p/{{ m.position }}.jpg'>
                             <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30> 
                             <a href="/player/{{ m.nickname }}/">
                                 {{ m.nickname }} 
                             </a>
                         </td>
-                        <td data-title="Items">
+                        <td>
                             
                         </td>
-                        <td data-title="lvl">{{ m.level }}</td>
-                        <td data-title="Kills">{{ m.kills }}</td>
-                        <td data-title="Deaths">{{ m.deaths }}</td>
-                        <td data-title="Assists">{{ m.assists }}</td>
-                        <td data-title="KDR">{{ m.kdr }}</td>
-                        <td data-title="CK">{{ m.cs }}</td>
-                        <td data-title="CD">{{ m.denies }}</td>
-                        <td data-title="GPM">{{ m.gpm }}</td>
-                        <td data-title="XP">{{ m.xpm }}</td>
-                        <td data-title="APM">{{ m.apm }}</td>
-                        <td data-title="Wards">{{ m.wards }}</td>
+                        <td>{{ m.level }}</td>
+                        <td>{{ m.kills }}</td>
+                        <td>{{ m.deaths }}</td>
+                        <td>{{ m.assists }}</td>
+                        <td>{{ m.kdr }}</td>
+                        <td>{{ m.cs }}</td>
+                        <td>{{ m.denies }}</td>
+                        <td>{{ m.gpm }}</td>
+                        <td>{{ m.xpm }}</td>
+                        <td>{{ m.apm }}</td>
+                        <td>{{ m.wards }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

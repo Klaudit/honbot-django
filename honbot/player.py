@@ -75,6 +75,7 @@ def player_math(data, nick, mode):
             stats['TSR'] = None
     else:
         stats['TSR'] = 0.0
+    print json.dumps(stats)
     return stats
 
 

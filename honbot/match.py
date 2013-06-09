@@ -73,7 +73,7 @@ def checkfile(match_id):
     """
     check if match has been parsed before returns bool
     """
-    if Matches.objects.filter(match_id=match_id).count() == 1:
+    if Matches.objects.filter(match_id=match_id).exists():
         return True
     else:
         return False
@@ -194,6 +194,10 @@ def multimatch(data, history, mode):
             player['gpm'] = round(int(m['gold']) / matchlength, 1)
             player['xpm'] = round(int(m['exp']) / matchlength, 1)
             player['apm'] = round(int(m['actions']) / matchlength, 1)
+        else:
+            player['gpm'] = 0
+            player['xpm'] = 0
+            player['apm'] = 0
         player['cs'] = m['teamcreepkills']
         try:
             player['kdr'] = round(float(player['kills']) / float(player['deaths']), 1)

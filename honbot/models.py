@@ -14,6 +14,9 @@ class Matches(models.Model):
     build = models.PositiveSmallIntegerField(default=0)
     added = models.DateTimeField(auto_now_add=True, default=0)
 
+    class Meta:
+        ordering = ['-match_id']
+
 
 class PlayerMatches(models.Model):
     player_id = models.PositiveIntegerField(default=0)
@@ -23,7 +26,7 @@ class PlayerMatches(models.Model):
     apm = models.FloatField(default=0)
     cs = models.PositiveSmallIntegerField(default=0)
     smackdown = models.PositiveSmallIntegerField(default=0)
-    secsdead = models.PositiveSmallIntegerField(default=0)
+    secsdead = models.PositiveIntegerField(default=0)
     gpm = models.FloatField(default=0)
     bdmg = models.PositiveSmallIntegerField(default=0)
     herodmg = models.PositiveIntegerField(default=0)
@@ -44,11 +47,19 @@ class PlayerMatches(models.Model):
 
 class PlayerIcon(models.Model):
     player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
-    avatar = models.URLField(max_length=120, default="")
+    avatar = models.URLField(max_length=300, default="")
     updated = models.DateTimeField(auto_now=True, default=0)
 
 
+class PlayerHistory(models.Model):
+    player_id = models.PositiveIntegerField(default=0)
+    history = models.TextField(default="")
+    updated = models.DateTimeField(auto_now=True, default=0)
+    mode = models.CharField(max_length=10, default="")
+
+
 class PlayerStats(models.Model):
+    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
     username = models.CharField(max_length=30, default="")
     updated = models.DateTimeField(auto_now=True, default=0)
     ccalls = models.PositiveIntegerField(default=0)
@@ -56,7 +67,6 @@ class PlayerStats(models.Model):
     cc = models.PositiveIntegerField(default=0)
     assists = models.FloatField(default=0)
     TSR = models.FloatField(default=0)
-    player_id = models.PositiveIntegerField(default=0)
     kdr = models.FloatField(default=0)
     adenies = models.FloatField(default=0)
     aconsumables = models.FloatField(default=0)

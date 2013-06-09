@@ -2,7 +2,36 @@ import match
 import api_call
 import pretty
 import datetime
+from django.template import Context, loader
+from django.http import HttpResponse
+from error import error
 import json
+
+
+def players(request, name):
+    """
+    controls the player show
+    """
+    mode = request.get_full_path().split('/')[1]
+    if mode == "c":
+        url = '/player_statistics/casual/nickname/' + name
+        mode = "cs"
+    elif mode == "p":
+        url = '/player_statistics/public/nickname/' + name
+        mode = "acc"
+    else:
+        url = '/player_statistics/ranked/nickname/' + name
+        mode = "rnk"
+    data = api_call.get_json(url)
+    if data is not None:
+        statsdict = data
+        s = player_math(statsdict, name, mode)
+        ### deliver to view ###
+        t = loader.get_template('player.html')
+        c = Context({'stats': s, 'mode': mode})
+        return HttpResponse(t.render(c))
+    else:
+        return error(request, "S2 Servers down or name is incorrect. Try another name or try gently refreshing the page.")
 
 
 def player_math(data, nick, mode):
@@ -75,7 +104,6 @@ def player_math(data, nick, mode):
             stats['TSR'] = None
     else:
         stats['TSR'] = 0.0
-    print json.dumps(stats)
     return stats
 
 
@@ -115,7 +143,10 @@ def get_player_from_matches(history, account_id):
     matches = []
     for m in history:
         temp = {}
-        raw = match.load_match(m[0])
+        if match.checkfile(m[0]):
+            raw = match.load_match(m[0])
+        else:
+            raw = match.match(m[0])
         if raw is not None and int(m[0]) > 60000000:
             try:
                 temp = raw['players'][str(account_id)]

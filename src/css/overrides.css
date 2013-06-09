@@ -38,7 +38,9 @@ hr{
 .recent-match a{
   color: #191919;
 }
-
+#history{
+  padding-top: 10px;
+}
 .match-loss{
   border-collapse:separate;
   border-left: 4px;

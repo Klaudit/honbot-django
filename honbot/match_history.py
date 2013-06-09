@@ -3,20 +3,36 @@ from django.http import HttpResponse
 from api_call import get_json
 from match import recent_matches
 from player import match_history_data
+from honbot.models import *
+from datetime import datetime
+import json
 
 
-def ranked(request, number):
+def history(request, number):
     ### Get Match history ### api.heroesofnewerth.com/match_history/ranked/accountid/123456/?token=yourtoken
     return_size = 10  # total result size
     count = int(request.GET.get('more', '')) * return_size
     mode = str(request.GET.get('mode', ''))
-    if mode == "rnk":
-        url = '/match_history/ranked/accountid/' + number
-    elif mode == "cs":
-        url = '/match_history/casual/accountid/' + number
-    elif mode == "acc":
-        url = '/match_history/public/accountid/' + number
-    data = get_json(url)
+    m = PlayerHistory.objects.filter(player_id=number, mode=mode)
+    if bool(m):
+        print "old history"
+        tdelta = datetime.utcnow() - datetime.strptime(str(m.values()[0]['updated']), "%Y-%m-%d %H:%M:%S+00:00")
+        if tdelta.seconds < 1080:
+            data = json.loads(m.values()[0]['history'])
+        else:
+            data = None
+    else:
+        data = None
+    if data is None:
+        print "new history"
+        if mode == "rnk":
+            url = '/match_history/ranked/accountid/' + number
+        elif mode == "cs":
+            url = '/match_history/casual/accountid/' + number
+        elif mode == "acc":
+            url = '/match_history/public/accountid/' + number
+        data = get_json(url)
+        PlayerHistory(player_id=number, history=json.dumps(data), mode=mode).save()
     history = []
     if data is not None:
         history = recent_matches(data, return_size, count)

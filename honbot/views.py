@@ -87,28 +87,3 @@ def adv(request, match_id):
     else:
         return error(request, "S2 Servers down or match id is incorrect. Try another match or try gently refreshing the page.")
 
-
-def players(request, name):
-    """
-    controls the player show
-    """
-    mode = request.get_full_path().split('/')[1]
-    if mode == "c":
-        url = '/player_statistics/casual/nickname/' + name
-        mode = "cs"
-    elif mode == "p":
-        url = '/player_statistics/public/nickname/' + name
-        mode = "acc"
-    else:
-        url = '/player_statistics/ranked/nickname/' + name
-        mode = "rnk"
-    data = api_call.get_json(url)
-    if data is not None:
-        statsdict = data
-        s = player.player_math(statsdict, name, mode)
-        ### deliver to view ###
-        t = loader.get_template('player.html')
-        c = Context({'stats': s, 'mode': mode})
-        return HttpResponse(t.render(c))
-    else:
-        return error(request, "S2 Servers down or name is incorrect. Try another name or try gently refreshing the page.")

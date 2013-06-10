@@ -209,7 +209,7 @@ def multimatch(data, history, mode):
         try:
             player['nickname'] = m['nickname']
         except:
-            pass
+            player['nickname'] = PlayerMatches.objects.filter(player_id=player['id']).values()[0]
         allmatches[m['match_id']]['players'][m['account_id']] = player
         allmatches[m['match_id']]['players'][m['account_id']]['items'] = None
     for m in data[1]:
@@ -224,7 +224,7 @@ def multimatch(data, history, mode):
             allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = m['nickname']
             allmatches[m['match_id']]['players'][m['account_id']]['items'] = items
         except KeyError:
-            pass
+            allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = PlayerMatches.objects.filter(player_id=m['account_id']).values()[0]
     for m in data[0]:
         if m['cas'] == 1:
             allmatches[m['match_id']]['type'] = "Casual"

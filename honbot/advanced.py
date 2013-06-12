@@ -2,9 +2,10 @@ import requests
 import zipfile
 import codecs
 import magic
-from match import checkfile, get_download, get_player_names
+from match import checkfile, get_download
 from os import remove, path
 from django.conf import settings
+from honbot.models import PlayerMatches
 
 directory = settings.MEDIA_ROOT
 
@@ -54,8 +55,8 @@ def main(match_id):
 
 
 def parse(match_id):
-    # get names from api. This needs to be fixed for if I use alternate download method.
-    names = get_player_names(match_id)
+    # get array of names in match to later decide order (log positions are wrong)
+    names = [p['nickname'] for p in PlayerMatches.objects.order_by('position').filter(match_id=match_id).values('nickname')]
     logfile = codecs.open(directory + 'm' + match_id + '.log', encoding='utf-16-le', mode='rb').readlines()  # open file with proper encoding
     data = magic.Magic(match_id)  # init the magic
     data.INFO_DATE(logfile.pop(0))  # first line cannot be parsed for whatever reason

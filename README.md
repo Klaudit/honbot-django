@@ -19,11 +19,31 @@ This generates a script in honbot/migrations
 ####License
 Included in license.md
 
-Issues
+Current Issues
 -------
-Player recent matches are loading entire match rather than the newly available player stats  
-Team Totals on the match page shows kills and deaths, this is mostly redundant should show XPM instead  
+Player recent matches are loading entire match rather than PlayerMatch from DB
+    * Issue with this is matches that aren't loaded into db
+    * move to ajax and json
 Advanced stats should be stored somehow  
-
 * Chat can be json.dumped
-* 
+* builds can be arrays or stored in individual columns
+* Move away from small icons and use large icons only (not sure if good idea)
+Items not being stored for matches  
+__Banners need to be available, fuck casual and public players__  
+    * Ajax modal
+Top Matches of week  
+    * load various player matches
+    * Most kills
+    * most deaths
+    * longest
+    * likes to ward
+    * Most active
+Figure out facebook likes  
+Use Stripped down bootstrap with customizer  
+Possible Typeahead on home page  
+
+Version 2.5 Planned Features
+---------------------------
+Tooltips
+Hero Stats/pages
+Item Pages

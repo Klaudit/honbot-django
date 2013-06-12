@@ -7,7 +7,7 @@ from datetime import datetime
 
 def avatar(request, number):
     p = PlayerIcon.objects.filter(player_id=number)
-    if len(p) == 1:
+    if bool(p):
         tdelta = datetime.utcnow() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S+00:00")
         if tdelta.days < 14:
             return HttpResponse(p.values()[0]['avatar'])

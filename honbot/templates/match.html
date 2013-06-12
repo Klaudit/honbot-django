@@ -114,10 +114,10 @@
                     <div id="kills" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
                 </div>
                 <div class="span4">
-                    <div id="deaths" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                    <div id="assists" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
                 </div>
                 <div class="span4">
-                    <div id="assists" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                    <div id="xpm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
                 </div>
             </div>
             <div class="row">
@@ -368,13 +368,13 @@ $(function () {
 });
 </script>
 <script>
-//total deaths
+//total xpm
 $(function () {
     var chart;
     $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {
-                renderTo: 'deaths',
+                renderTo: 'xpm',
                 backgroundColor: null,
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -391,7 +391,7 @@ $(function () {
                 }
             },
             title: {
-               text: 'Deaths',
+               text: 'XPM',
                style: {
                  color: '#666666',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
@@ -406,8 +406,8 @@ $(function () {
                 type: 'pie',
                 name: 'Deaths',
                 data: [
-                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.deaths}}{%endif%}{% endfor %})],
-                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.deaths}}{%endif%}{% endfor %})]
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.xpm}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.xpm}}{%endif%}{% endfor %})]
                 ]
             }]
         });

@@ -18,3 +18,12 @@ This generates a script in honbot/migrations
 
 ####License
 Included in license.md
+
+Issues
+-------
+Player recent matches are loading entire match rather than the newly available player stats  
+Team Totals on the match page shows kills and deaths, this is mostly redundant should show XPM instead  
+Advanced stats should be stored somehow  
+
+* Chat can be json.dumped
+* 

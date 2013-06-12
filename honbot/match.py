@@ -91,6 +91,8 @@ def match_save(data, match_id):
     for p in data['players']:
         if data['players'][p]['kdr'] == "Inf.":
             data['players'][p]['kdr'] = 999
+        if data['players'][p]['nickname'] is None:
+            data['players'][p]['nickname'] = p
         s = PlayerMatches(player_id=int(p), match=m,
                           deaths=data['players'][p]['deaths'],
                           kills=data['players'][p]['kills'],

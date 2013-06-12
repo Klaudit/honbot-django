@@ -25,10 +25,7 @@ hr{
 
 /* Table Formatting */
 .recent-match tbody tr:hover {
-    background-color: #bdc3c7;
-}
-.table-striped tbody tr:nth-child(odd) tr:hover{
-    background-color: #bdc3c7;
+    background-color: #fff;
 }
 .recent-match td{
     vertical-align: middle;
@@ -39,11 +36,11 @@ hr{
   color: #191919;
 }
 #history{
-  padding-top: 10px;
+  margin-top: 5px;
 }
 .match-loss{
   border-collapse:separate;
-  border-left: 4px;
+  border-left: 2px;
   border-left-style: solid;
   border-left-color: #c0392b;
   background-color: rgb(192,57,43);
@@ -52,7 +49,7 @@ hr{
 
 .match-win {
   border-collapse:separate;
-  border-left: 4px;
+  border-left: 2px;
   border-left-style: solid;
   border-left-color: #27ae60;
   background-color: rgb(39,174,96);

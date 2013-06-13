@@ -10,7 +10,7 @@ from datetime import datetime
 
 def history(request, account_id):
     ### Get Match history ### api.heroesofnewerth.com/match_history/ranked/accountid/123456/?token=yourtoken
-    return_size = 10  # total result size
+    return_size = 25  # total result size
     count = int(request.GET.get('more', '')) * return_size
     mode = str(request.GET.get('mode', ''))
     m = PlayerHistory.objects.filter(player_id=account_id, mode=mode)

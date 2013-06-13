@@ -55,12 +55,9 @@ hr{
   background-color: rgb(39,174,96);
   background-color: rgba(39,174,96, .1);
 }
+
 .center-headers th{
   text-align: center;
-}
-
-.white {
-  background-color: #fff;
 }
 
 /* color changes */
@@ -448,7 +445,86 @@ h6 {
 .chat-row{
   display: block;
 }
-
+.player-0-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #002c9f;
+  background-color: rgb(0,44,159);
+  background-color: rgba(0,44,159, .1);
+}
+.player-1-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #00c19e;
+  background-color: rgb(0,193,158);
+  background-color: rgba(0,193,158, .1);
+}
+.player-2-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #770092;
+  background-color: rgb(119,0,146);
+  background-color: rgba(119,0,146, .1);
+}
+.player-3-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #f2d500;
+  background-color: rgb(242,213,0);
+  background-color: rgba(242,213,0, .1);
+}
+.player-4-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #ff7d29;
+  background-color: rgb(255,125,41);
+  background-color: rgba(255,125,41, .1);
+}
+.player-5-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #ff44ab;
+  background-color: rgb(155,68,171);
+  background-color: rgba(155,68,171, .1);
+}
+.player-6-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #727272;
+  background-color: rgb(114,114,114);
+  background-color: rgba(114,114,114, .1);
+}
+.player-7-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #00a0da;
+  background-color: rgb(0,160,218);
+  background-color: rgba(0,160,218, .1);
+}
+.player-8-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #006448;
+  background-color: rgb(0,100,72);
+  background-color: rgba(0,100,72, .1);
+}
+.player-9-row{
+  border-collapse:separate;
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #562507;
+  background-color: rgb(86,37,7);
+  background-color: rgba(86,37,7, .1);
+}
 .player-0 a{
   color: black;
   padding-left: 1px;

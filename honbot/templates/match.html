@@ -36,7 +36,7 @@
     </ul>
     <div class="row">
         <div class="span12">
-            <table class="table table-condensed table-striped">
+            <table class="table table-condensed">
                 <thead>
                     <tr>
                         <th>Player</th>
@@ -57,9 +57,8 @@
                 <tbody>
                 {% for m in stats.players %}
                 {% if m.position == '5' %}</tbody><tbody>{% endif %}
-                    <tr>
+                    <tr class="player-{{m.position}}-row">
                         <td>
-                            <img src='/static/img/p/{{ m.position }}.jpg'>
                             <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30> 
                             <a href="/player/{{ m.nickname }}/">
                                 {{ m.nickname }} 
@@ -396,6 +395,10 @@ $(function () {
                  color: '#666666',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y:.1f}</b>',
+                percentageDecimals: 1
             },
             colors: ['#c0392b', '#27ae60'],
             credits: {

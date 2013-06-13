@@ -21,13 +21,12 @@ Included in license.md
 
 Current Issues
 -------
-Player recent matches are loading entire match rather than PlayerMatch from DB
-    * Issue with this is matches that aren't loaded into db
-    * move to ajax and json
-Advanced stats should be stored somehow  
-* Chat can be json.dumped
-* builds can be arrays or stored in individual columns
-* Move away from small icons and use large icons only (not sure if good idea)
+Move recent matches to ajax and json
+When grabbing matches always grab max and have a queue of matches
+* Advanced stats should be stored somehow  
+    * Chat can be json.dumped
+    * builds can be arrays or stored in individual columns
+    * Move away from small icons and use large icons only (not sure if good idea)
 Items not being stored for matches  
 __Banners need to be available, fuck casual and public players__  
     * Ajax modal
@@ -49,3 +48,4 @@ Version 2.5 Planned Features
 Tooltips
 Hero Stats/pages
 Item Pages
+Check out s2r2 and see if it can work

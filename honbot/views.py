@@ -86,4 +86,3 @@ def adv(request, match_id):
         return HttpResponse(t.render(c))
     else:
         return error(request, "S2 Servers down or match id is incorrect. Try another match or try gently refreshing the page.")
-

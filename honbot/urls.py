@@ -17,7 +17,7 @@ urlpatterns = patterns(
     url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat'),
     url(r'^advanced/(?P<match_id>[0-9]+)/$', 'honbot.views.adv'),
     url(r'^avatar/(?P<number>[0-9]+)/$', 'honbot.avatar.avatar'),
-    url(r'^match_history/(?P<number>[0-9]+)/$', 'honbot.match_history.history'),
+    url(r'^match_history/(?P<account_id>[0-9]+)/$', 'honbot.match_history.history'),
     url(r'^recent/$', 'honbot.recent.recent'),
     (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt")),
 )

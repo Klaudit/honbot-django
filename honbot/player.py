@@ -1,11 +1,7 @@
-import match
 import api_call
-import pretty
-import datetime
 from django.template import Context, loader
 from django.http import HttpResponse
 from error import error
-import json
 
 
 def players(request, name):
@@ -105,54 +101,3 @@ def player_math(data, nick, mode):
     else:
         stats['TSR'] = 0.0
     return stats
-
-
-def match_history_data(history, account_id, mode):
-    """
-    this will take a player history and decide which matches need to be downloaded and pass
-    them to a multimatch api call this will auto call the function to parse a single players match history
-    """
-    url = '/multi_match/all/matchids/'
-    plus = False
-    count = 0
-    needed = []
-    for m in history:
-        if not match.checkfile(m[0]):
-            if plus:
-                url = url + '+' + str(m[0])
-            else:
-                url = url + str(m[0])
-                plus = True
-            count += 1
-            needed.append(m)
-    if count > 0:
-        data = api_call.get_json(url)
-        if data is not None:
-            match.multimatch(data, needed, mode)
-            return get_player_from_matches(history, account_id)
-        else:
-            return get_player_from_matches(history, account_id)
-    else:
-        return get_player_from_matches(history, account_id)
-
-
-def get_player_from_matches(history, account_id):
-    """
-    this takes a list of matches and returns that player's stats in that match
-    """
-    matches = []
-    for m in history:
-        temp = {}
-        if match.checkfile(m[0]):
-            raw = match.load_match(m[0])
-        else:
-            raw = match.match(m[0])
-        if raw is not None and int(m[0]) > 60000000:
-            try:
-                temp = raw['players'][str(account_id)]
-                temp['match_id'] = m[0]
-                temp['date'] = pretty.date(datetime.datetime.strptime(raw['date'], '%Y-%m-%d %H:%M:%S'))
-                matches.append(temp)
-            except KeyError:
-                pass
-    return matches

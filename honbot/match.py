@@ -43,32 +43,6 @@ def prepare_match(data, match_id):
     return match
 
 
-def recent_matches(match_json, results, count):
-    """
-    returns specifed number of recent matches and win loss status as bool
-    """
-    if match_json[0]['history'] is not None:
-        data = match_json[0]['history'].split(',')
-        matches = []
-        temp = []
-        for i in data:
-            temp = i.split('|')
-            try:
-                temp.pop(1)
-            except:
-                pass
-            if len(matches) > 0:
-                if matches[-1][0] != temp[0]:
-                    matches.append(temp)
-            else:
-                matches.append(temp)
-        matches.reverse()
-        return matches[count:results+count]
-    else:
-        matches = []
-        return matches
-
-
 def checkfile(match_id):
     """
     check if match has been parsed before returns bool
@@ -202,7 +176,7 @@ def multimatch(data, history, mode):
         try:
             player['nickname'] = m['nickname']
         except:
-            player['nickname'] = PlayerMatches.objects.filter(player_id=player['id']).values()[0]
+            player['nickname'] = None
         allmatches[m['match_id']]['players'][m['account_id']] = player
         allmatches[m['match_id']]['players'][m['account_id']]['items'] = None
     for m in data[1]:
@@ -213,11 +187,11 @@ def multimatch(data, history, mode):
         items[3] = m['slot_4']
         items[4] = m['slot_5']
         items[5] = m['slot_6']
+        allmatches[m['match_id']]['players'][m['account_id']]['items'] = items
         try:
             allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = m['nickname']
-            allmatches[m['match_id']]['players'][m['account_id']]['items'] = items
         except KeyError:
-            allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = PlayerMatches.objects.filter(player_id=m['account_id']).values()[0]
+            allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = None
     for m in data[0]:
         if m['cas'] == 1:
             allmatches[m['match_id']]['type'] = "Casual"

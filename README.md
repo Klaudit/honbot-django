@@ -41,6 +41,8 @@ Top Matches of week
 Figure out facebook likes  
 Use Stripped down bootstrap with customizer  
 Possible Typeahead on home page  
+Consider Using Pronto
+Possibly use clickjacking
 
 Version 2.5 Planned Features
 ---------------------------

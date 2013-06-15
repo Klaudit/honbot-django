@@ -36,7 +36,7 @@
     </ul>
     <div class="row">
         <div class="span12">
-            <table class="table table-condensed">
+            <table class="table table-condensed table-striped">
                 <thead>
                     <tr>
                         <th>Player</th>
@@ -56,7 +56,7 @@
                 </thead>
                 <tbody>
                 {% for m in stats.players %}
-                {% if m.position == '5' %}</tbody><tbody>{% endif %}
+                {% if m.position == 5 %}</tbody><tbody>{% endif %}
                     <tr class="player-{{m.position}}-row">
                         <td>
                             <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30> 

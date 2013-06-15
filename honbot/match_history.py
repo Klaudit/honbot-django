@@ -37,22 +37,23 @@ def history(request, account_id):
         else:
             PlayerHistory(player_id=account_id, history=json.dumps(data), mode=mode).save()
     history = []
-    if data[0]['history'] is not None:
-        data = data[0]['history'].split(',')
-        temp = []
-        for i in data:
-            temp = i.split('|')
-            try:
-                temp.pop(1)
-            except:
-                pass
-            if len(history) > 0:
-                if history[-1][0] != temp[0]:
+    if data is not None:
+        if data[0]['history'] is not None:
+            data = data[0]['history'].split(',')
+            temp = []
+            for i in data:
+                temp = i.split('|')
+                try:
+                    temp.pop(1)
+                except:
+                    pass
+                if len(history) > 0:
+                    if history[-1][0] != temp[0]:
+                        history.append(temp)
+                else:
                     history.append(temp)
-            else:
-                history.append(temp)
-        history.reverse()
-        history = history[count:return_size+count]
+            history.reverse()
+            history = history[count:return_size+count]
     ### Get Match History Data ###
     url = '/multi_match/all/matchids/'
     plus = False

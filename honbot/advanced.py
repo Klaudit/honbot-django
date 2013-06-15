@@ -2,10 +2,10 @@ import requests
 import zipfile
 import codecs
 import magic
-from match import checkfile, get_download
+from match import checkfile
 from os import remove, path
 from django.conf import settings
-from honbot.models import PlayerMatches
+from honbot.models import PlayerMatches, Matches
 
 directory = settings.MEDIA_ROOT
 
@@ -18,7 +18,7 @@ def main(match_id):
     if path.exists(directory + 'm' + str(match_id) + '.log'):
         return parse(match_id)
     if checkfile(match_id):
-        url = get_download(match_id)
+        url = Matches.objects.filter(match_id=match_id).values('replay_url')[0]['replay_url']
         url = url[:-9] + 'zip'
         # download file
         r = requests.get(url)
@@ -32,26 +32,6 @@ def main(match_id):
         # cleanup zip
         remove(directory + str(match_id) + '.zip')
         return parse(match_id)
-    else:
-        # this method is janky. hence all the 404 checks to back out quickly if things go south
-        try:
-            r = requests.get('http://replaydl.heroesofnewerth.com/replay_dl.php?file=&match_id=' + match_id, timeout=2)
-            if r.status_code == 404:
-                return None
-            url = r.url[:-9] + 'zip'
-            r = requests.get(url)
-            if r.status_code == 404:
-                return None
-            with open(directory + str(match_id)+".zip", "wb") as code:
-                code.write(r.content)
-            z = zipfile.ZipFile(directory + str(match_id) + '.zip')
-            z.extract(z.namelist()[0], directory)
-            z.close()
-            # cleanup zip
-            remove(directory + str(match_id) + '.zip')
-            return parse(match_id)
-        except:
-            return None
 
 
 def parse(match_id):

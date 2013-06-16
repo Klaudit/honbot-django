@@ -43,6 +43,7 @@ class PlayerMatches(models.Model):
     wards = models.PositiveSmallIntegerField(default=0)
     team = models.PositiveSmallIntegerField(default=0)
     position = models.PositiveSmallIntegerField(default=0)
+    items = models.CharField(max_length=50, default="")
 
 
 class PlayerIcon(models.Model):

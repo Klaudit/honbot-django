@@ -68,30 +68,30 @@ def match_save(data, match_id):
             data['players'][p]['kdr'] = 999
         if data['players'][p]['nickname'] is None:
             data['players'][p]['nickname'] = p
-        s = PlayerMatches(player_id=int(p), match=m,
-                          deaths=data['players'][p]['deaths'],
-                          kills=data['players'][p]['kills'],
-                          win=bool(data['players'][p]['win']),
-                          apm=float(data['players'][p]['apm']),
-                          cs=data['players'][p]['cs'],
-                          smackdown=data['players'][p]['smackdown'],
-                          secsdead=data['players'][p]['secsdead'],
-                          gpm=float(data['players'][p]['gpm']),
-                          bdmg=data['players'][p]['bdmg'],
-                          herodmg=data['players'][p]['herodmg'],
-                          xpm=float(data['players'][p]['xpm']),
-                          kdr=float(data['players'][p]['kdr']),
-                          goldlost2death=data['players'][p]['goldlost2death'],
-                          denies=data['players'][p]['denies'],
-                          hero=data['players'][p]['hero'],
-                          consumables=data['players'][p]['consumables'],
-                          assists=data['players'][p]['assists'],
-                          nickname=data['players'][p]['nickname'],
-                          level=data['players'][p]['level'],
-                          wards=data['players'][p]['wards'],
-                          team=data['players'][p]['team'],
-                          position=data['players'][p]['position'])
-        s.save()
+        PlayerMatches(player_id=int(p), match=m,
+                      deaths=data['players'][p]['deaths'],
+                      kills=data['players'][p]['kills'],
+                      win=bool(data['players'][p]['win']),
+                      apm=float(data['players'][p]['apm']),
+                      cs=data['players'][p]['cs'],
+                      smackdown=data['players'][p]['smackdown'],
+                      secsdead=data['players'][p]['secsdead'],
+                      gpm=float(data['players'][p]['gpm']),
+                      bdmg=data['players'][p]['bdmg'],
+                      herodmg=data['players'][p]['herodmg'],
+                      xpm=float(data['players'][p]['xpm']),
+                      kdr=float(data['players'][p]['kdr']),
+                      goldlost2death=data['players'][p]['goldlost2death'],
+                      denies=data['players'][p]['denies'],
+                      hero=data['players'][p]['hero'],
+                      consumables=data['players'][p]['consumables'],
+                      assists=data['players'][p]['assists'],
+                      nickname=data['players'][p]['nickname'],
+                      level=data['players'][p]['level'],
+                      wards=data['players'][p]['wards'],
+                      team=data['players'][p]['team'],
+                      position=data['players'][p]['position'],
+                      items=json.dumps(data['players'][p]['items'])).save()
 
 
 def load_match(match_id):
@@ -104,7 +104,7 @@ def load_match(match_id):
     p = {}
     for player in PlayerMatches.objects.filter(match_id=match_id).values():
         p[str(player['player_id'])] = player
-        p[str(player['player_id'])]['items'] = []
+        p[str(player['player_id'])]['items'] = json.loads(p[str(player['player_id'])]['items'])
         if p[str(player['player_id'])]['kdr'] == 999:
             p[str(player['player_id'])]['kdr'] = "Inf."
     m['players'] = p

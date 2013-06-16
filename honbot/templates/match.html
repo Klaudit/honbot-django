@@ -59,13 +59,13 @@
                 {% if m.position == 5 %}</tbody><tbody>{% endif %}
                     <tr class="player-{{m.position}}-row">
                         <td>
-                            <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30> 
+                            <img src='/static/img/heroes/{{ m.hero }}/icon_128.jpg' width=30> 
                             <a href="/player/{{ m.nickname }}/">
                                 {{ m.nickname }} 
                             </a>
                         </td>
                         <td>
-                            
+                            {{ m.items }}
                         </td>
                         <td>{{ m.level }}</td>
                         <td>{{ m.kills }}</td>

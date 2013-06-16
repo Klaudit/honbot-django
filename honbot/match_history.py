@@ -15,7 +15,7 @@ def history(request, account_id):
     mode = str(request.GET.get('mode', ''))
     m = PlayerHistory.objects.filter(player_id=account_id, mode=mode)
     if m.exists():
-        tdelta = datetime.utcnow() - datetime.strptime(str(m.values()[0]['updated']), "%Y-%m-%d %H:%M:%S+00:00")
+        tdelta = datetime.utcnow() - datetime.strptime(str(m.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 1080:
             data = json.loads(m.values()[0]['history'])
         else:
@@ -96,6 +96,6 @@ def get_player_from_matches(history, account_id):
         if load.exists():
             temp = load.values()[0]
             temp['match_id'] = m[0]
-            temp['date'] = date(datetime.strptime(str(load[0].match.date), '%Y-%m-%d %H:%M:%S+00:00'))
+            temp['date'] = date(datetime.strptime(str(load[0].match.date), '%Y-%m-%d %H:%M:%S'))
             matches.append(temp)
     return matches

@@ -24,7 +24,7 @@ def players(request, name):
         mode = "rnk"
         p = PlayerStats.objects.filter(nickname=name)
     if p.exists():
-        tdelta = datetime.utcnow() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S+00:00")
+        tdelta = datetime.utcnow() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 1000:
             s = p.values()[0]
             new = False
@@ -48,7 +48,6 @@ def players(request, name):
 
 
 def player_save(stats, mode):
-    print mode
     if mode == "rnk":
         PlayerStats(player_id=stats['player_id'], nickname=stats['nickname'],
                     cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],

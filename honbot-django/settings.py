@@ -49,7 +49,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -112,9 +112,9 @@ WSGI_APPLICATION = 'honbot-django.wsgi.application'
 INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'honbot',
     'south',
-    'debug_toolbar',
 )
 
 TEMPLATE_DIRS = (

@@ -8,14 +8,24 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Deleting field 'PlayerStats.ccalls'
+        db.delete_column(u'honbot_playerstats', 'ccalls')
 
-        # Changing field 'PlayerMatches.secsdead'
-        db.alter_column(u'honbot_playermatches', 'secsdead', self.gf('django.db.models.fields.PositiveIntegerField')())
+        # Adding field 'PlayerStats.cccalls'
+        db.add_column(u'honbot_playerstats', 'cccalls',
+                      self.gf('django.db.models.fields.PositiveIntegerField')(default=0),
+                      keep_default=False)
+
 
     def backwards(self, orm):
+        # Adding field 'PlayerStats.ccalls'
+        db.add_column(u'honbot_playerstats', 'ccalls',
+                      self.gf('django.db.models.fields.PositiveIntegerField')(default=0),
+                      keep_default=False)
 
-        # Changing field 'PlayerMatches.secsdead'
-        db.alter_column(u'honbot_playermatches', 'secsdead', self.gf('django.db.models.fields.PositiveSmallIntegerField')())
+        # Deleting field 'PlayerStats.cccalls'
+        db.delete_column(u'honbot_playerstats', 'cccalls')
+
 
     models = {
         u'honbot.matches': {
@@ -89,7 +99,7 @@ class Migration(SchemaMigration):
             'awards': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'axpmin': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'cc': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'ccalls': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'cccalls': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'deaths': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'hours': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'kadr': ('django.db.models.fields.FloatField', [], {'default': '0'}),
@@ -100,9 +110,73 @@ class Migration(SchemaMigration):
             'losses': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'matches': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'mmr': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'nickname': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '30'}),
             'player_id': ('django.db.models.fields.PositiveIntegerField', [], {'unique': 'True', 'primary_key': 'True'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'default': '0', 'auto_now': 'True', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '30'}),
+            'winpercent': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '4'}),
+            'wins': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'})
+        },
+        u'honbot.playerstatscasual': {
+            'Meta': {'object_name': 'PlayerStatsCasual'},
+            'TSR': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'aactionsmin': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'aconsumables': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'acs': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'adeaths': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'adenies': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'agoldmin': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'akills': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'assists': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'atime': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'awards': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'axpmin': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'cc': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'cccalls': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'deaths': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'hours': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'kadr': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'kdr': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'kicked': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'kills': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'left': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'losses': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'matches': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'mmr': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'nickname': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '30'}),
+            'player_id': ('django.db.models.fields.PositiveIntegerField', [], {'unique': 'True', 'primary_key': 'True'}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': '0', 'auto_now': 'True', 'blank': 'True'}),
+            'winpercent': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '4'}),
+            'wins': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'})
+        },
+        u'honbot.playerstatspublic': {
+            'Meta': {'object_name': 'PlayerStatsPublic'},
+            'TSR': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'aactionsmin': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'aconsumables': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'acs': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'adeaths': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'adenies': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'agoldmin': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'akills': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'assists': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'atime': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'awards': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'axpmin': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'cc': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'cccalls': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'deaths': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'hours': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'kadr': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'kdr': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'kicked': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'kills': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'left': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'losses': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'matches': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'mmr': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'nickname': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '30'}),
+            'player_id': ('django.db.models.fields.PositiveIntegerField', [], {'unique': 'True', 'primary_key': 'True'}),
+            'updated': ('django.db.models.fields.DateTimeField', [], {'default': '0', 'auto_now': 'True', 'blank': 'True'}),
             'winpercent': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '4'}),
             'wins': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'})
         }

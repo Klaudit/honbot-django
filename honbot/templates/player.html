@@ -155,7 +155,7 @@
     </div>
 </div>
 <script>
-$.get("/match_history/{{ stats.id }}/?more=0&mode={{ mode }}",
+$.get("/match_history/{{ stats.player_id }}/?more=0&mode={{ mode }}",
 function (data) {
     if (data == "stop") {
         $('#more').remove();
@@ -176,7 +176,7 @@ $("#more").click(function() {
     $("#match-load").show();
     var table = $('#recent-matches')
     counter++;
-    url = "/match_history/{{ stats.id }}/?more=" + String(counter) + "&mode={{ mode }}"
+    url = "/match_history/{{ stats.player_id }}/?more=" + String(counter) + "&mode={{ mode }}"
     $.get(url,
     function(data) {
         if(data == "stop") {
@@ -195,7 +195,7 @@ $("#more").click(function() {
 });
 </script>
 <script>
-$.get("/avatar/{{ stats.id }}/",
+$.get("/avatar/{{ stats.player_id }}/",
     function(data) {
         $('#avatar').append(data)
     });

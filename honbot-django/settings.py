@@ -2,6 +2,7 @@
 import os.path
 import localsettings
 
+
 DEBUG = localsettings.is_debug()
 handler500 = 'honbot.views.errorfive'
 TEMPLATE_DEBUG = localsettings.is_debug()

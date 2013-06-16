@@ -116,18 +116,8 @@ h6 {
 
 /* Home Page Boxes */
 .home-box{
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
-}
-.home-box a{
-    color: #2C3E50;
-}
-.home-box a:hover{
-    color: #2C3E50;
-    -webkit-transition: 0.25s;
-    -moz-transition: 0.25s;
-    -o-transition: 0.25s;
-    transition: 0.25s;
 }
 /* Hero */
 .hero-title {
@@ -177,9 +167,6 @@ h6 {
 }
 
 /* Match Stats table */
-.match-table{
-
-}
 
 .btn-black {
   font-size: 14px;

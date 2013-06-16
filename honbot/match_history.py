@@ -14,7 +14,7 @@ def history(request, account_id):
     count = int(request.GET.get('more', '')) * return_size
     mode = str(request.GET.get('mode', ''))
     m = PlayerHistory.objects.filter(player_id=account_id, mode=mode)
-    if bool(m):
+    if m.exists():
         tdelta = datetime.utcnow() - datetime.strptime(str(m.values()[0]['updated']), "%Y-%m-%d %H:%M:%S+00:00")
         if tdelta.seconds + (tdelta.days * 86400) < 1080:
             data = json.loads(m.values()[0]['history'])
@@ -23,7 +23,6 @@ def history(request, account_id):
     else:
         data = None
     if data is None:
-        print "new history"
         if mode == "rnk":
             url = '/match_history/ranked/accountid/' + account_id
         elif mode == "cs":

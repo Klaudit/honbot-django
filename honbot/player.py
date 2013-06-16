@@ -1,7 +1,9 @@
 import api_call
 from django.template import Context, loader
 from django.http import HttpResponse
+from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic
 from error import error
+from datetime import datetime
 
 
 def players(request, name):
@@ -12,22 +14,74 @@ def players(request, name):
     if mode == "c":
         url = '/player_statistics/casual/nickname/' + name
         mode = "cs"
+        p = PlayerStatsCasual.objects.filter(nickname=name)
     elif mode == "p":
         url = '/player_statistics/public/nickname/' + name
         mode = "acc"
+        p = PlayerStatsPublic.objects.filter(nickname=name)
     else:
         url = '/player_statistics/ranked/nickname/' + name
         mode = "rnk"
-    data = api_call.get_json(url)
+        p = PlayerStats.objects.filter(nickname=name)
+    if p.exists():
+        tdelta = datetime.utcnow() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S+00:00")
+        if tdelta.seconds + (tdelta.days * 86400) < 1000:
+            s = p.values()[0]
+            new = False
+            data = True
+        else:
+            new = True
+            data = api_call.get_json(url)
+    else:
+        new = True
+        data = api_call.get_json(url)
     if data is not None:
-        statsdict = data
-        s = player_math(statsdict, name, mode)
+        if new:
+            s = player_math(data, name, mode)
+            player_save(s, mode)
         ### deliver to view ###
         t = loader.get_template('player.html')
         c = Context({'stats': s, 'mode': mode})
         return HttpResponse(t.render(c))
     else:
         return error(request, "S2 Servers down or name is incorrect. Try another name or try gently refreshing the page.")
+
+
+def player_save(stats, mode):
+    print mode
+    if mode == "rnk":
+        PlayerStats(player_id=stats['player_id'], nickname=stats['nickname'],
+                    cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],
+                    assists=stats['assists'], TSR=stats['TSR'], kdr=stats['kdr'],
+                    adenies=stats['adenies'], aconsumables=stats['aconsumables'],
+                    kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
+                    akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
+                    matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
+                    awards=stats['awards'], atime=stats['atime'], left=stats['left'],
+                    aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
+                    acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
+    elif mode == "acc":
+        PlayerStatsPublic(player_id=stats['player_id'], nickname=stats['nickname'],
+                          cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],
+                          assists=stats['assists'], TSR=stats['TSR'], kdr=stats['kdr'],
+                          adenies=stats['adenies'], aconsumables=stats['aconsumables'],
+                          kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
+                          akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
+                          matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
+                          awards=stats['awards'], atime=stats['atime'], left=stats['left'],
+                          aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
+                          acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
+    elif mode == "cs":
+        PlayerStatsCasual(player_id=stats['player_id'], nickname=stats['nickname'],
+                          cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],
+                          assists=stats['assists'], TSR=stats['TSR'], kdr=stats['kdr'],
+                          adenies=stats['adenies'], aconsumables=stats['aconsumables'],
+                          kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
+                          akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
+                          matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
+                          awards=stats['awards'], atime=stats['atime'], left=stats['left'],
+                          aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
+                          acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
 
 
 def player_math(data, nick, mode):
@@ -37,7 +91,7 @@ def player_math(data, nick, mode):
     TSR calculation
     """
     stats = {}
-    stats['id'] = int(data['account_id'])  # account id
+    stats['player_id'] = int(data['account_id'])  # account id
     try:
         stats['nickname'] = str(data['nickname'])  # name
     except:

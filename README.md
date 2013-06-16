@@ -22,12 +22,10 @@ Included in license.md
 Current Issues
 -------
 Move recent matches to ajax and json
-When grabbing matches always grab max and have a queue of matches
 * Advanced stats should be stored somehow  
     * Chat can be json.dumped
     * builds can be arrays or stored in individual columns
     * Move away from small icons and use large icons only (not sure if good idea)
-Items not being stored for matches  
 __Banners need to be available, fuck casual and public players__  
     * Ajax modal
 Top Matches of week  
@@ -37,7 +35,6 @@ Top Matches of week
     * longest
     * likes to ward
     * Most active
-Figure out facebook likes  
 Use Stripped down bootstrap with customizer  
 Possibly use clickjacking
 
@@ -50,3 +47,4 @@ Recent Matches
 Possible Typeahead on home page  
 Check out s2r2 and see if it can work
 switch to numpy
+Have a queue of players to be updated and pull down matches when idle

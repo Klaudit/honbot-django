@@ -59,13 +59,17 @@
                 {% if m.position == 5 %}</tbody><tbody>{% endif %}
                     <tr class="player-{{m.position}}-row">
                         <td>
-                            <img src='/static/img/heroes/{{ m.hero }}/icon_128.jpg' width=30> 
+                            <img style="width:30px" src='/static/img/heroes/{{ m.hero }}/icon_128.jpg'> 
                             <a href="/player/{{ m.nickname }}/">
                                 {{ m.nickname }} 
                             </a>
                         </td>
                         <td>
-                            {{ m.items }}
+                            {% for item in m.items %}
+                                {% if item != None  %}
+                                    <img src='/static/img/items/{{item}}.jpg'>
+                                {% endif %}
+                            {% endfor %}
                         </td>
                         <td>{{ m.level }}</td>
                         <td>{{ m.kills }}</td>

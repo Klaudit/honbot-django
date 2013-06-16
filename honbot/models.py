@@ -44,6 +44,7 @@ class PlayerMatches(models.Model):
     team = models.PositiveSmallIntegerField(default=0)
     position = models.PositiveSmallIntegerField(default=0)
     items = models.CharField(max_length=50, default="")
+    mode = models.CharField(max_length=10, default="")
 
 
 class PlayerIcon(models.Model):

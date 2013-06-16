@@ -39,7 +39,15 @@
         <div class="span12">
         {% for player in players %}
             {% if forloop.counter0 == 0 %}
-            <h3 style="margin-bottom: 0px;" class="player-{{player.position}}"><img style="padding-bottom: 6px; width: 44px;" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'> <a href="/player/{{ player.nickname }}">{{ player.nickname }}</a></h3>
+            <h3 style="margin-bottom: 0px;" class="player-{{player.position}}">
+                <img style="padding-bottom: 6px; width: 44px;" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'> 
+                <a href="/player/{{ player.nickname }}">{{ player.nickname }}</a>
+                {% for item in player.items %}
+                    {% if item != None  %}
+                        <img style="padding-bottom:5px;" src='/static/img/items/{{item}}.jpg'>
+                    {% endif %}
+                {% endfor %}
+            </h3>
             <div class="build-container">
                 <div class="build-row">
                     <img src="/static/img/heroes/{{ player.hero }}/ability1_128.jpg">

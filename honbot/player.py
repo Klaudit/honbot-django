@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic
 from error import error
 from datetime import datetime
+import json
 
 
 def players(request, name):

@@ -5,7 +5,6 @@ import pretty
 import datetime
 from honbot.models import Matches, PlayerMatches
 from django.conf import settings
-from django.utils import timezone
 
 
 directory = settings.MEDIA_ROOT
@@ -41,6 +40,12 @@ def prepare_match(data, match_id):
     match['players'] = players
     match['mode'] = data['mode']
     match['map'] = data['_map']
+    if match['mode'] == "rnk":
+        match['mode'] = "Ranked"
+    elif match['mode'] == "cs":
+        match['mode'] = "Casual"
+    elif match['mode'] == "acc":
+        match['mode'] = "Public"
     return match
 
 
@@ -54,12 +59,12 @@ def checkfile(match_id):
         return False
 
 
-def match_save(data, match_id):
+def match_save(data, match_id, mode):
     """
     save match to directory in json format
     """
     m = Matches(match_id=match_id, date=data['date'], replay_url=data['replay_url'],
-                realtime=data["realtime"], mode=data['mode'], major=data['major'],
+                realtime=data["realtime"], mode=mode, major=data['major'],
                 minor=data['minor'], revision=data['revision'], build=data['build'],
                 _map=data['map'])
     m.save()
@@ -91,7 +96,8 @@ def match_save(data, match_id):
                       wards=data['players'][p]['wards'],
                       team=data['players'][p]['team'],
                       position=data['players'][p]['position'],
-                      items=json.dumps(data['players'][p]['items'])).save()
+                      items=json.dumps(data['players'][p]['items']),
+                      mode=mode).save()
 
 
 def load_match(match_id):
@@ -121,6 +127,7 @@ def multimatch(data, history, mode):
     """
     pass this multimatch api results and the number of matches. it will parse and save the useful bits
     """
+    s2mode = mode
     if mode == "rnk":
         mode = "Ranked"
     elif mode == "cs":
@@ -219,4 +226,4 @@ def multimatch(data, history, mode):
         allmatches[m['match_id']]['map'] = m['map']
     ### Save to file ###
     for m in history:
-        match_save(allmatches[m[0]], m[0])
+        match_save(allmatches[m[0]], m[0], s2mode)

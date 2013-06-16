@@ -21,11 +21,9 @@ Included in license.md
 
 Current Issues
 -------
-Move recent matches to ajax and json
 * Advanced stats should be stored somehow  
     * Chat can be json.dumped
     * builds can be arrays or stored in individual columns
-    * Move away from small icons and use large icons only (not sure if good idea)
 __Banners need to be available, fuck casual and public players__  
     * Ajax modal
 Top Matches of week  
@@ -36,11 +34,11 @@ Top Matches of week
     * likes to ward
     * Most active
 Use Stripped down bootstrap with customizer  
-Possibly use clickjacking
 
 Version 2.5 Planned Features
 ---------------------------
 Tooltips
+Move recent matches to ajax and json
 Hero Stats/pages
 Item Pages
 Recent Matches
@@ -48,3 +46,12 @@ Possible Typeahead on home page
 Check out s2r2 and see if it can work
 switch to numpy
 Have a queue of players to be updated and pull down matches when idle
+Compare side by side players stats for heroes/matches
+Try to fall back when servers not available, show error
+
+
+###Querries
+__Find most used heroes__  
+
+    PlayerMatches.objects.filter(player_id=s['player_id'], mode=mode).values('hero').annotate(Count('hero')).order_by('-hero__count')
+

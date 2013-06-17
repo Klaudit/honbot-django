@@ -45,7 +45,7 @@ def players(request, name):
         c = Context({'stats': s, 'mode': mode})
         return HttpResponse(t.render(c))
     else:
-        return error(request, "S2 Servers down or name is incorrect. Try another name or try gently refreshing the page.")
+        return error(request, "S2 Servers down or name is incorrect. Try another name or gently refreshing the page.")
 
 
 def player_save(stats, mode):

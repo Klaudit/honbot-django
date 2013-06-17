@@ -24,8 +24,6 @@ Current Issues
 * Advanced stats should be stored somehow  
     * Chat can be json.dumped
     * builds can be arrays or stored in individual columns
-__Banners need to be available, fuck casual and public players__  
-    * Ajax modal
 Top Matches of week  
     * load various player matches
     * Most kills
@@ -34,10 +32,14 @@ Top Matches of week
     * likes to ward
     * Most active
 Use Stripped down bootstrap with customizer  
+Banners need to use database
+Banner string needs to be figured out /code didn't work correctly
 
 Version 2.5 Planned Features
 ---------------------------
 Tooltips
+Social Share Modal
+Find More fun querries
 Move recent matches to ajax and json
 Hero Stats/pages
 Item Pages
@@ -48,6 +50,7 @@ switch to numpy
 Have a queue of players to be updated and pull down matches when idle
 Compare side by side players stats for heroes/matches
 Try to fall back when servers not available, show error
+Share tab
 
 
 ###Querries

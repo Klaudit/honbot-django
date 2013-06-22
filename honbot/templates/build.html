@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Match {{match_id}} Builds | HonBot HoN Stats and Graphs {% endblock %}
+
+{% block main_content %}
+<header class="player-head" id="overview">
+    <div class='container'>
+        <div class="row">
+            <div class="span7">
+                <img class="pull-left" style="margin-top: 15px; padding-right: 4px;" src="/static/img/maps/{{ stats.map }}.jpg">
+                <h2 class="pull-left">{{ match_id }}</h2>
+            </div>
+            <div class="span5 player-tsr">
+                <div class="span1 winner text-center">
+                    <strong>Winner</strong><br>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Type</strong><br>{{ stats.mode }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Duration</strong><br>{{ stats.matchlength }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Played</strong><br>{{ stats.date }}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<br>
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li><a href="/match/{{ match_id }}">Overview</a></li>
+        <li><a href="/chat/{{ match_id }}">Chat Logs</a></li>
+        <li class="active"><a href="/builds/{{ match_id }}">Builds</a></li>
+    </ul>
+    {% for players in builds %}
+    <div class="row">
+        <div class="span12">
+        {% for player in players %}
+            {% if forloop.counter0 == 0 %}
+            <h3 style="margin-bottom: 0px;" class="player-{{player.position}}">
+                <img style="padding-bottom: 6px; width: 44px;" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'> 
+                <a href="/player/{{ player.nickname }}">{{ player.nickname }}</a>
+                {% for item in player.items %}
+                    {% if item != None  %}
+                        <img style="padding-bottom:5px;" src='/static/img/items/{{item}}.jpg'>
+                    {% endif %}
+                {% endfor %}
+            </h3>
+            <div class="build-container">
+                <div class="build-row">
+                    <img src="/static/img/heroes/{{ player.hero }}/ability1_128.jpg">
+                    <img src="/static/img/heroes/{{ player.hero }}/ability2_128.jpg">
+                    <img src="/static/img/heroes/{{ player.hero }}/ability3_128.jpg">
+                    <img src="/static/img/heroes/{{ player.hero }}/ability4_128.jpg">
+                    <img src="/static/img/heroes/boost_50.gif">
+                </div>
+            {% else %}
+                <div class="build-row">
+                    <div {% if player.ability == 1 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 1 %}selected{% endif %}">{% if player.ability == 1 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if player.ability == 2 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 2 %}selected{% endif %}">{% if player.ability == 2 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if player.ability == 3 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 3 %}selected{% endif %}">{% if player.ability == 3 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if player.ability == 4 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 4 %}selected{% endif %}">{% if player.ability == 4 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if player.ability == 5 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 5 %}selected{% endif %}">{% if player.ability == 5 %}{{forloop.counter0 }}{% endif %}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock main_content %}

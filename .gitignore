@@ -4,7 +4,7 @@
 *.pot
 *.pyc
 local_settings.py
-match/*.json*
+match/*
 
 honbot.sqlite3
 

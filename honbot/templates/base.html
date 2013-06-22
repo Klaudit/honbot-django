@@ -4,6 +4,7 @@
     <title>{% block page_title %}{% endblock %}</title>
     <meta name="description" content="Stats for Heroes of Newerth">
     <meta name="distribution" content="global">
+    <meta name="keywords" content="HoN, heroes of newrth, stats, chat, chat logs, MOAB, graphs, hon stats">
     <link href="/static/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="/static/css/bootstrap-responsive.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="/static/css/overrides.css" media="all" rel="stylesheet" type="text/css"/>
@@ -11,43 +12,49 @@
     <script src="/static/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="/static/favicon.ico" />
     <link rel="apple-touch-icon-precomposed" href="/static/apple-touch-icon.png" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
     {% block headers %}{% endblock %}
 </head>
-
 <body>
-<div id="wrap">
-    <header class="navbar navbar-inverse navbar-static-top"> <!-- alternative navbar navbar-inverse navbar-static-top -->
-        <nav class="navbar-inner">
-            <div class="container">
-                <a href="/" class="brand">HonBot</a>
-                <ul class="nav">
-                    <li>
-                        <form accept-charset="UTF-8" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" action="/players/" class="navbar-form" id="player_search"
-                              method="post">
-                            <input class="search-query" id="player" name="player" placeholder="Player Search" type="text"
-                                   value="" autofocus/>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    {% block main_content %}{% endblock main_content %}
-    <div id="push"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="navbar navbar-static-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/"><img style="padding-bottom: 3px;" src="/static/img/bars-small.png">HonBot</a>
+        <form id="searchform" class="navbar-form pull-left">
+            <input id="player" type="text" autocomplete="off" placeholder="Username" class="span2">
+            <button id="searchsubmit" type="submit" class="btn"><i class="icon-search icon-white"></i></button>
+        </form>
+        <ul class="nav">
+          <li><a href="/top/">Top Charts</a></li>
+        </ul>
+    </div>
+  </div>
 </div>
+{% block main_content %}{% endblock main_content %}
 <footer class="footer">
-    <small class="muted">
-        <p><a href="https://github.com/scttcper/honbot-django">source code</a> | 
-        <a href="https://www.facebook.com/honbott">facebook page</a></p>
-        <p><small>honbot.com &copy;<a href="https://github.com/scttcper"> Scott Cooper</a></small></p>
-    </small>
+    <div class="container">
+        <hr>
+        <div class="copyright-text pull-left">&copy; 2013 <a href="https://github.com/scttcper"> Scott Cooper</a></div>
+        <div class="pull-right">
+            <div class="fb-like" data-href="https://www.facebook.com/honbott" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div>
+        </div>
+    </div>
 </footer>
-</body>
 <script>
-    $("#player_search").submit(function () {
+    $("#searchform").submit(function () {
         var player = $('#player').val();
         window.location.href = "/player/" + player + "/"
         return false
     });
 </script>
+</body>
 </html>

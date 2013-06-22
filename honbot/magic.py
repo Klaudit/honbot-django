@@ -29,12 +29,14 @@ class Magic:
         self.remake = [0] * 10
         self.ability = [[0] * 5 for i in range(10)]
 
+    def builds(self):
+        return self.ability_upgrade
+
     def finish(self, names):
         """
         this will do my required math and sorting
         """
         #init
-        print names
         self.hapm = [0] * len(self.apm[1])
         self.lapm = [0] * len(self.apm[1])
         myorder = []
@@ -53,7 +55,6 @@ class Magic:
         # compare names from api and get order
         for p in self.players:
             myorder.append(names.index(p))
-        print myorder
         # copy into new order
         for i, order in enumerate(myorder):
             newplayers[order] = self.players[i]

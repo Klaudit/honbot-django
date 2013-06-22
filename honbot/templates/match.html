@@ -3,25 +3,39 @@
 {% block page_title %}{{ match_id }} Match Stats | HonBot {% endblock %}
 
 {% block main_content %}
-<header class="jumbotron subhead" id="overview">
+<header class="player-head" id="overview">
     <div class='container'>
-        {% if stats.players.0.win %}
-            <h1 class="text-success">Legion Wins!</h1>
-        {% else %}
-            <h1 class="text-error">Hellbourne Wins!</h1>
-        {% endif %}
-        <p class="lead">
-            <span>{{ match_id }}</span>
-            <span class="muted">|</span>
-            <span class="muted">{{ stats.matchlength }}</span>
-            
-        </p>
+        <div class="row">
+            <div class="span7">
+                <img class="pull-left" style="margin-top: 15px; padding-right: 4px;" src="/static/img/maps/{{ stats.map }}.jpg">
+                <h2 class="pull-left">{{ match_id }}</h2>
+            </div>
+            <div class="span5 player-tsr">
+                <div class="span1 text-center">
+                    <strong>Winner</strong><br>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Type</strong><br>{{ stats.mode }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Duration</strong><br>{{ stats.matchlength }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Played</strong><br>{{ stats.date }}
+                </div>
+            </div>
+        </div>
     </div>
 </header>
 <br>
 <div class='container'>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="/match/{{ match_id }}">Overview</a></li>
+        <li><a href="/chat/{{ match_id }}">Chat Logs</a></li>
+        <li><a href="/builds/{{ match_id }}">Builds</a></li>
+    </ul>
     <div class="row">
-        <div class="span12 well well-small marketing stats-title">
+        <div class="span12">
             <table class="table table-condensed table-striped">
                 <thead>
                     <tr>
@@ -42,33 +56,32 @@
                 </thead>
                 <tbody>
                 {% for m in stats.players %}
-                {% if m.position == '5' %}</tbody><tbody>{% endif %}
-                    <tr>
-                        <td data-title="Player">
-                            <img src='/static/img/p/{{ m.position }}.jpg'>
-                            <img src='/static/img/heroes/{{ m.hero }}/icon_30.jpg' width=30> 
+                {% if m.position == 5 %}</tbody><tbody>{% endif %}
+                    <tr class="player-{{m.position}}-row">
+                        <td>
+                            <img style="width:30px" src='/static/img/heroes/{{ m.hero }}/icon_128.jpg'> 
                             <a href="/player/{{ m.nickname }}/">
                                 {{ m.nickname }} 
                             </a>
                         </td>
-                        <td data-title="Items">
-                            {% for i in m.items %}
-                                {% if i %}
-                                    <img src='/static/img/items/{{ i }}.jpg' width=30>
+                        <td>
+                            {% for item in m.items %}
+                                {% if item != None  %}
+                                    <img src='/static/img/items/{{item}}.jpg'>
                                 {% endif %}
                             {% endfor %}
                         </td>
-                        <td data-title="lvl">{{ m.level }}</td>
-                        <td data-title="Kills">{{ m.kills }}</td>
-                        <td data-title="Deaths">{{ m.deaths }}</td>
-                        <td data-title="Assists">{{ m.assists }}</td>
-                        <td data-title="KDR">{{ m.kdr }}</td>
-                        <td data-title="CK">{{ m.cs }}</td>
-                        <td data-title="CD">{{ m.denies }}</td>
-                        <td data-title="GPM">{{ m.gpm }}</td>
-                        <td data-title="XP">{{ m.xpm }}</td>
-                        <td data-title="APM">{{ m.apm }}</td>
-                        <td data-title="Wards">{{ m.wards }}</td>
+                        <td>{{ m.level }}</td>
+                        <td>{{ m.kills }}</td>
+                        <td>{{ m.deaths }}</td>
+                        <td>{{ m.assists }}</td>
+                        <td>{{ m.kdr }}</td>
+                        <td>{{ m.cs }}</td>
+                        <td>{{ m.denies }}</td>
+                        <td>{{ m.gpm }}</td>
+                        <td>{{ m.xpm }}</td>
+                        <td>{{ m.apm }}</td>
+                        <td>{{ m.wards }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -78,8 +91,8 @@
 </div>
 <div class='container'>
     <div class="row">
-        <div class="span12 well well-small marketing">
-            <legend>Hero Damage</legend>
+        <div class="span12">
+            <h2 class="text-center">Hero Damage</h2>
             <div class="row">
                 <div class="span6 stats-title">
                     <div id="ldmg" style="min-width: 300px; height: 300px; margin: 0 auto"></div>
@@ -93,15 +106,34 @@
 </div>
 <div class='container'>
     <div class="row-fluid">
-        <div class="span7 well well-small marketing">
-            <legend>Gold Per Minute</legend>
-                <div id="lgpm" style="min-width: 300px; height: 350px; margin: 0 auto"></div>
+        <div class="span6">
+            <h2 class="text-center">Gold Per Minute</h2>
+            <div id="lgpm" style="min-width: 300px; height: 350px; margin: 0 auto"></div>
         </div>
-        <div class="span5 well">
-            <legend>Extras</legend>
-                <a href='/chat/{{ match_id }}/' class="btn btn-large btn-block">Chat Logs</a>
-                <a href="/advanced/{{ match_id }}" class='btn btn-large btn-block btn-success'>View Advanced Stats</a>
-                <small><strong class="text-error">Match must be less than 28 days old</strong></small>
+        <div class="span6">
+            <h2 class="text-center">Team Totals</h2>
+            <div class="row">
+                <div class="span4">
+                    <div id="kills" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+                <div class="span4">
+                    <div id="assists" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+                <div class="span4">
+                    <div id="xpm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <div id="creeps" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+                <div class="span4">
+                    <div id="gpm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+                <div class="span4">
+                    <div id="apm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -111,39 +143,6 @@
 $(function () {
     var chart;
     $(document).ready(function() {
-Highcharts.setOptions({
-    colors: [{
-        linearGradient: [0, 0, 0, 300],
-        stops: [
-            [0, '#003fe2'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 300],
-        stops: [
-            [0, '#00F5C8'],
-            [1, '#005949']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 350],
-        stops: [
-            [0, '#A000C4'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 500],
-        stops: [
-            [0, '#FAF614'],
-            [1, '#403F00']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 300],
-        stops: [
-            [0, '#ff7d29'],
-            [1, '#000000']
-        ]
-    }]
-});
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'ldmg',
@@ -159,8 +158,6 @@ Highcharts.setOptions({
                     animation: false,
                     dataLabels: {
                         enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -170,6 +167,7 @@ Highcharts.setOptions({
             title: {
                text: ''
             },
+            colors: ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29'],
             credits: {
                 enabled: false
             },
@@ -195,39 +193,6 @@ Highcharts.setOptions({
 $(function () {
     var chart;
     $(document).ready(function() {
-Highcharts.setOptions({
-    colors: [{
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#ff44ab'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#959698'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#4cc3ee'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#006448'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#4F1F02'],
-            [1, '#000000']
-        ]
-    }]
-});
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'hdmg',
@@ -243,8 +208,6 @@ Highcharts.setOptions({
                     animation: false,
                     dataLabels: {
                         enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -257,6 +220,7 @@ Highcharts.setOptions({
             credits: {
                 enabled: false
             },
+            colors: ['#ff44ab', '#727272', '#00a0da', '#006448', '#562507'],
             exporting: { enabled: false },
             series: [{
                 type: 'pie',
@@ -276,69 +240,6 @@ Highcharts.setOptions({
 </script>
 <script>
 $(function () {
-    Highcharts.setOptions({
-    colors: [{
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#003fe2'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#00F5C8'],
-            [1, '#005949']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#A000C4'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 550],
-        stops: [
-            [0, '#FAF614'],
-            [1, '#403F00']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 550],
-        stops: [
-            [0, '#ff7d29'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#ff44ab'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#959698'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#4cc3ee'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 450],
-        stops: [
-            [0, '#006448'],
-            [1, '#000000']
-        ]
-    }, {
-        linearGradient: [0, 0, 0, 490],
-        stops: [
-            [0, '#4F1F00'],
-            [1, '#000000']
-        ]
-    }]
-});
         $('#lgpm').highcharts({
             chart: {
                 type: 'column',
@@ -373,6 +274,7 @@ $(function () {
                     animation: false
                 }
             },
+            colors: ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29', '#ff44ab', '#727272', '#00a0da', '#006448', '#562507'],
             credits: {
                 enabled: false
             },
@@ -419,7 +321,305 @@ $(function () {
             }]
         });
     });
+</script>
+<script>
+//total kills
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'kills',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'Kills',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'Kills',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.kills}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.kills}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
     
-
+});
+</script>
+<script>
+//total xpm
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'xpm',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'XPM',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y:.1f}</b>',
+                percentageDecimals: 1
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'Deaths',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.xpm}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.xpm}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
+</script>
+<script>
+//total assists
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'assists',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'Assists',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'Assists',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.assists}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.assists}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
+</script>
+<script>
+//total creeps
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'creeps',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'Creeps',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'Creeps',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.cs}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.cs}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
+</script>
+<script>
+//total gpm
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'gpm',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'GPM',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y:.1f}</b>',
+                percentageDecimals: 1
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'GPM',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.gpm}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.gpm}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
+</script>
+<script>
+//total apm
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'apm',
+                backgroundColor: null,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    animation: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            },
+            title: {
+               text: 'APM',
+               style: {
+                 color: '#666666',
+                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+              }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y:.1f}</b>',
+                percentageDecimals: 1
+            },
+            colors: ['#c0392b', '#27ae60'],
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
+            series: [{
+                type: 'pie',
+                name: 'APM',
+                data: [
+                    ['Hellbourne', ({% for p in stats.players %}{% if p.team == 2%}+{{p.apm}}{%endif%}{% endfor %})],
+                    ['Legion', ({% for p in stats.players %}{% if p.team == 1%}+{{p.apm}}{%endif%}{% endfor %})]
+                ]
+            }]
+        });
+    });
+    
+});
 </script>
 {% endblock main_content %}

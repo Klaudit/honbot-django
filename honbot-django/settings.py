@@ -2,6 +2,7 @@
 import os.path
 import localsettings
 
+
 DEBUG = localsettings.is_debug()
 handler500 = 'honbot.views.errorfive'
 TEMPLATE_DEBUG = localsettings.is_debug()
@@ -16,14 +17,25 @@ MANAGERS = ADMINS
 
 ALLOWED_HOSTS = ['*']
 
+INTERNAL_IPS = ('127.0.0.1',)
+
 DATABASES = {
     'default': {
+<<<<<<< HEAD
         'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'honbot.sqlite3',  # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+=======
+        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'OPTIONS': {
+            'read_default_file': str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'honbot-django')) + '/my.cnf',
+        },
+        'USER': 'root',
+        'PASSWORD': 'cooper'
+>>>>>>> honbot-2.0
     }
 }
 
@@ -48,7 +60,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -102,10 +114,14 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+<<<<<<< HEAD
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+=======
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+>>>>>>> honbot-2.0
 )
 
 ROOT_URLCONF = 'honbot-django.urls'
@@ -120,12 +136,15 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     #django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+=======
+    'debug_toolbar',
+>>>>>>> honbot-2.0
     'honbot',
 )
-
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".

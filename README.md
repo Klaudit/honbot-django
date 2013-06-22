@@ -19,11 +19,6 @@ This generates a script in honbot/migrations
 ####License
 Included in license.md
 
-Current Issues
--------
-Use Stripped down bootstrap with customizer  
-
-
 Version 2.5 Planned Features
 ---------------------------
 Tooltips

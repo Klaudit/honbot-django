@@ -1,60 +1,11 @@
-import os.path
-from os import remove
-import time
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.http import HttpResponse
 from django.template import Context, loader
-from PIL import Image
 from random import randint
 import advanced
-import api_call
-import banner
 import match
 import player
 from error import error
 import json
-
-
-directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'banners')) + '/'
-
-
-def banner_view(request, name):
-    path = directory + str(name) + ".png"
-    # check file exists
-    if os.path.isfile(path):
-        # check file age
-        now = time.time()
-        fileCreation = os.path.getctime(path)
-        day_ago = now - 60*60*24
-        if fileCreation < day_ago:
-            remove(path)
-            return banner_view(request, name)
-        else:
-            # older than day remove
-            response = HttpResponse(mimetype="image/png")
-            img = Image.open(path)
-            img.save(response, 'png')
-            return response
-    else:
-        url = '/player_statistics/ranked/nickname/' + name
-        data = api_call.get_json(url)
-        if data is not None:
-            statsdict = data
-            s = player.player_math(statsdict, name, "rnk")
-            now = time.time()
-            response = HttpResponse(mimetype="image/png")
-            img = banner.banner(s)
-            img.save(response, 'png')
-            img.save(directory + str(name) + ".png")
-            return response
-        else:
-            response = HttpResponse()
-            response.status_code = 404
-            return response
-
-
-def v404(request):
-    return render_to_response('error.html')
 
 
 def home(request):
@@ -72,10 +23,6 @@ def match_view(request, match_id):
         return HttpResponse(t.render(c))
     else:
         return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
-
-
-def history(request, name):
-    return HttpResponseRedirect("/player/" + name + "/")
 
 
 def adv(request, match_id):

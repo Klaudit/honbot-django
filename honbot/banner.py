@@ -1,15 +1,68 @@
 from PIL import ImageFont
 from PIL import Image
 from PIL import ImageDraw
-import os.path
+from time import time
+from os import remove, path
+from django.http import HttpResponse
+from api_call import get_json
+from player import player_math, player_save
+from honbot.models import PlayerStats
+from datetime import datetime
 
-directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'fonts')) + '/'
+
+directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'banners')) + '/'
+fonts = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'fonts')) + '/'
+
+
+def banner_view(request, name):
+    location = directory + str(name) + ".png"
+    # check file exists
+    if path.isfile(location):
+        # check file age
+        now = time()
+        fileCreation = path.getctime(location)
+        day_ago = now - 60*60*24
+        if fileCreation < day_ago:
+            remove(location)
+            return banner_view(request, name)
+        else:
+            # older than day remove
+            response = HttpResponse(mimetype="image/png")
+            img = Image.open(location)
+            img.save(response, 'png')
+            return response
+    else:
+        p = PlayerStats.objects.filter(nickname=name)
+        url = '/player_statistics/ranked/nickname/' + name
+        if p.exists():
+            tdelta = datetime.utcnow() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
+            if tdelta.seconds + (tdelta.days * 86400) < 1000:
+                s = p.values()[0]
+                response = HttpResponse(mimetype="image/png")
+                img = banner(s)
+                img.save(response, 'png')
+                img.save(directory + str(name) + ".png")
+                return response
+        data = get_json(url)
+        if data is not None:
+            statsdict = data
+            s = player_math(statsdict, name, "rnk")
+            player_save(s, "rnk")
+            response = HttpResponse(mimetype="image/png")
+            img = banner(s)
+            img.save(response, 'png')
+            img.save(directory + str(name) + ".png")
+            return response
+        else:
+            response = HttpResponse()
+            response.status_code = 404
+            return response
 
 
 def banner(data):
-    name_font = ImageFont.truetype(directory + "Prototype.ttf", 30)
-    mmr_font = ImageFont.truetype(directory + "Prototype.ttf", 18)
-    honbot_font = ImageFont.truetype(directory + "Prototype.ttf", 10)
+    name_font = ImageFont.truetype(fonts + "Prototype.ttf", 30)
+    mmr_font = ImageFont.truetype(fonts + "Prototype.ttf", 18)
+    honbot_font = ImageFont.truetype(fonts + "Prototype.ttf", 10)
     img = Image.new("RGBA", (400, 60), (25, 25, 25))
     draw = ImageDraw.Draw(img)
     draw.text((2, -2), data['nickname'], (255, 255, 255), font=name_font)

@@ -35,8 +35,9 @@ def banner_view(request, name):
         p = PlayerStats.objects.filter(nickname=name)
         url = '/player_statistics/ranked/nickname/' + name
         if p.exists():
-            tdelta = datetime.utcnow() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
+            tdelta = datetime.now() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
             if tdelta.seconds + (tdelta.days * 86400) < 1000:
+                print "using saved stats"
                 s = p.values()[0]
                 response = HttpResponse(mimetype="image/png")
                 img = banner(s)

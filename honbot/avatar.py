@@ -8,7 +8,7 @@ from datetime import datetime
 def avatar(request, number):
     p = PlayerIcon.objects.filter(player_id=number)
     if bool(p):
-        tdelta = datetime.utcnow() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
+        tdelta = datetime.now() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.days < 14:
             return HttpResponse(p.values()[0]['avatar'])
     opener = urllib2.build_opener()

@@ -165,11 +165,15 @@
         <h3 id="myModalLabel">Stats Banner</h3>
     </div>
     <div class="modal-body text-center">
-        <img src="/banner/{{stats.nickname}}/">
-        <code>[url=http://honbot.com/player/{{stats.nickname}}/]<br>[img]http://honbot.com/banner/{{stats.nickname}}/[/img][/url]</code>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary">Copy BB code</button>
+        <div class="span5">
+            <img src="/banner/{{stats.nickname}}/">
+            <p>
+                <legend>BB Code</legend>
+                [url=http://honbot.com/player/{{stats.nickname}}/][img]http://honbot.com/banner/{{stats.nickname}}/[/img][/url]
+                <legend>Direct Link</legend>
+                http://honbot.com/banner/{{stats.nickname}}/
+            </p>
+        </div>
     </div>
 </div>
 <script>

@@ -8,53 +8,21 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting model 'Knight'
-        db.delete_table(u'honbot_knight')
-
-        # Adding model 'PlayerStatsCasual'
-        db.create_table(u'honbot_playerstatscasual', (
-            ('player_id', self.gf('django.db.models.fields.PositiveIntegerField')(unique=True, primary_key=True)),
-            ('nickname', self.gf('django.db.models.fields.CharField')(default='', max_length=30)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=0, auto_now=True, blank=True)),
-            ('cccalls', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('deaths', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('cc', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('TSR', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('kdr', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('adenies', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('aconsumables', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('kills', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('winpercent', self.gf('django.db.models.fields.CharField')(default='', max_length=4)),
-            ('kadr', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('akills', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('kicked', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('agoldmin', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('matches', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('mmr', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('hours', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('assists', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('awards', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('atime', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('aactionsmin', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('axpmin', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('adeaths', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('acs', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('wins', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('losses', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('left', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('aassists', self.gf('django.db.models.fields.FloatField')(default=0)),
-        ))
-        db.send_create_signal(u'honbot', ['PlayerStatsCasual'])
-
-        # Adding model 'PlayerHistory'
-        db.create_table(u'honbot_playerhistory', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('player_id', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('history', self.gf('django.db.models.fields.TextField')(default='')),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=0, auto_now=True, blank=True)),
+        # Adding model 'Matches'
+        db.create_table(u'honbot_matches', (
+            ('match_id', self.gf('django.db.models.fields.PositiveIntegerField')(unique=True, primary_key=True)),
+            ('date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('replay_url', self.gf('django.db.models.fields.URLField')(default='', max_length=120)),
+            ('realtime', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
             ('mode', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
+            ('_map', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
+            ('major', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
+            ('minor', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
+            ('revision', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
+            ('build', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
+            ('added', self.gf('django.db.models.fields.DateTimeField')(default=0, auto_now_add=True, blank=True)),
         ))
-        db.send_create_signal(u'honbot', ['PlayerHistory'])
+        db.send_create_signal(u'honbot', ['Matches'])
 
         # Adding model 'PlayerMatches'
         db.create_table(u'honbot_playermatches', (
@@ -84,24 +52,27 @@ class Migration(SchemaMigration):
             ('team', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
             ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
             ('items', self.gf('django.db.models.fields.CharField')(default='', max_length=50)),
+            ('mode', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
         ))
         db.send_create_signal(u'honbot', ['PlayerMatches'])
 
-        # Adding model 'Matches'
-        db.create_table(u'honbot_matches', (
-            ('match_id', self.gf('django.db.models.fields.PositiveIntegerField')(unique=True, primary_key=True)),
-            ('date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('replay_url', self.gf('django.db.models.fields.URLField')(default='', max_length=120)),
-            ('realtime', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
-            ('mode', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
-            ('_map', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
-            ('major', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
-            ('minor', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
-            ('revision', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
-            ('build', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
-            ('added', self.gf('django.db.models.fields.DateTimeField')(default=0, auto_now_add=True, blank=True)),
+        # Adding model 'PlayerIcon'
+        db.create_table(u'honbot_playericon', (
+            ('player_id', self.gf('django.db.models.fields.PositiveIntegerField')(unique=True, primary_key=True)),
+            ('avatar', self.gf('django.db.models.fields.URLField')(default='', max_length=300)),
+            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=0, auto_now=True, blank=True)),
         ))
-        db.send_create_signal(u'honbot', ['Matches'])
+        db.send_create_signal(u'honbot', ['PlayerIcon'])
+
+        # Adding model 'PlayerHistory'
+        db.create_table(u'honbot_playerhistory', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('player_id', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('history', self.gf('django.db.models.fields.TextField')(default='')),
+            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=0, auto_now=True, blank=True)),
+            ('mode', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
+        ))
+        db.send_create_signal(u'honbot', ['PlayerHistory'])
 
         # Adding model 'PlayerStats'
         db.create_table(u'honbot_playerstats', (
@@ -138,6 +109,41 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'honbot', ['PlayerStats'])
 
+        # Adding model 'PlayerStatsCasual'
+        db.create_table(u'honbot_playerstatscasual', (
+            ('player_id', self.gf('django.db.models.fields.PositiveIntegerField')(unique=True, primary_key=True)),
+            ('nickname', self.gf('django.db.models.fields.CharField')(default='', max_length=30)),
+            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=0, auto_now=True, blank=True)),
+            ('cccalls', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('deaths', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('cc', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('TSR', self.gf('django.db.models.fields.FloatField')(default=0)),
+            ('kdr', self.gf('django.db.models.fields.FloatField')(default=0)),
+            ('adenies', self.gf('django.db.models.fields.FloatField')(default=0)),
+            ('aconsumables', self.gf('django.db.models.fields.FloatField')(default=0)),
+            ('kills', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('winpercent', self.gf('django.db.models.fields.CharField')(default='', max_length=4)),
+            ('kadr', self.gf('django.db.models.fields.FloatField')(default=0)),
+            ('akills', self.gf('django.db.models.fields.FloatField')(default=0)),
+            ('kicked', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('agoldmin', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('matches', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('mmr', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('hours', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('assists', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('awards', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('atime', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('aactionsmin', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('axpmin', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('adeaths', self.gf('django.db.models.fields.FloatField')(default=0)),
+            ('acs', self.gf('django.db.models.fields.FloatField')(default=0)),
+            ('wins', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('losses', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('left', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('aassists', self.gf('django.db.models.fields.FloatField')(default=0)),
+        ))
+        db.send_create_signal(u'honbot', ['PlayerStatsCasual'])
+
         # Adding model 'PlayerStatsPublic'
         db.create_table(u'honbot_playerstatspublic', (
             ('player_id', self.gf('django.db.models.fields.PositiveIntegerField')(unique=True, primary_key=True)),
@@ -173,46 +179,28 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'honbot', ['PlayerStatsPublic'])
 
-        # Adding model 'PlayerIcon'
-        db.create_table(u'honbot_playericon', (
-            ('player_id', self.gf('django.db.models.fields.PositiveIntegerField')(unique=True, primary_key=True)),
-            ('avatar', self.gf('django.db.models.fields.URLField')(default='', max_length=300)),
-            ('updated', self.gf('django.db.models.fields.DateTimeField')(default=0, auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'honbot', ['PlayerIcon'])
-
 
     def backwards(self, orm):
-        # Adding model 'Knight'
-        db.create_table(u'honbot_knight', (
-            ('of_the_round_table', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('dances_whenever_able', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('shrubberies', self.gf('django.db.models.fields.IntegerField')()),
-        ))
-        db.send_create_signal(u'honbot', ['Knight'])
-
-        # Deleting model 'PlayerStatsCasual'
-        db.delete_table(u'honbot_playerstatscasual')
-
-        # Deleting model 'PlayerHistory'
-        db.delete_table(u'honbot_playerhistory')
+        # Deleting model 'Matches'
+        db.delete_table(u'honbot_matches')
 
         # Deleting model 'PlayerMatches'
         db.delete_table(u'honbot_playermatches')
 
-        # Deleting model 'Matches'
-        db.delete_table(u'honbot_matches')
+        # Deleting model 'PlayerIcon'
+        db.delete_table(u'honbot_playericon')
+
+        # Deleting model 'PlayerHistory'
+        db.delete_table(u'honbot_playerhistory')
 
         # Deleting model 'PlayerStats'
         db.delete_table(u'honbot_playerstats')
 
+        # Deleting model 'PlayerStatsCasual'
+        db.delete_table(u'honbot_playerstatscasual')
+
         # Deleting model 'PlayerStatsPublic'
         db.delete_table(u'honbot_playerstatspublic')
-
-        # Deleting model 'PlayerIcon'
-        db.delete_table(u'honbot_playericon')
 
 
     models = {
@@ -263,6 +251,7 @@ class Migration(SchemaMigration):
             'kills': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'level': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'match': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['honbot.Matches']"}),
+            'mode': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '10'}),
             'nickname': ('django.db.models.fields.TextField', [], {'default': "''", 'max_length': '25'}),
             'player_id': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),

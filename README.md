@@ -16,6 +16,14 @@ This generates a script in honbot/migrations
 
     python manage.py migrate honbot 
 
+End the fastcgi processes  
+
+    pkill -f "runfcgi"
+
+Start the server up again  
+
+    python manage.py runfcgi host=127.0.0.1 port=8081 --settings=settings
+
 ####License
 Included in license.md
 

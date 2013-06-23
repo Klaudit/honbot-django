@@ -53,7 +53,7 @@ def chat(request, match_id):
             os.remove(directory + str(match_id) + '.zip')
             logs = parse_chat_from_log(match_id)
         except:
-            return None
+            return error(request, "Match is older than 28 days or replay is unavailable.")
     # deliver chat logs
     stats = match(match_id)
     names = {}

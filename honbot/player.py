@@ -151,7 +151,7 @@ def player_math(data, nick, mode):
             if stats['TSR'] > 10:
                 stats['TSR'] = 10
         else:
-            stats['TSR'] = None
+            stats['TSR'] = 0
     else:
         stats['TSR'] = 0
         stats['kdr'] = 0

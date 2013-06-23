@@ -153,5 +153,20 @@ def player_math(data, nick, mode):
         else:
             stats['TSR'] = None
     else:
-        stats['TSR'] = 0.0
+        stats['TSR'] = 0
+        stats['kdr'] = 0
+        stats['kadr'] = 0
+        stats['winpercent'] = 0
+        stats['atime'] = 0
+        stats['akills'] = 0
+        stats['adeaths'] = 0
+        stats['aassists'] = 0
+        stats['aconsumables'] = 0
+        stats['awards'] = 0
+        stats['acs'] = 0
+        stats['adenies'] = 0
+        stats['axpmin'] = 0
+        stats['agoldmin'] = 0
+        stats['aactionsmin'] = 0
+        stats['hours'] = 0
     return stats

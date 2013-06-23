@@ -117,12 +117,6 @@ def load_match(match_id):
     return m
 
 
-def get_download(match_id):
-    with open(directory + str(match_id) + '.json', 'rb') as f:
-        data = json.load(f)
-    return data['replay_url']
-
-
 def multimatch(data, history, mode):
     """
     pass this multimatch api results and the number of matches. it will parse and save the useful bits

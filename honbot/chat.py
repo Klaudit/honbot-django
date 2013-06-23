@@ -1,13 +1,14 @@
 import requests
-from zipfile import ZipFile
+import zipfile
 import codecs
 import os
 from error import error
 from time import strftime, gmtime
 from django.template import Context, loader
 from django.http import HttpResponse
-from match import match
+from match import match, checkfile
 import json
+from honbot.models import Matches
 
 
 directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'match')) + '/'
@@ -15,60 +16,42 @@ directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__f
 
 def chat(request, match_id):
     # download and parse logs
+    logs = None
     if os.path.exists(directory + 'm' + str(match_id) + '.log'):
-        logs = parse_chat_from_log(match_id)
-    elif checkfile(match_id):
-        url = get_download(match_id)
-        if url is None:
-            return error(request, "Match is older than 28 days or replay is unavailable.")
+        return parse_chat_from_log(match_id)
+    if checkfile(match_id):
+        url = Matches.objects.filter(match_id=match_id).values('replay_url')[0]['replay_url']
         url = url[:-9] + 'zip'
         # download file
         r = requests.get(url)
         if r.status_code == 404:
-            return error(request, "Match is older than 28 days or replay is unavailable.")
+            return None
         with open(directory + str(match_id)+".zip", "wb") as code:
             code.write(r.content)
-        z = ZipFile(directory + str(match_id) + '.zip')
+        z = zipfile.ZipFile(directory + str(match_id) + '.zip')
         z.extract(z.namelist()[0], directory)
         z.close()
         # cleanup zip
         os.remove(directory + str(match_id) + '.zip')
         logs = parse_chat_from_log(match_id)
-    else:
-        # this method is janky. hence all the 404 checks to back out quickly if things go south and is only used when they for some reason are going straight to chat?
-        try:
-            r = requests.get('http://replaydl.heroesofnewerth.com/replay_dl.php?file=&match_id=' + match_id, timeout=2)
-            if r.status_code == 404:
-                return error(request, "Match is older than 28 days or replay is unavailable.")
-            url = r.url[:-9] + 'zip'
-            r = requests.get(url)
-            if r.status_code == 404:
-                return error(request, "Match is older than 28 days or replay is unavailable.")
-            with open(directory + str(match_id)+".zip", "wb") as code:
-                code.write(r.content)
-            z = ZipFile(directory + str(match_id) + '.zip')
-            z.extract(z.namelist()[0], directory)
-            z.close()
-            # cleanup zip
-            os.remove(directory + str(match_id) + '.zip')
-            logs = parse_chat_from_log(match_id)
-        except:
-            return error(request, "Match is older than 28 days or replay is unavailable.")
     # deliver chat logs
-    stats = match(match_id)
-    names = {}
-    heroes = {}
-    for p in stats['players']:
-        name = p['nickname']
-        names[str(name)] = p['position']
-        heroes[str(name)] = p['hero']
-    for l in logs:
-        name = l['name']
-        l['player'] = names[name]
-        l['hero'] = heroes[name]
-    t = loader.get_template('chat.html')
-    c = Context({'logs': logs, 'stats': stats, 'match_id': match_id})
-    return HttpResponse(t.render(c))
+    if logs is not None:
+        stats = match(match_id)
+        names = {}
+        heroes = {}
+        for p in stats['players']:
+            name = p['nickname']
+            names[str(name)] = p['position']
+            heroes[str(name)] = p['hero']
+        for l in logs:
+            name = l['name']
+            l['player'] = names[name]
+            l['hero'] = heroes[name]
+        t = loader.get_template('chat.html')
+        c = Context({'logs': logs, 'stats': stats, 'match_id': match_id})
+        return HttpResponse(t.render(c))
+    else:
+        return error(request, "Match is older than 28 days or replay is unavailable.")
 
 
 def parse_chat_from_log(match_id):
@@ -111,22 +94,6 @@ def parse_chat_from_log(match_id):
         else:
             chat['time'] = "Lobby"
     return chatter
-
-
-def checkfile(match_id):
-    """
-    check if match has been parsed before returns bool
-    """
-    if os.path.exists(directory + str(match_id) + '.json'):
-        return True
-    else:
-        return False
-
-
-def get_download(match_id):
-    with open(directory + str(match_id) + '.json', 'rb') as f:
-        data = json.load(f)
-    return data['replay_url']
 
 
 def PLAYER_CHAT(line):

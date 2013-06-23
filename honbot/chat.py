@@ -1,8 +1,7 @@
 import requests
 from zipfile import ZipFile
 import codecs
-from django.conf import settings
-from os import remove, path
+import os
 from error import error
 from time import strftime, gmtime
 from django.template import Context, loader
@@ -11,12 +10,12 @@ from match import match
 import json
 
 
-directory = settings.MEDIA_ROOT
+directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'match')) + '/'
 
 
 def chat(request, match_id):
     # download and parse logs
-    if path.exists(directory + 'm' + str(match_id) + '.log'):
+    if os.path.exists(directory + 'm' + str(match_id) + '.log'):
         logs = parse_chat_from_log(match_id)
     elif checkfile(match_id):
         url = get_download(match_id)
@@ -33,7 +32,7 @@ def chat(request, match_id):
         z.extract(z.namelist()[0], directory)
         z.close()
         # cleanup zip
-        remove(directory + str(match_id) + '.zip')
+        os.remove(directory + str(match_id) + '.zip')
         logs = parse_chat_from_log(match_id)
     else:
         # this method is janky. hence all the 404 checks to back out quickly if things go south and is only used when they for some reason are going straight to chat?
@@ -51,7 +50,7 @@ def chat(request, match_id):
             z.extract(z.namelist()[0], directory)
             z.close()
             # cleanup zip
-            remove(directory + str(match_id) + '.zip')
+            os.remove(directory + str(match_id) + '.zip')
             logs = parse_chat_from_log(match_id)
         except:
             return None
@@ -118,7 +117,7 @@ def checkfile(match_id):
     """
     check if match has been parsed before returns bool
     """
-    if path.exists(directory + str(match_id) + '.json'):
+    if os.path.exists(directory + str(match_id) + '.json'):
         return True
     else:
         return False

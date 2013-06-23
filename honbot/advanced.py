@@ -3,7 +3,6 @@ import zipfile
 import codecs
 import magic
 from match import checkfile
-from os import remove, path
 import os
 from honbot.models import PlayerMatches, Matches
 
@@ -15,7 +14,7 @@ def main(match_id):
     handles the initial download/check of the .log file
     """
     # get proper url and change to .zip use match first or backup plan with php (slow)
-    if path.exists(directory + 'm' + str(match_id) + '.log'):
+    if os.path.exists(directory + 'm' + str(match_id) + '.log'):
         return parse(match_id)
     if checkfile(match_id):
         url = Matches.objects.filter(match_id=match_id).values('replay_url')[0]['replay_url']
@@ -30,7 +29,7 @@ def main(match_id):
         z.extract(z.namelist()[0], directory)
         z.close()
         # cleanup zip
-        remove(directory + str(match_id) + '.zip')
+        os.remove(directory + str(match_id) + '.zip')
         return parse(match_id)
 
 

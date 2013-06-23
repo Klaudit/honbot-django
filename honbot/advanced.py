@@ -4,10 +4,10 @@ import codecs
 import magic
 from match import checkfile
 from os import remove, path
-from django.conf import settings
+import os
 from honbot.models import PlayerMatches, Matches
 
-directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'match')) + '/')
+directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'match')) + '/'
 
 
 def main(match_id):

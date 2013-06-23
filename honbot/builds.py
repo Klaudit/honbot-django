@@ -1,12 +1,12 @@
 from django.template import Context, loader
 from django.http import HttpResponse
-from advanced import main
+import advanced
 from match import match
 from error import error
 
 
 def build(request, match_id):
-    data = main(match_id)
+    data = advanced.main(match_id)
     if data is not None:
         stats = match(match_id)
         builds = data.builds()

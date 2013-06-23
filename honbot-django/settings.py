@@ -22,9 +22,6 @@ INTERNAL_IPS = ('127.0.0.1',)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'OPTIONS': {
-            'read_default_file': str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'honbot-django')) + '/my.cnf',
-        },
         'NAME': 'honbot',
         'USER': 'root',
         'PASSWORD': 'cooper',

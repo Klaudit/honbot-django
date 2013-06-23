@@ -53,6 +53,7 @@ Top Matches of week
     * longest
     * likes to ward
     * Most active
+Fix match view for 3vs3 add if !player to all graphs to prevent spawn of non existant player
 
 
 ###Querries

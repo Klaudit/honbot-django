@@ -7,7 +7,7 @@ from os import remove, path
 from django.conf import settings
 from honbot.models import PlayerMatches, Matches
 
-directory = settings.MEDIA_ROOT
+directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'match')) + '/')
 
 
 def main(match_id):

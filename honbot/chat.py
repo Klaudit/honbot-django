@@ -18,14 +18,14 @@ def chat(request, match_id):
     # download and parse logs
     logs = None
     if os.path.exists(directory + 'm' + str(match_id) + '.log'):
-        return parse_chat_from_log(match_id)
-    if checkfile(match_id):
+        logs = parse_chat_from_log(match_id)
+    elif checkfile(match_id):
         url = Matches.objects.filter(match_id=match_id).values('replay_url')[0]['replay_url']
         url = url[:-9] + 'zip'
         # download file
         r = requests.get(url)
         if r.status_code == 404:
-            return None
+            return error(request, "Match is older than 28 days or replay is unavailable.")
         with open(directory + str(match_id)+".zip", "wb") as code:
             code.write(r.content)
         z = zipfile.ZipFile(directory + str(match_id) + '.zip')

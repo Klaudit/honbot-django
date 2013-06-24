@@ -1,9 +1,39 @@
 {% extends 'base.html' %}
 
-{% block page_title %}{{ match_id }} Recent Matches | HonBot {% endblock %}
+{% block page_title %}Top Charts | HonBot Heroes of Newerth Stats {% endblock %}
 
 {% block main_content %}
-{%for m in matches%}
-    {{m.match_id}}<br>
-{%endfor%}
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <legend class="text-center">Most Kills</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>Kills</th>
+                    <th>Deaths</th>
+                    <th>Assists</th>
+                    <th>KDR</th>
+                    <th>Date</th>
+                    <th>Winner?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in kills%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.kills}}</td>
+                        <td>{{m.deaths}}</td>
+                        <td>{{m.assists}}</td>
+                        <td>{{m.kdr}}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                        <td>{{m.date}}</td>
+                        <td>{{m.win}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock main_content %}

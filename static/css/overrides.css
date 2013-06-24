@@ -269,6 +269,18 @@ h6 {
     margin-bottom: 0;
     margin-top: 0;
 }
+.table-stats th{
+  text-align: center;
+}
+.table-stats td{
+  text-align: center;
+}
+.table-stats td:nth-child(1){
+  text-align: left;
+}
+.table-stats th:nth-child(1){
+  text-align: left;
+}
 .footer{
   margin-top: 60px;
   color: #777;

@@ -3,11 +3,6 @@
 *.log
 *.pot
 *.pyc
-local_settings.py
 match/*
-
-honbot.sqlite3
-
-honbot-django/localsettings.py
-
 banners/*
+*localsettings.py*

@@ -2,12 +2,12 @@
 import os.path
 import localsettings
 
-
 DEBUG = localsettings.is_debug()
 handler500 = 'honbot.views.errorfive'
 TEMPLATE_DEBUG = localsettings.is_debug()
 ADMIN_ENABLED = False
 TOKEN = localsettings.get_token()
+PHP = localsettings.get_avatar_session()
 
 ADMINS = (
     ('Scott', 'scttcper@gmail.com'),

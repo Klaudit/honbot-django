@@ -85,8 +85,7 @@ STATICFILES_DIRS = (
 # various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
 )
 
 # Make this unique, and don't share it with anybody.
@@ -95,14 +94,12 @@ SECRET_KEY = 'sa7!a1cm3dc9vcmnty&amp;&amp;a=ibudkpk17r(^i5wk^y@u+v-fn&amp;9c'
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.app_directories.Loader'
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
@@ -113,11 +110,8 @@ ROOT_URLCONF = 'honbot-django.urls'
 WSGI_APPLICATION = 'honbot-django.wsgi.application'
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
     'honbot',

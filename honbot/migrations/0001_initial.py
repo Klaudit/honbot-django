@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
             ('replay_url', self.gf('django.db.models.fields.URLField')(default='', max_length=120)),
             ('realtime', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
             ('mode', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
-            ('_map', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
+            ('_map', self.gf('django.db.models.fields.CharField')(default='', max_length=30)),
             ('major', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
             ('minor', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
             ('revision', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
@@ -53,6 +53,7 @@ class Migration(SchemaMigration):
             ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
             ('items', self.gf('django.db.models.fields.CharField')(default='', max_length=50)),
             ('mode', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
+            ('date', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
         ))
         db.send_create_signal(u'honbot', ['PlayerMatches'])
 
@@ -206,7 +207,7 @@ class Migration(SchemaMigration):
     models = {
         u'honbot.matches': {
             'Meta': {'ordering': "['-match_id']", 'object_name': 'Matches'},
-            '_map': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '10'}),
+            '_map': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '30'}),
             'added': ('django.db.models.fields.DateTimeField', [], {'default': '0', 'auto_now_add': 'True', 'blank': 'True'}),
             'build': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'date': ('django.db.models.fields.DateTimeField', [], {}),
@@ -239,6 +240,7 @@ class Migration(SchemaMigration):
             'bdmg': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'consumables': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'cs': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
+            'date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'deaths': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'denies': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'goldlost2death': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),

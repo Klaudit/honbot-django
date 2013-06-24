@@ -18,5 +18,6 @@ urlpatterns = patterns(
     url(r'^avatar/(?P<number>[0-9]+)/$', 'honbot.avatar.avatar'),
     url(r'^match_history/(?P<account_id>[0-9]+)/$', 'honbot.match_history.history'),
     url(r'^recent/$', 'honbot.recent.recent'),
+    url(r'^top/$', 'honbot.top.main'),
     (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt")),
 )

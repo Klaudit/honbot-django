@@ -97,7 +97,7 @@ def match_save(data, match_id, mode):
                       team=data['players'][p]['team'],
                       position=data['players'][p]['position'],
                       items=json.dumps(data['players'][p]['items']),
-                      mode=mode).save()
+                      mode=mode, date=data['date']).save()
 
 
 def load_match(match_id):

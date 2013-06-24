@@ -45,6 +45,7 @@ class PlayerMatches(models.Model):
     position = models.PositiveSmallIntegerField(default=0)
     items = models.CharField(max_length=50, default="")
     mode = models.CharField(max_length=10, default="")
+    date = models.DateTimeField(blank=True, null=True)
 
 
 class PlayerIcon(models.Model):

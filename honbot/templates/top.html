@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block page_title %}{{ match_id }} Recent Matches | HonBot {% endblock %}
+
+{% block main_content %}
+{%for m in matches%}
+    {{m.match_id}}<br>
+{%endfor%}
+{% endblock main_content %}

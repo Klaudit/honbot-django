@@ -26,9 +26,54 @@
                         <td>{{m.deaths}}</td>
                         <td>{{m.assists}}</td>
                         <td>{{m.kdr}}</td>
-                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
                         <td>{{m.date}}</td>
                         <td>{{m.win}}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <legend class="text-center">Most Matches Last 7 Days</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>Matches</th>
+                </thead>
+                <tbody>
+                    {%for m in mostplays%}
+                    <tr>
+                        <td><a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.player_id__count}}</td>
+                        <td>{{m.date}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <legend class="text-center">Most Wards</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>Wards</th>
+                    <th>Date</th>
+                    <th>Winner?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in wards%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.wards}}</td>
+                        <td>{{m.date}}</td>
+                        <td>{{m.win}}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
                     </tr>
                     {%endfor%}
                 </tbody>

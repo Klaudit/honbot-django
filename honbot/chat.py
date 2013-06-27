@@ -40,9 +40,10 @@ def chat(request, match_id):
         names = {}
         heroes = {}
         for p in stats['players']:
-            name = p['nickname']
-            names[str(name)] = p['position']
-            heroes[str(name)] = p['hero']
+            if p is not None:
+                name = p['nickname']
+                names[str(name)] = p['position']
+                heroes[str(name)] = p['hero']
         for l in logs:
             name = l['name']
             l['player'] = names[name]

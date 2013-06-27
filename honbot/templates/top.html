@@ -4,34 +4,49 @@
 
 {% block main_content %}
 <div class="container">
+    <br>
+    <div class="alert">
+        <strong>Warning!</strong> this is still under construction.
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#">7 Days</a></li>
+    </ul>
     <div class="row">
         <div class="span12">
-                <br>
-                <div class="alert">
-                    <strong>Don't look at this</strong> it is still under construction
-                </div>
             <legend class="text-center">Most Kills</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
+                    <th>Items</th>
                     <th>Kills</th>
                     <th>Deaths</th>
                     <th>Assists</th>
                     <th>KDR</th>
-                    <th>Date</th>
-                    <th>Winner?</th>
+                    <th>APM</th>
+                    <th>GPM</th>
+                    <th>Length</th>
+                    <th>Win?</th>
                     <th>Match</th>
                 </thead>
                 <tbody>
                     {%for m in kills%}
                     <tr>
                         <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>
+                            {% for item in m.items %}
+                                {% if item != None  %}
+                                    <img style="width:30px;" src='/static/img/items/{{item}}.jpg'>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
                         <td>{{m.kills}}</td>
                         <td>{{m.deaths}}</td>
                         <td>{{m.assists}}</td>
                         <td>{{m.kdr}}</td>
-                        <td>{{m.date}}</td>
-                        <td>{{m.win}}</td>
+                        <td>{{m.apm}}</td>
+                        <td>{{m.gpm}}</td>
+                        <td>{{m.match.realtime}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
                     </tr>
                     {%endfor%}
@@ -40,9 +55,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="span12">
-            <legend class="text-center">Most Matches Last 7 Days</legend>
-            <table class="table table-condensed table-striped table-stats">
+        <div class="span4">
+            <legend class="text-center">Most Total Matches</legend>
+            <table class="table table-striped table-stats">
                 <thead>
                     <th>Player</th>
                     <th>Matches</th>
@@ -58,16 +73,13 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="row">
-        <div class="span12">
+        <div class="span4">
             <legend class="text-center">Most Wards</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
                     <th>Wards</th>
-                    <th>Date</th>
-                    <th>Winner?</th>
+                    <th>Win?</th>
                     <th>Match</th>
                 </thead>
                 <tbody>
@@ -75,8 +87,28 @@
                     <tr>
                         <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
                         <td>{{m.wards}}</td>
-                        <td>{{m.date}}</td>
-                        <td>{{m.win}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="span4">
+            <legend class="text-center">Most Assists</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>Assists</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in assists%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.assists}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
                     </tr>
                     {%endfor%}

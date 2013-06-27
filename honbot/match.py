@@ -121,6 +121,7 @@ def multimatch(data, history, mode):
     """
     pass this multimatch api results and the number of matches. it will parse and save the useful bits
     """
+    print "multimatch"
     s2mode = mode
     if mode == "rnk":
         mode = "Ranked"
@@ -139,10 +140,9 @@ def multimatch(data, history, mode):
     for m in data[2]:
         matchlength = round(float(m['secs']) / 60, 1)
         allmatches[m['match_id']]['matchlength'] = matchlength
-        if int(m['secs']) < 3599999:
-            allmatches[m['match_id']]['realtime'] = time.strftime('%M:%S', time.gmtime(int(m['secs'])))
-        else:
-            allmatches[m['match_id']]['realtime'] = time.strftime('%H:%M:%S', time.gmtime(int(m['secs'])))
+        allmatches[m['match_id']]['realtime'] = time.strftime('%H:%M:%S', time.gmtime(int(m['secs'])))
+        if int(allmatches[m['match_id']]['realtime'].split(':')[0]) == 0:
+            allmatches[m['match_id']]['realtime'] = allmatches[m['match_id']]['realtime'][3:]
         player = {}
         player['id'] = m['account_id']
         player['kills'] = m['herokills']

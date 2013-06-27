@@ -83,11 +83,12 @@ class Magic:
         self.ability = newability
         #get average apm
         for i, player in enumerate(self.apm):
-            for d, chunk in enumerate(player):
-                if i < 5:
-                    self.lapm[d] += chunk
-                else:
-                    self.hapm[d] += chunk
+            if player is not None:
+                for d, chunk in enumerate(player):
+                    if i < 5:
+                        self.lapm[d] += chunk
+                    else:
+                        self.hapm[d] += chunk
         self.lapm = [x/5 for x in self.lapm]
         self.hapm = [x/5 for x in self.hapm]
 

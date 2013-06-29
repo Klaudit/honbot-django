@@ -3,7 +3,40 @@
 {% block page_title %}{{ match_id }} Recent Matches | HonBot {% endblock %}
 
 {% block main_content %}
-{%for m in matches%}
-    {{m.match_id}}<br>
-{%endfor%}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Match ID</th>
+                    <th>Date</th>
+                </thead>
+                <tbody>
+                    {%for m in matches%}
+                    <tr>
+                        <td><a href="/match/{{m.match_id}}">{{m.match_id}}</a></td>
+                        <td>{{m.date}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if matches.has_previous %}
+                        <a href="?page={{ matches.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ matches.number }} of {{ matches.paginator.num_pages }}.
+                    </span>
+
+                    {% if matches.has_next %}
+                        <a href="?page={{ matches.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock main_content %}

@@ -26,7 +26,7 @@ DATABASES = {
         'NAME': 'honbot',
         'USER': 'root',
         'PASSWORD': 'cooper',
-        'HOST': '198.199.104.251'
+        'HOST': 'localhost'
     }
 }
 

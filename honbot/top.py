@@ -12,12 +12,10 @@ def main(request):
     kills = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-kills')[:5]
     for p in kills:
         p.items = json.loads(p.items)
-    wards = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-wards')[:5]
-    assists = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-assists')[:5]
-    deaths = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-deaths')[:5]
-    gpm = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-gpm')[:5]
-    apm = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-apm')[:5]
-    cs = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-cs')[:5]
+    wards = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-wards').values('wards', 'nickname', 'win', 'match_id', 'hero')[:5]
+    assists = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-assists').values('assists', 'nickname', 'win', 'match_id', 'hero')[:5]
+    deaths = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-deaths').values('deaths', 'nickname', 'win', 'match_id', 'hero')[:5]
+    cs = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-cs').values('cs', 'nickname', 'win', 'match_id', 'hero')[:5]
     t = loader.get_template('top.html')
-    c = Context({'kills': kills, 'wards': wards, 'deaths': deaths, 'assists': assists, 'gpm': gpm, 'apm': apm, 'cs': cs})
+    c = Context({'kills': kills, 'wards': wards, 'deaths': deaths, 'assists': assists, 'cs': cs})
     return HttpResponse(t.render(c))

@@ -14,7 +14,10 @@ def main(request):
         p.items = json.loads(p.items)
     wards = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-wards')[:5]
     assists = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-assists')[:5]
-    mostplays = PlayerMatches.objects.filter(date__range=[startdate, enddate]).values('player_id', 'nickname').annotate(Count('player_id')).order_by('-player_id__count')[:5]
+    deaths = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-deaths')[:5]
+    gpm = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-gpm')[:5]
+    apm = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-apm')[:5]
+    cs = PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-cs')[:5]
     t = loader.get_template('top.html')
-    c = Context({'kills': kills, 'wards': wards, 'mostplays': mostplays, 'assists': assists})
+    c = Context({'kills': kills, 'wards': wards, 'deaths': deaths, 'assists': assists, 'gpm': gpm, 'apm': apm, 'cs': cs})
     return HttpResponse(t.render(c))

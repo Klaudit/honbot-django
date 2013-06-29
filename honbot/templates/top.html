@@ -13,7 +13,7 @@
     </ul>
     <div class="row">
         <div class="span12">
-            <legend class="text-center">Most Kills</legend>
+            <legend class="text-center">Kills</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -56,25 +56,28 @@
     </div>
     <div class="row">
         <div class="span4">
-            <legend class="text-center">Most Total Matches</legend>
-            <table class="table table-striped table-stats">
+            <legend class="text-center">Deaths</legend>
+            <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
-                    <th>Matches</th>
+                    <th>Deaths</th>
+                    <th>Win?</th>
+                    <th>Match</th>
                 </thead>
                 <tbody>
-                    {%for m in mostplays%}
+                    {%for m in deaths%}
                     <tr>
-                        <td><a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
-                        <td>{{m.player_id__count}}</td>
-                        <td>{{m.date}}</td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.deaths}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
                     </tr>
                     {%endfor%}
                 </tbody>
             </table>
         </div>
         <div class="span4">
-            <legend class="text-center">Most Wards</legend>
+            <legend class="text-center">Wards</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -95,7 +98,7 @@
             </table>
         </div>
         <div class="span4">
-            <legend class="text-center">Most Assists</legend>
+            <legend class="text-center">Assists</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -108,6 +111,71 @@
                     <tr>
                         <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
                         <td>{{m.assists}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <legend class="text-center">GPM</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>GPM</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in gpm%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.gpm}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="span4">
+            <legend class="text-center">APM</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>APM</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in apm%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.apm}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="span4">
+            <legend class="text-center">Creep Kills</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>CS</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in cs%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.cs}}</td>
                         <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
                     </tr>

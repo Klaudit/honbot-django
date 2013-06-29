@@ -61,4 +61,14 @@ __Find most used heroes__
 
     PlayerMatches.objects.filter(player_id=s['player_id'], mode=mode).values('hero').annotate(Count('hero')).order_by('-hero__count')
 
+__Most total recent matches__
+
+    PlayerMatches.objects.filter(date__range=[startdate, enddate]).values('player_id', 'nickname').annotate(Count('player_id')).order_by('-player_id__count')[:5]
+
+__Find most assists__
+
+    PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-assists')[:5]
+
+
+
 

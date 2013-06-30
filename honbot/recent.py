@@ -1,16 +1,23 @@
 from honbot.models import Matches, PlayerMatches
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
+import json
 
 
 def recent(request):
-    matches = Matches.objects.order_by('-date').all().values()
-    paginator = Paginator(matches, 20)  # Show 20 matches a page
+    paginator = Paginator(Matches.objects.all(), 5)  # Show 20 matches a page
+    matches = list(Matches.objects.all().values('match_id', 'realtime')[:5])
     # get heroes
     for m in matches:
-        m['legion'] = PlayerMatches.objects.filter(match=m['match_id'], team=1).values("hero")
-        m['hellborne'] = PlayerMatches.objects.filter(match=m['match_id'], team=2).values("hero")
-        m['winner'] = PlayerMatches.objects.filter(match=m['match_id'], team=1).values("win")[0]['win']
+        m['legion'] = []
+        m['hellborne'] = []
+        players = PlayerMatches.objects.filter(match=m['match_id']).values("hero", "win", "team")
+        for p in players:
+            if p['team'] == 1:
+                m['legion'].append(p['hero'])
+            else:
+                m['hellborne'].append(p['hero'])
+    print json.dumps(matches)
 
     page = request.GET.get('page')
     try:

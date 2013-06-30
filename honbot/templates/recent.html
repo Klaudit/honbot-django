@@ -21,16 +21,16 @@
                     <tr>
                         <td><a href="/match/{{m.match_id}}">{{m.match_id}}</a></td>
                         <td>{{m.realtime}}</td>
-                        <td>{%if m.mode == "rnk"%}Ranked{%elif m.mode == "cs"%}Casual{% else %}Public{%endif%}</td>
-                        <td>{%if m.winner == 1%}Legion{%else%}Hellborne{%endif%}</td>
+                        <td>{%if m.mode == "rnk"%}Ranked{%elif m.mode == "cs"%}Casual{% elif m.mode == "aac" %}Public{%endif%}</td>
+                        <td>{%if m.winner == 1%}Legion{%endif%}</td>
                         <td>
                             {% for h in m.legion %}
-                                <img style="width:30px" src='/static/img/heroes/{{ h.hero }}/icon_128.jpg'>
+                                <img style="width:30px" src='/static/img/heroes/{{h}}/icon_128.jpg'>
                             {%endfor%}
                         </td>
                         <td>
                             {% for h in m.hellborne %}
-                                <img style="width:30px" src='/static/img/heroes/{{ h.hero }}/icon_128.jpg'>
+                                <img style="width:30px" src='/static/img/heroes/{{h}}/icon_128.jpg'>
                             {%endfor%}
                         </td>
                     </tr>

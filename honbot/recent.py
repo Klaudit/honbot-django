@@ -1,11 +1,16 @@
-from honbot.models import Matches
+from honbot.models import Matches, PlayerMatches
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 
 
 def recent(request):
-    matches = Matches.objects.order_by('-date').all()
-    paginator = Paginator(matches, 25)  # Show 25 contacts per page
+    matches = Matches.objects.order_by('-date').all().values()
+    paginator = Paginator(matches, 20)  # Show 20 matches a page
+    # get heroes
+    for m in matches:
+        m['legion'] = PlayerMatches.objects.filter(match=m['match_id'], team=1).values("hero")
+        m['hellborne'] = PlayerMatches.objects.filter(match=m['match_id'], team=2).values("hero")
+        m['winner'] = PlayerMatches.objects.filter(match=m['match_id'], team=1).values("win")[0]['win']
 
     page = request.GET.get('page')
     try:

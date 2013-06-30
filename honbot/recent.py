@@ -1,6 +1,4 @@
-from django.template import Context, loader
-from django.http import HttpResponse
-from honbot.models import Matches, PlayerMatches
+from honbot.models import Matches
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 
@@ -18,5 +16,4 @@ def recent(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         matches = paginator.page(paginator.num_pages)
-
     return render_to_response('recent.html', {"matches": matches})

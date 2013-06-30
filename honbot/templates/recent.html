@@ -10,32 +10,34 @@
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Match ID</th>
-                    <th>Date</th>
+                    <th>Length</th>
+                    <th>Mode</th>
+                    <th>Map</th>
                 </thead>
                 <tbody>
                     {%for m in matches%}
                     <tr>
                         <td><a href="/match/{{m.match_id}}">{{m.match_id}}</a></td>
-                        <td>{{m.date}}</td>
+                        <td>{{m.realtime}}</td>
+                        <td>{%if m.mode == "rnk"%}Ranked{%elif m.mode == "cs"%}Casual{% else %}Public{%endif%}</td>
+                        <td>{{m._map}}</td>
                     </tr>
                     {%endfor%}
                 </tbody>
             </table>
-            <div class="pagination">
-                <span class="step-links">
+            <div class="pagination text-center">
+                <ul>  
                     {% if matches.has_previous %}
-                        <a href="?page={{ matches.previous_page_number }}">previous</a>
-                    {% endif %}
-
-                    <span class="current">
-                        Page {{ matches.number }} of {{ matches.paginator.num_pages }}.
-                    </span>
-
+                        <li><a href="?page=1">first</a></li>
+                        <li><a href="?page={{ matches.previous_page_number }}">previous</a></li>
+                    {% endif %}  
                     {% if matches.has_next %}
-                        <a href="?page={{ matches.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
+                        <li><a href="?page={{ matches.next_page_number }}">next</a></li>
+                        <li><a href="?page={{ matches.paginator.num_pages }}">last</a></li>
+                    {% endif %} 
+                </ul>
             </div>
+            <p class="text-center"><small>Page {{ matches.number }} of {{ matches.paginator.num_pages }}</small></p>
         </div>
     </div>
 </div>

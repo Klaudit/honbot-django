@@ -39,17 +39,17 @@
             </table>
             <div class="pagination text-center">
                 <ul>  
-                    {% if matches.has_previous %}
+                    {% if pag.has_previous %}
                         <li><a href="?page=1">first</a></li>
-                        <li><a href="?page={{ matches.previous_page_number }}">previous</a></li>
+                        <li><a href="?page={{ pag.previous_page_number }}">previous</a></li>
                     {% endif %}  
-                    {% if matches.has_next %}
-                        <li><a href="?page={{ matches.next_page_number }}">next</a></li>
-                        <li><a href="?page={{ matches.paginator.num_pages }}">last</a></li>
+                    {% if pag.has_next %}
+                        <li><a href="?page={{ pag.next_page_number }}">next</a></li>
+                        <li><a href="?page={{ pag.paginator.num_pages }}">last</a></li>
                     {% endif %} 
                 </ul>
             </div>
-            <p class="text-center"><small>Page {{ matches.number }} of {{ matches.paginator.num_pages }}</small></p>
+            <p class="text-center"><small>Page {{ pag.number }} of {{ pag.paginator.num_pages }}</small></p>
         </div>
     </div>
 </div>

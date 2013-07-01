@@ -40,12 +40,12 @@
             <div class="pagination text-center">
                 <ul>  
                     {% if pag.has_previous %}
-                        <li><a href="?page=1">first</a></li>
-                        <li><a href="?page={{ pag.previous_page_number }}">previous</a></li>
-                    {% endif %}  
+                        <li><a href="?page=1"><i class="icon-angle-left"></i><i class="icon-angle-left"></i> first</a></li>
+                        <li><a href="?page={{ pag.previous_page_number }}"><i class="icon-angle-left"></i> previous</a></li>
+                    {% endif %}
                     {% if pag.has_next %}
-                        <li><a href="?page={{ pag.next_page_number }}">next</a></li>
-                        <li><a href="?page={{ pag.paginator.num_pages }}">last</a></li>
+                        <li><a href="?page={{ pag.next_page_number }}">next <i class="icon-angle-right"></i></a></li>
+                        <li><a href="?page={{ pag.paginator.num_pages }}">last <i class="icon-angle-right"></i><i class="icon-angle-right"></i></a></li>
                     {% endif %} 
                 </ul>
             </div>

@@ -36,7 +36,7 @@ def prepare_match(data, match_id):
     for p in data['players']:
         players[int(data['players'][p]['position'])] = data['players'][p]
     match['matchlength'] = data['realtime']
-    match['date'] = pretty.date(datetime.datetime.strptime(data['date'], '%Y-%m-%d %H:%M:%S'))
+    match['date'] = pretty.date(datetime.datetime.strptime(data['date'], '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1))
     match['players'] = players
     match['mode'] = data['mode']
     match['map'] = data['_map']

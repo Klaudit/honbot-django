@@ -5,7 +5,7 @@ from honbot.models import *
 from match import multimatch
 import json
 from pretty import date
-from datetime import datetime
+import datetime
 
 
 def history(request, account_id):
@@ -15,7 +15,7 @@ def history(request, account_id):
     mode = str(request.GET.get('mode', ''))
     m = PlayerHistory.objects.filter(player_id=account_id, mode=mode)
     if m.exists():
-        tdelta = datetime.now() - datetime.strptime(str(m.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
+        tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(m.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 1080:
             data = json.loads(m.values()[0]['history'])
         else:
@@ -96,6 +96,6 @@ def get_player_from_matches(history, account_id):
         if load.exists():
             temp = load.values()[0]
             temp['match_id'] = m[0]
-            temp['date'] = date(datetime.strptime(str(load[0].match.date), '%Y-%m-%d %H:%M:%S'))
+            temp['date'] = date(datetime.datetime.strptime(str(load[0].match.date), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1))
             matches.append(temp)
     return matches

@@ -284,6 +284,24 @@ h6 {
 .table-stats th:nth-child(1){
   text-align: left;
 }
+.table-match th{
+  text-align: center;
+}
+.table-match td{
+  text-align: center;
+}
+.table-match td:nth-child(1){
+  text-align: left;
+}
+.table-match th:nth-child(1){
+  text-align: left;
+}
+.table-match td:nth-child(2){
+  text-align: left;
+}
+.table-match th:nth-child(2){
+  text-align: left;
+}
 .footer{
   margin-top: 60px;
   color: #777;

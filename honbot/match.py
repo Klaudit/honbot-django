@@ -121,7 +121,6 @@ def multimatch(data, history, mode):
     """
     pass this multimatch api results and the number of matches. it will parse and save the useful bits
     """
-    print "multimatch"
     s2mode = mode
     if mode == "rnk":
         mode = "Ranked"

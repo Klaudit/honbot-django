@@ -15,19 +15,20 @@ def players(request, name):
     if mode == "c":
         url = '/player_statistics/casual/nickname/' + name
         mode = "cs"
-        p = PlayerStatsCasual.objects.filter(nickname=name)
+        p = PlayerStatsCasual.objects.filter(nickname=name).values()
     elif mode == "p":
         url = '/player_statistics/public/nickname/' + name
         mode = "acc"
-        p = PlayerStatsPublic.objects.filter(nickname=name)
+        p = PlayerStatsPublic.objects.filter(nickname=name).values()
     else:
         url = '/player_statistics/ranked/nickname/' + name
         mode = "rnk"
-        p = PlayerStats.objects.filter(nickname=name)
-    if p.exists():
-        tdelta = datetime.now() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
+        p = PlayerStats.objects.filter(nickname=name).values()
+    if p:
+        print p
+        tdelta = datetime.now() - datetime.strptime(str(p[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 1000:
-            s = p.values()[0]
+            s = p[0]
             new = False
             data = True
         else:

@@ -1,4 +1,7 @@
 /* Honbot Styles */
+.body {
+  cursor: default;
+}
 
 /* flat wells */
 .well {

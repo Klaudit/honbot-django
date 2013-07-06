@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Hon Hero Stats | HonBot {% endblock %}
+{% block headers %}
+<link href="/static/css/select2.css" rel="stylesheet"/>
+<script src="/static/js/select2.min.js"></script>
+{% endblock %}
+{% block main_content %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <select class="span5" id="e1">
+            <option></option>
+            <option value="AL">Alabama</option>
+            <option value="WY">Wyoming</option>
+            </select>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() { 
+    $("#e1").select2({
+        placeholder: "Select a Hero",
+        allowClear: true
+    }); 
+
+});
+</script>
+{% endblock main_content %}

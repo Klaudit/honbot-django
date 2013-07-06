@@ -3,7 +3,6 @@ from django.template import Context, loader
 from random import randint
 import advanced
 import match
-import player
 from error import error
 import json
 

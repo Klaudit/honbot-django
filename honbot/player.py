@@ -138,20 +138,29 @@ def player_math(data, nick, mode):
         # How much Gold you earn per Minute played, scaled by 190/230 - 7% of your TSR
         # How much EXP you get per Minute played, scaled by 420/380
         # The rest of the steps
-        if stats['matches'] > 5:
-            stats['TSR'] = (float(stats['kills'])/(float(stats['deaths'])/1.15)*0.65) \
-                + (float(stats['assists'])/(float(stats['deaths'])/1.55)*1.20) \
-                + (((float(stats['wins'])/(float(stats['wins'])+float(stats['losses'])))/0.55)*0.9) \
-                + ((float(stats['agoldmin'])/230)*0.35) \
-                + (((float(stats['axpmin']))/380)*0.40) \
-                + ((((((float(data[mode + '_denies'])/float(stats['matches']))/12))*0.70)
-                + ((((float(data[mode + '_teamcreepkills'])/float(stats['matches']))/93))*0.50)
-                + ((float(data[mode + '_wards'])/float(stats['matches']))/1.45*0.30))*(37.5/(float(data[mode + '_secs'])/float(stats['matches'])/60)))
-            stats['TSR'] = round(stats['TSR'], 1)
-            if stats['TSR'] > 10:
-                stats['TSR'] = 10
+        # ((rnk_herokills/rnk_deaths/1.15)*0.65)
+        # ((rnk_heroassists/rnk_deaths/1.55)*1.20)
+        # ( ( ( rnk_wins / ( rnk_wins+rnk_losses ) ) / 0.55 ) *0.9 )
+        # (((rnk_gold/rnk_secs*60)/230)*(1-((230/195)*((rnk_em_played/rnk_games_played))))*0.35)
+        # ((((rnk_exp/rnk_time_earning_exp*60)/380)*(1-((380/565)*(rnk_em_played/rnk_games_played))))*0.40)
+        # ((((((rnk_denies/rnk_games_played)/12)*(1-((4.5/8.5)*(rnk_em_played/rnk_games_played))))*0.70)
+        # ((((rnk_teamcreepkills/rnk_games_played)/93)*(1-((63/81)*(rnk_em_played/rnk_games_played))))*0.50)
+        # ((rnk_wards/rnk_games_played)/1.45*0.30))*(37.5/(rnk_secs/rnk_games_played/60)))
+        # Max wards of 5.0.
+        # Max creep kills of 200.
+        # Max creep denies of 30.
+        if mode == 'rnk':
+            if stats['matches'] > 5:
+                stats['TSR'] = ((float(data['rnk_herokills'])/float(data['rnk_deaths'])/1.15)*0.65)+((float(data['rnk_heroassists'])/float(data['rnk_deaths'])/1.55)*1.20)+(((float(data['rnk_wins'])/(float(data['rnk_wins'])+float(data['rnk_losses'])))/0.55)*0.9)+(((float(data['rnk_gold'])/float(data['rnk_secs'])*60)/230)*(1-((230/195)*((float(data['rnk_em_played'])/float(data['rnk_games_played'])))))*0.35)+((((float(data['rnk_exp'])/float(data['rnk_time_earning_exp'])*60)/380)*(1-((380/565)*(float(data['rnk_em_played'])/float(data['rnk_games_played'])))))*0.40)+((((((float(data['rnk_denies'])/float(data['rnk_games_played']))/12)*(1-((4.5/8.5)*(float(data['rnk_em_played'])/float(data['rnk_games_played'])))))*0.70)+((((float(data['rnk_teamcreepkills'])/float(data['rnk_games_played']))/93)*(1-((63/81)*(float(data['rnk_em_played'])/float(data['rnk_games_played'])))))*0.50)+((float(data['rnk_wards'])/float(data['rnk_games_played']))/1.45*0.30))*(37.5/(float(data['rnk_secs'])/float(data['rnk_games_played'])/60)))
+                stats['TSR'] = round(stats['TSR'], 1)
+                if stats['TSR'] > 10:
+                    stats['TSR'] = 10
+            else:
+                stats['TSR'] = 0
+                stats['kdr'] = 0
         else:
-            stats['TSR'] = 0
+                stats['TSR'] = 0
+                stats['kdr'] = 0
     else:
         stats['TSR'] = 0
         stats['kdr'] = 0

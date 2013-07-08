@@ -132,12 +132,6 @@ def player_math(data, nick, mode):
         stats['agoldmin'] = int(float(data[mode + '_gold']) / (float(data[mode + '_secs']) / 60))  # average gold / min
         stats['aactionsmin'] = int(float(data[mode + '_actions']) / (float(data[mode + '_secs']) / 60))  # average actions / min
         ### TSR CALC ###
-        # How many Kills per Death you have, scaled by 1.1/1.15 KpD - 13% of your TSR
-        # How many Assits per Death you have, scaled by 1.5/1.55 ApD - 24% of your TSR
-        # The percent of games you win, scaled by 0.55 -18% of your TSR
-        # How much Gold you earn per Minute played, scaled by 190/230 - 7% of your TSR
-        # How much EXP you get per Minute played, scaled by 420/380
-        # The rest of the steps
         # ((rnk_herokills/rnk_deaths/1.15)*0.65)
         # ((rnk_heroassists/rnk_deaths/1.55)*1.20)
         # ( ( ( rnk_wins / ( rnk_wins+rnk_losses ) ) / 0.55 ) *0.9 )

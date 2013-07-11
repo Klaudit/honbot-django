@@ -38,6 +38,9 @@ hr{
 .recent-match a{
   color: #191919;
 }
+.table-center td{
+  text-align: center;
+}
 #history{
   margin-top: 5px;
 }

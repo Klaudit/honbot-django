@@ -6,8 +6,41 @@
 <script src="/static/js/select2.min.js"></script>
 {% endblock %}
 {% block main_content %}
+<header class="player-head" id="overview">
+    <div class='container'>
+        <div class="row">
+            <div class="span6">
+                <div style="width: 50px; margin-top: 15px; padding-right: 4px;" class="pull-left" id="avatar"></div><h1 class="pull-left">{{ stats.nickname }}</h1>
+            </div>
+            <div class="span6 player-tsr">
+                <div class="span1 text-center">
+                    <strong>MMR</strong><br> {{ stats.mmr }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>TSR</strong><br> {{ stats.TSR }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Wins</strong><br> {{ stats.wins }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Losses</strong><br>{{ stats.losses }}
+                </div>
+                <div class="span1 text-center">
+                    <strong>Wins</strong><br> {{ stats.winpercent }}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 <br>
 <div class="container">
+    <ul class="nav nav-tabs">
+        <li><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
+        <li><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
+        <li><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
+        <li class="active"><a>Hero Stats</a></li>
+        <li><a href="#banner" role="button" data-toggle="modal">Stats Banner</a></li>
+    </ul>
     <div class="row">
         <div class="span3 offset2">
             <div>
@@ -139,7 +172,7 @@
                 <select class="span4" id="hero2">
                     <option></option>
                     <option value="216">Gunblade</option>
-                    <option value="217">Blitz</option>
+                    <option  value="217">Blitz</option>
                     <option value="214">Draconis</option>
                     <option value="215">Kinesis</option>
                     <option value="212">Gravekeeper</option>
@@ -199,7 +232,7 @@
                     <option value="105">Succubus</option>
                     <option value="39">Predator</option>
                     <option value="38">Legionnaire</option>
-                    <option value="31">Zephyr</option>
+                    <option id="fuck" value="31">Zephyr</option>
                     <option value="30">Wildsoul</option>
                     <option value="37">Magebane</option>
                     <option value="36">Ophelia</option>
@@ -284,7 +317,7 @@ $(document).ready(function() {
     }); 
     $("#hero2").select2({
         placeholder: "Select a Hero",
-        allowClear: false
+        allowClear: false,
     });
 });
 </script>
@@ -317,5 +350,11 @@ $("#hero2").change(function(){
         });
     $("#match-load2").hide();
 });
+</script>
+<script>
+$.get("/avatar/{{ stats.player_id }}/",
+    function(data) {
+        $('#avatar').append(data)
+    });
 </script>
 {% endblock main_content %}

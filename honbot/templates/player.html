@@ -46,9 +46,10 @@ fb_param.currency = 'USD';
 <br>
 <div class="container">
     <ul class="nav nav-tabs">
-        <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}">Ranked</a></li>
-        <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}">Casual</a></li>
-        <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}">Public</a></li>
+        <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
+        <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
+        <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
+        <li><a href="/player_hero/{{ stats.nickname }}/">Hero Stats</a></li>
         <li><a href="#banner" role="button" data-toggle="modal">Stats Banner</a></li>
     </ul>
     <div class="row">

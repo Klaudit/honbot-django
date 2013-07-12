@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 import api_call
 from django.http import HttpResponse
-from honbot.models import PlayerMatches
+from honbot.models import PlayerMatches, PlayerStats
 
 
 def divided(num1, num2):
@@ -12,7 +12,8 @@ def divided(num1, num2):
 
 
 def player_hero(request, name):
-    return render_to_response('player_hero.html', {'player': name})
+    stats = PlayerStats.objects.filter(nickname=name).values()[0]
+    return render_to_response('player_hero.html', {'player': name, 'stats': stats})
 
 
 def player_hero_stats(request, name, hero):

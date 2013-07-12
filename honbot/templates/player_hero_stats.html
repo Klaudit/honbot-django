@@ -59,12 +59,12 @@
             <tbody id="rows">
         {%for r in recent%}
             {% if r.win %}
-            <tr class="match-win" href="/match/{{ r.match_id }}/">
+            <tr class="match-win" href="/match/{{ r.match }}/">
             {% else %}
-            <tr class="match-loss" href="/match/{{ r.match_id }}/">
+            <tr class="match-loss" href="/match/{{ r.match }}/">
             {% endif %}
                 <td>{{ r.kills }} / {{ r.deaths }} / {{ r.assists }}</td>
-                <td><a href="/match/{{ r.match_id }}/">{{ r.match_id }}</a></td>
+                <td><a href="/match/{{ r.match }}/">{{ r.match }}</a></td>
             </tr>
         {%endfor%}
         </tbody>

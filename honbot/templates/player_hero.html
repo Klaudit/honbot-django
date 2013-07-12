@@ -9,7 +9,7 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="span3 offset1">
+        <div class="span3 offset2">
             <div>
                 <select class="span4" id="hero1">
                     <option></option>
@@ -134,7 +134,7 @@
                 </select>
             </div>
         </div>
-        <div class="span3 offset3">
+        <div class="span3 offset1">
             <div>
                 <select class="span4" id="hero2">
                     <option></option>
@@ -262,12 +262,12 @@
     </div>
     <br>
     <div class="row">
-        <div class="span6">
+        <div class="span3 offset2">
             <div class="text-center"><i id="match-load1" class="icon-spinner icon-spin icon-2x"></i></div>
             <div id="display1">
             </div>
         </div>
-        <div class="span6">
+        <div class="span3 offset1">
             <div class="text-center"><i id="match-load2" class="icon-spinner icon-spin icon-2x"></i></div>
             <div id="display2">
             </div>
@@ -295,7 +295,11 @@ $("#hero1").change(function(){
     $("#display1").empty();
     $.get("/player_hero_stats/{{ player }}/" + String($("#hero1").select2("val")) + "/",
         function (data) {
-            $('#display1').append(data);  
+            $('#display1').append(data);
+            $('#rows tr').click(function(){
+                window.location = $(this).attr('href');
+                return false;
+            }); 
         });
     $("#match-load1").hide();
 });
@@ -305,7 +309,11 @@ $("#hero2").change(function(){
     $("#display2").empty();
     $.get("/player_hero_stats/{{ player }}/" + String($("#hero2").select2("val")) + "/",
         function (data) {
-            $('#display2').append(data);  
+            $('#display2').append(data);
+            $('#rows tr').click(function(){
+                window.location = $(this).attr('href');
+                return false;
+            }); 
         });
     $("#match-load2").hide();
 });

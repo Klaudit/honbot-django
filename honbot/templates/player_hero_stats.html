@@ -1,16 +1,73 @@
 <div class="row">
-    <div class="span6 text-center">
-        <img style="width: 100px;" src="/static/img/heroes/{{hero.id}}/icon_128.jpg">
+    <div class="span4 text-center">
+        <img style="width: 80px;" src="/static/img/heroes/{{hero.id}}/icon_128.jpg">
     </div>
-    <div class="span6 text-center">
+    <div class="span4 text-center">
         <h3><span class="text-success">{{hero.wins}}</span> - <span class="text-error">{{hero.losses}}</span> - {{hero.percent}}%</h3>
     </div>
-    <div class="span4 offset1">
-        <table class="table table-stats">
+    <div class="span4">
+        <table class="table table-stats table-condensed">
             <tr>
-                <td>Average Kills</td>
+                <td>Kills</td>
                 <td>{{ hero.kills }}</td>
             </tr>
+            <tr>
+                <td>Deaths</td>
+                <td>{{ hero.deaths }}</td>
+            </tr>
+            <tr>
+                <td>Kill Death Ratio</td>
+                <td>{{ hero.kdr }}</td>
+            </tr>
+            <tr>
+                <td>Actions Per Minute</td>
+                <td>{{ hero.apm }}</td>
+            </tr>
+            <tr>
+                <td>Gold Per Minute</td>
+                <td>{{ hero.gpm }}</td>
+            </tr>
+            <tr>
+                <td>EXP Per Minute</td>
+                <td>{{ hero.exp }}</td>
+            </tr>
+            <tr>
+                <td>Creep Kills</td>
+                <td>{{ hero.cs }}</td>
+            </tr>
+            <tr>
+                <td>Creep Denies</td>
+                <td>{{ hero.cd }}</td>
+            </tr>
+            <tr>
+                <td>Consumables</td>
+                <td>{{ hero.consume }}</td>
+            </tr>
+            <tr>
+                <td>Wards</td>
+                <td>{{ hero.wards }}</td>
+            </tr>
+        </table>
+        <h4 class="text-center">Cached Matches</h4>
+        <table id="history" class="table center-headers table-condensed recent-match">
+            <thead>
+                <tr>
+                    <th>K / D / A</th>
+                    <th>Match</th>
+                </tr>
+            </thead>
+            <tbody id="rows">
+        {%for r in recent%}
+            {% if r.win %}
+            <tr class="match-win" href="/match/{{ r.match_id }}/">
+            {% else %}
+            <tr class="match-loss" href="/match/{{ r.match_id }}/">
+            {% endif %}
+                <td>{{ r.kills }} / {{ r.deaths }} / {{ r.assists }}</td>
+                <td><a href="/match/{{ r.match_id }}/">{{ r.match_id }}</a></td>
+            </tr>
+        {%endfor%}
+        </tbody>
         </table>
     </div>
 </div>

@@ -1,6 +1,16 @@
-<table class="table table-center">
-    <tr>
-        <td>Hours</td>
-        <td>{{ data.rnk_ph_herokills }}</td>
-    </tr>
-</table>
+<div class="row">
+    <div class="span6 text-center">
+        <img style="width: 100px;" src="/static/img/heroes/{{hero.id}}/icon_128.jpg">
+    </div>
+    <div class="span6 text-center">
+        <h3><span class="text-success">{{hero.wins}}</span> - <span class="text-error">{{hero.losses}}</span> - {{hero.percent}}%</h3>
+    </div>
+    <div class="span4 offset1">
+        <table class="table table-stats">
+            <tr>
+                <td>Average Kills</td>
+                <td>{{ hero.kills }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

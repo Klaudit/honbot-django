@@ -34,11 +34,20 @@
 </header>
 <br>
 <div class="container">
+    <div class="row">
+        <div class="span12">
+            <div class="alert alert-success">
+                Ranked stats only for now. Feel free to <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">complain about it here</a>.
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
     <ul class="nav nav-tabs">
         <li><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
         <li><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
         <li><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
-        <li class="active"><a>Hero Stats</a></li>
+        <li class="active"><a href="/player_hero/{{ stats.nickname }}/">Hero Stats</a></li>
         <li><a href="#banner" role="button" data-toggle="modal">Stats Banner</a></li>
     </ul>
     <div class="row">
@@ -296,12 +305,12 @@
     <br>
     <div class="row">
         <div class="span3 offset2">
-            <div class="text-center"><i id="match-load1" class="icon-spinner icon-spin icon-2x"></i></div>
+            <div id="match-load1" class="text-center"></div>
             <div id="display1">
             </div>
         </div>
         <div class="span3 offset1">
-            <div class="text-center"><i id="match-load2" class="icon-spinner icon-spin icon-2x"></i></div>
+            <div id="match-load2" class="text-center"></div>
             <div id="display2">
             </div>
         </div>
@@ -309,8 +318,6 @@
 </div>
 <script>
 $(document).ready(function() { 
-    $("#match-load1").hide();
-    $("#match-load2").hide();
     $("#hero1").select2({
         placeholder: "Select a Hero",
         allowClear: false
@@ -319,12 +326,44 @@ $(document).ready(function() {
         placeholder: "Select a Hero",
         allowClear: false,
     });
+    if(location.hash != ""){
+        one = location.hash.split('&')[0].split('#')[1];
+        two = location.hash.split('&')[1];
+        if(two!="None"&&two!=""){$('#match-load2').append('<i class="icon-spinner icon-spin icon-2x"></i>');}
+        if(one!="None")
+        {
+            $('#match-load1').append('<i class="icon-spinner icon-spin icon-2x"></i>');
+            $.get("/player_hero_stats/{{ player }}/" + one + "/",
+            function (data) {
+                $('#display1').append(data);
+                $('#rows tr').click(function(){
+                    window.location = $(this).attr('href');
+                    return false;
+                });
+                $("#match-load1").empty();
+            });
+        }
+        if(two!="None"&&two!="")
+        {
+            $.get("/player_hero_stats/{{ player }}/" + two + "/",
+            function (data) {
+                $('#display2').append(data);
+                $('#rows tr').click(function(){
+                    window.location = $(this).attr('href');
+                    return false;
+                }); 
+            $("#match-load2").empty();
+            });
+        }
+    };
 });
 </script>
 <script>
 $("#hero1").change(function(){
-    window.location.hash = $("#hero1").select2("val")
-    $("#match-load1").show();
+    split = location.hash.split('&')[1];
+    if(split == undefined){split='None'}
+    window.location.hash = $("#hero1").select2("val") + '&' + split;
+    $('#match-load1').append('<i class="icon-spinner icon-spin icon-2x"></i>');
     $("#display1").empty();
     $.get("/player_hero_stats/{{ player }}/" + String($("#hero1").select2("val")) + "/",
         function (data) {
@@ -333,12 +372,14 @@ $("#hero1").change(function(){
                 window.location = $(this).attr('href');
                 return false;
             }); 
+            $("#match-load1").empty();
         });
-    $("#match-load1").hide();
 });
 $("#hero2").change(function(){
-    window.location.hash = $("#hero2").select2("val")
-    $("#match-load2").show();
+    split = location.hash.split('&')[0];
+    if(split == undefined){split='None'}
+    window.location.hash = split + '&' + $("#hero2").select2("val");
+    $('#match-load2').append('<i class="icon-spinner icon-spin icon-2x"></i>');
     $("#display2").empty();
     $.get("/player_hero_stats/{{ player }}/" + String($("#hero2").select2("val")) + "/",
         function (data) {
@@ -347,8 +388,8 @@ $("#hero2").change(function(){
                 window.location = $(this).attr('href');
                 return false;
             }); 
+            $("#match-load2").empty();
         });
-    $("#match-load2").hide();
 });
 </script>
 <script>

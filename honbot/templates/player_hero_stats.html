@@ -48,26 +48,28 @@
                 <td>{{ hero.wards }}</td>
             </tr>
         </table>
-        <h4 class="text-center">Cached Matches</h4>
-        <table id="history" class="table center-headers table-condensed recent-match">
-            <thead>
-                <tr>
-                    <th>K / D / A</th>
-                    <th>Match</th>
+        {%if exists%}
+            <h4 class="text-center">Cached Matches</h4>
+            <table id="history" class="table center-headers table-condensed recent-match">
+                <thead>
+                    <tr>
+                        <th>K / D / A</th>
+                        <th>Match</th>
+                    </tr>
+                </thead>
+                <tbody id="rows">
+            {%for r in recent%}
+                {% if r.win %}
+                <tr class="match-win" href="/match/{{ r.match }}/">
+                {% else %}
+                <tr class="match-loss" href="/match/{{ r.match }}/">
+                {% endif %}
+                    <td>{{ r.kills }} / {{ r.deaths }} / {{ r.assists }}</td>
+                    <td><a href="/match/{{ r.match }}/">{{ r.match }}</a></td>
                 </tr>
-            </thead>
-            <tbody id="rows">
-        {%for r in recent%}
-            {% if r.win %}
-            <tr class="match-win" href="/match/{{ r.match }}/">
-            {% else %}
-            <tr class="match-loss" href="/match/{{ r.match }}/">
-            {% endif %}
-                <td>{{ r.kills }} / {{ r.deaths }} / {{ r.assists }}</td>
-                <td><a href="/match/{{ r.match }}/">{{ r.match }}</a></td>
-            </tr>
-        {%endfor%}
-        </tbody>
-        </table>
+            {%endfor%}
+            </tbody>
+            </table>
+        {%endif%}
     </div>
 </div>

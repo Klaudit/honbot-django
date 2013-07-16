@@ -49,8 +49,6 @@ def player_hero_stats(request, name, hero):
         hero['cs'] = round(divided(data[0]['rnk_ph_teamcreepkills'], data[0]['rnk_ph_used']), 1)
         hero['cd'] = round(divided(data[0]['rnk_ph_denies'], data[0]['rnk_ph_used']), 1)
         hero['wards'] = round(divided(data[0]['rnk_ph_wards'], data[0]['rnk_ph_used']), 1)
-        recent = PlayerMatches.objects.filter(player_id=data[0]['account_id'], hero=data[0]['hero_id']).values('match', 'assists', 'deaths', 'kills', 'win')
-        exists = recent.exists()
-        return render_to_response('player_hero_stats.html', {'hero': hero, 'recent': recent, 'exists': exists})
+        return render_to_response('player_hero_stats.html', {'hero': hero})
     else:
         return HttpResponse('Error! Returned no stats with this hero.')

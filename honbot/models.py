@@ -161,3 +161,11 @@ class PlayerStatsPublic(models.Model):
     losses = models.PositiveIntegerField(default=0)
     left = models.PositiveIntegerField(default=0)
     aassists = models.FloatField(default=0)
+
+
+class PlayerHeroStats(models.Model):
+    nickname = models.CharField(max_length=30, default="")
+    data = models.TextField(default="")
+    hero_id = models.SmallIntegerField(default=0)
+    updated = models.DateTimeField(auto_now=True, default=0)
+    mode = models.CharField(max_length=10, default="rnk")

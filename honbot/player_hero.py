@@ -1,7 +1,9 @@
 from django.shortcuts import render_to_response
 import api_call
 from django.http import HttpResponse
-from honbot.models import PlayerMatches, PlayerStats
+from honbot.models import PlayerMatches, PlayerStats, PlayerHeroStats
+from datetime import datetime
+import json
 
 
 def divided(num1, num2):
@@ -17,8 +19,20 @@ def player_hero(request, name):
 
 
 def player_hero_stats(request, name, hero):
-    url = "/hero_statistics/ranked/nickname/" + name + "/heroid/" + hero
-    data = api_call.get_json(url)
+    search = PlayerHeroStats.objects.filter(nickname=name, hero_id=hero)
+    if search.exists():
+        tdelta = datetime.now() - datetime.strptime(str(search.values('updated')[0]['updated']), "%Y-%m-%d %H:%M:%S")
+        if tdelta.seconds + (tdelta.days * 86400) < 1000:
+            data = json.loads(search.values('data')[0]['data'])
+        else:
+            url = "/hero_statistics/ranked/nickname/" + name + "/heroid/" + hero
+            data = api_call.get_json(url)
+            search.delete()
+            PlayerHeroStats(nickname=name, hero_id=hero, data=json.dumps(data)).save()
+    else:
+        url = "/hero_statistics/ranked/nickname/" + name + "/heroid/" + hero
+        data = api_call.get_json(url)
+        PlayerHeroStats(nickname=name, hero_id=hero, data=json.dumps(data)).save()
     if data is not None:
         hero = {}
         hero['id'] = data[0]['hero_id']
@@ -39,4 +53,4 @@ def player_hero_stats(request, name, hero):
         exists = recent.exists()
         return render_to_response('player_hero_stats.html', {'hero': hero, 'recent': recent, 'exists': exists})
     else:
-        return HttpResponse('Error! Stats not found')
+        return HttpResponse('Error! Returned no stats with this hero.')

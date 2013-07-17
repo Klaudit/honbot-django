@@ -122,48 +122,6 @@
             </table>
         </div>
         <div class="span4">
-            <legend class="text-center">APM</legend>
-            <table class="table table-condensed table-striped table-stats">
-                <thead>
-                    <th>Player</th>
-                    <th>APM</th>
-                    <th>Win?</th>
-                    <th>Match</th>
-                </thead>
-                <tbody>
-                    {%for m in apm%}
-                    <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
-                        <td>{{m.apm}}</td>
-                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
-                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
-                    </tr>
-                    {%endfor%}
-                </tbody>
-            </table>
-        </div>
-        <div class="span4">
-            <legend class="text-center">GPM</legend>
-            <table class="table table-condensed table-striped table-stats">
-                <thead>
-                    <th>Player</th>
-                    <th>GPM</th>
-                    <th>Win?</th>
-                    <th>Match</th>
-                </thead>
-                <tbody>
-                    {%for m in gpm%}
-                    <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
-                        <td>{{m.gpm}}</td>
-                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
-                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
-                    </tr>
-                    {%endfor%}
-                </tbody>
-            </table>
-        </div>
-        <div class="span4">
             <legend class="text-center">Denies</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
@@ -206,32 +164,11 @@
             </table>
         </div>
         <div class="span4">
-            <legend class="text-center">Gold Lost</legend>
-            <table class="table table-condensed table-striped table-stats">
-                <thead>
-                    <th>Player</th>
-                    <th>Gold</th>
-                    <th>Win?</th>
-                    <th>Match</th>
-                </thead>
-                <tbody>
-                    {%for m in lost%}
-                    <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
-                        <td>{{m.goldlost2death}}</td>
-                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
-                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
-                    </tr>
-                    {%endfor%}
-                </tbody>
-            </table>
-        </div>
-        <div class="span4">
             <legend class="text-center">Smackdown</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
-                    <th>Smack</th>
+                    <th>Smacks</th>
                     <th>Win?</th>
                     <th>Match</th>
                 </thead>

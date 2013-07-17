@@ -17,10 +17,7 @@ def seven(request):
     deaths = inrange.order_by('-deaths').values('deaths', 'nickname', 'win', 'match_id', 'hero')[:5]
     cs = inrange.order_by('-cs').values('cs', 'nickname', 'win', 'match_id', 'hero')[:5]
     denies = inrange.order_by('-denies').values('denies', 'nickname', 'win', 'match_id', 'hero')[:5]
-    apm = inrange.order_by('-apm').values('apm', 'nickname', 'win', 'match_id', 'hero')[:5]
-    gpm = inrange.order_by('-gpm').values('gpm', 'nickname', 'win', 'match_id', 'hero')[:5]
-    lost = inrange.order_by('-goldlost2death').values('goldlost2death', 'nickname', 'win', 'match_id', 'hero')[:5]
     smackdown = inrange.order_by('-smackdown').values('smackdown', 'nickname', 'win', 'match_id', 'hero')[:5]
     t = loader.get_template('top.html')
-    c = Context({'kills': kills, 'wards': wards, 'deaths': deaths, 'assists': assists, 'cs': cs, 'apm': apm, 'gpm': gpm, 'lost': lost, 'denies': denies, 'smackdown': smackdown})
+    c = Context({'kills': kills, 'wards': wards, 'deaths': deaths, 'assists': assists, 'cs': cs, 'denies': denies, 'smackdown': smackdown})
     return HttpResponse(t.render(c))

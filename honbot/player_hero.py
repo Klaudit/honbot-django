@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 import api_call
 from django.http import HttpResponse
-from honbot.models import PlayerMatches, PlayerStats, PlayerHeroStats
+from honbot.models import PlayerStats, PlayerHeroStats
 from datetime import datetime
 import json
 

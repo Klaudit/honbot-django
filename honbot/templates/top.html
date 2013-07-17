@@ -3,14 +3,17 @@
 {% block page_title %}Top Charts | HonBot Heroes of Newerth Stats {% endblock %}
 
 {% block main_content %}
-<div class="container">
-    <br>
-    <div class="alert">
-        <strong>Warning!</strong> this is still under construction.
+<header class="player-head" id="overview">
+    <div class='container'>
+        <div class="row">
+            <div class="span12">
+                <h3 class="text-center">High Scores - Last Seven Days</h3>
+            </div>
+        </div>
     </div>
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#">7 Days</a></li>
-    </ul>
+</header>
+<br>
+<div class="container">
     <div class="row">
         <div class="span12">
             <legend class="text-center">Kills</legend>
@@ -111,6 +114,132 @@
                     <tr>
                         <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
                         <td>{{m.assists}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="span4">
+            <legend class="text-center">APM</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>APM</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in apm%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.apm}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="span4">
+            <legend class="text-center">GPM</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>GPM</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in gpm%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.gpm}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="span4">
+            <legend class="text-center">Denies</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>Denies</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in denies%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.denies}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="span4">
+            <legend class="text-center">Creep Kills</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>CS</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in cs%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.cs}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="span4">
+            <legend class="text-center">Gold Lost</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>Gold</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in lost%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.goldlost2death}}</td>
+                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="span4">
+            <legend class="text-center">Smackdown</legend>
+            <table class="table table-condensed table-striped table-stats">
+                <thead>
+                    <th>Player</th>
+                    <th>Smack</th>
+                    <th>Win?</th>
+                    <th>Match</th>
+                </thead>
+                <tbody>
+                    {%for m in smackdown%}
+                    <tr>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td>{{m.smackdown}}</td>
                         <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
                     </tr>

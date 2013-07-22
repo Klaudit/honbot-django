@@ -8,7 +8,7 @@ import json
 
 
 def home(request):
-    t = loader.get_template('home.html')
+    t = loader.get_template('newhome.html')
     random = randint(1, 74)
     c = Context({'random': random})
     return HttpResponse(t.render(c))

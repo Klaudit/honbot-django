@@ -31,7 +31,6 @@ Version 2.5 Planned Features
 ---------------------------
 Tooltips
 Social Share Modal
-Find More fun querries
 Move recent matches to ajax and json
 Hero Stats/pages
 Item Pages
@@ -46,13 +45,6 @@ Share tab
 * Advanced stats should be stored somehow  
     * Chat can be json.dumped
     * builds can be arrays or stored in individual columns
-Top Matches of week  
-    * load various player matches
-    * Most kills
-    * most deaths
-    * longest
-    * likes to ward
-    * Most active
 Fix match view for 3vs3 add if !player to all graphs to prevent spawn of non existant player
 
 
@@ -69,6 +61,6 @@ __Find most assists__
 
     PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-assists')[:5]
 
-
+More can be found in top.py
 
 

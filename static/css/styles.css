@@ -21,7 +21,7 @@ body {
 /* Set the fixed height of the footer here */
 #footer {
   height: 60px;
-  background-color: #f5f5f5;
+  background-color: #eee;
 }
 
 /* Lastly, apply responsive CSS fixes as necessary */
@@ -36,11 +36,59 @@ body {
 
 /* Custom page CSS
 -------------------------------------------------- */
+.navbar-inverse .navbar-brand {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 200;
+}
+/* Hero */
+.hero-container {
+  background-color: #2C3E50;
+  background-position: 90% 55%;
+  background-size: 800px auto;
+  background-repeat:no-repeat;
+  margin-top: -20px;
+  padding: 0 0 100px;
+}
+.hero-container h1{
+  padding: 60px 0 0;
+  font-size: 6em;
+  color: #fff;
+  font-weight: 600;
+}
 
+/* Footer */
 .container .credit {
   margin: 20px 0;
   float: left;
 }
 .container .credit-links {
   margin: 20px 0;
+}
+
+/* Custom button
+-------------------------------------------------- */
+
+/* Override base .btn styles */
+/* Apply text and background changes to three key states: default, hover, and active (click). */
+.btn-ttc,
+.btn-ttc:hover,
+.btn-ttc:active {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #222222;
+}
+
+/* Apply the custom-colored gradients */
+/* Note: you'll need to include all the appropriate gradients for various browsers and standards. */
+.btn-ttc {
+  background-repeat: repeat-x;
+  background-image: linear-gradient(top, #222222 0%, #222222 100%);
+  ...
+}
+
+/* Set the hover state */
+/* An easy hover state is just to move the gradient up a small amount. Add other embellishments as you see fit. */
+.btn-ttc:hover {
+  background-position: 0 -15px;
 }

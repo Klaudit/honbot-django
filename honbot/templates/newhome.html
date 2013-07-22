@@ -3,43 +3,84 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Stats for Heroes of Newerth, HoN. Bringing chat, matches, graphs and stats all together!">
+    <meta name="author" content="Scott Cooper">
 
-    <title>Sticky footer template for Bootstrap</title>
+    <title>HonBot | HoN stats, players, matches, chat logs</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.css" rel="stylesheet">
-
     <!-- Custom styles -->
     <link href="/static/css/styles.css" rel="stylesheet">
+    <!-- Random Hero -->
+    <style type="text/css">
+    .hero-container{
+        background-image: url('/static/img/home_hero/store-{{ random }}.png');
+        img.desaturate { filter: grayscale(100%);
+    }
+    </style>
   </head>
 
   <body>
-
-    <!-- Wrap all page content here -->
     <div id="wrap">
-      <div class="navbar">
+      <div class="navbar navbar-static-top navbar-inverse">
         <div class="container">
-          <a class="navbar-brand" href="/">HonBot</a>
+          <a class="navbar-brand" href="/"><img style="padding-bottom: 1px;" src="/static/img/bars-small.png">HonBot</a>
           <ul class="nav navbar-nav pull-right">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
+            <li><a href="/recent">Recent</a></li>
+            <li><a href="/top/">Top</a></li>
           </ul>
         </div>
       </div>
 
-      <!-- Begin page content -->
-      <div class="container">
-        <div class="page-header">
-          <h1>Sticky footer</h1>
+      <!-- Hero -->
+      <div class="hero-container">
+        <div class="container">
+          <div class="hero-title">
+            <h1 class="text-center"><img style="padding-bottom: 8px;" src="/static/img/bars.png">HonBot</h1>
+          </div>
+          <form class="form-inline">
+            <div class="col-lg-5 col-offset-3">
+              <input class="input-large" type="text" placeholder="Username">
+            </div>
+            <button type="submit" class="btn btn-ttc btn-large">Search</button>
+          </form>
         </div>
-        <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p>
-        <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
+      </div>
+
+      <!-- This shit -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 text-center">
+            <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
+            <legend><h2>HoNBoost.com</h2></legend>
+            <p class="home-box">
+              The #1 HoN Community site run by professional HoN players!
+              Updated every day with the latest Heroes of Newerth news 
+              and events. Coaching, Boosting, interviews, item guides, patch analysis, and more -<br>
+              <a href="http://honboost.com">Visit HoNBoost.com today!</a>
+              <br>
+              <span class="small muted">Sponsored</span>
+            </p>
+          </div>
+          <div class="col-lg-4 text-center">
+            <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
+            <h2>Big Plays</h2>
+            <p class="home-box">Check out the weekly best scores and stats from the best players in HoN.</p>
+            <a href="/top/" class="btn btn-ttc">Top Charts</a>
+          </div>
+          <div class="col-lg-4 text-center">
+            <h1><i class="icon-comments-alt icon-large"></i></h1>
+            <legend><h2>Discussion</h2></legend>
+            <p class="home-box">
+            If you have an idea, spot a bug, or have feedback; leave a comment in the <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">official thread</a> on the Heroes of Newerth Forums.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Footer -->
     <div id="footer">
       <div class="container">
         <p class="text-muted credit">Created by <a href="https://twitter.com/scttcper">@scttcper</a></p>

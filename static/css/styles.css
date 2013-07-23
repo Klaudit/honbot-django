@@ -42,7 +42,7 @@ body {
 .navbar-inverse .navbar-brand {
   color: #fff;
   font-size: 25px;
-  font-weight: 100;
+  font-family: 'Questrial', sans-serif;
 }
 .navbar-inverse .navbar-brand:hover{
   text-shadow: -1px 1px 8px #fff, 1px -1px 8px #fff;
@@ -59,8 +59,8 @@ body {
 .hero-container h1{
   padding: 60px 0 20px;
   font-size: 6em;
+  font-family: 'Questrial', sans-serif;
   color: #fff;
-  font-weight: 100;
 }
 
 /* Footer */
@@ -70,6 +70,9 @@ body {
 }
 .container .credit-links {
   margin: 20px 0;
+}
+.home-box{
+  font-size: 110%;
 }
 
 hr.soften {
@@ -81,4 +84,10 @@ hr.soften {
   border: 0;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+/* Nav */
+.navbar-inverse {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

@@ -62,7 +62,16 @@ body {
   font-family: 'Questrial', sans-serif;
   color: #fff;
 }
-
+@media(max-width:480px){
+  .hero-container{
+      background-size: 0 0;
+  }
+}
+@media(min-width:480px) and (max-width:767px){
+  .hero-container{
+        background-size: 0 0;
+    }
+}
 /* Footer */
 .container .credit {
   margin: 20px 0;

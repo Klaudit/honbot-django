@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.template import Context, loader
+from django.shortcuts import render_to_response
 from random import randint
 import advanced
 import match
@@ -8,10 +8,8 @@ import json
 
 
 def home(request):
-    t = loader.get_template('newhome.html')
     random = randint(1, 74)
-    c = Context({'random': random})
-    return HttpResponse(t.render(c))
+    return render_to_response('home.html', {'random': random})
 
 
 def match_view(request, match_id):

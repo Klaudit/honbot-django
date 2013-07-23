@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Stats for Heroes of Newerth, HoN. Bringing chat, matches, graphs and stats all together!">
+    <meta name="keywords" content="HoN, heroes of newerth, stats, chat, chat logs, MOAB, graphs, hon stats, hon chat, hon bot, honbot">
     <meta name="author" content="Scott Cooper">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
 
     <title>HonBot | HoN stats, players, matches, chat logs</title>
 
@@ -12,20 +14,15 @@
     <link href="/static/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles -->
     <link href="/static/css/styles.css" rel="stylesheet">
-    <!-- Random Hero -->
-    <style type="text/css">
-    .hero-container{
-        background-image: url('/static/img/home_hero/store-{{ random }}.png');
-        img.desaturate { filter: grayscale(100%);
-    }
-    </style>
+    <!-- Font Awesome -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
   </head>
 
   <body>
     <div id="wrap">
       <div class="navbar navbar-static-top navbar-inverse">
         <div class="container">
-          <a class="navbar-brand" href="/"><img style="padding-bottom: 1px;" src="/static/img/bars-small.png">HonBot</a>
+          <a class="navbar-brand" href="/">HonBot</a>
           <ul class="nav navbar-nav pull-right">
             <li><a href="/recent">Recent</a></li>
             <li><a href="/top/">Top</a></li>
@@ -37,41 +34,43 @@
       <div class="hero-container">
         <div class="container">
           <div class="hero-title">
-            <h1 class="text-center"><img style="padding-bottom: 8px;" src="/static/img/bars.png">HonBot</h1>
+            <h1 class="text-center">HonBot</h1>
           </div>
           <form class="form-inline">
             <div class="col-lg-5 col-offset-3">
-              <input class="input-large" type="text" placeholder="Username">
+              <input class="input-large" type="text" placeholder="Player Username" autofocus>
             </div>
-            <button type="submit" class="btn btn-ttc btn-large">Search</button>
+            <button type="submit" class="btn btn-default btn-large"><i class="icon-search"></i></button>
           </form>
         </div>
       </div>
-
+      <br>
       <!-- This shit -->
       <div class="container">
         <div class="row">
           <div class="col-lg-4 text-center">
             <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
-            <legend><h2>HoNBoost.com</h2></legend>
+            <h2>HoNBoost.com</h2>
+            <hr class="soften">
             <p class="home-box">
               The #1 HoN Community site run by professional HoN players!
               Updated every day with the latest Heroes of Newerth news 
               and events. Coaching, Boosting, interviews, item guides, patch analysis, and more -<br>
               <a href="http://honboost.com">Visit HoNBoost.com today!</a>
               <br>
-              <span class="small muted">Sponsored</span>
+              <span class="text-muted">Sponsored</span>
             </p>
           </div>
           <div class="col-lg-4 text-center">
             <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
-            <h2>Big Plays</h2>
+            <h2>The Charts</h2>
             <p class="home-box">Check out the weekly best scores and stats from the best players in HoN.</p>
-            <a href="/top/" class="btn btn-ttc">Top Charts</a>
+            <a href="/top/" class="btn btn-default">Top Charts</a>
           </div>
           <div class="col-lg-4 text-center">
             <h1><i class="icon-comments-alt icon-large"></i></h1>
-            <legend><h2>Discussion</h2></legend>
+            <h2>Discussion</h2>
+            <hr class="soften">
             <p class="home-box">
             If you have an idea, spot a bug, or have feedback; leave a comment in the <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">official thread</a> on the Heroes of Newerth Forums.
             </p>

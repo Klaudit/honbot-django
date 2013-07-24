@@ -10,7 +10,6 @@ import json
 import django.contrib.humanize
 
 
-@cache_page(60 * 30)
 def home(request):
     random = randint(1, 74)
     matches = Matches.objects.count()

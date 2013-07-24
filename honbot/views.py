@@ -1,15 +1,21 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from honbot.models import Matches, PlayerStats
+from django.views.decorators.cache import cache_page
 from random import randint
 import advanced
 import match
 from error import error
 import json
+import django.contrib.humanize
 
 
+@cache_page(60 * 15)
 def home(request):
     random = randint(1, 74)
-    return render_to_response('home.html', {'random': random})
+    matches = Matches.objects.count()
+    players = PlayerStats.objects.count()
+    return render_to_response('home.html', {'random': random, 'matches': matches, 'players': players})
 
 
 def match_view(request, match_id):

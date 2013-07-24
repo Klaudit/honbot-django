@@ -67,37 +67,77 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-4 text-center">
-            <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
-            <h2>HoNBoost.com</h2>
-            <hr class="soften">
-            <p class="home-box">
-              The #1 HoN Community site run by professional HoN players!
-              Updated every day with the latest Heroes of Newerth news 
-              and events. Coaching, Boosting, interviews, item guides, patch analysis, and more -<br>
-              <a href="http://honboost.com">Visit HoNBoost.com today!</a>
-              <br>
-              <small class="text-muted">Sponsored</small>
-            </p>
+            <div class="well home-well">
+              <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
+              <h2>HoNBoost.com</h2>
+              <hr class="soften">
+              <p class="home-box">
+                The #1 HoN Community site run by professional HoN players!
+                Updated every day with the latest Heroes of Newerth news 
+                and events. Coaching, Boosting, interviews, item guides, patch analysis, and more -<br>
+                <a href="http://honboost.com">Visit HoNBoost.com today!</a>
+                <br>
+                <small class="text-muted">Sponsored</small>
+              </p>
+            </div>
           </div>
           <div class="col-lg-4 text-center">
-            <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
-            <h2>The Charts</h2>
-            <p class="home-box">Check out the weekly best scores and stats from the best players in HoN.</p>
-            <a href="/top/" class="btn btn-default">Top Charts</a>
+            <div class="well home-well">
+              <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
+              <h2>The Charts</h2>
+              <hr class="soften">
+              <p class="home-box">Who had the most kills this week? Does killing a ton of creeps help me win the game? Check out the best and worst scores in HoN from the best players in the world.<br>
+              <a href="/top/" class="btn btn-link">The Top</a></p>
+            </div>
           </div>
           <div class="col-lg-4 text-center">
-            <h1><i class="icon-comments-alt icon-large"></i></h1>
-            <h2>Discussion</h2>
-            <hr class="soften">
-            <p class="home-box">
-            If you have an idea, spot a bug, or have feedback; leave a comment in the <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">official thread</a> on the Heroes of Newerth Forums.
-            </p>
+            <div class="well home-well">
+              <h1><i class="icon-comments-alt icon-large"></i></h1>
+              <h2>Discussion</h2>
+              <hr class="soften">
+              <p class="home-box">
+              If you have an idea, spot a bug, or have feedback; leave a comment in the <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">official thread</a> on the Heroes of Newerth Forums. If you could submit a pull request on github that would be even better.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="panel">
+                <div class="panel-heading">Recent Changes</div>
+                <ul>
+                  <li>Migrated to <strong>Boostrap 3</strong> beta in eager anticipation of august release</li>
+                  <ul>
+                    <li>More mobile friendly than ever</li>
+                    <li>This is as dark as the website ever will be - stop requesting it</li>
+                  </ul>
+                  <li>Added casual and public <strong>hero stats</strong> lookup. You can find this from the player stats page</li>
+                </ul>
+                <div class="panel-footer"><a href="https://github.com/scttcper/honbot-django">View Source Code</a></div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="panel">
+                <div class="panel-heading">Server Stats</div>
+                {% load humanize %}
+                Database: 
+                <ul>
+                  <li>Matches: {{ matches|intcomma }}</li>
+                  <li>Players: {{ players|intcomma }}</li>
+                </ul>
+                S2 API:
+                <ul>
+                  <li>Status: Server status coming soon</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
 
     <!-- Footer -->
+    </div>
     <div id="footer">
       <div class="container">
         <div class="pull-left">

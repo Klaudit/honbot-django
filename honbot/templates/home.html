@@ -35,7 +35,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/"><img style="width: 10px; margin-top: -5px; margin-right: -1px;" src="/static/img/testbars.png">HonBot</a>
+          <a class="navbar-brand" href="/"><img style="width: 10px; margin-top: -5px; margin-right: -2px;" src="/static/img/testbars.png">HonBot</a>
           <div class="nav-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav pull-right">
               <li><a href="/recent">Recent</a></li>
@@ -53,12 +53,11 @@
           </div>
           <form id="searchform">
             <div class="input-group col-lg-6 col-offset-3 col-12">
-              <input id="player" class="input-large" type="text" placeholder="Player Username" autocomplete="off" autofocus>
+              <input id="player" type="text" class="form-control input-large">
               <span class="input-group-btn">
-              <button type="submit" class="btn btn-default btn-large"><i class="icon-search"></i> Go</button>
+                <button class="btn btn-default btn-large" type="button"><i class="icon-search"></i>Go</button>
               </span>
             </div>
-
           </form>
         </div>
       </div>
@@ -106,8 +105,7 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="panel">
-                <div class="panel-heading">Recent Changes</div>
-                August:
+                <h4 class="panel-heading">Recent Changes</h4>
                 <ul>
                   <li>Migrated to <strong>Boostrap 3</strong> beta in anticipation of late August release</li>
                   <ul>
@@ -115,14 +113,14 @@
                     <li>This is as dark as the website ever will be - squint or something</li>
                   </ul>
                   <li>Added casual and public <strong>hero stats</strong> lookup. You can find this from the player stats page</li>
-                  <li>Added caching to several high traffic pages.</li>
+                  <li>Added caching to several pages.</li>
                 </ul>
                 <div class="panel-footer"><a href="https://github.com/scttcper/honbot-django">View Source Code</a></div>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="panel">
-                <div class="panel-heading">Server Stats</div>
+                <h4 class="panel-heading">Server Stats</h4>
                 {% load humanize %}
                 Database: 
                 <ul>
@@ -131,7 +129,7 @@
                 </ul>
                 S2 API:
                 <ul>
-                  <li>Status: Server status coming soon.</li>
+                  <li>Status: {%if server%}<span class="text-success">Working{%else%}<span class="text-error">Down{%endif%}</span></li>
                 </ul>
               </div>
             </div>

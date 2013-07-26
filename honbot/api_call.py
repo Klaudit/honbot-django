@@ -47,7 +47,7 @@ def pure(endpoint):
                 raw = requests.get(url, timeout=2)
             except requests.exceptions.Timeout:
                 return None
-        if raw.status_code == 429 and count < 5:
+        if raw.status_code == 429 and count < 2:
             count += 1
             sleep(0.2)
         elif raw.status_code == 200:

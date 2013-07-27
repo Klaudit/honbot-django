@@ -3,47 +3,38 @@
 {% block page_title %}{{ stats.nickname }} Player Stats | HonBot {% endblock %}
 
 {% block main_content %}
-<script type="text/javascript">
-var fb_param = {};
-fb_param.pixel_id = '6010565184057';
-fb_param.value = '0.00';
-fb_param.currency = 'USD';
-(function(){
-  var fpw = document.createElement('script');
-  fpw.async = true;
-  fpw.src = '//connect.facebook.net/en_US/fp.js';
-  var ref = document.getElementsByTagName('script')[0];
-  ref.parentNode.insertBefore(fpw, ref);
-})();
-</script>
-<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6010565184057&amp;value=0&amp;currency=USD" /></noscript>
-<header class="player-head" id="overview">
+<script type="text/javascript">var fb_param = {};fb_param.pixel_id = '6010565184057';fb_param.value = '0.00';fb_param.currency = 'USD';(function(){var fpw = document.createElement('script');fpw.async = true;fpw.src = '//connect.facebook.net/en_US/fp.js';var ref = document.getElementsByTagName('script')[0];ref.parentNode.insertBefore(fpw, ref);})();</script><noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6010565184057&amp;value=0&amp;currency=USD" /></noscript>
+<header>
     <div class='container'>
         <div class="row">
-            <div class="span6">
-                <div style="width: 50px; margin-top: 15px; padding-right: 4px;" class="pull-left" id="avatar"></div><h1 class="pull-left">{{ stats.nickname }}</h1>
-            </div>
-            <div class="span6 player-tsr">
-                <div class="span1 text-center">
-                    <strong>MMR</strong><br> {{ stats.mmr }}
-                </div>
-                <div class="span1 text-center">
-                    <strong>TSR</strong><br> {{ stats.TSR }}
-                </div>
-                <div class="span1 text-center">
-                    <strong>Wins</strong><br> {{ stats.wins }}
-                </div>
-                <div class="span1 text-center">
-                    <strong>Losses</strong><br>{{ stats.losses }}
-                </div>
-                <div class="span1 text-center">
-                    <strong>Wins</strong><br> {{ stats.winpercent }}
+            <div class="col-lg-8 col-offset-2 well well-small">
+                <div class="row">
+                    <div class="col-lg-1 text-center">
+                        <div id="avatar"></div>
+                    </div>
+                    <div class="col-lg-5">
+                        <h2 style="margin-top: 12px;">{{ stats.nickname }}</h2>
+                    </div>
+                            <div class="col-lg-1 text-center">
+                                <h4 style="margin-bottom: 2px;">MMR</h4>{{ stats.mmr }}
+                            </div>
+                            <div class="col-lg-1 text-center">
+                                <h4 style="margin-bottom: 2px;">TSR</h4>{{ stats.TSR }}
+                            </div>
+                            <div class="col-lg-1 text-center">
+                                <h4 style="margin-bottom: 2px;">WIN</h4>{{ stats.wins }}
+                            </div>
+                            <div class="col-lg-1 text-center">
+                                <h4 style="margin-bottom: 2px;">LOSS</h4>{{ stats.losses }}
+                            </div>
+                            <div class="col-lg-2 text-center">
+                                <h3>{{ stats.winpercent }}</h3>
+                            </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
-<br>
 <div class="container">
     <ul class="nav nav-tabs">
         <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
@@ -53,9 +44,9 @@ fb_param.currency = 'USD';
         <li><a href="#banner" role="button" data-toggle="modal">Stats Banner</a></li>
     </ul>
     <div class="row">
-        <div class="span6">
+        <div class="col-lg-6">
             <div class="row">
-                <div class="span3 text-center">
+                <div class="col-lg-6 text-center">
                     <h4>Lifetime</h4>
                     <table class="table">
                         <tr>
@@ -104,7 +95,7 @@ fb_param.currency = 'USD';
                         </tr>
                     </table>
                 </div>
-                <div class="span3 text-center">
+                <div class="col-lg-6 text-center">
                     <h4>Average Match</h4>
                     <table class="table">
                         <tr>
@@ -155,7 +146,7 @@ fb_param.currency = 'USD';
                 </div>
             </div>
         </div>
-        <div class="span6 text-center">
+        <div class="col-lg-6 text-center">
             <table id="history" class="table center-headers table-condensed recent-match">
                 <thead>
                     <tr>
@@ -169,7 +160,7 @@ fb_param.currency = 'USD';
                 </tbody>
             </table>
             <i id="match-load" class="icon-spinner icon-spin icon-2x"></i><br>
-            <a id="more" class="btn">More</a>
+            <a id="more" class="btn btn-default btn-small">Load More</a>
             <div id="no-more"></div>
         </div>
     </div>
@@ -180,7 +171,7 @@ fb_param.currency = 'USD';
         <h3 id="myModalLabel">Stats Banner</h3>
     </div>
     <div class="modal-body text-center">
-        <div class="span5">
+        <div class="col-lg-5">
             <img src="/banner/{{stats.nickname}}/">
             <p>
                 <legend>BB Code</legend>
@@ -191,6 +182,8 @@ fb_param.currency = 'USD';
         </div>
     </div>
 </div>
+{% endblock main_content %}
+{%block js%}
 <script>
 $.get("/match_history/{{ stats.player_id }}/?more=0&mode={{ mode }}",
 function (data) {
@@ -232,9 +225,9 @@ $("#more").click(function() {
 });
 </script>
 <script>
-$.get("/avatar/{{ stats.player_id }}/",
+$.get("/avatar/{{ stats.player_id }}/60/",
     function(data) {
         $('#avatar').append(data)
     });
 </script>
-{% endblock main_content %}
+{%endblock js%}

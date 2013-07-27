@@ -1,61 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>{% block page_title %}{% endblock %}</title>
-    <meta name="description" content="Stats for Heroes of Newerth">
-    <meta name="distribution" content="global">
-    <meta name="keywords" content="HoN, heroes of newrth, stats, chat, chat logs, MOAB, graphs, hon stats">
-    <link href="/static/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="/static/css/bootstrap-responsive.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="/static/css/overrides.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stats for Heroes of Newerth, HoN. Bringing chat, matches, graphs and stats all together!">
+    <meta name="keywords" content="HoN, heroes of newerth, stats, chat, chat logs, MOAB, graphs, hon stats, hon chat, hon bot, honbot">
+    <meta name="author" content="Scott Cooper">
     <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <link rel="apple-touch-icon-precomposed" href="/static/apple-touch-icon.png" />
+
+    <title>{% block page_title %}{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="/static/css/styles.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
     {% block headers %}{% endblock %}
-</head>
-<body>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="navbar navbar-static-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="/"><img style="padding-bottom: 3px;" src="/static/img/bars-small.png">HonBot</a>
-        <form id="searchform" class="navbar-form pull-left">
-            <input id="player" type="text" autocomplete="off" placeholder="Username" class="span2">
-            <button id="searchsubmit" type="submit" class="btn"><i class="icon-search icon-white"></i></button>
-        </form>
-        <ul class="nav">
-          <li><a href="/recent/">Recent</a></li>
-          <li><a href="/top/">Top</a></li>
-        </ul>
-    </div>
-  </div>
-</div>
-{% block main_content %}{% endblock main_content %}
-<footer class="footer">
-    <div class="container">
-        <hr>
-        <div class="copyright-text pull-left">&copy; 2013 <a href="https://github.com/scttcper"> Scott Cooper</a></div>
-        <div class="pull-right">
-            <div class="fb-like" data-href="https://www.facebook.com/honbott" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
+      <div class="navbar navbar-static-top navbar-inverse">
+        <div class="container">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><img style="width: 10px; margin-top: -5px; margin-right: -1px;" src="/static/img/testbars.png">HonBot</a>
+          <div class="nav-collapse collapse navbar-responsive-collapse">
+            <form id="searchform" class="navbar-form pull-left">
+              <input type="text" id="player" class="form-control" style="width: 200px;" placeholder="Username" autocomplete="off">
+            </form>
+            <ul class="nav navbar-nav pull-right">
+              <li><a href="/recent">Recent</a></li>
+              <li><a href="/top/">Top</a></li>
+            </ul>
+          </div>
         </div>
+      </div>
+    <!-- Insert Content -->
+    {% block main_content %}{% endblock main_content %}
+    <!-- Footer -->
     </div>
-</footer>
-<script>
-    $("#searchform").submit(function () {
-        var player = $('#player').val();
-        window.location.href = "/player/" + player + "/"
-        return false
-    });
-</script>
-</body>
+    <div id="footer">
+      <div class="container">
+        <div class="pull-left">
+          <p class="text-muted credit">Created by <a href="https://twitter.com/scttcper">@scttcper</a></p>
+        </div>
+        <div class="pull-right">
+          <div class="fb-like" style="margin-top: 20px;" data-href="https://www.facebook.com/honbott" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div>
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- Auto complete -->
+    <script src="/static/js/typeahead.min.js"></script>
+    <!-- Search Jquery -->
+    <script>
+        $("#searchform").submit(function () {
+            var player = $('#player').val();
+            window.location.href = "/player/" + player + "/"
+            return false
+        });
+    </script>
+    {%block js%}{% endblock js%}
+  </body>
 </html>

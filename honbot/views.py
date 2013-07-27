@@ -13,13 +13,3 @@ def match_view(request, match_id):
         return HttpResponse(t.render(c))
     else:
         return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
-
-
-def adv(request, match_id):
-    data = advanced.main(match_id)
-    if data is not None:
-        t = loader.get_template('advanced.html')
-        c = Context({'data': data, 'match_id': match_id})
-        return HttpResponse(t.render(c))
-    else:
-        return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")

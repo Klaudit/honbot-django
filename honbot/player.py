@@ -57,7 +57,7 @@ def player_save(stats, mode):
                     kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
                     akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
                     matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
-                    awards=stats['awards'], atime=stats['atime'], left=stats['left'],
+                    awards=stats['awards'], atime=stats['atime'], left=stats['left'], razed=stats['razed'],
                     aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
                     acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
     elif mode == "acc":
@@ -68,7 +68,7 @@ def player_save(stats, mode):
                           kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
                           akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
                           matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
-                          awards=stats['awards'], atime=stats['atime'], left=stats['left'],
+                          awards=stats['awards'], atime=stats['atime'], left=stats['left'], razed=stats['razed'],
                           aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
                           acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
     elif mode == "cs":
@@ -79,7 +79,7 @@ def player_save(stats, mode):
                           kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
                           akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
                           matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
-                          awards=stats['awards'], atime=stats['atime'], left=stats['left'],
+                          awards=stats['awards'], atime=stats['atime'], left=stats['left'], razed=stats['razed'],
                           aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
                           acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
 
@@ -110,6 +110,7 @@ def player_math(data, nick, mode):
     stats['cccalls'] = int(data[mode + '_concedevotes'])  # total concede votes
     stats['left'] = int(data[mode + '_discos'])  # disconnects
     stats['kicked'] = int(data[mode + '_kicked'])  # kicked
+    stats['razed'] = int(data[mode + '_razed'])  # buildings
     if stats['matches'] > 0:
         stats['hours'] = (int(data[mode + '_secs']) / 60) / 60  # hours played
         stats['acs'] = round(int(data[mode + '_teamcreepkills']) / float(stats['matches']), 1)  # average creep score

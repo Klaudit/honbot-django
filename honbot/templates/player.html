@@ -9,25 +9,25 @@
         <div class="row">
             <div class="col-lg-8 col-offset-2 well well-small">
                 <div class="row">
-                    <div class="col-lg-1 text-center">
+                    <div class="col-lg-1 text-center col-3 col-sm-1">
                         <div id="avatar"></div>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-6 col-9 col-3 col-sm-4">
                         <h2 style="margin-top: 12px;">{{ stats.nickname }}</h2>
                     </div>
-                    <div class="col-lg-1 col-offset-1 text-center">
+                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
                         <h4 style="margin-bottom: 2px;">mmr</h4>{{ stats.mmr }}
                     </div>
-                    <div class="col-lg-1 text-center">
+                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
                         <h4 style="margin-bottom: 2px;">tsr</h4>{{ stats.TSR }}
                     </div>
-                    <div class="col-lg-1 text-center">
+                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
                         <h4 style="margin-bottom: 2px;">win</h4>{{ stats.wins }}
                     </div>
-                    <div class="col-lg-1 text-center">
+                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
                         <h4 style="margin-bottom: 2px;">loss</h4>{{ stats.losses }}
                     </div>
-                    <div class="col-lg-1 text-center">
+                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
                         <h4 style="margin-top: 21px;">{{ stats.winpercent }}</h4>
                     </div>
                 </div>
@@ -36,124 +36,66 @@
     </div>
 </header>
 <div class="container">
-    <ul class="nav nav-tabs">
-        <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
-        <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
-        <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
-        <li><a href="/player_hero/{{ stats.nickname }}/">Hero Stats</a></li>
-        <li><a href="#banner" role="button" data-toggle="modal">Stats Banner</a></li>
-    </ul>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8 col-offset-2">
+            <ul class="nav nav-pills nav-justified">
+                <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
+                <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
+                <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
+                <li><a href="/player_hero/{{ stats.nickname }}/">Hero Stats</a></li>
+                <li><a href="#banner" role="button" data-toggle="modal">Stats Banner</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <hr class="soften">
+    <div class="row">
+        <div class="col-lg-5">
             <div class="row">
-                <div class="col-lg-6 text-center">
-                    <h4>Lifetime</h4>
-                    <table class="table">
-                        <tr>
-                            <td>Hours</td>
-                            <td>{{ stats.hours }}</td>
-                        </tr>
-                        <tr>
-                            <td>Kills</td>
-                            <td>{{ stats.kills }}</td>
-                        </tr>
-                        <tr>
-                            <td>Deaths</td>
-                            <td>{{ stats.deaths }}</td>
-                        </tr>
-                        <tr>
-                            <td>Assists</td>
-                            <td>{{ stats.assists }}</td>
-                        </tr>
-                        <tr>
-                            <td>Matches</td>
-                            <td>{{ stats.matches }}</td>
-                        </tr>
-                        <tr>
-                            <td>KDR</td>
-                            <td>{{ stats.kdr }}</td>
-                        </tr>
-                        <tr>
-                            <td>K+ADR</td>
-                            <td>{{ stats.kadr }}</td>
-                        </tr>
-                        <tr>
-                            <td>CC Games</td>
-                            <td>{{ stats.cc }}</td>
-                        </tr>
-                        <tr>
-                            <td>CC Calls</td>
-                            <td>{{ stats.cccalls }}</td>
-                        </tr>
-                        <tr>
-                            <td>DC</td>
-                            <td>{{ stats.left }}</td>
-                        </tr>
-                        <tr>
-                            <td>Kicked</td>
-                            <td>{{ stats.kicked }}</td>
-                        </tr>
-                    </table>
+                <div class="col-lg-5 panel col-6">
+                    <h4 class="panel-heading text-center">Lifetime</h4>
+                    <ul style="margin-top: -14px;" class="list-group list-group-flush">
+                        <li style="border-top-color: #fff;" class="list-group-item">Hours<p class="pull-right">{{ stats.hours }}</p></li>
+                        <li class="list-group-item">Kills<p class="pull-right">{{ stats.kills }}</p></li>
+                        <li class="list-group-item">Deaths<p class="pull-right">{{ stats.deaths }}</p></li>
+                        <li class="list-group-item">Assists<p class="pull-right">{{ stats.assists }}</p></li>
+                        <li class="list-group-item">Matches<p class="pull-right">{{ stats.matches }}</p></li>
+                        <li class="list-group-item">KDR<p class="pull-right">{{ stats.kdr }}</p></li>
+                        <li class="list-group-item">K+ADR<p class="pull-right">{{ stats.kadr }}</p></li>
+                        <li class="list-group-item">CC Games<p class="pull-right">{{ stats.cc }}</p></li>
+                        <li class="list-group-item">CC Calls<p class="pull-right">{{ stats.cccalls }}</p></li>
+                        <li class="list-group-item">DC<p class="pull-right">{{ stats.left }}</p></li>
+                        <li class="list-group-item">Kicked<p class="pull-right">{{ stats.kicked }}</p></li>
+                        <li class="list-group-item">Buildings<p class="pull-right">{{ stats.razed }}</p></li>
+                    </ul>
                 </div>
-                <div class="col-lg-6 text-center">
-                    <h4>Average Match</h4>
-                    <table class="table">
-                        <tr>
-                            <td>Minutes</td>
-                            <td>{{ stats.atime }}</td>
-                        </tr>
-                        <tr>
-                            <td>Kills</td>
-                            <td>{{ stats.akills }}</td>
-                        </tr>
-                        <tr>
-                            <td>Deaths</td>
-                            <td>{{ stats.adeaths }}</td>
-                        </tr>
-                        <tr>
-                            <td>Assists</td>
-                            <td>{{ stats.aassists }}</td>
-                        </tr>
-                        <tr>
-                            <td>Creeps</td>
-                            <td>{{ stats.acs }}</td>
-                        </tr>
-                        <tr>
-                            <td>Denies</td>
-                            <td>{{ stats.adenies }}</td>
-                        </tr>
-                        <tr>
-                            <td>XP/min</td>
-                            <td>{{ stats.axpmin }}</td>
-                        </tr>
-                        <tr>
-                            <td>Gold/min</td>
-                            <td>{{ stats.agoldmin }}</td>
-                        </tr>
-                        <tr>
-                            <td>Actions/min</td>
-                            <td>{{ stats.aactionsmin }}</td>
-                        </tr>
-                        <tr>
-                            <td>Wards</td>
-                            <td>{{ stats.awards }}</td>
-                        </tr>
-                        <tr>
-                            <td>Consumeables</td>
-                            <td>{{ stats.aconsumables }}</td>
-                        </tr>
-                    </table>
+                <div class="col-lg-5 col-offset-1 panel col-6">
+                    <h4 class="panel-heading text-center">Average</h4>
+                    <ul style="margin-top: -14px;" class="list-group list-group-flush">
+                        <li style="border-top-color: #fff;" class="list-group-item">Minutes<p class="pull-right">{{ stats.atime }}</p></li>
+                        <li class="list-group-item">Kills<p class="pull-right">{{ stats.akills }}</p></li>
+                        <li class="list-group-item">Deaths<p class="pull-right">{{ stats.adeaths }}</p></li>
+                        <li class="list-group-item">Assists<p class="pull-right">{{ stats.aassists }}</p></li>
+                        <li class="list-group-item">Creeps<p class="pull-right">{{ stats.acs }}</p></li>
+                        <li class="list-group-item">Denies<p class="pull-right">{{ stats.adenies }}</p></li>
+                        <li class="list-group-item">XP/min<p class="pull-right">{{ stats.axpmin }}</p></li>
+                        <li class="list-group-item">Gold/min<p class="pull-right">{{ stats.agoldmin }}</p></li>
+                        <li class="list-group-item">Actions/min<p class="pull-right">{{ stats.aactionsmin }}</p></li>
+                        <li class="list-group-item">Wards<p class="pull-right">{{ stats.awards }}</p></li>
+                        <li class="list-group-item">Consumeables<p class="pull-right">{{ stats.aconsumables }}</p></li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 text-center">
+        <div class="col-lg-7 text-center well">
             <table id="history" class="table center-headers table-condensed recent-match">
                 <thead>
                     <tr>
-                        <th>Hero</th>
-                        <th>K / D / A</th>
-                        <th>Date</th>
-                        <th>Match #</th>
+                        <th class="text-center">Hero</th>
+                        <th class="text-center">K / D / A</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Match #</th>
                     </tr>
                 </thead>
                 <tbody id="recent-matches">

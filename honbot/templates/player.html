@@ -4,40 +4,33 @@
 
 {% block main_content %}
 <script type="text/javascript">var fb_param = {};fb_param.pixel_id = '6010565184057';fb_param.value = '0.00';fb_param.currency = 'USD';(function(){var fpw = document.createElement('script');fpw.async = true;fpw.src = '//connect.facebook.net/en_US/fp.js';var ref = document.getElementsByTagName('script')[0];ref.parentNode.insertBefore(fpw, ref);})();</script><noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6010565184057&amp;value=0&amp;currency=USD" /></noscript>
-<header>
+<header class="player-head">
     <div class='container'>
         <div class="row">
-            <div class="col-lg-8 col-offset-2 well well-small">
-                <div class="row">
-                    <div class="col-lg-1 text-center col-3 col-sm-1">
-                        <div id="avatar"></div>
-                    </div>
-                    <div class="col-lg-6 col-9 col-3 col-sm-4">
-                        <h2 style="margin-top: 12px;">{{ stats.nickname }}</h2>
-                    </div>
-                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
-                        <h4 style="margin-bottom: 2px;">mmr</h4>{{ stats.mmr }}
-                    </div>
-                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
-                        <h4 style="margin-bottom: 2px;">tsr</h4>{{ stats.TSR }}
-                    </div>
-                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
-                        <h4 style="margin-bottom: 2px;">win</h4>{{ stats.wins }}
-                    </div>
-                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
-                        <h4 style="margin-bottom: 2px;">loss</h4>{{ stats.losses }}
-                    </div>
-                    <div class="col-lg-1 text-center col-2 col-3 col-sm-1">
-                        <h4 style="margin-top: 21px;">{{ stats.winpercent }}</h4>
-                    </div>
-                </div>
+            <div class="col-lg-7 col-12 col-3 col-sm-6">
+                <h1><div id="avatar" class="pull-left"></div> {{ stats.nickname }}</h1>
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">mmr</h4>{{ stats.mmr }}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">tsr</h4>{{ stats.TSR }}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">win</h4>{{ stats.wins }}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">loss</h4>{{ stats.losses }}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-top: 21px;">{{ stats.winpercent }}</h4>
             </div>
         </div>
     </div>
 </header>
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-offset-2">
+        <div class="col-lg-12">
             <ul class="nav nav-pills nav-justified">
                 <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
                 <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
@@ -49,7 +42,6 @@
     </div>
 </div>
 <div class="container">
-    <hr class="soften">
     <div class="row">
         <div class="col-lg-5">
             <div class="row">
@@ -67,10 +59,9 @@
                         <li class="list-group-item">CC Calls<p class="pull-right">{{ stats.cccalls }}</p></li>
                         <li class="list-group-item">DC<p class="pull-right">{{ stats.left }}</p></li>
                         <li class="list-group-item">Kicked<p class="pull-right">{{ stats.kicked }}</p></li>
-                        <li class="list-group-item">Buildings<p class="pull-right">{{ stats.razed }}</p></li>
                     </ul>
                 </div>
-                <div class="col-lg-5 col-offset-1 panel col-6">
+                <div class="col-lg-5 panel col-offset-1 col-6">
                     <h4 class="panel-heading text-center">Average</h4>
                     <ul style="margin-top: -14px;" class="list-group list-group-flush">
                         <li style="border-top-color: #fff;" class="list-group-item">Minutes<p class="pull-right">{{ stats.atime }}</p></li>
@@ -87,13 +78,33 @@
                     </ul>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-5 panel col-6">
+                    <h4 class="panel-heading text-center">Streaks</h4>
+                    <ul style="margin-top: -14px;" class="list-group list-group-flush">
+                        <li style="border-top-color: #fff;" class="list-group-item">Hours<p class="pull-right">{{ stats.hours }}</p></li>
+                        <li class="list-group-item">Kills<p class="pull-right">{{ stats.kills }}</p></li>
+                        <li class="list-group-item">Deaths<p class="pull-right">{{ stats.deaths }}</p></li>
+                        <li class="list-group-item">Assists<p class="pull-right">{{ stats.assists }}</p></li>
+                        <li class="list-group-item">Matches<p class="pull-right">{{ stats.matches }}</p></li>
+                        <li class="list-group-item">KDR<p class="pull-right">{{ stats.kdr }}</p></li>
+                        <li class="list-group-item">K+ADR<p class="pull-right">{{ stats.kadr }}</p></li>
+                        <li class="list-group-item">CC Games<p class="pull-right">{{ stats.cc }}</p></li>
+                        <li class="list-group-item">CC Calls<p class="pull-right">{{ stats.cccalls }}</p></li>
+                        <li class="list-group-item">DC<p class="pull-right">{{ stats.left }}</p></li>
+                        <li class="list-group-item">Kicked<p class="pull-right">{{ stats.kicked }}</p></li>
+                        <li class="list-group-item">Buildings<p class="pull-right">{{ stats.razed }}</p></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-7 text-center well">
+        <div class="col-lg-7 col-12 text-center">
             <table id="history" class="table center-headers table-condensed recent-match">
                 <thead>
                     <tr>
                         <th class="text-center">Hero</th>
                         <th class="text-center">K / D / A</th>
+                        <th class="text-center">MMR</th>
                         <th class="text-center">Date</th>
                         <th class="text-center">Match #</th>
                     </tr>
@@ -101,7 +112,7 @@
                 <tbody id="recent-matches">
                 </tbody>
             </table>
-            <i id="match-load" class="icon-spinner icon-spin icon-2x"></i><br>
+            <p><i id="match-load" class="icon-spinner icon-spin icon-2x"></i></p>
             <a id="more" class="btn btn-default btn-small">Load More</a>
             <div id="no-more"></div>
         </div>
@@ -124,6 +135,7 @@
         </div>
     </div>
 </div>
+<br>
 {% endblock main_content %}
 {%block js%}
 <script>
@@ -167,7 +179,7 @@ $("#more").click(function() {
 });
 </script>
 <script>
-$.get("/avatar/{{ stats.player_id }}/60/",
+$.get("/avatar/{{ stats.player_id }}/50/",
     function(data) {
         $('#avatar').append(data)
     });

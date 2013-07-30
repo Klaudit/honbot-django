@@ -16,7 +16,6 @@ def home(request):
             server_status = True
         else:
             server_status = False
-        print server_status
     except:
         server_status = False
     players = PlayerStats.objects.count()

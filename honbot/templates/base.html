@@ -30,10 +30,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/"><img style="width: 10px; margin-top: -5px; margin-right: -1px;" src="/static/img/testbars.png">HonBot</a>
+          <a class="navbar-brand" href="/"><img style="margin-top: -5px;" src="/static/img/bars.png">HonBot</a>
           <div class="nav-collapse collapse navbar-responsive-collapse">
             <form id="searchform" class="navbar-form pull-left">
-              <input type="text" id="player" class="form-control" style="width: 200px;" placeholder="Username" autocomplete="off">
+              <input type="text" id="player-bar" class="form-control" style="width: 200px;" placeholder="Username" autocomplete="off">
+              <button class="btn btn-default btn-small" type="button"><i class="icon-search"></i></button>
             </form>
             <ul class="nav navbar-nav pull-right">
               <li><a href="/recent">Recent</a></li>
@@ -65,7 +66,7 @@
     <!-- Search Jquery -->
     <script>
         $("#searchform").submit(function () {
-            var player = $('#player').val();
+            var player = $('#player-bar').val();
             window.location.href = "/player/" + player + "/"
             return false
         });

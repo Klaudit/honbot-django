@@ -17,9 +17,14 @@ def avatar(request, number, width):
     opener.addheaders.append(('Cookie', curl))
     f = opener.open("http://forums.heroesofnewerth.com/member.php?" + str(number))
     soup = BeautifulSoup(f.read())
-    img = soup.find("img", {"alt": "Account Icon"})['src']
-    if img:
+    try:
+        img = soup.find("img", {"alt": "Account Icon"})['src']
+    except:
+        PlayerIcon(player_id=number, avatar="/static/img/default_avatar.png").save()
+        return HttpResponse('<img style="width:' + width + 'px;" src="/static/img/default_avatar.png">')
+    if img and img != "http://forums.heroesofnewerth.com/":
         PlayerIcon(player_id=number, avatar=str(img)).save()
         return HttpResponse('<img style="width:' + width + 'px;" src="' + img + '">')
     else:
+        PlayerIcon(player_id=number, avatar="/static/img/default_avatar.png").save()
         return HttpResponse('<img style="width:' + width + 'px;" src="/static/img/default_avatar.png">')

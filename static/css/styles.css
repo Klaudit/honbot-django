@@ -200,3 +200,9 @@ hr.soften {
 .recent-match tbody tr:hover {
     background-color: #fff;
 }
+.recent-match td:nth-child(1){
+  text-align: left;
+}
+.recent-match th:nth-child(1){
+  text-align: left;
+}

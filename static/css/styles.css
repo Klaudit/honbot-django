@@ -136,25 +136,27 @@ hr.soften {
   margin-left: 2px;
 }
 .nav-pills > li.active > a{
-  background-color: #2C3E50;
+  background-color: #395067;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   margin-bottom: 10px;
 }
 .nav-pills > li.active > a:hover{
-  background-color: #2C3E50;
+  background-color: #395067;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 
 }
 .nav-pills > li > a:hover{
-  background-color: #eee;
+  background-color: #395067;
+  color: #fff;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 
 }
 .nav-pills > li > a{
   background-color: #fff;
+  color: #000;
     border-top-right-radius: 0;
   border-top-left-radius: 0;
   margin-right: 5px;

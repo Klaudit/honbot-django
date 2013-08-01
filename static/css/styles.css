@@ -170,9 +170,6 @@ hr.soften {
   line-height: 12px;
   height: 30px;
 }
-.navbar .btn{
-  margin-top: 2px;
-}
 /* Match History */
 .match-loss{
   border-collapse:separate;
@@ -207,4 +204,7 @@ hr.soften {
 }
 .recent-match th:nth-child(1){
   text-align: left;
+}
+.panel{
+
 }

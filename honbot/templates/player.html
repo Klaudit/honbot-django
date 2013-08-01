@@ -35,8 +35,7 @@
                 <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
                 <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
                 <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
-                <li><a href="/player_hero/{{ stats.nickname }}/">Hero Stats</a></li>
-                <li><a href="#banner" role="button" data-toggle="modal">Stats Banner</a></li>
+                <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
             </ul>
         </div>
     </div>
@@ -45,7 +44,7 @@
     <div class="row">
         <div class="col-lg-5">
             <div class="row">
-                <div class="col-lg-5 panel col-6">
+                <div class="col-lg-6 panel col-6">
                     <h4 class="panel-heading text-center">Lifetime</h4>
                     <ul style="margin-top: -14px;" class="list-group list-group-flush">
                         <li style="border-top-color: #fff;" class="list-group-item">Hours<p class="pull-right">{{ stats.hours }}</p></li>
@@ -61,7 +60,7 @@
                         <li class="list-group-item">Kicked<p class="pull-right">{{ stats.kicked }}</p></li>
                     </ul>
                 </div>
-                <div class="col-lg-5 col-offset-1 panel col-6">
+                <div class="col-lg-6 panel col-6">
                     <h4 class="panel-heading text-center">Average</h4>
                     <ul style="margin-top: -14px;" class="list-group list-group-flush">
                         <li style="border-top-color: #fff;" class="list-group-item">Minutes<p class="pull-right">{{ stats.atime }}</p></li>
@@ -79,21 +78,32 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-5 panel col-6">
+                <div class="col-lg-6 panel col-6">
                     <h4 class="panel-heading text-center">Streaks</h4>
                     <ul style="margin-top: -14px;" class="list-group list-group-flush">
-                        <li style="border-top-color: #fff;" class="list-group-item">Hours<p class="pull-right">{{ stats.hours }}</p></li>
-                        <li class="list-group-item">Kills<p class="pull-right">{{ stats.kills }}</p></li>
-                        <li class="list-group-item">Deaths<p class="pull-right">{{ stats.deaths }}</p></li>
-                        <li class="list-group-item">Assists<p class="pull-right">{{ stats.assists }}</p></li>
-                        <li class="list-group-item">Matches<p class="pull-right">{{ stats.matches }}</p></li>
-                        <li class="list-group-item">K:D R<p class="pull-right">{{ stats.kdr }}</p></li>
-                        <li class="list-group-item">K+ADR<p class="pull-right">{{ stats.kadr }}</p></li>
-                        <li class="list-group-item">CC Games<p class="pull-right">{{ stats.cc }}</p></li>
-                        <li class="list-group-item">CC Calls<p class="pull-right">{{ stats.cccalls }}</p></li>
-                        <li class="list-group-item">DC<p class="pull-right">{{ stats.left }}</p></li>
-                        <li class="list-group-item">Kicked<p class="pull-right">{{ stats.kicked }}</p></li>
-                        <li class="list-group-item">Buildings<p class="pull-right">{{ stats.razed }}</p></li>
+                        <li style="border-top-color: #fff;" class="list-group-item">Serial Killer<p class="pull-right">{{ stats.ks3 }}</p></li>
+                        <li class="list-group-item">Ultimate Warrior<p class="pull-right">{{ stats.ks4 }}</p></li>
+                        <li class="list-group-item">Legendary<p class="pull-right">{{ stats.ks5 }}</p></li>
+                        <li class="list-group-item">Onslaught<p class="pull-right">{{ stats.ks6 }}</p></li>
+                        <li class="list-group-item">Savage Sick<p class="pull-right">{{ stats.ks7 }}</p></li>
+                        <li class="list-group-item">Dominating<p class="pull-right">{{ stats.ks8 }}</p></li>
+                        <li class="list-group-item">Champion<p class="pull-right">{{ stats.ks9 }}</p></li>
+                        <li class="list-group-item">Bloodbath<p class="pull-right">{{ stats.ks10 }}</p></li>
+                        <li class="list-group-item">Immortal<p class="pull-right">{{ stats.ks15 }}</p></li>
+                        <li class="list-group-item">Double Tap<p class="pull-right">{{ stats.doublekill }}</p></li>
+                        <li class="list-group-item">Hat-Trick<p class="pull-right">{{ stats.triplekill }}</p></li>
+                        <li class="list-group-item">Quad Kill<p class="pull-right">{{ stats.quadkill }}</p></li>
+                        <li class="list-group-item">Annihilation<p class="pull-right">{{ stats.annihilation }}</p></li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 panel col-6">
+                    <h4 class="panel-heading text-center">Special</h4>
+                    <ul style="margin-top: -14px;" class="list-group list-group-flush">
+                        <li style="border-top-color: #fff;" class="list-group-item">Humiliation<p class="pull-right">{{ stats.humiliation }}</p></li>
+                        <li class="list-group-item">Smackdown<p class="pull-right">{{ stats.smackdown }}</p></li>
+                        <li class="list-group-item">Bloodlust<p class="pull-right">{{ stats.bloodlust }}</p></li>
+                        <li class="list-group-item">Nemesis<p class="pull-right">{{ stats.nemesis }}</p></li>
+                        <li class="list-group-item">Retribution<p class="pull-right">{{ stats.retribution }}</p></li>
                     </ul>
                 </div>
             </div>
@@ -120,20 +130,22 @@
         </div>
     </div>
 </div>
-<div id="banner" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Stats Banner</h3>
-    </div>
-    <div class="modal-body text-center">
-        <div class="col-lg-5">
-            <img src="/banner/{{stats.nickname}}/">
-            <p>
-                <legend>BB Code</legend>
-                [url=http://honbot.com/player/{{stats.nickname}}/][img]http://honbot.com/banner/{{stats.nickname}}/[/img][/url]
-                <legend>Direct Link</legend>
-                http://honbot.com/banner/{{stats.nickname}}/
-            </p>
+<div class="modal fade" id="banner">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Stats Banner: Updates every 24 hours!</h4>
+            </div>
+            <div class="modal-body text-center">
+                <img src="/banner/{{stats.nickname}}/">
+                <p>
+                    <h4>BB Code (forums)</h4>
+                    <code>[url=http://honbot.com/player/{{stats.nickname}}/]<br>[img]http://honbot.com/banner/{{stats.nickname}}/[/img][/url]</code>
+                    <h4>Direct Link</h4>
+                    <code>http://honbot.com/banner/{{stats.nickname}}/</code>
+                </p>
+            </div>
         </div>
     </div>
 </div>

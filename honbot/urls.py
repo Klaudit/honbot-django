@@ -6,6 +6,9 @@ from django.views.generic import TemplateView
 urlpatterns = patterns(
     '',
     url('^$', 'honbot.home.home'),
+    url(r'^server_status/$', 'honbot.home.server_status'),
+    url(r'^match_count/$', 'honbot.home.match_count'),
+    url(r'^player_count/$', 'honbot.home.player_count'),
     url(r'^player/(?P<name>.*)/$', 'honbot.player.players'),  # ranked player stats
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.players'),  # casual player stats
     url(r'^p/player/(?P<name>.*)/$', 'honbot.player.players'),  # public player stats

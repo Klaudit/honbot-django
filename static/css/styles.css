@@ -205,6 +205,10 @@ hr.soften {
 .recent-match th:nth-child(1){
   text-align: left;
 }
-.panel{
-
+#srchbtn{
+  margin-bottom: -3px;
+}
+.panel-swag{
+  width: 46%;
+  margin-left: 15px;
 }

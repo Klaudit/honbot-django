@@ -199,7 +199,7 @@ $.get("/avatar/{{ stats.player_id }}/50/",
     });
 </script>
 <script>
-$('#banner').on('show.bs.modal', function () {
+$('#banner').one('show.bs.modal', function () {
   $('#bannerpos').append('<img src="/banner/{{stats.nickname}}/">')
 });
 </script>

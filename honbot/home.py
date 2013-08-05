@@ -22,6 +22,9 @@ def server_status(request):
 
 @cache_page(60 * 10)
 def match_count(request):
+    """
+    Returns the current number of matches stored in the database
+    """
     matches = Matches.objects.count()
     t = Template('{% load humanize %}Matches: {{ matches|intcomma }}')
     c = Context({'matches': matches})
@@ -30,13 +33,19 @@ def match_count(request):
 
 @cache_page(60 * 10)
 def player_count(request):
+    """
+    Returns the current number of players in the database
+    """
     players = PlayerStats.objects.count()
     t = Template('{% load humanize %}Players: {{ players|intcomma }}')
     c = Context({'players': players})
     return HttpResponse(t.render(c))
 
 
-@cache_page(60 * 5)
+@cache_page(60 * 30)
 def home(request):
+    """
+    Makes a random background choice and ships that shit
+    """
     random = randint(1, 74)
     return render_to_response('home.html', {'random': random})

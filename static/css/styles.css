@@ -43,6 +43,7 @@ body {
   color: #fff;
   font-size: 25px;
   font-family: 'Questrial', sans-serif;
+  margin-top: 3px;
 }
 .navbar-inverse .navbar-brand:hover{
   text-shadow: -1px 1px 8px #fff, 1px -1px 8px #fff;
@@ -133,7 +134,7 @@ hr.soften {
 .player-head img{
   margin-top: -20px;
   margin-right: 5px;
-  margin-left: 2px;
+  margin-left: 3px;
 }
 .nav-pills > li.active > a{
   background-color: #395067;
@@ -179,7 +180,12 @@ hr.soften {
   background-color: rgb(192,57,43);
   background-color: rgba(192,57,43, .1);
 }
-
+.table tbody > tr > td{
+  padding-bottom: 3px;
+  padding-top: 3px;
+  text-align: center;
+  line-height: 25px;
+}
 .match-win {
   border-collapse:separate;
   border-left: 2px;
@@ -187,6 +193,7 @@ hr.soften {
   border-left-color: #27ae60;
   background-color: rgb(39,174,96);
   background-color: rgba(39,174,96, .1);
+  padding-bottom: 0;
 }
 .recent-match td{
     vertical-align: middle;

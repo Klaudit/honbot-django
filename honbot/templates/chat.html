@@ -3,44 +3,46 @@
 {% block page_title %}{{match_id}} Chat Logs | HonBot {% endblock %}
 
 {% block main_content %}
-<header class="player-head" id="overview">
+<header class="player-head">
     <div class='container'>
         <div class="row">
-            <div class="span7">
-                <img class="pull-left" style="margin-top: 15px; padding-right: 4px; width: 50px;" src="/static/img/maps/{{ stats.map }}.jpg">
-                <h2 class="pull-left">{{ match_id }}</h2>
+            <div class="col-lg-8 col-12 col-3 col-sm-6">
+                <h1><img class="pull-left" style="margin-top: 0px; padding-right: 4px; width: 55px;" src="/static/img/maps/{{ stats.map }}.jpg"> {{ match_id }}</h1>
             </div>
-            <div class="span5 player-tsr">
-                <div class="span1 text-center">
-                    <strong>Winner</strong><br>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
-                </div>
-                <div class="span1 text-center">
-                    <strong>Type</strong><br>{{ stats.mode }}
-                </div>
-                <div class="span1 text-center">
-                    <strong>Duration</strong><br>{{ stats.matchlength }}
-                </div>
-                <div class="span1 text-center">
-                    <strong>Played</strong><br>{{ stats.date }}
-                </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">Winner</h4>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">Type</h4>{{ stats.mode }}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">Duration</h4>{{ stats.matchlength }}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">Played</h4>{{ stats.date }}
             </div>
         </div>
     </div>
 </header>
-<br>
 <div class="container">
-    <ul class="nav nav-tabs">
-        <li><a href="/match/{{ match_id }}">Overview</a></li>
-        <li class="active"><a href="/chat/{{ match_id }}">Chat Logs</a></li>
-        <li><a href="/builds/{{ match_id }}">Builds</a></li>
-    </ul>
     <div class="row">
-        <div class="span12">
+        <div class="col-lg-12">
+            <ul class="nav nav-pills nav-justified">
+                <li><a href="/match/{{ match_id }}">Overview</a></li>
+                <li class="active"><a href="/chat/{{ match_id }}">Chat Logs</a></li>
+                <li><a href="/builds/{{ match_id }}">Builds</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-11 col-offset-1">
             <div class="chat">
-                {% for l in logs %}
+                {% for l in logs %} 
                 <div class="chat-row">
                     <span class="chat-time">{{ l.time }}</span>
-                    <span class="chat-team">{% if l.target == "Hellborne" %}<span class="text-error">{% elif l.target == "Legion" %}<span class="text-success">{% elif l.target == "All Chat" %}<span class="text-info">{% endif %}{{l.target}}</span></span>
+                    <span class="chat-team">{% if l.target == "Hellborne" %}<span class="text-danger">{% elif l.target == "Legion" %}<span class="text-success">{% elif l.target == "All Chat" %}<span class="text-info">{% endif %}{{l.target}}</span></span>
                     <span class="chat-name player-{{ l.player }}"><img style="margin-top: -3px; width: 17px;" src='/static/img/heroes/{{ l.hero }}/icon_30.jpg'> <a href="/player/{{l.name}}">{{ l.name }}</a>:</span>
                     <span class="chat-msg">{{ l.msg }}</span>
                 </div>
@@ -49,4 +51,5 @@
         </div>
     </div>
 </div>
+<br>
 {% endblock main_content %}

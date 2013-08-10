@@ -381,12 +381,36 @@ hr.soften {
   display: inline-block;
   min-width: 60px;
 }
-.chat-name{
-  display: inline-block;
-}
-.chat-msg{
+.chat-name, .chat-msg{
   display: inline-block;
 }
 .chat-row{
   display: block;
+}
+.build-container{
+  display: inline-block;
+}
+.build-block{
+  display: inline-block;
+}
+.build-row {
+  width: 45px;
+  float: left;
+  text-align: center;
+}
+.build-move{
+  width: 45px;
+  height: 45px;
+  border-style: solid;
+  border-left-width: 2px;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+  border-color: #ddd;
+  line-height: 39px;
+  font-weight:bold;
+}
+.build-row img{
+  width: 43px;
+  margin: 1px 1px 1px 1px;
 }

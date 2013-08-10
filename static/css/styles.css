@@ -225,12 +225,23 @@ hr.soften {
 .table-match, .table-match a{
   color: #000;
 }
+.table-match thead{
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  margin-left: 5px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
 .table-match td:nth-child(1), .table-match th:nth-child(1), .table-match td:nth-child(2), .table-match th:nth-child(2){
   text-align: left;
+  padding-left: 4px;
 }
 .player-0-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #002c9f;
   background-color: #fff;
@@ -238,7 +249,7 @@ hr.soften {
 }
 .player-1-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #00c19e;
   background-color: #fff;
@@ -246,7 +257,7 @@ hr.soften {
 }
 .player-2-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #770092;
   background-color: #fff;
@@ -254,7 +265,7 @@ hr.soften {
 }
 .player-3-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #f2d500;
   background-color: #fff;
@@ -262,7 +273,7 @@ hr.soften {
 }
 .player-4-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #ff7d29;
   background-color: #fff;
@@ -270,7 +281,7 @@ hr.soften {
 }
 .player-5-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #ff44ab;
   background-color: #fff;
@@ -278,7 +289,7 @@ hr.soften {
 }
 .player-6-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #727272;
   background-color: #fff;
@@ -286,7 +297,7 @@ hr.soften {
 }
 .player-7-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #00a0da;
   background-color: #fff;
@@ -294,7 +305,7 @@ hr.soften {
 }
 .player-8-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #006448;
   background-color: #fff;
@@ -302,7 +313,7 @@ hr.soften {
 }
 .player-9-row{
   border-collapse:separate;
-  border-left: 2px;
+  border-left: 1px;
   border-left-style: solid;
   border-left-color: #562507;
   background-color: #fff;
@@ -359,7 +370,7 @@ hr.soften {
   border-left:solid #562507;
 }
 .table-match > tbody:nth-child(2){
-  border-bottom: solid #cfd3d9;
+  border-bottom: solid #ddd;
 }
 .chat-time{
   display: inline-block;

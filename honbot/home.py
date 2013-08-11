@@ -15,9 +15,9 @@ def server_status(request):
         if json.text == test:
             return HttpResponse('<li><span class="text-success">Working</span></li>')
         else:
-            return HttpResponse('<span class="text-danger">Not Working: Honbot will have trouble working</span>')
+            return HttpResponse('<span class="text-danger">Down: Honbot will have trouble working</span>')
     except:
-        return HttpResponse('<span class="text-danger">Not Working: Honbot will have trouble working</span>')
+        return HttpResponse('<span class="text-danger">Down: Honbot will have trouble working</span>')
 
 
 @cache_page(60 * 10)

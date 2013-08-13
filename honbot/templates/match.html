@@ -5,10 +5,10 @@
 {% endblock %}
 {% block main_content %}
 <header class="player-head">
-    <div class='container'>
+    <div class="container">
         <div class="row">
             <div class="col-lg-7 col-12 col-md-5 col-sm-6">
-                <h1><img class="pull-left" style="margin-top: 0px; padding-right: 4px; width: 55px;" src="/static/img/maps/{{ stats.map }}.jpg"> {{ match_id }}</h1>
+                <h2><img class="pull-left" src="/static/img/maps/{{ stats.map }}.jpg">Match: {{ match_id }}</h2>
             </div>
             <div class="col-lg-5 col-md-7 col-sm-12">
                 <div class="col-lg-3 text-center col-md-3 col-sm-3">
@@ -94,7 +94,7 @@
         </div>
     </div>
 </div>
-<div class="container well well-sm">
+<div class="container">
     <div class="row">
         <div class="col-lg-12">
             <h2 class="text-center">Hero Damage</h2>
@@ -162,6 +162,7 @@ $(function () {
                     animation: false,
                     dataLabels: {
                         enabled: true,
+                        style: {color: '#000;'},
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -212,6 +213,7 @@ $(function () {
                     animation: false,
                     dataLabels: {
                         enabled: true,
+                        style: {color: '#000;'},
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -352,7 +354,7 @@ $(function () {
             title: {
                text: 'Kills',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -400,7 +402,7 @@ $(function () {
             title: {
                text: 'XPM',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -452,7 +454,7 @@ $(function () {
             title: {
                text: 'Assists',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -500,7 +502,7 @@ $(function () {
             title: {
                text: 'Creeps',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -548,7 +550,7 @@ $(function () {
             title: {
                text: 'GPM',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -600,7 +602,7 @@ $(function () {
             title: {
                text: 'APM',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },

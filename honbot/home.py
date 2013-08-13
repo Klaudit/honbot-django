@@ -42,7 +42,6 @@ def player_count(request):
     return HttpResponse(t.render(c))
 
 
-@cache_page(60 * 30)
 def home(request):
     """
     Makes a random background choice and ships that shit

@@ -35,9 +35,11 @@
           </button>
           <a class="navbar-brand" href="/"><img style="margin-top: -5px;" src="/static/img/bars.png">HonBot</a>
           <div class="nav-collapse collapse navbar-responsive-collapse">
-            <form id="searchform" class="navbar-form pull-left">
-              <input type="text" id="player-bar" class="form-control input-small" style="width: 200px;" placeholder="Username" autocomplete="off">
-              <button id="srchbtn" class="btn btn-default btn-small" type="button"><i class="icon-search"></i></button>
+            <form id="searchform" class="navbar-form pull-left input-group" style="width: 200px;">
+              <input type="text" id="player-bar" class="form-control input-small"  placeholder="Username" autocomplete="off">
+              <span class="input-group-btn">
+                <button id="srchbtn" class="btn btn-default btn-sm" type="button"><i class="icon-search"></i></button>
+              </span>
             </form>
             <ul class="nav navbar-nav pull-right">
               <li><a href="/recent">Recent</a></li>

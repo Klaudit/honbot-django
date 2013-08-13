@@ -35,6 +35,7 @@
                 <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
                 <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
                 <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
+                <li><a href="/chart/{{ stats.nickname }}/">Player Charts</a></li>
                 <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
             </ul>
         </div>

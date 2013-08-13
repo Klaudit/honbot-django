@@ -7,20 +7,22 @@
 <header class="player-head">
     <div class='container'>
         <div class="row">
-            <div class="col-lg-8 col-12 col-3 col-sm-6">
+            <div class="col-lg-7 col-12 col-md-5 col-sm-6">
                 <h1><img class="pull-left" style="margin-top: 0px; padding-right: 4px; width: 55px;" src="/static/img/maps/{{ stats.map }}.jpg"> {{ match_id }}</h1>
             </div>
-            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
-                <h4 style="margin-bottom: 2px;">Winner</h4>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
-            </div>
-            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
-                <h4 style="margin-bottom: 2px;">Type</h4>{{ stats.mode }}
-            </div>
-            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
-                <h4 style="margin-bottom: 2px;">Duration</h4>{{ stats.matchlength }}
-            </div>
-            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
-                <h4 style="margin-bottom: 2px;">Played</h4>{{ stats.date }}
+            <div class="col-lg-5 col-md-7 col-sm-12">
+                <div class="col-lg-3 text-center col-md-3 col-sm-3">
+                    <h4 style="margin-bottom: 2px;">Winner</h4>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
+                </div>
+                <div class="col-lg-3 text-center col-md-3 col-sm-3">
+                    <h4 style="margin-bottom: 2px;">Type</h4>{{ stats.mode }}
+                </div>
+                <div class="col-lg-3 text-center col-md-3 col-sm-3">
+                    <h4 style="margin-bottom: 2px;">Duration</h4>{{ stats.matchlength }}
+                </div>
+                <div class="col-lg-3 text-center col-md-3 col-sm-3">
+                    <h4 style="margin-bottom: 2px;">Played</h4>{{ stats.date }}
+                </div>
             </div>
         </div>
     </div>

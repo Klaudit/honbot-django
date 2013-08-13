@@ -132,6 +132,8 @@ hr.soften {
   color: #fff;
   margin-top: 4px;
   margin-bottom: 0;
+  font-weight: 100;
+  letter-spacing: 1px;
   display: inline-block;
 }
 .player-head img{
@@ -166,6 +168,9 @@ hr.soften {
   margin-right: 5px;
   margin-left: 0;
 
+}
+.nav-pills > li > a:last-child{
+  margin-right: 0;
 }
 #player-bar {
   background-color: #fff;
@@ -215,6 +220,12 @@ hr.soften {
 .recent-match th:nth-child(1){
   text-align: left;
 }
+.recent-match thead{
+  background-color: #f5f5f5;
+  margin-left: 5px;
+  border-radius: 4px;
+  border-bottom: 0;
+}
 #srchbtn{
   margin-bottom: -3px;
 }
@@ -229,13 +240,9 @@ hr.soften {
   color: #000;
 }
 .table-match thead{
-  padding: 15px;
-  margin-bottom: 20px;
-  background-color: #ffffff;
+  background-color: #f5f5f5;
   margin-left: 5px;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .table-match td:nth-child(1), .table-match th:nth-child(1), .table-match td:nth-child(2), .table-match th:nth-child(2){
   text-align: left;

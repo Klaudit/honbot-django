@@ -244,8 +244,11 @@ hr.soften {
 .panel-swag{
   width: 48%;
   padding-bottom: 0;
-  margin-right: 5px;
+  margin-right: 10px;
   margin-bottom: 5px;
+}
+.panel-swag-right{
+  margin-right: 0;
 }
 .table-match th, .table-match td{
   text-align: center;

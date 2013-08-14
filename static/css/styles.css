@@ -39,6 +39,10 @@ body {
 body {
   background-color: #e7ebf2;
 }
+.navbar-inverse{
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .navbar-inverse .navbar-brand {
   color: #fff;
   font-size: 25px;
@@ -106,12 +110,6 @@ hr.soften {
   margin-bottom: 10px;
   margin-top: 10px;
 }
-
-/* Nav */
-.navbar-inverse {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
 .panel-footer {
   background-color: #fff;
 }
@@ -149,7 +147,7 @@ hr.soften {
   margin-bottom: 2px;
 }
 .player-head h1 img{
-  margin-top: -15px;
+  margin-top: -17px;
   margin-right: 5px;
   margin-left: 3px;
 }
@@ -163,14 +161,17 @@ hr.soften {
   background-color: #395067;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-
 }
 .nav-pills > li > a:hover{
-  background-color: #395067;
+  background-color: #222;
   color: #fff;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-
+}
+.nav-pills > li > a:active{
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(125, 125, 125, 0.125);
+  box-shadow: inset 0 3px 5px rgba(125, 125, 125, 0.125);
 }
 .nav-pills > li > a{
   background-color: #fff;
@@ -223,7 +224,7 @@ hr.soften {
 .recent-match a{
   color: #191919;
 }
-.recent-match tbody tr:hover {
+.recent-match tbody tr:hover{
     background-color: #fff;
 }
 .recent-match td:nth-child(1){
@@ -245,7 +246,7 @@ hr.soften {
   width: 48%;
   padding-bottom: 0;
   margin-right: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 .panel-swag-right{
   margin-right: 0;

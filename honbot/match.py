@@ -150,6 +150,7 @@ def multimatch(data, history, mode):
     for m in data[2]:
         matchlength = round(float(m['secs']) / 60, 1)
         allmatches[m['match_id']]['matchlength'] = matchlength
+        allmatches[m['match_id']]['realtime'] = 0
         allmatches[m['match_id']]['realtime'] = time.strftime('%H:%M:%S', time.gmtime(int(m['secs'])))
         if int(allmatches[m['match_id']]['realtime'].split(':')[0]) == 0:
             allmatches[m['match_id']]['realtime'] = allmatches[m['match_id']]['realtime'][3:]
@@ -210,11 +211,14 @@ def multimatch(data, history, mode):
         items[3] = m['slot_4']
         items[4] = m['slot_5']
         items[5] = m['slot_6']
-        allmatches[m['match_id']]['players'][m['account_id']]['items'] = items
+        try:
+            allmatches[m['match_id']]['players'][m['account_id']]['items'] = items
+        except:
+            pass
         try:
             allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = m['nickname']
         except KeyError:
-            allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = None
+            pass
     for m in data[0]:
         if m['cas'] == 1:
             allmatches[m['match_id']]['type'] = "Casual"

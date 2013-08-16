@@ -57,8 +57,13 @@ def player_save(stats, mode):
                     kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
                     akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
                     matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
-                    awards=stats['awards'], atime=stats['atime'], left=stats['left'],
+                    awards=stats['awards'], atime=stats['atime'], left=stats['left'], razed=stats['razed'],
                     aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
+                    ks3=stats['ks3'], ks4=stats['ks4'], ks5=stats['ks5'], ks6=stats['ks6'], ks7=stats['ks7'],
+                    ks8=stats['ks8'], ks9=stats['ks9'], ks10=stats['ks10'], ks15=stats['ks15'], bloodlust=stats['bloodlust'],
+                    doublekill=stats['doublekill'], triplekill=stats['triplekill'], quadkill=stats['quadkill'], annihilation=stats['annihilation'],
+                    smackdown=stats['smackdown'], humiliation=stats['humiliation'], nemesis=stats['nemesis'], retribution=stats['retribution'],
+                    level=stats['level'], level_exp=stats['level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
                     acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
     elif mode == "acc":
         PlayerStatsPublic(player_id=stats['player_id'], nickname=stats['nickname'],
@@ -68,8 +73,13 @@ def player_save(stats, mode):
                           kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
                           akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
                           matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
-                          awards=stats['awards'], atime=stats['atime'], left=stats['left'],
+                          awards=stats['awards'], atime=stats['atime'], left=stats['left'], razed=stats['razed'],
                           aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
+                          ks3=stats['ks3'], ks4=stats['ks4'], ks5=stats['ks5'], ks6=stats['ks6'], ks7=stats['ks7'],
+                          ks8=stats['ks8'], ks9=stats['ks9'], ks10=stats['ks10'], ks15=stats['ks15'], bloodlust=stats['bloodlust'],
+                          doublekill=stats['doublekill'], triplekill=stats['triplekill'], quadkill=stats['quadkill'], annihilation=stats['annihilation'],
+                          smackdown=stats['smackdown'], humiliation=stats['humiliation'], nemesis=stats['nemesis'], retribution=stats['retribution'],
+                          level=stats['level'], level_exp=stats['level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
                           acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
     elif mode == "cs":
         PlayerStatsCasual(player_id=stats['player_id'], nickname=stats['nickname'],
@@ -79,8 +89,13 @@ def player_save(stats, mode):
                           kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
                           akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
                           matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
-                          awards=stats['awards'], atime=stats['atime'], left=stats['left'],
+                          awards=stats['awards'], atime=stats['atime'], left=stats['left'], razed=stats['razed'],
                           aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
+                          ks3=stats['ks3'], ks4=stats['ks4'], ks5=stats['ks5'], ks6=stats['ks6'], ks7=stats['ks7'],
+                          ks8=stats['ks8'], ks9=stats['ks9'], ks10=stats['ks10'], ks15=stats['ks15'], bloodlust=stats['bloodlust'],
+                          doublekill=stats['doublekill'], triplekill=stats['triplekill'], quadkill=stats['quadkill'], annihilation=stats['annihilation'],
+                          smackdown=stats['smackdown'], humiliation=stats['humiliation'], nemesis=stats['nemesis'], retribution=stats['retribution'],
+                          level=stats['level'], level_exp=stats['level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
                           acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
 
 
@@ -110,6 +125,35 @@ def player_math(data, nick, mode):
     stats['cccalls'] = int(data[mode + '_concedevotes'])  # total concede votes
     stats['left'] = int(data[mode + '_discos'])  # disconnects
     stats['kicked'] = int(data[mode + '_kicked'])  # kicked
+    stats['razed'] = int(data[mode + '_razed'])  # buildings
+    stats['ks3'] = int(data[mode + '_ks3'])
+    stats['ks4'] = int(data[mode + '_ks4'])
+    stats['ks5'] = int(data[mode + '_ks5'])
+    stats['ks6'] = int(data[mode + '_ks6'])
+    stats['ks7'] = int(data[mode + '_ks7'])
+    stats['ks8'] = int(data[mode + '_ks8'])
+    stats['ks9'] = int(data[mode + '_ks9'])
+    stats['ks10'] = int(data[mode + '_ks10'])
+    stats['ks15'] = int(data[mode + '_ks15'])
+    stats['bloodlust'] = int(data[mode + '_bloodlust'])
+    stats['doublekill'] = int(data[mode + '_doublekill'])
+    stats['triplekill'] = int(data[mode + '_triplekill'])
+    stats['quadkill'] = int(data[mode + '_quadkill'])
+    stats['annihilation'] = int(data[mode + '_annihilation'])
+    stats['smackdown'] = int(data[mode + '_smackdown'])
+    stats['humiliation'] = int(data[mode + '_humiliation'])
+    stats['nemesis'] = int(data[mode + '_nemesis'])
+    stats['retribution'] = int(data[mode + '_retribution'])
+    if mode == "rnk" or mode == "cas":
+        stats['level'] = int(data[mode + '_level'])
+        stats['level_exp'] = int(data[mode + '_level_exp'])
+        stats['min_exp'] = int(data[mode + '_min_exp'])
+        stats['max_exp'] = int(data[mode + '_max_exp'])
+    else:
+        stats['level'] = 0
+        stats['level_exp'] = 0
+        stats['min_exp'] = 0
+        stats['max_exp'] = 0
     if stats['matches'] > 0:
         stats['hours'] = (int(data[mode + '_secs']) / 60) / 60  # hours played
         stats['acs'] = round(int(data[mode + '_teamcreepkills']) / float(stats['matches']), 1)  # average creep score
@@ -132,29 +176,14 @@ def player_math(data, nick, mode):
         stats['agoldmin'] = int(float(data[mode + '_gold']) / (float(data[mode + '_secs']) / 60))  # average gold / min
         stats['aactionsmin'] = int(float(data[mode + '_actions']) / (float(data[mode + '_secs']) / 60))  # average actions / min
         ### TSR CALC ###
-        # ((rnk_herokills/rnk_deaths/1.15)*0.65)
-        # ((rnk_heroassists/rnk_deaths/1.55)*1.20)
-        # ( ( ( rnk_wins / ( rnk_wins+rnk_losses ) ) / 0.55 ) *0.9 )
-        # (((rnk_gold/rnk_secs*60)/230)*(1-((230/195)*((rnk_em_played/rnk_games_played))))*0.35)
-        # ((((rnk_exp/rnk_time_earning_exp*60)/380)*(1-((380/565)*(rnk_em_played/rnk_games_played))))*0.40)
-        # ((((((rnk_denies/rnk_games_played)/12)*(1-((4.5/8.5)*(rnk_em_played/rnk_games_played))))*0.70)
-        # ((((rnk_teamcreepkills/rnk_games_played)/93)*(1-((63/81)*(rnk_em_played/rnk_games_played))))*0.50)
-        # ((rnk_wards/rnk_games_played)/1.45*0.30))*(37.5/(rnk_secs/rnk_games_played/60)))
-        # Max wards of 5.0.
-        # Max creep kills of 200.
-        # Max creep denies of 30.
-        if mode == 'rnk':
-            if stats['matches'] > 5:
-                stats['TSR'] = ((float(data['rnk_herokills'])/float(data['rnk_deaths'])/1.15)*0.65)+((float(data['rnk_heroassists'])/float(data['rnk_deaths'])/1.55)*1.20)+(((float(data['rnk_wins'])/(float(data['rnk_wins'])+float(data['rnk_losses'])))/0.55)*0.9)+(((float(data['rnk_gold'])/float(data['rnk_secs'])*60)/230)*(1-((230/195)*((float(data['rnk_em_played'])/float(data['rnk_games_played'])))))*0.35)+((((float(data['rnk_exp'])/float(data['rnk_time_earning_exp'])*60)/380)*(1-((380/565)*(float(data['rnk_em_played'])/float(data['rnk_games_played'])))))*0.40)+((((((float(data['rnk_denies'])/float(data['rnk_games_played']))/12)*(1-((4.5/8.5)*(float(data['rnk_em_played'])/float(data['rnk_games_played'])))))*0.70)+((((float(data['rnk_teamcreepkills'])/float(data['rnk_games_played']))/93)*(1-((63/81)*(float(data['rnk_em_played'])/float(data['rnk_games_played'])))))*0.50)+((float(data['rnk_wards'])/float(data['rnk_games_played']))/1.45*0.30))*(37.5/(float(data['rnk_secs'])/float(data['rnk_games_played'])/60)))
-                stats['TSR'] = round(stats['TSR'], 1)
-                if stats['TSR'] > 10:
-                    stats['TSR'] = 10
-            else:
-                stats['TSR'] = 0
-                stats['kdr'] = 0
+        if stats['matches'] > 5:
+            stats['TSR'] = ((float(data[mode + '_herokills'])/float(data[mode + '_deaths'])/1.15)*0.65)+((float(data[mode + '_heroassists'])/float(data[mode + '_deaths'])/1.55)*1.20)+(((float(data[mode + '_wins'])/(float(data[mode + '_wins'])+float(data[mode + '_losses'])))/0.55)*0.9)+(((float(data[mode + '_gold'])/float(data[mode + '_secs'])*60)/230)*(1-((230/195)*((float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.35)+((((float(data[mode + '_exp'])/float(data[mode + '_time_earning_exp'])*60)/380)*(1-((380/565)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.40)+((((((float(data[mode + '_denies'])/float(data[mode + '_games_played']))/12)*(1-((4.5/8.5)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.70)+((((float(data[mode + '_teamcreepkills'])/float(data[mode + '_games_played']))/93)*(1-((63/81)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.50)+((float(data[mode + '_wards'])/float(data[mode + '_games_played']))/1.45*0.30))*(37.5/(float(data[mode + '_secs'])/float(data[mode + '_games_played'])/60)))
+            stats['TSR'] = round(stats['TSR'], 1)
+            if stats['TSR'] > 10:
+                stats['TSR'] = 10
         else:
-                stats['TSR'] = 0
-                stats['kdr'] = 0
+            stats['TSR'] = 0
+            stats['kdr'] = 0
     else:
         stats['TSR'] = 0
         stats['kdr'] = 0

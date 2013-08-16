@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block page_title %}{{ stats.nickname }} Player Stats | HonBot {% endblock %}
+
+{% block main_content %}
+<header class="player-head">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                <h1><div id="avatar" class="pull-left"></div> {{ stats.nickname }}</h1>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-lg-offset-2 col-md-offset-2 text-center">
+                    <h4>mmr</h4>{{ stats.mmr }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+                    <h4>tsr</h4>{{ stats.TSR }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+                    <h4>win</h4>{{ stats.wins }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+                    <h4>loss</h4>{{ stats.losses }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+                    <h4 style="margin-top: 21px;">{{ stats.winpercent }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="nav nav-pills nav-justified">
+                <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
+                <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
+                <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
+                <li><a href="/chart/{{ stats.nickname }}/">Player Charts</a></li>
+                <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-3 well">
+                <p>Hello! Stats analyzed from your last <strong>{{count}}</strong> matches.</p>
+                <p>The last time your stats were updated was <strong>{{time}}</strong>.</p>
+                <p>If fewer than 50 matches are being shown, try going back to the <a href="/player/{{ stats.nickname }}/">player page</a> and clicking "load more".</p>
+                <p>This is currently in development and isn't easy to make. Please be patient and as always <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">feedback is encouraged</a>.</p>
+            </div>
+            <div class="col-lg-9">
+                <div id="mmr" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+{%block js%}
+<script src="/static/js/highcharts.js"></script>
+<script>
+$.get("/avatar/{{ stats.player_id }}/60/",
+    function(data) {
+        $('#avatar').append(data)
+    });
+</script>
+<script>
+$(function () {
+    $('#mmr').highcharts({
+        chart:{
+            backgroundColor: null,
+        },
+        title: {
+            text: '',
+        },
+        xAxis: {
+            categories: [{%for m in match_list%}{{m}},{%endfor%}],
+            labels:{enabled: false}
+        },
+        yAxis: {
+            title: {
+                text: 'MMR'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        credits: {enabled: false},
+        tooltip: {
+            shared: true,
+            useHTML: true,
+            formatter: function() {
+                return Math.round(this.y*10)/10;
+            },
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            showInLegend: false,
+            name: 'MMR',
+            data: [{%for m in mmr%}{{m}},{%endfor%}]
+        }]
+    });
+});
+</script>
+{%endblock js%}

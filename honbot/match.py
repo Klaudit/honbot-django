@@ -91,8 +91,19 @@ def match_save(data, match_id, mode):
                       hero=data['players'][p]['hero'],
                       consumables=data['players'][p]['consumables'],
                       assists=data['players'][p]['assists'],
+                      bloodlust=data['players'][p]['bloodlust'],
+                      doublekill=data['players'][p]['doublekill'],
+                      triplekill=data['players'][p]['triplekill'],
+                      annihilation=data['players'][p]['annihilation'],
+                      bgold=data['players'][p]['bgold'],
+                      exp_denied=data['players'][p]['exp_denied'],
+                      gold_spent=data['players'][p]['gold_spent'],
+                      razed=data['players'][p]['razed'],
+                      quadkill=data['players'][p]['quadkill'],
                       nickname=data['players'][p]['nickname'],
                       level=data['players'][p]['level'],
+                      buybacks=data['players'][p]['buybacks'],
+                      mmr_change=data['players'][p]['mmr_change'],
                       wards=data['players'][p]['wards'],
                       team=data['players'][p]['team'],
                       position=data['players'][p]['position'],
@@ -139,6 +150,7 @@ def multimatch(data, history, mode):
     for m in data[2]:
         matchlength = round(float(m['secs']) / 60, 1)
         allmatches[m['match_id']]['matchlength'] = matchlength
+        allmatches[m['match_id']]['realtime'] = 0
         allmatches[m['match_id']]['realtime'] = time.strftime('%H:%M:%S', time.gmtime(int(m['secs'])))
         if int(allmatches[m['match_id']]['realtime'].split(':')[0]) == 0:
             allmatches[m['match_id']]['realtime'] = allmatches[m['match_id']]['realtime'][3:]
@@ -150,12 +162,23 @@ def multimatch(data, history, mode):
         player['herodmg'] = m['herodmg']
         player['hero'] = m['hero_id']
         player['position'] = m['position']
+        player['doublekill'] = m['doublekill']
+        player['triplekill'] = m['triplekill']
+        player['razed'] = m['razed']
+        player['quadkill'] = m['quadkill']
+        player['annihilation'] = m['annihilation']
+        player['gold_spent'] = m['gold_spent']
+        player['exp_denied'] = m['exp_denied']
+        player['bgold'] = m['bgold']
         player['team'] = m['team']
+        player['bloodlust'] = m['bloodlust']
         player['consumables'] = m['consumables']
+        player['mmr_change'] = float(m['amm_team_rating'])
         player['level'] = m['level']
         player['goldlost2death'] = m['goldlost2death']
         player['secsdead'] = m['secs_dead']
         player['wards'] = m['wards']
+        player['buybacks'] = m['buybacks']
         player['denies'] = m['denies']
         player['herodmg'] = m['herodmg']
         if int(matchlength) > 0:
@@ -188,11 +211,14 @@ def multimatch(data, history, mode):
         items[3] = m['slot_4']
         items[4] = m['slot_5']
         items[5] = m['slot_6']
-        allmatches[m['match_id']]['players'][m['account_id']]['items'] = items
+        try:
+            allmatches[m['match_id']]['players'][m['account_id']]['items'] = items
+        except:
+            pass
         try:
             allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = m['nickname']
         except KeyError:
-            allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = None
+            pass
     for m in data[0]:
         if m['cas'] == 1:
             allmatches[m['match_id']]['type'] = "Casual"

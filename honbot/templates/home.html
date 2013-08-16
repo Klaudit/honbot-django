@@ -1,105 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>HonBot | HoN stats, players, matches, chat logs</title>
-    <meta name="description" content="Stats for Heroes of Newerth">
-    <meta name="distribution" content="global">
-    <meta name="keywords" content="HoN, heroes of newrth, stats, chat, chat logs, MOAB, graphs, hon stats">
-    <link href="/static/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="/static/css/bootstrap-responsive.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="/static/css/overrides.css" media="all" rel="stylesheet" type="text/css"/>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Stats for Heroes of Newerth, HoN. Bringing chat, matches, graphs and stats all together!">
+    <meta name="keywords" content="HoN, heroes of newerth, stats, chat, chat logs, MOAB, graphs, hon stats, hon chat, hon bot, honbot">
+    <meta name="author" content="Scott Cooper">
     <link rel="shortcut icon" href="/static/img/favicon.ico" />
-    <link rel="apple-touch-icon-precomposed" href="/static/apple-touch-icon.png" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+
+    <title>HonBot | HoN stats, players, matches, chat logs</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="/static/css/styles.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
     <style type="text/css">
-    .hero-background{
+    .hero-container{
         background-image: url('/static/img/home_hero/store-{{ random }}.png');
     }
     </style>
-</head>
-<body>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="navbar navbar-static-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="/"><img style="padding-bottom: 3px;" src="/static/img/bars-small.png">HonBot</a>
-        <ul class="nav">
-          <li><a href="/recent/">Recent</a></li>
-          <li><a href="/top/">Top</a></li>
-        </ul>
-    </div>
-  </div>
-</div>
-<div id="hero" class="hero-background">
-  <div class="container">
-    <div class="hero-title">
-      <h1><img style="padding-bottom: 3px;" src="/static/img/bars.png">HonBot</h1>
-    </div>
-    <div class="hero-search">
-      <form role="search" method="get" id="searchform" class="form-search" action="#">
-        <input type="text" id="player" name="s" class="searchajax search-query" autocomplete="off" placeholder="Player Username" autofocus>
-        <input type="submit" id="searchsubmit" value="Search" class="btn-black">
-      </form>
-    </div>
-  </div>
-</div>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="span4 text-center">
-            <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
-            <legend><h2>HoNBoost.com</h2></legend>
-            <p class="home-box">
+  </head>
+
+  <body>
+    <div id="wrap">
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
+      <div class="navbar navbar-static-top navbar-inverse">
+        <div class="container">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><img style="margin-top: -5px;" src="/static/img/bars.png">HonBot</a>
+          <div class="nav-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav pull-right">
+              <li><a href="/recent">Recent</a></li>
+              <li><a href="/top/">Top</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Hero -->
+      <div class="hero-container">
+        <div class="container">
+          <div class="hero-title">
+            <h1 class="text-center"><img style="margin-bottom: 14px; margin-right: -5px;" src="/static/img/testbars.png">HonBot</h1>
+          </div>
+          <!-- search -->
+          <form id="searchform">
+            <div class="input-group input-group-lg col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-sm-12">
+              <input id="player" type="text" placeholder="Player Username" class="form-control input-lg" autocomplete="off" autofocus>
+              <span class="input-group-btn">
+                <button class="btn btn-default btn-lg" type="button"><i class="icon-search"></i> Go</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br>
+      <!-- Content -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+            <div class="well home-well">
+              <h1 class="text-center"><i class="icon-bullhorn icon-large"></i></h1>
+              <h2>HoNBoost.com</h2>
+              <hr class="soften">
+              <p class="home-box">
                 The #1 HoN Community site run by professional HoN players!
                 Updated every day with the latest Heroes of Newerth news 
                 and events. Coaching, Boosting, interviews, item guides, patch analysis, and more -<br>
                 <a href="http://honboost.com">Visit HoNBoost.com today!</a>
                 <br>
-                <span class="small muted">Sponsored</span>
-            </p>
+                <small class="text-muted">Sponsored</small>
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+            <div class="well home-well">
+              <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
+              <h2>The Charts</h2>
+              <hr class="soften">
+              <p class="home-box">Who had the most kills this week? Does killing a ton of creeps help me win the game? Check out the best and worst scores in HoN from the best players in the world.<br>
+              <a href="/top/" class="btn btn-link">The Top</a></p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+            <div class="well home-well">
+              <h1><i class="icon-comments-alt icon-large"></i></h1>
+              <h2>Discussion</h2>
+              <hr class="soften">
+              <p class="home-box">
+              If you have an idea, spot a bug, or have feedback; leave a comment in the <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">official thread</a> on the Heroes of Newerth Forums. If you are reporting a bug please include the URL and/or a screen shot. Smiley Face.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="span4 text-center">
-            <h1 class="text-center"><i class="icon-star-empty icon-large"></i></h1>
-            <h2>Big Plays</h2>
-            <p class="home-box">
-                Check out the weekly best scores and stats from the best players in HoN.
-            </p>
-            <a href="/top/" class="btn">Top Charts</a>
+      </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="panel">
+                <h4 class="panel-heading">Recent Changes</h4>
+                <ul>
+                  <li>Migrated to <strong>Boostrap 3</strong> beta in anticipation of late August release</li>
+                  <ul>
+                    <li>More mobile friendly than ever</li>
+                    <li>Slightly less ugly in certain places</li>
+                  </ul>
+                  <li>Added caching anywhere possible</li>
+                  <li>Added server status to home page</li>
+                  <li>Database had to be rebuilt and imported. Now stores:</li>
+                  <ul>
+                    <li>Chat logs</li>
+                    <li>Builds</li>
+                    <li>More information from matches MMR gained/loss</li>
+                  </ul>
+                  <li>Made the chat logs easier to copy and paste. (Removed align: center;)</li>
+                </ul>
+                <div class="panel-footer"><a href="https://github.com/scttcper/honbot-django/commits/master">View Source Code</a></div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="panel">
+                <h4 class="panel-heading">Server Stats</h4>
+                {% load humanize %}
+                Database: 
+                <ul>
+                  <li id="matches"></li>
+                  <li id="players"></li>
+                </ul>
+                S2 API:
+                <ul id="serverstatus">
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="span4 text-center">
-            <h1><i class="icon-comments-alt icon-large"></i></h1>
-            <legend><h2>Discussion</h2></legend>
-            <p class="home-box">
-                If you have an idea, spot a bug, or have feedback; leave a comment in the <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">official thread</a> on the Heroes of Newerth Forums.
-            </p>
-        </div>
+
+    <!-- Footer -->
     </div>
-</div>
-<footer class="footer">
-    <div class="container">
-        <hr>
-        <div class="copyright-text pull-left">&copy; 2013 <a href="https://github.com/scttcper"> Scott Cooper</a></div>
+    <div id="footer">
+      <div class="container">
+        <div class="pull-left">
+          <p class="text-muted credit">Created by <a href="https://twitter.com/scttcper">@scttcper</a></p>
+        </div>
         <div class="pull-right">
-            <div class="fb-like" data-href="https://www.facebook.com/honbott" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div>
+          <div class="fb-like" style="margin-top: 20px;" data-href="https://www.facebook.com/honbott" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div>
         </div>
+      </div>
     </div>
-</footer>
-<script>
-    $("#searchform").submit(function () {
-        var player = $('#player').val();
-        window.location.href = "/player/" + player + "/"
-        return false
-    });
-</script>
-</body>
+
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- Search Jquery -->
+    <script>
+      $("#searchform").submit(function () {
+          var player = $('#player').val();
+          window.location.href = "/player/" + player + "/"
+          return false
+      });
+    </script>
+    <script>
+      $(document).ready(function() { 
+        $.get('/match_count/', function(data) {
+          $('#matches').append(data);
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function() { 
+        $.get('/server_status/', function(data) {
+          $('#serverstatus').append(data);
+        });
+      });
+    </script>
+        <script>
+      $(document).ready(function() { 
+        $.get('/player_count/', function(data) {
+          $('#players').append(data);
+        });
+      });
+    </script>
+  </body>
 </html>

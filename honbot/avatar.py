@@ -6,20 +6,25 @@ from datetime import datetime
 from django.conf import settings
 
 
-def avatar(request, number):
+def avatar(request, number, width):
     p = PlayerIcon.objects.filter(player_id=number)
     if bool(p):
         tdelta = datetime.now() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.days < 14:
-            return HttpResponse(p.values()[0]['avatar'])
+            return HttpResponse('<img style="width:' + width + 'px;" src="' + p.values()[0]['avatar'] + '">')
     opener = urllib2.build_opener()
     curl = settings.PHP
     opener.addheaders.append(('Cookie', curl))
     f = opener.open("http://forums.heroesofnewerth.com/member.php?" + str(number))
     soup = BeautifulSoup(f.read())
-    img = soup.find("img", {"alt": "Account Icon"})
-    if img:
+    try:
+        img = soup.find("img", {"alt": "Account Icon"})['src']
+    except:
+        PlayerIcon(player_id=number, avatar="/static/img/default_avatar.png").save()
+        return HttpResponse('<img style="width:' + width + 'px;" src="/static/img/default_avatar.png">')
+    if img and img != "http://forums.heroesofnewerth.com/":
         PlayerIcon(player_id=number, avatar=str(img)).save()
-        return HttpResponse(str(img))
+        return HttpResponse('<img style="width:' + width + 'px;" src="' + img + '">')
     else:
-        return HttpResponse('<img src="/static/img/default_avatar.png">')
+        PlayerIcon(player_id=number, avatar="/static/img/default_avatar.png").save()
+        return HttpResponse('<img style="width:' + width + 'px;" src="/static/img/default_avatar.png">')

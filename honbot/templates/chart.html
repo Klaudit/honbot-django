@@ -32,8 +32,29 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div id="mmr" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-            {{matches}}
+            <ul class="nav nav-pills nav-justified">
+                <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
+                <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
+                <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
+                <li><a href="/chart/{{ stats.nickname }}/">Player Charts</a></li>
+                <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-3 well">
+                <p>Hello! Stats analyzed from your last <strong>{{count}}</strong> matches.</p>
+                <p>The last time your stats were updated was <strong>{{time}}</strong>.</p>
+                <p>If fewer than 50 matches are being shown, try going back to the <a href="/player/{{ stats.nickname }}/">player page</a> and clicking "load more".</p>
+                <p>This is currently in development and isn't easy to make. Please be patient and as always <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">feedback is encouraged</a>.</p>
+            </div>
+            <div class="col-lg-9">
+                <div id="mmr" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -71,7 +92,11 @@ $(function () {
         },
         credits: {enabled: false},
         tooltip: {
-            valueSuffix: '°C'
+            shared: true,
+            useHTML: true,
+            formatter: function() {
+                return Math.round(this.y*10)/10;
+            },
         },
         legend: {
             layout: 'vertical',
@@ -80,7 +105,8 @@ $(function () {
             borderWidth: 0
         },
         series: [{
-            name: '',
+            showInLegend: false,
+            name: 'MMR',
             data: [{%for m in mmr%}{{m}},{%endfor%}]
         }]
     });

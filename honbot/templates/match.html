@@ -1,42 +1,47 @@
 {% extends 'base.html' %}
 
 {% block page_title %}{{ match_id }} Match Stats | HonBot {% endblock %}
-
+{% block headers %}
+{% endblock %}
 {% block main_content %}
-<header class="player-head" id="overview">
-    <div class='container'>
+<header class="player-head">
+    <div class="container">
         <div class="row">
-            <div class="span7">
-                <img class="pull-left" style="margin-top: 15px; padding-right: 4px; width: 50px;" src="/static/img/maps/{{ stats.map }}.jpg">
-                <h2 class="pull-left">{{ match_id }}</h2>
+            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12">
+                <h2><img class="pull-left" src="/static/img/maps/{{ stats.map }}.jpg">Match: {{ match_id }}</h2>
             </div>
-            <div class="span5 player-tsr">
-                <div class="span1 text-center">
-                    <strong>Winner</strong><br>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
+            <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+                    <h4 style="margin-bottom: 2px;">Winner</h4>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
                 </div>
-                <div class="span1 text-center">
-                    <strong>Type</strong><br>{{ stats.mode }}
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+                    <h4 style="margin-bottom: 2px;">Type</h4>{{ stats.mode }}
                 </div>
-                <div class="span1 text-center">
-                    <strong>Duration</strong><br>{{ stats.matchlength }}
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+                    <h4 style="margin-bottom: 2px;">Duration</h4>{{ stats.matchlength }}
                 </div>
-                <div class="span1 text-center">
-                    <strong>Played</strong><br>{{ stats.date }}
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+                    <h4 style="margin-bottom: 2px;">Played</h4>{{ stats.date }}
                 </div>
             </div>
         </div>
     </div>
 </header>
-<br>
-<div class='container'>
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="/match/{{ match_id }}">Overview</a></li>
-        <li><a href="/chat/{{ match_id }}">Chat Logs</a></li>
-        <li><a href="/builds/{{ match_id }}">Builds</a></li>
-    </ul>
+<div class="container">
     <div class="row">
-        <div class="span12">
-            <table class="table table-condensed table-striped table-match">
+        <div class="col-lg-12">
+            <ul class="nav nav-pills nav-justified">
+                <li class="active"><a href="/match/{{ match_id }}/">Overview</a></li>
+                <li><a href="/chat/{{ match_id }}/">Chat Logs</a></li>
+                <li><a href="/builds/{{ match_id }}/">Builds</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-condensed table-match">
                 <thead>
                     <tr>
                         <th>Player</th>
@@ -89,54 +94,53 @@
         </div>
     </div>
 </div>
-<div class='container'>
+<div class="container">
     <div class="row">
-        <div class="span12">
+        <div class="col-lg-12">
             <h2 class="text-center">Hero Damage</h2>
             <div class="row">
-                <div class="span6 stats-title">
+                <div class="col-lg-6 col-md-6 stats-title">
                     <div id="ldmg" style="min-width: 300px; height: 300px; margin: 0 auto"></div>
                 </div>
-                <div class="span6 stats-title">
+                <div class="col-lg-6 col-md-6 stats-title">
                     <div id="hdmg" style="min-width: 300px; height: 300px; margin: 0 auto"></div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class='container'>
-    <div class="row-fluid">
-        <div class="span6">
+    <div class="row">
+        <div class="col-lg-6">
             <h2 class="text-center">Gold Per Minute</h2>
             <div id="lgpm" style="min-width: 300px; height: 350px; margin: 0 auto"></div>
         </div>
-        <div class="span6">
+        <div class="col-lg-6">
             <h2 class="text-center">Team Totals</h2>
             <div class="row">
-                <div class="span4">
+                <div class="col-lg-4">
                     <div id="kills" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
                 </div>
-                <div class="span4">
+                <div class="col-lg-4">
                     <div id="assists" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
                 </div>
-                <div class="span4">
+                <div class="col-lg-4">
                     <div id="xpm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
                 </div>
             </div>
             <div class="row">
-                <div class="span4">
+                <div class="col-lg-4">
                     <div id="creeps" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
                 </div>
-                <div class="span4">
+                <div class="col-lg-4">
                     <div id="gpm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
                 </div>
-                <div class="span4">
+                <div class="col-lg-4">
                     <div id="apm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{%block js%}
 <script src="/static/js/highcharts.js"></script>
 <script>
 //legion herodmg
@@ -158,6 +162,7 @@ $(function () {
                     animation: false,
                     dataLabels: {
                         enabled: true,
+                        style: {color: '#000;'},
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -208,6 +213,7 @@ $(function () {
                     animation: false,
                     dataLabels: {
                         enabled: true,
+                        style: {color: '#000;'},
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -348,7 +354,7 @@ $(function () {
             title: {
                text: 'Kills',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -396,7 +402,7 @@ $(function () {
             title: {
                text: 'XPM',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -448,7 +454,7 @@ $(function () {
             title: {
                text: 'Assists',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -496,7 +502,7 @@ $(function () {
             title: {
                text: 'Creeps',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -544,7 +550,7 @@ $(function () {
             title: {
                text: 'GPM',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -596,7 +602,7 @@ $(function () {
             title: {
                text: 'APM',
                style: {
-                 color: '#666666',
+                 color: '#000',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -622,4 +628,5 @@ $(function () {
     
 });
 </script>
+{%endblock js%}
 {% endblock main_content %}

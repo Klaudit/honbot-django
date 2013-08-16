@@ -63,4 +63,7 @@ __Find most assists__
 
 More can be found in top.py
 
+TO DO:
+ADD ALL KILL STREAKS AND BLOODLUST TO PLAYER PAGE
+ADD GRAPH OF MMR TO PLAYER PAGE
 

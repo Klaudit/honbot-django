@@ -3,40 +3,42 @@
 {% block page_title %}Match {{match_id}} Builds | HonBot HoN Stats and Graphs {% endblock %}
 
 {% block main_content %}
-<header class="player-head" id="overview">
+<header class="player-head">
     <div class='container'>
         <div class="row">
-            <div class="span7">
-                <img class="pull-left" style="margin-top: 15px; padding-right: 4px; width: 50px;" src="/static/img/maps/{{ stats.map }}.jpg">
-                <h2 class="pull-left">{{ match_id }}</h2>
+            <div class="col-lg-8 col-12 col-3 col-sm-6">
+                <h1><img class="pull-left" style="margin-top: 0px; padding-right: 4px; width: 55px;" src="/static/img/maps/{{ stats.map }}.jpg"> {{ match_id }}</h1>
             </div>
-            <div class="span5 player-tsr">
-                <div class="span1 winner text-center">
-                    <strong>Winner</strong><br>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
-                </div>
-                <div class="span1 text-center">
-                    <strong>Type</strong><br>{{ stats.mode }}
-                </div>
-                <div class="span1 text-center">
-                    <strong>Duration</strong><br>{{ stats.matchlength }}
-                </div>
-                <div class="span1 text-center">
-                    <strong>Played</strong><br>{{ stats.date }}
-                </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">Winner</h4>{% if stats.players.0.win %}Legion{% else %}Hellbourne{% endif %}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">Type</h4>{{ stats.mode }}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">Duration</h4>{{ stats.matchlength }}
+            </div>
+            <div class="col-lg-1 text-center col-2 col-2 col-sm-1">
+                <h4 style="margin-bottom: 2px;">Played</h4>{{ stats.date }}
             </div>
         </div>
     </div>
 </header>
-<br>
 <div class="container">
-    <ul class="nav nav-tabs">
-        <li><a href="/match/{{ match_id }}">Overview</a></li>
-        <li><a href="/chat/{{ match_id }}">Chat Logs</a></li>
-        <li class="active"><a href="/builds/{{ match_id }}">Builds</a></li>
-    </ul>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="nav nav-pills nav-justified">
+                <li><a href="/match/{{ match_id }}/">Overview</a></li>
+                <li><a href="/chat/{{ match_id }}/">Chat Logs</a></li>
+                <li class="active"><a href="/builds/{{ match_id }}/">Builds</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
     {% for players in builds %}
     <div class="row">
-        <div class="span12">
+        <div class="col-lg-12">
         {% for player in players %}
             {% if forloop.counter0 == 0 %}
             <h3 style="margin-bottom: 0px;" class="player-{{player.position}}">
@@ -58,11 +60,11 @@
                 </div>
             {% else %}
                 <div class="build-row">
-                    <div {% if player.ability == 1 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 1 %}selected{% endif %}">{% if player.ability == 1 %}{{forloop.counter0 }}{% endif %}</div>
-                    <div {% if player.ability == 2 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 2 %}selected{% endif %}">{% if player.ability == 2 %}{{forloop.counter0 }}{% endif %}</div>
-                    <div {% if player.ability == 3 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 3 %}selected{% endif %}">{% if player.ability == 3 %}{{forloop.counter0 }}{% endif %}</div>
-                    <div {% if player.ability == 4 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 4 %}selected{% endif %}">{% if player.ability == 4 %}{{forloop.counter0 }}{% endif %}</div>
-                    <div {% if player.ability == 5 %}style="border-color: #000;"{% endif %} class="build-move {% if player.ability == 5 %}selected{% endif %}">{% if player.ability == 5 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if player.ability == 1 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 1 %}selected{% endif %}">{% if player.ability == 1 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if player.ability == 2 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 2 %}selected{% endif %}">{% if player.ability == 2 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if player.ability == 3 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 3 %}selected{% endif %}">{% if player.ability == 3 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if player.ability == 4 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 4 %}selected{% endif %}">{% if player.ability == 4 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if player.ability == 5 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 5 %}selected{% endif %}">{% if player.ability == 5 %}{{forloop.counter0 }}{% endif %}</div>
                 </div>
             {% endif %}
         {% endfor %}

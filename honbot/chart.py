@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from honbot.models import PlayerMatches, PlayerStats
 from error import error
 import pretty
+from collections import Counter
 
 
 def view(request, name):
@@ -20,4 +21,5 @@ def view(request, name):
     mmr = mmr[1:]
     time = pretty.date(stats['updated'])
     match_list = [m['match_id'] for m in reversed(matches)]
-    return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'match_list':match_list, 'stats':stats, 'time':time})
+    heroes = Counter([m['hero'] for m in reversed(matches)]).most_common(4)
+    return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'match_list':match_list, 'stats':stats, 'time':time, 'heroes':heroes})

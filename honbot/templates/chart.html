@@ -33,27 +33,68 @@
     <div class="row">
         <div class="col-lg-12">
             <ul class="nav nav-pills nav-justified">
-                <li {% if mode == "rnk" %}class="active"{% endif %}><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
-                <li {% if mode == "cs" %}class="active"{% endif %}><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
-                <li {% if mode == "acc" %}class="active"{% endif %}><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
-                <li><a href="/chart/{{ stats.nickname }}/">Player Charts</a></li>
+                <li><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
+                <li><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
+                <li><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
+                <li class="active"><a href="/chart/{{ stats.nickname }}/">Charts</a></li>
                 <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
             </ul>
         </div>
     </div>
 </div>
-<br>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
             <div class="col-lg-3 well">
-                <p>Hello! Stats analyzed from your last <strong>{{count}}</strong> matches.</p>
-                <p>The last time your stats were updated was <strong>{{time}}</strong>.</p>
-                <p>If fewer than 50 matches are being shown, try going back to the <a href="/player/{{ stats.nickname }}/">player page</a> and clicking "load more".</p>
-                <p>This is currently in development and isn't easy to make. Please be patient and as always <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">feedback is encouraged</a>.</p>
+                <p>Hello! Stats were analyzed from your last <strong>{{count}}</strong> matches.</p>
+                <p>Stats last updated: <strong>{{time}}</strong></p>
+                {%if count < 50%}<p>If fewer than 50 matches are being shown, try going back to the <a href="/player/{{ stats.nickname }}/">player page</a> and clicking "load more".</p>{%endif%}
+                <p>This is currently being developed in my free time. Please be patient and as always <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">feedback is encouraged</a>.</p>
             </div>
             <div class="col-lg-9">
                 <div id="mmr" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h4 class="text-center">Recently Most Played Heroes</h4>
+            <div class="row">
+                {%for hero in heroes%}
+                <div class="col-lg-3">
+                    <div class="panel">
+                        <div class="panel-heading text-center"><img style="width:50px" src='/static/img/heroes/{{hero.0}}/icon_128.jpg'></div>
+                        <ul style="margin-top: -16px;" class="list-group">
+                            <li class="list-group-item">Times Played: <p class="pull-right">{{hero.1}}</p></li>
+                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                            <li class="list-group-item">Morbi leo risus</li>
+                            <li class="list-group-item">Porta ac consectetur ac</li>
+                            <li class="list-group-item">Vestibulum at eros</li>
+                        </ul>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="banner">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Stats Banner: Updates every 24 hours!</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p id="bannerpos"></p>
+                <p>
+                    <h4>BB Code (forums)</h4>
+                    <code>[url=http://honbot.com/player/{{stats.nickname}}/]<br>[img]http://honbot.com/banner/{{stats.nickname}}/[/img][/url]</code>
+                    <h4>Direct Link</h4>
+                    <code>http://honbot.com/banner/{{stats.nickname}}/</code>
+                </p>
             </div>
         </div>
     </div>
@@ -91,13 +132,26 @@ $(function () {
             }]
         },
         credits: {enabled: false},
+        colors: ['#2C3E50'],
         tooltip: {
             shared: true,
             useHTML: true,
             formatter: function() {
-                return Math.round(this.y*10)/10;
+                return '<strong>' + this.x + '</strong><br>' + Math.round(this.y*10)/10;
             },
         },
+        plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function() {
+                                window.location.href = "/match/" + this.category + '/';
+                            }
+                        }
+                    },
+                }
+            },
         legend: {
             layout: 'vertical',
             align: 'right',
@@ -110,6 +164,11 @@ $(function () {
             data: [{%for m in mmr%}{{m}},{%endfor%}]
         }]
     });
+});
+</script>
+<script>
+$('#banner').one('show.bs.modal', function () {
+  $('#bannerpos').append('<img src="/banner/{{stats.nickname}}/">')
 });
 </script>
 {%endblock js%}

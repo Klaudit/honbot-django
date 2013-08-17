@@ -63,6 +63,11 @@ def match_save(data, match_id, mode):
     """
     save match to directory in json format
     """
+    # FUCKING WHY IS tHIS NEEDED
+    try:
+        data['realtime']
+    except KeyError:
+        data['realtime'] = '15:13'
     m = Matches(match_id=match_id, date=data['date'], replay_url=data['replay_url'],
                 realtime=data["realtime"], mode=mode, major=data['major'],
                 minor=data['minor'], revision=data['revision'], build=data['build'],
@@ -150,7 +155,6 @@ def multimatch(data, history, mode):
     for m in data[2]:
         matchlength = round(float(m['secs']) / 60, 1)
         allmatches[m['match_id']]['matchlength'] = matchlength
-        allmatches[m['match_id']]['realtime'] = 0
         allmatches[m['match_id']]['realtime'] = time.strftime('%H:%M:%S', time.gmtime(int(m['secs'])))
         if int(allmatches[m['match_id']]['realtime'].split(':')[0]) == 0:
             allmatches[m['match_id']]['realtime'] = allmatches[m['match_id']]['realtime'][3:]

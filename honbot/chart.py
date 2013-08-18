@@ -9,7 +9,7 @@ def view(request, name):
     try:
         stats = PlayerStats.objects.filter(nickname=name).values()[0]
     except IndexError:
-        return error(request, "You may have spelled the players name incorrectly. Player stats missing.")
+        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
     matches = PlayerMatches.objects.filter(player_id=stats['player_id'], mode='rnk').order_by('match')[:50]
     count = matches.count()
     mmr = [0] * (count+1)
@@ -21,6 +21,8 @@ def view(request, name):
     mmr = mmr[1:]
     updated = pretty.date(stats['updated'])
     match_list = [m.match_id for m in reversed(matches)]
+    apm = [m.apm for m in reversed(matches)]
+    gpm = [m.gpm for m in reversed(matches)]
     top_heroes = Counter([m.hero for m in matches]).most_common(6)
     heroes = []
     for h in top_heroes:
@@ -43,4 +45,4 @@ def view(request, name):
         new['apm'] = int(new['apm'] / new['used'])
         new['gpm'] = int(new['gpm'] / new['used'])
         heroes.append(new)
-    return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'match_list':match_list, 'stats':stats, 'updated':updated, 'heroes':heroes})
+    return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'apm':apm, 'gpm':gpm, 'match_list':match_list, 'stats':stats, 'updated':updated, 'heroes':heroes})

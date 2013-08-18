@@ -31,7 +31,7 @@
 </header>
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-xs-12">
             <ul class="nav nav-pills nav-justified">
                 <li><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
                 <li><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
@@ -63,20 +63,36 @@
             <h4 class="text-center">Recently Most Played Heroes</h4>
             <div class="row">
                 {%for hero in heroes%}
-                <div class="col-lg-2">
+                <div class="col-lg-2 col-sm-4 col-6">
                     <div class="panel">
-                        <div class="panel-heading text-center"><img style="width:50px" src='/static/img/heroes/{{hero.hero}}/icon_128.jpg'></div>
+                        <div style="margin-bottom: 18px;" class="panel-heading text-center panel-hero"><img style="width:50px" src='/static/img/heroes/{{hero.hero}}/icon_128.jpg'></div>
                         <ul style="margin-top: -16px;" class="list-group">
                             <li class="list-group-item panel-hero">Times Played: <p class="pull-right">{{hero.used}}</p></li>
                             <li class="list-group-item panel-hero">Avg.k/d/a: <p class="pull-right">{{hero.kills}}/{{hero.deaths}}/{{hero.assists}}</p></li>
                             <li class="list-group-item panel-hero">Wins: <p class="pull-right">{{hero.wins}} - {{hero.win_percent}}%</p></li>
-                            <li class="list-group-item panel-hero">MMR: {%if hero.mmr < 0%}<p class="pull-right text-danger">{%else%}<p class="pull-right text-success">{%endif%}{{hero.mmr}}</p></li>
+                            <li class="list-group-item panel-hero">MMR +/-: {%if hero.mmr < 0%}<p class="pull-right text-danger">{%else%}<p class="pull-right text-success">{%endif%}{{hero.mmr}}</p></li>
                             <li class="list-group-item panel-hero">APM: <p class="pull-right">{{hero.apm}}</p></li>
                             <li class="list-group-item panel-hero">GPM: <p class="pull-right">{{hero.gpm}}</p></li>
                         </ul>
                     </div>
                 </div>
                 {%endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="text-center">APM</h4>
+                    <div id="apm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+                </div>
+                <div class="col-lg-6">
+                    <h4 class="text-center">GPM</h4>
+                    <div id="gpm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -100,6 +116,7 @@
         </div>
     </div>
 </div>
+<br>
 {% endblock main_content %}
 {%block js%}
 <script src="/static/js/highcharts.js"></script>
@@ -122,7 +139,7 @@ $(function () {
             categories: [{%for m in match_list%}{{m}},{%endfor%}],
             labels:{enabled: false}
         },
-        yAxis: {
+        yAxis: [{
             title: {
                 text: 'MMR'
             },
@@ -131,7 +148,7 @@ $(function () {
                 width: 1,
                 color: '#808080'
             }]
-        },
+        }],
         credits: {enabled: false},
         colors: ['#2C3E50'],
         tooltip: {
@@ -162,7 +179,123 @@ $(function () {
         series: [{
             showInLegend: false,
             name: 'MMR',
-            data: [{%for m in mmr%}{{m}},{%endfor%}]
+            data: [{%for m in mmr%}{{m}},{%endfor%}],
+        }]
+    });
+});
+</script>
+<script>
+$(function () {
+    $('#apm').highcharts({
+        chart:{
+            backgroundColor: null,
+        },
+        title: {
+            text: '',
+        },
+        xAxis: {
+            categories: [{%for m in match_list%}{{m}},{%endfor%}],
+            labels:{enabled: false}
+        },
+        yAxis: [{
+            title: {
+                text: ''
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        }],
+        credits: {enabled: false},
+        colors: ['#2C3E50'],
+        tooltip: {
+            shared: true,
+            useHTML: true,
+            formatter: function() {
+                return '<strong>' + this.x + '</strong><br>' + Math.round(this.y*10)/10;
+            },
+        },
+        plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function() {
+                                window.location.href = "/match/" + this.category + '/';
+                            }
+                        }
+                    },
+                }
+            },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            showInLegend: false,
+            name: 'APM',
+            data: [{%for m in apm%}{{m}},{%endfor%}],
+        }]
+    });
+});
+</script>
+<script>
+$(function () {
+    $('#gpm').highcharts({
+        chart:{
+            backgroundColor: null,
+        },
+        title: {
+            text: '',
+        },
+        xAxis: {
+            categories: [{%for m in match_list%}{{m}},{%endfor%}],
+            labels:{enabled: false}
+        },
+        yAxis: [{
+            title: {
+                text: ''
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        }],
+        credits: {enabled: false},
+        colors: ['#2C3E50'],
+        tooltip: {
+            shared: true,
+            useHTML: true,
+            formatter: function() {
+                return '<strong>' + this.x + '</strong><br>' + Math.round(this.y*10)/10;
+            },
+        },
+        plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function() {
+                                window.location.href = "/match/" + this.category + '/';
+                            }
+                        }
+                    },
+                }
+            },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            showInLegend: false,
+            name: 'GPM',
+            data: [{%for m in gpm%}{{m}},{%endfor%}],
         }]
     });
 });

@@ -25,8 +25,22 @@ def view(request, name):
     heroes = []
     for h in top_heroes:
         new = {}
-        new['hero'] = h[0]
-        new['used'] = h[1]
-        new['kills'] = sum([i.kills for i in matches if i.hero == new['hero']]) / new['used']
+        new['hero'], new['used'] = h
+        new['kills'], new['assists'], new['deaths'], new['wins'], new['mmr'], new['apm'], new['gpm'] = 0, 0, 0, 0, 0, 0, 0
+        for m in matches:
+            if m.hero == new['hero']:
+                new['kills'] += m.kills
+                new['assists'] += m.assists
+                new['deaths'] += m.deaths
+                new['wins'] += m.win
+                new['mmr'] += m.mmr_change
+                new['apm'] += m.apm
+                new['gpm'] += m.gpm
+        new['win_percent'] = int(float(new['wins']) / new['used'] * 100) 
+        new['kills'] = new['kills'] / new['used']
+        new['assists'] = new['assists'] / new['used']
+        new['deaths'] = new['deaths'] / new['used']
+        new['apm'] = int(new['apm'] / new['used'])
+        new['gpm'] = int(new['gpm'] / new['used'])
         heroes.append(new)
     return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'match_list':match_list, 'stats':stats, 'updated':updated, 'heroes':heroes})

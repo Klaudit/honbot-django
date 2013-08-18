@@ -67,11 +67,12 @@
                     <div class="panel">
                         <div class="panel-heading text-center"><img style="width:50px" src='/static/img/heroes/{{hero.hero}}/icon_128.jpg'></div>
                         <ul style="margin-top: -16px;" class="list-group">
-                            <li class="list-group-item">Times Played: <p class="pull-right">{{hero.used}}</p></li>
-                            <li class="list-group-item">K{{hero.kills}}</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                            <li class="list-group-item panel-hero">Times Played: <p class="pull-right">{{hero.used}}</p></li>
+                            <li class="list-group-item panel-hero">Avg.k/d/a: <p class="pull-right">{{hero.kills}}/{{hero.deaths}}/{{hero.assists}}</p></li>
+                            <li class="list-group-item panel-hero">Wins: <p class="pull-right">{{hero.wins}} - {{hero.win_percent}}%</p></li>
+                            <li class="list-group-item panel-hero">MMR: {%if hero.mmr < 0%}<p class="pull-right text-danger">{%else%}<p class="pull-right text-success">{%endif%}{{hero.mmr}}</p></li>
+                            <li class="list-group-item panel-hero">APM: <p class="pull-right">{{hero.apm}}</p></li>
+                            <li class="list-group-item panel-hero">GPM: <p class="pull-right">{{hero.gpm}}</p></li>
                         </ul>
                     </div>
                 </div>

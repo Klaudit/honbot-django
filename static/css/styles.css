@@ -243,6 +243,12 @@ hr.soften {
 #srchbtn{
   margin-bottom: -3px;
 }
+.panel-hero{
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
 .panel-swag{
   width: 48%;
   padding-bottom: 0;

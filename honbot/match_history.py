@@ -4,7 +4,6 @@ from api_call import get_json
 from honbot.models import *
 from match import multimatch
 import json
-from pretty import date
 import datetime
 
 
@@ -96,6 +95,6 @@ def get_player_from_matches(history, account_id):
         if load.exists():
             temp = load.values()[0]
             temp['match_id'] = m[0]
-            temp['date'] = date(datetime.datetime.strptime(str(load[0].match.date), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1))
+            temp['date'] = datetime.datetime.strptime(str(load[0].match.date), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
             matches.append(temp)
     return matches

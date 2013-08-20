@@ -42,6 +42,7 @@ body {
 .navbar-inverse{
   padding-top: 0;
   padding-bottom: 0;
+  border-bottom: 0;
 }
 .navbar-inverse .navbar-brand {
   color: #fff;
@@ -247,12 +248,6 @@ hr.soften {
   padding-right: 8px;
   padding-bottom: 5px;
   padding-top: 5px;
-}
-.panel-swag{
-  width: 48%;
-  padding-bottom: 0;
-  margin-right: 10px;
-  margin-bottom: 10px;
 }
 .panel-swag-right{
   margin-right: 0;

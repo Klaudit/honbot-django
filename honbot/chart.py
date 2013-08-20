@@ -1,7 +1,6 @@
 from django.shortcuts import render_to_response
 from honbot.models import PlayerMatches, PlayerStats
 from error import error
-import pretty
 from collections import Counter
 
 
@@ -19,7 +18,6 @@ def view(request, name):
         mmr[i] = mmr[i+1] + (match.mmr_change * -1)
         i = i-1
     mmr = mmr[1:]
-    updated = pretty.date(stats['updated'])
     match_list = [m.match_id for m in reversed(matches)]
     apm = [m.apm for m in reversed(matches)]
     gpm = [m.gpm for m in reversed(matches)]
@@ -45,4 +43,4 @@ def view(request, name):
         new['apm'] = int(new['apm'] / new['used'])
         new['gpm'] = int(new['gpm'] / new['used'])
         heroes.append(new)
-    return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'apm':apm, 'gpm':gpm, 'match_list':match_list, 'stats':stats, 'updated':updated, 'heroes':heroes})
+    return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'apm':apm, 'gpm':gpm, 'match_list':match_list, 'stats':stats, 'heroes':heroes})

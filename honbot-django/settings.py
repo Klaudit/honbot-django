@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'honbot',
     'south',
+    'pretty_times',
 )
 
 TEMPLATE_DIRS = (

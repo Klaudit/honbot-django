@@ -45,66 +45,74 @@
 </div>
 <div class="container">
     <div class="row">
-        <div style="padding-right:0;" class="col-lg-5">
-            <div class="col-lg-6 col-sm-6 panel panel-swag">
-                <h4 class="panel-heading text-center">Lifetime</h4>
-                <ul style="margin-top: -14px;" class="list-group list-group-flush">
-                    <li style="border-top-color: #fff;" class="list-group-item">Hours<p class="pull-right">{{ stats.hours }}</p></li>
-                    <li class="list-group-item">Kills<p class="pull-right">{{ stats.kills }}</p></li>
-                    <li class="list-group-item">Deaths<p class="pull-right">{{ stats.deaths }}</p></li>
-                    <li class="list-group-item">Assists<p class="pull-right">{{ stats.assists }}</p></li>
-                    <li class="list-group-item">Matches<p class="pull-right">{{ stats.matches }}</p></li>
-                    <li class="list-group-item">K:D Ratio<p class="pull-right">{{ stats.kdr }}</p></li>
-                    <li class="list-group-item">K+ADR<p class="pull-right">{{ stats.kadr }}</p></li>
-                    <li class="list-group-item">CC Games<p class="pull-right">{{ stats.cc }}</p></li>
-                    <li class="list-group-item">CC Calls<p class="pull-right">{{ stats.cccalls }}</p></li>
-                    <li class="list-group-item">DC<p class="pull-right">{{ stats.left }}</p></li>
-                    <li class="list-group-item">Kicked<p class="pull-right">{{ stats.kicked }}</p></li>
-                </ul>
+        <div style="padding-left:0;padding-right:0;" class="col-lg-5">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 class="panel-title text-center">Lifetime</h4></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Hours<p class="pull-right">{{ stats.hours }}</p></li>
+                        <li class="list-group-item">Kills<p class="pull-right">{{ stats.kills }}</p></li>
+                        <li class="list-group-item">Deaths<p class="pull-right">{{ stats.deaths }}</p></li>
+                        <li class="list-group-item">Assists<p class="pull-right">{{ stats.assists }}</p></li>
+                        <li class="list-group-item">Matches<p class="pull-right">{{ stats.matches }}</p></li>
+                        <li class="list-group-item">K:D Ratio<p class="pull-right">{{ stats.kdr }}</p></li>
+                        <li class="list-group-item">K+ADR<p class="pull-right">{{ stats.kadr }}</p></li>
+                        <li class="list-group-item">CC Games<p class="pull-right">{{ stats.cc }}</p></li>
+                        <li class="list-group-item">CC Calls<p class="pull-right">{{ stats.cccalls }}</p></li>
+                        <li class="list-group-item">DC<p class="pull-right">{{ stats.left }}</p></li>
+                        <li class="list-group-item">Kicked<p class="pull-right">{{ stats.kicked }}</p></li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-lg-6 col-sm-6 panel panel-swag panel-swag-right">
-                <h4 class="panel-heading text-center">Average</h4>
-                <ul style="margin-top: -14px;" class="list-group list-group-flush">
-                    <li style="border-top-color: #fff;" class="list-group-item">Minutes<p class="pull-right">{{ stats.atime }}</p></li>
-                    <li class="list-group-item">Kills<p class="pull-right">{{ stats.akills }}</p></li>
-                    <li class="list-group-item">Deaths<p class="pull-right">{{ stats.adeaths }}</p></li>
-                    <li class="list-group-item">Assists<p class="pull-right">{{ stats.aassists }}</p></li>
-                    <li class="list-group-item">Creeps<p class="pull-right">{{ stats.acs }}</p></li>
-                    <li class="list-group-item">Denies<p class="pull-right">{{ stats.adenies }}</p></li>
-                    <li class="list-group-item">XP/min<p class="pull-right">{{ stats.axpmin }}</p></li>
-                    <li class="list-group-item">GPM<p class="pull-right">{{ stats.agoldmin }}</p></li>
-                    <li class="list-group-item">APM<p class="pull-right">{{ stats.aactionsmin }}</p></li>
-                    <li class="list-group-item">Wards<p class="pull-right">{{ stats.awards }}</p></li>
-                    <li class="list-group-item">Consumeable<p class="pull-right">{{ stats.aconsumables }}</p></li>
-                </ul>
+            <div class="col-lg-6 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 class="panel-title text-center">Average</h4></div>
+                    <ul class="list-group list-group-flush">
+                        <li style="border-top-color: #fff;" class="list-group-item">Minutes<p class="pull-right">{{ stats.atime }}</p></li>
+                        <li class="list-group-item">Kills<p class="pull-right">{{ stats.akills }}</p></li>
+                        <li class="list-group-item">Deaths<p class="pull-right">{{ stats.adeaths }}</p></li>
+                        <li class="list-group-item">Assists<p class="pull-right">{{ stats.aassists }}</p></li>
+                        <li class="list-group-item">Creeps<p class="pull-right">{{ stats.acs }}</p></li>
+                        <li class="list-group-item">Denies<p class="pull-right">{{ stats.adenies }}</p></li>
+                        <li class="list-group-item">XP/min<p class="pull-right">{{ stats.axpmin }}</p></li>
+                        <li class="list-group-item">GPM<p class="pull-right">{{ stats.agoldmin }}</p></li>
+                        <li class="list-group-item">APM<p class="pull-right">{{ stats.aactionsmin }}</p></li>
+                        <li class="list-group-item">Wards<p class="pull-right">{{ stats.awards }}</p></li>
+                        <li class="list-group-item">Consumeable<p class="pull-right">{{ stats.aconsumables }}</p></li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-lg-6 col-sm-6 panel panel-swag">
-                <h4 class="panel-heading text-center">Streaks</h4>
-                <ul style="margin-top: -14px;" class="list-group list-group-flush">
-                    <li style="border-top-color: #fff;" class="list-group-item">Serial Killer<p class="pull-right">{{ stats.ks3 }}</p></li>
-                    <li class="list-group-item">Ultimate Warrior<p class="pull-right">{{ stats.ks4 }}</p></li>
-                    <li class="list-group-item">Legendary<p class="pull-right">{{ stats.ks5 }}</p></li>
-                    <li class="list-group-item">Onslaught<p class="pull-right">{{ stats.ks6 }}</p></li>
-                    <li class="list-group-item">Savage Sick<p class="pull-right">{{ stats.ks7 }}</p></li>
-                    <li class="list-group-item">Dominating<p class="pull-right">{{ stats.ks8 }}</p></li>
-                    <li class="list-group-item">Champion<p class="pull-right">{{ stats.ks9 }}</p></li>
-                    <li class="list-group-item">Bloodbath<p class="pull-right">{{ stats.ks10 }}</p></li>
-                    <li class="list-group-item">Immortal<p class="pull-right">{{ stats.ks15 }}</p></li>
-                    <li class="list-group-item">Double Tap<p class="pull-right">{{ stats.doublekill }}</p></li>
-                    <li class="list-group-item">Hat-Trick<p class="pull-right">{{ stats.triplekill }}</p></li>
-                    <li class="list-group-item">Quad Kill<p class="pull-right">{{ stats.quadkill }}</p></li>
-                    <li class="list-group-item">Annihilation<p class="pull-right">{{ stats.annihilation }}</p></li>
-                </ul>
+            <div class="col-lg-6 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 class="panel-title text-center">Streaks</h4></div>
+                    <ul class="list-group list-group-flush">
+                        <li style="border-top-color: #fff;" class="list-group-item">Serial Killer<p class="pull-right">{{ stats.ks3 }}</p></li>
+                        <li class="list-group-item">Ultimate Warrior<p class="pull-right">{{ stats.ks4 }}</p></li>
+                        <li class="list-group-item">Legendary<p class="pull-right">{{ stats.ks5 }}</p></li>
+                        <li class="list-group-item">Onslaught<p class="pull-right">{{ stats.ks6 }}</p></li>
+                        <li class="list-group-item">Savage Sick<p class="pull-right">{{ stats.ks7 }}</p></li>
+                        <li class="list-group-item">Dominating<p class="pull-right">{{ stats.ks8 }}</p></li>
+                        <li class="list-group-item">Champion<p class="pull-right">{{ stats.ks9 }}</p></li>
+                        <li class="list-group-item">Bloodbath<p class="pull-right">{{ stats.ks10 }}</p></li>
+                        <li class="list-group-item">Immortal<p class="pull-right">{{ stats.ks15 }}</p></li>
+                        <li class="list-group-item">Double Tap<p class="pull-right">{{ stats.doublekill }}</p></li>
+                        <li class="list-group-item">Hat-Trick<p class="pull-right">{{ stats.triplekill }}</p></li>
+                        <li class="list-group-item">Quad Kill<p class="pull-right">{{ stats.quadkill }}</p></li>
+                        <li class="list-group-item">Annihilation<p class="pull-right">{{ stats.annihilation }}</p></li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-lg-6 col-sm-6 panel panel-swag panel-swag-right">
-                <h4 class="panel-heading text-center">Special</h4>
-                <ul style="margin-top: -14px;" class="list-group list-group-flush">
-                    <li style="border-top-color: #fff;" class="list-group-item">Humiliation<p class="pull-right">{{ stats.humiliation }}</p></li>
-                    <li class="list-group-item">Smackdown<p class="pull-right">{{ stats.smackdown }}</p></li>
-                    <li class="list-group-item">Bloodlust<p class="pull-right">{{ stats.bloodlust }}</p></li>
-                    <li class="list-group-item">Nemesis<p class="pull-right">{{ stats.nemesis }}</p></li>
-                    <li class="list-group-item">Retribution<p class="pull-right">{{ stats.retribution }}</p></li>
-                </ul>
+            <div class="col-lg-6 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 class="panel-title text-center">Special</h4></div>
+                    <ul class="list-group list-group-flush">
+                        <li style="border-top-color: #fff;" class="list-group-item">Humiliation<p class="pull-right">{{ stats.humiliation }}</p></li>
+                        <li class="list-group-item">Smackdown<p class="pull-right">{{ stats.smackdown }}</p></li>
+                        <li class="list-group-item">Bloodlust<p class="pull-right">{{ stats.bloodlust }}</p></li>
+                        <li class="list-group-item">Nemesis<p class="pull-right">{{ stats.nemesis }}</p></li>
+                        <li class="list-group-item">Retribution<p class="pull-right">{{ stats.retribution }}</p></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div style="padding-left: 0;" class="col-lg-7 col-12 text-center">

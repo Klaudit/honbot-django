@@ -49,10 +49,13 @@ body {
   font-size: 25px;
   font-family: 'Questrial', sans-serif;
   margin-top: 3px;
-  margin-left: 5px;
+  padding-left: 20px;
   line-height: 20px;
   padding-bottom: 0;
   margin-bottom: 0;
+}
+#searchform{
+  padding-left: 0;
 }
 .navbar-inverse .navbar-brand:hover{
   text-shadow: -1px 1px 8px #fff, 1px -1px 8px #fff;

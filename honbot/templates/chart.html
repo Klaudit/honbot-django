@@ -45,14 +45,14 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="col-lg-3 well">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 well">
                 <p>Hello! Stats were analyzed from your last <strong>{{count}}</strong> matches.</p>
                 {% load prettytimes_tags %}
                 <p>Stats last updated: <strong>{{stats.updated|relative_time}}</strong></p>
                 {%if count < 50%}<p>If fewer than 50 matches are being shown, try going back to the <a href="/player/{{ stats.nickname }}/">player stats page</a> and clicking "load more".</p>{%endif%}
                 <p>This is currently being developed in my free time. Please be patient and as always <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">feedback is encouraged</a>.</p>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div id="mmr" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
             </div>
         </div>
@@ -64,13 +64,13 @@
             <h4 class="text-center">Recently Most Played Heroes</h4>
             <div class="row">
                 {%for hero in heroes%}
-                <div class="col-lg-2 col-sm-4 col-6">
+                <div class="col-lg-2 col-sm-4 col-xs-6">
                     <div class="panel panel-default">
                         <div style="margin-bottom: 18px;" class="panel-heading text-center panel-hero"><img style="width:50px" src='/static/img/heroes/{{hero.hero}}/icon_128.jpg'></div>
                         <ul style="margin-top: -16px;" class="list-group">
                             <li class="list-group-item panel-hero">Times Played: <p class="pull-right">{{hero.used}}</p></li>
+                            <li class="list-group-item panel-hero">Wins: <p class="pull-right">{{hero.wins}} - {%if hero.win_percent < 50%}<span class="text-danger">{%else%}<span class="text-success">{%endif%}{{hero.win_percent}}</span>%</p></li>
                             <li class="list-group-item panel-hero">Avg.k/d/a: <p class="pull-right">{{hero.kills}}/{{hero.deaths}}/{{hero.assists}}</p></li>
-                            <li class="list-group-item panel-hero">Wins: <p class="pull-right">{{hero.wins}} - {{hero.win_percent}}%</p></li>
                             <li class="list-group-item panel-hero">MMR +/-: {%if hero.mmr < 0%}<p class="pull-right text-danger">{%else%}<p class="pull-right text-success">{%endif%}{{hero.mmr}}</p></li>
                             <li class="list-group-item panel-hero">APM: <p class="pull-right">{{hero.apm}}</p></li>
                             <li class="list-group-item panel-hero">GPM: <p class="pull-right">{{hero.gpm}}</p></li>

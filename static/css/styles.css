@@ -62,12 +62,14 @@ body {
 }
 /* Hero */
 .hero-container {
-  background-color: #2C3E50;
+  background-color: #222222;
   background-position: 90% 55%;
   background-size: 800px auto;
   background-repeat:no-repeat;
-  margin-top: -20px;
   padding: 0 0 100px;
+}
+.hero-container a{
+  color: #999999;
 }
 .home-box{
   font-size: 110%;
@@ -452,3 +454,4 @@ hr.soften {
   width: 43px;
   margin: 1px 1px 1px 1px;
 }
+/* bootstrap garbage theme */

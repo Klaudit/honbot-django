@@ -61,7 +61,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h4 class="text-center">Recently Most Played Heroes</h4>
+            <h4 class="text-center">Recently Most Played Hero Averages</h4>
             <div class="row">
                 {%for hero in heroes%}
                 <div class="col-lg-2 col-sm-4 col-xs-6">
@@ -70,7 +70,7 @@
                         <ul style="margin-top: -16px;" class="list-group">
                             <li class="list-group-item panel-hero">Times Played: <p class="pull-right">{{hero.used}}</p></li>
                             <li class="list-group-item panel-hero">Wins: <p class="pull-right">{{hero.wins}} - {%if hero.win_percent < 50%}<span class="text-danger">{%else%}<span class="text-success">{%endif%}{{hero.win_percent}}</span>%</p></li>
-                            <li class="list-group-item panel-hero">Avg.k/d/a: <p class="pull-right">{{hero.kills}}/{{hero.deaths}}/{{hero.assists}}</p></li>
+                            <li class="list-group-item panel-hero">K/D/A: <p class="pull-right">{{hero.kills}}/{{hero.deaths}}/{{hero.assists}}</p></li>
                             <li class="list-group-item panel-hero">MMR +/-: {%if hero.mmr < 0%}<p class="pull-right text-danger">{%else%}<p class="pull-right text-success">{%endif%}{{hero.mmr}}</p></li>
                             <li class="list-group-item panel-hero">APM: <p class="pull-right">{{hero.apm}}</p></li>
                             <li class="list-group-item panel-hero">GPM: <p class="pull-right">{{hero.gpm}}</p></li>

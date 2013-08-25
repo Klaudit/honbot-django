@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from honbot.models import PlayerMatches, PlayerStats
 from error import error
 from collections import Counter
-import numpy
+import numpy as np
 
 
 def view(request, name):
@@ -19,11 +19,23 @@ def view(request, name):
         mmr[i] = mmr[i+1] + (match.mmr_change * -1)
         i = i-1
     mmr = mmr[1:]
-    match_list = [m.match_id for m in reversed(matches)]
-    apm = [m.apm for m in reversed(matches)]
-    aapm = round(numpy.mean(apm), 0)
-    gpm = [m.gpm for m in reversed(matches)]
-    agpm = round(numpy.mean(gpm))
+    match_list, apm, gpm = [], [], []
+    assists, wards, kills, deaths = 0, 0, 0, 0
+    for m in reversed(matches):
+        match_list.append(m.match_id)
+        apm.append(m.apm)
+        gpm.append(m.gpm)
+        assists += m.assists
+        wards += m.wards
+        kills += m.kills
+        deaths += m.deaths
+    aapm = round(np.mean(apm))
+    tgpm = np.sum(gpm)
+    agpm = round(float(tgpm) / count, 2)
+    akills = round(float(kills) / count, 2)
+    adeaths = round(float(deaths) / count, 2)
+    aassists = round(float(assists) / count, 2)
+    awards = round(float(wards) / count, 2)
     top_heroes = Counter([m.hero for m in matches]).most_common(6)
     heroes = []
     for h in top_heroes:
@@ -46,4 +58,7 @@ def view(request, name):
         new['apm'] = int(new['apm'] / new['used'])
         new['gpm'] = int(new['gpm'] / new['used'])
         heroes.append(new)
-    return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'apm':apm, 'aapm':aapm, 'agpm':agpm, 'gpm':gpm, 'match_list':match_list, 'stats':stats, 'heroes':heroes})
+    return render_to_response('chart.html', 
+        {'mmr':mmr, 'count':count, 'apm':apm, 'aapm':aapm, 'agpm':agpm, 'gpm':gpm, 'kills':kills, 'akills':akills,
+        'assists':assists, 'aassists':aassists, 'tgpm':tgpm, 'wards':wards, 'awards':awards, 
+        'match_list':match_list, 'stats':stats, 'heroes':heroes, 'deaths':deaths, 'adeaths':adeaths})

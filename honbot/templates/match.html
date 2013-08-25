@@ -21,7 +21,8 @@
                     <h4 style="margin-bottom: 2px;">Duration</h4>{{ stats.matchlength }}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
-                    <h4 style="margin-bottom: 2px;">Played</h4>{{ stats.date }}
+                    {% load prettytimes_tags %}
+                    <h4 style="margin-bottom: 2px;">Played</h4>{{ stats.date|relative_time }}
                 </div>
             </div>
         </div>

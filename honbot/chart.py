@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from honbot.models import PlayerMatches, PlayerStats
 from error import error
 from collections import Counter
+import numpy
 
 
 def view(request, name):
@@ -20,7 +21,9 @@ def view(request, name):
     mmr = mmr[1:]
     match_list = [m.match_id for m in reversed(matches)]
     apm = [m.apm for m in reversed(matches)]
+    aapm = round(numpy.mean(apm), 0)
     gpm = [m.gpm for m in reversed(matches)]
+    agpm = round(numpy.mean(gpm))
     top_heroes = Counter([m.hero for m in matches]).most_common(6)
     heroes = []
     for h in top_heroes:
@@ -43,4 +46,4 @@ def view(request, name):
         new['apm'] = int(new['apm'] / new['used'])
         new['gpm'] = int(new['gpm'] / new['used'])
         heroes.append(new)
-    return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'apm':apm, 'gpm':gpm, 'match_list':match_list, 'stats':stats, 'heroes':heroes})
+    return render_to_response('chart.html', {'mmr':mmr, 'count':count, 'apm':apm, 'aapm':aapm, 'agpm':agpm, 'gpm':gpm, 'match_list':match_list, 'stats':stats, 'heroes':heroes})

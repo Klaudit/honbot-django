@@ -211,23 +211,23 @@ $(function () {
             categories: [{%for m in match_list%}{{m}},{%endfor%}],
             labels:{enabled: false}
         },
-        yAxis: [{
+        yAxis: {
             title: {
                 text: ''
             },
             plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
+                color: '#FF0000',
+                width: 2,
+                value: {{aapm}}
             }]
-        }],
+        },
         credits: {enabled: false},
-        colors: ['#660000'],
+        colors: ['#343256'],
         tooltip: {
             shared: true,
             useHTML: true,
             formatter: function() {
-                return '<strong>' + this.x + '</strong><br>' + Math.round(this.y*10)/10;
+                return this.x + '<br><strong>APM</strong>: ' + Math.round(this.y*10)/10 + "<br><strong>Average</strong>: " + {{aapm}};
             },
         },
         plotOptions: {
@@ -270,23 +270,23 @@ $(function () {
             categories: [{%for m in match_list%}{{m}},{%endfor%}],
             labels:{enabled: false}
         },
-        yAxis: [{
+        yAxis: {
             title: {
                 text: ''
             },
             plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
+                color: '#FF0000',
+                width: 2,
+                value: {{agpm}}
             }]
-        }],
+        },
         credits: {enabled: false},
-        colors: ['#003300'],
+        colors: ['#2A5344'],
         tooltip: {
             shared: true,
             useHTML: true,
             formatter: function() {
-                return '<strong>' + this.x + '</strong><br>' + Math.round(this.y*10)/10;
+                return '<strong>' + this.x + '</strong><br>' + Math.round(this.y*10)/10 + "<br>Average: " + {{agpm}};
             },
         },
         plotOptions: {

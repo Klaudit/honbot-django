@@ -36,7 +36,7 @@
                 <li><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
                 <li><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
                 <li><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
-                <li class="active"><a href="/chart/{{ stats.nickname }}/">Charts</a></li>
+                <li class="active"><a>Charts</a></li>
                 <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
             </ul>
         </div>
@@ -74,6 +74,7 @@
                             <li class="list-group-item panel-hero">MMR +/-: {%if hero.mmr < 0%}<p class="pull-right text-danger">{%else%}<p class="pull-right text-success">{%endif%}{{hero.mmr}}</p></li>
                             <li class="list-group-item panel-hero">APM: <p class="pull-right">{{hero.apm}}</p></li>
                             <li class="list-group-item panel-hero">GPM: <p class="pull-right">{{hero.gpm}}</p></li>
+                            <li class="list-group-item panel-hero">CS: <p class="pull-right">{{hero.cs}}</p></li>
                         </ul>
                     </div>
                 </div>
@@ -98,12 +99,13 @@
         </div>
     </div>
 </div>
+<br>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h4 class="text-center">Recent Stats</h4>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 class="text-center panel-title">Recent Stats</h4></div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -129,14 +131,29 @@
                                 <td class="text-right">{{aassists}}</th>
                             </tr>
                             <tr>
-                                <td><strong>GPM</strong></th>
-                                <td class="text-right">{{tgpm}}</th>
-                                <td class="text-right">{{agpm}}</th>
+                                <td><strong>Creep Kills</strong></th>
+                                <td class="text-right">{{cs}}</th>
+                                <td class="text-right">{{acs}}</th>
                             </tr>
                             <tr>
                                 <td><strong>Wards</strong></th>
                                 <td class="text-right">{{wards}}</th>
                                 <td class="text-right">{{awards}}</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Buildings</strong></th>
+                                <td class="text-right">{{razed}}</th>
+                                <td class="text-right">{{arazed}}</th>
+                            </tr>
+                            <tr>
+                                <td><strong>MMR Change</strong></th>
+                                <td class="text-right">{{mmr_change}}</th>
+                                <td class="text-right">{{ammr_change}}</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Sec Dead</strong></th>
+                                <td class="text-right">{{sdead}}</th>
+                                <td class="text-right">{{asdead}}</th>
                             </tr>
                         </tbody>
                     </table>

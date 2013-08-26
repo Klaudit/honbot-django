@@ -42,6 +42,7 @@ def view(request, name):
     arazed = round(float(razed) / count, 2)
     ammr_change = round(float(mmr_change) / count, 2)
     asdead = round(float(sdead) / count, 2)
+    sdead = int(float(sdead) / 60)
     acs = round(float(cs) / count, 2)
     top_heroes = Counter([m.hero for m in matches]).most_common(6)
     heroes = []

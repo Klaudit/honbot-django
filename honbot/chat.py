@@ -6,34 +6,23 @@ from error import error
 from time import strftime, gmtime
 from django.template import Context, loader
 from django.http import HttpResponse
-from match import match, checkfile
 import json
 from honbot.models import Matches
-
+#new requirements
+import logparse
+from honbot.models import Chat
+from match import match
 
 directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'match')) + '/'
 
 
 def chat(request, match_id):
+    stats = match(match_id)
+    logs = Chat.objects.filter(match_id=match_id)
+    if logs.exists():
+
     # download and parse logs
-    logs = None
-    if os.path.exists(directory + 'm' + str(match_id) + '.log'):
-        logs = parse_chat_from_log(match_id)
-    elif checkfile(match_id):
-        url = Matches.objects.filter(match_id=match_id).values('replay_url')[0]['replay_url']
-        url = url[:-9] + 'zip'
-        # download file
-        r = requests.get(url)
-        if r.status_code == 404:
-            return error(request, "Match is older than 28 days or replay is unavailable.")
-        with open(directory + str(match_id)+".zip", "wb") as code:
-            code.write(r.content)
-        z = zipfile.ZipFile(directory + str(match_id) + '.zip')
-        z.extract(z.namelist()[0], directory)
-        z.close()
-        # cleanup zip
-        os.remove(directory + str(match_id) + '.zip')
-        logs = parse_chat_from_log(match_id)
+    logs = parse_chat_from_log(match_id)
     # deliver chat logs
     if logs is not None:
         stats = match(match_id)

@@ -2,71 +2,48 @@ import json
 import api_call
 import time
 import datetime
+from django.shortcuts import render_to_response
 from honbot.models import Matches, PlayerMatches
-from django.conf import settings
+from error import error
 
 
-directory = settings.MEDIA_ROOT
-
-
-def match(match_id):
+def match_view(request, match_id):
     """
-    initial hit for match view makes some decisions based on if the match is parsed already
+    /match/####/ url leads here
     """
-    if checkfile(match_id):
-        return prepare_match(load_match(match_id), match_id)
+    match = Matches.objects.filter(match_id=match_id)
+    if match.exists():
+        #get match and setup data for view
+        match = match.values()[0]
+        # The time may be need to be subtracted by an hour? - Aug 26
+        match['date'] = datetime.datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
+        match['map'] = match['_map'] # this needs to be fixed
+        # this should be a template
+        if match['mode'] == "rnk":
+            match['mode'] = "Ranked"
+        elif match['mode'] == "cs":
+            match['mode'] = "Casual"
+        elif match['mode'] == "acc":
+            match['mode'] = "Public"
+        # get players and setup for view
+        players = PlayerMatches.objects.filter(match_id=match_id).order_by('position').values()
+        for player in players:
+            player['items'] = json.loads(player['items'])
+            if player['kdr'] == 999:
+                player['kdr'] = "Inf"
+        return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players':players})
     else:
+        # grab solo match for fucks sake
         url = '/multi_match/all/matchids/' + str(match_id)
         data = api_call.get_json(url)
         h = [[str(match_id), '1/1/1']]
         if data is not None:
             multimatch(data, h, "rnk")
-            return match(match_id)
+            return match_view(request, match_id)
         else:
-            return None
-
-
-def prepare_match(data, match_id):
-    """
-    prepares match data for match view
-    """
-    match = {}
-    players = [None]*10
-    for p in data['players']:
-        players[int(data['players'][p]['position'])] = data['players'][p]
-    match['matchlength'] = data['realtime']
-    match['date'] = datetime.datetime.strptime(data['date'], '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
-    match['players'] = players
-    match['mode'] = data['mode']
-    match['map'] = data['_map']
-    if match['mode'] == "rnk":
-        match['mode'] = "Ranked"
-    elif match['mode'] == "cs":
-        match['mode'] = "Casual"
-    elif match['mode'] == "acc":
-        match['mode'] = "Public"
-    return match
-
-
-def checkfile(match_id):
-    """
-    check if match has been parsed before returns bool
-    """
-    if Matches.objects.filter(match_id=match_id).exists():
-        return True
-    else:
-        return False
-
+            return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
 
 def match_save(data, match_id, mode):
-    """
-    save match to directory in json format
-    """
-    # FUCKING WHY IS tHIS NEEDED
-    try:
-        data['realtime']
-    except KeyError:
-        data['realtime'] = '15:13'
     m = Matches(match_id=match_id, date=data['date'], replay_url=data['replay_url'],
                 realtime=data["realtime"], mode=mode, major=data['major'],
                 minor=data['minor'], revision=data['revision'], build=data['build'],
@@ -114,22 +91,6 @@ def match_save(data, match_id, mode):
                       items=json.dumps(data['players'][p]['items']),
                       mode=mode, date=data['date']).save()
 
-
-def load_match(match_id):
-    """
-    open match from directory and return json
-    """
-    m = Matches.objects.filter(match_id=match_id).values()[0]
-    m['players'] = {}
-    m['date'] = datetime.datetime.strftime(m['date'], "%Y-%m-%d %H:%M:%S")
-    p = {}
-    for player in PlayerMatches.objects.filter(match_id=match_id).values():
-        p[str(player['player_id'])] = player
-        p[str(player['player_id'])]['items'] = json.loads(p[str(player['player_id'])]['items'])
-        if p[str(player['player_id'])]['kdr'] == 999:
-            p[str(player['player_id'])]['kdr'] = "Inf."
-    m['players'] = p
-    return m
 
 
 def multimatch(data, history, mode):

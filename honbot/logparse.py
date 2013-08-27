@@ -1,4 +1,4 @@
-from os import path
+from os import path, remove
 from honbot.models import Matches
 import requests
 from zipfile import ZipFile
@@ -21,5 +21,8 @@ def download(match_id):
     z.extract(z.namelist()[0], directory)
     z.close()
     # delete zip
-    os.remove(directory + str(match_id) + '.zip')
+    remove(directory + str(match_id) + '.zip')
     return True
+
+def parse(match_id):
+    pass

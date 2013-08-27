@@ -249,3 +249,8 @@ class PlayerHeroStats(models.Model):
     hero_id = models.SmallIntegerField(default=0)
     updated = models.DateTimeField(auto_now=True, default=0)
     mode = models.CharField(max_length=10, default="rnk")
+
+class Chat(models.Model):
+    match_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
+    json = models.TextField(default="")
+

@@ -1,6 +1,6 @@
 honbot-django
 =============
-Hon Stats website written in django for the new api
+Hon Stats website written in django for the HoN api
 
 ###honbot db
 Handled by [South](http://south.aeracode.org/)
@@ -27,27 +27,6 @@ Start the server up again
 ####License
 Included in license.md
 
-Version 2.5 Planned Features
----------------------------
-Tooltips
-Social Share Modal
-Move recent matches to ajax and json
-Hero Stats/pages
-Item Pages
-Recent Matches
-Possible Typeahead on home page  
-Check out s2r2 and see if it can work
-switch to numpy
-Have a queue of players to be updated and pull down matches when idle
-Compare side by side players stats for heroes/matches
-Try to fall back when servers not available, show error
-Share tab
-* Advanced stats should be stored somehow  
-    * Chat can be json.dumped
-    * builds can be arrays or stored in individual columns
-Fix match view for 3vs3 add if !player to all graphs to prevent spawn of non existant player
-
-
 ###Querries
 __Find most used heroes__  
 
@@ -62,8 +41,3 @@ __Find most assists__
     PlayerMatches.objects.filter(date__range=[startdate, enddate]).order_by('-assists')[:5]
 
 More can be found in top.py
-
-TO DO:
-ADD ALL KILL STREAKS AND BLOODLUST TO PLAYER PAGE
-ADD GRAPH OF MMR TO PLAYER PAGE
-

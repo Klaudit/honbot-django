@@ -1,13 +1,12 @@
 from os import path, remove
-from honbot.models import Matches
+from honbot.models import Matches, Chat, PlayerMatches
 import requests
 from zipfile import ZipFile
 
 directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'match')) + '/'
 
 
-def download(match_id):
-    url = Matches.objects.filter(match_id=match_id).values('replay_url')[0]['replay_url']
+def download(match_id, url):
     url = url[:-9] + 'zip'
     # download file
     r = requests.get(url)

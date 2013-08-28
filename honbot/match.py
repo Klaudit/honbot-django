@@ -17,7 +17,6 @@ def match_view(request, match_id):
         match = match.values()[0]
         # The time may be need to be subtracted by an hour? - Aug 26
         match['date'] = datetime.datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
-        match['map'] = match['_map'] # this needs to be fixed
         # this should be a template
         if match['mode'] == "rnk":
             match['mode'] = "Ranked"
@@ -47,7 +46,7 @@ def match_save(data, match_id, mode):
     m = Matches(match_id=match_id, date=data['date'], replay_url=data['replay_url'],
                 realtime=data["realtime"], mode=mode, major=data['major'],
                 minor=data['minor'], revision=data['revision'], build=data['build'],
-                _map=data['map'])
+                map_used=data['map'])
     m.save()
     for p in data['players']:
         if data['players'][p]['kdr'] == "Inf.":
@@ -90,7 +89,6 @@ def match_save(data, match_id, mode):
                       position=data['players'][p]['position'],
                       items=json.dumps(data['players'][p]['items']),
                       mode=mode, date=data['date']).save()
-
 
 
 def multimatch(data, history, mode):

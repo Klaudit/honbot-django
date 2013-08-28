@@ -1,26 +1,40 @@
-import requests
-import zipfile
 import codecs
 import os
-from error import error
 from time import strftime, gmtime
-from django.template import Context, loader
-from django.http import HttpResponse
-import json
-from honbot.models import Matches
 #new requirements
 import logparse
-from honbot.models import Chat
-from match import match
+from honbot.models import Chat, Matches
+from django.shortcuts import redirect
+import datetime
+from error import error
+from django.shortcuts import render_to_response
+import json
 
 directory = str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'match')) + '/'
 
 
 def chat(request, match_id):
-    stats = match(match_id)
-    logs = Chat.objects.filter(match_id=match_id)
-    if logs.exists():
-
+    match = Matches.objects.filter(match_id=match_id)
+    if match.exists():
+        chat = Chat.objects.filter(match_id=match_id)
+        if chat.exists():
+            match = match.values()
+            match['date'] = datetime.datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
+            # this needs to be a template
+            if match['mode'] == "rnk":
+                match['mode'] = "Ranked"
+            elif match['mode'] == "cs":
+                match['mode'] = "Casual"
+            elif match['mode'] == "acc":
+                match['mode'] = "Public"
+            return render_to_response('chat.html', {'chat': chat, 'match':match})
+        else:
+            if logparse.download(match_id, match[0].replay_url):
+                logparse.parse(match_id)
+            else:
+                return error(request, "Match replay failed to download. It could be too old (28 days), too new, or S2 hates you")
+    else:
+        return redirect('/match/' + match_id + '/')
     # download and parse logs
     logs = parse_chat_from_log(match_id)
     # deliver chat logs
@@ -41,7 +55,7 @@ def chat(request, match_id):
         c = Context({'logs': logs, 'stats': stats, 'match_id': match_id})
         return HttpResponse(t.render(c))
     else:
-        return error(request, "Match is older than 28 days or replay is unavailable.")
+        return error(request, "Match replay is unavailable. It could be too old (28 days), too new, or S2 hates you")
 
 
 def parse_chat_from_log(match_id):

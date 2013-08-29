@@ -35,7 +35,7 @@ def parse(match_id):
 class honlog:
     def __init__(self, match_id):
         self.match_id = match_id
-        self.real_order, self.order_covert = {}, {}
+        self.real_order, self.order_convert, self.hero = {}, {}, {}
         self.logfile = file
         self.date, self.time = '', ''
         self.names, self.psr = [0]*10, [0]*10,
@@ -54,9 +54,11 @@ class honlog:
         This gets the proper order of players from the db
         creates self.real_order[player_id]=real_position
         """
-        positions = PlayerMatches.objects.filter(match_id=self.match_id).order_by('position').values('position', 'player_id')
+        positions = PlayerMatches.objects.filter(match_id=self.match_id).order_by('position').values('position', 'player_id', 'hero')
         for p in positions:
-            self.real_order[str(p['player_id'])]=p['position']
+            pid = str(p['player_id'])
+            self.real_order[pid] = p['position']
+            self.hero = p['hero']
 
     def open_file(self):
         self.logfile = codecs.open(directory + 'm' + self.match_id + '.log', encoding='utf-16-le', mode='rb').readlines()
@@ -79,21 +81,15 @@ class honlog:
         """
         l = line.split()
         psr = int(float(l[-1].split(':')[1]))
+        name = l[2].split(':')[1][1:-1] # get name
+        name = name.split(']')[-1] # remove clan tag
         if psr != -1:
-            name = l[2].split(':')[1][1:-1] # get name
-            name = name.split(']')[-1] # remove clan tag
             position = int(l[1].split(':')[1])
             pid = str(l[-2].split(':')[1])
             self.names[self.real_order[pid]] = name
             self.psr[self.real_order[pid]] = psr
             self.order_convert[position] = self.real_order[pid]
         else:
-            name = l[3].split(':')[1][1:-1]
-            for letter in name:
-                if letter == '[':
-                    name = name.split(']')[1]
-                else:
-                    break
             self.spectators[position] = name
 
     def out(self):

@@ -35,28 +35,6 @@ def chat(request, match_id):
                 return error(request, "Match replay failed to download. It could be too old (28 days), too new, or S2 hates you")
     else:
         return redirect('/match/' + match_id + '/')
-    # download and parse logs
-    logs = parse_chat_from_log(match_id)
-    # deliver chat logs
-    if logs is not None:
-        stats = match(match_id)
-        names = {}
-        heroes = {}
-        for p in stats['players']:
-            if p is not None:
-                name = p['nickname']
-                names[str(name)] = p['position']
-                heroes[str(name)] = p['hero']
-        for l in logs:
-            name = l['name']
-            l['player'] = names[name]
-            l['hero'] = heroes[name]
-        t = loader.get_template('chat.html')
-        c = Context({'logs': logs, 'stats': stats, 'match_id': match_id})
-        return HttpResponse(t.render(c))
-    else:
-        return error(request, "Match replay is unavailable. It could be too old (28 days), too new, or S2 hates you")
-
 
 def parse_chat_from_log(match_id):
     """

@@ -3,6 +3,8 @@ from honbot.models import Matches, Chat, PlayerMatches
 import requests
 import codecs
 from zipfile import ZipFile
+from time import strftime, gmtime
+import json
 
 directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'match')) + '/'
 
@@ -31,14 +33,15 @@ def parse(match_id):
     log.open_file()
     log.run()
     log.out()
+    log.save()
 
 class honlog:
     def __init__(self, match_id):
         self.match_id = match_id
-        self.real_order, self.order_convert, self.hero = {}, {}, {}
+        self.real_order, self.order_convert, self.heroes, self.teams = {}, {}, {}, {}
         self.logfile = file
         self.date, self.time = '', ''
-        self.names, self.psr = [0]*10, [0]*10,
+        self.names, self.psr, self.msg = [0]*10, [0]*10, []
     
     def run(self):
         for line in self.logfile:
@@ -54,11 +57,12 @@ class honlog:
         This gets the proper order of players from the db
         creates self.real_order[player_id]=real_position
         """
-        positions = PlayerMatches.objects.filter(match_id=self.match_id).order_by('position').values('position', 'player_id', 'hero')
+        positions = PlayerMatches.objects.filter(match_id=self.match_id).order_by('position').values('position', 'player_id', 'hero', 'team')
         for p in positions:
             pid = str(p['player_id'])
             self.real_order[pid] = p['position']
-            self.hero = p['hero']
+            self.heroes[p['position']] = p['hero']
+            self.teams[p['position']] = p['team']
 
     def open_file(self):
         self.logfile = codecs.open(directory + 'm' + self.match_id + '.log', encoding='utf-16-le', mode='rb').readlines()
@@ -92,7 +96,50 @@ class honlog:
         else:
             self.spectators[position] = name
 
+    def save(self):
+        c = Chat(match_id=self.match_id, json=json.dumps(self.msg))
+        c.save()
+
+    def set_time(self, time):
+        if int(time) < 3599999:
+            time = strftime('%M:%S', gmtime(int(time) // 1000))
+        else:
+            time = strftime('%H:%M:%S', gmtime(int(time) // 1000))
+        return time
+
+    def PLAYER_CHAT(self, line):
+        """
+        returns dict of chat line, two types of chat, one before start and after
+        PLAYER_CHAT player:0 target:"team" msg:"hey team"
+        PLAYER_CHAT time:55000 player:8 target:"team" msg:"in the game."
+        """
+        chat = {}
+        chat['msg'] = ''
+        l = line.split()
+        if line[12] == 'p':
+            chat['name'] = self.names[self.order_convert[int(l[1].split(':')[1])]]
+            chat['target'] = l[2].split(':')[1][1:-1]
+            chat['hero'] = self.heroes[self.order_convert[int(l[1].split(':')[1])]]
+            chat['time'] = "Lobby"
+            chat['msg'] = line.split('msg:')[1]
+            if chat['target'] == 'all':
+                chat['target'] = 3
+            else:
+                chat['target'] = self.teams[self.order_convert[int(l[1].split(':')[1])]]
+        else:
+            chat['time'] = self.set_time(l[1].split(':')[1])
+            chat['name'] = self.names[self.order_convert[int(l[2].split(':')[1])]]
+            chat['target'] = l[3].split(':')[1][1:-1]
+            chat['msg'] = line.split('msg:')[1]
+            if chat['target'] == 'all':
+                chat['target'] = 3
+            else:
+                chat['target'] = self.teams[self.order_convert[int(l[2].split(':')[1])]]
+        chat['msg'] = chat['msg'][1:-3]
+        self.msg.append(chat)
+
     def out(self):
         print self.real_order
         print self.names
         print self.order_convert
+        print json.dumps(self.msg)

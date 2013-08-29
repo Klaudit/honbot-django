@@ -18,7 +18,8 @@ def chat(request, match_id):
     if match.exists():
         chat = Chat.objects.filter(match_id=match_id)
         if chat.exists():
-            match = match.values()
+            chat = chat.values()[0]
+            match = match.values()[0]
             match['date'] = datetime.datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
             # this needs to be a template
             if match['mode'] == "rnk":
@@ -27,10 +28,12 @@ def chat(request, match_id):
                 match['mode'] = "Casual"
             elif match['mode'] == "acc":
                 match['mode'] = "Public"
+            chat['json'] = json.loads(chat['json'])
             return render_to_response('chat.html', {'chat': chat, 'match':match})
         else:
             if logparse.download(match_id, match[0].replay_url):
                 logparse.parse(match_id)
+                chat(request, match_id)
             else:
                 return error(request, "Match replay failed to download. It could be too old (28 days), too new, or S2 hates you")
     else:

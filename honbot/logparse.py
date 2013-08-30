@@ -1,5 +1,6 @@
+import re
 from os import path, remove
-from honbot.models import Matches, Chat, PlayerMatches
+from honbot.models import Chat, Builds, PlayerMatches
 import requests
 import codecs
 from zipfile import ZipFile
@@ -38,10 +39,11 @@ def parse(match_id):
 class honlog:
     def __init__(self, match_id):
         self.match_id = match_id
-        self.real_order, self.order_convert, self.heroes, self.teams = {}, {}, {}, {}
+        self.real_order, self.order_convert, self.teams = {}, {}, {}
         self.logfile = file
         self.date, self.time = '', ''
-        self.names, self.psr, self.msg = [0]*10, [0]*10, []
+        self.names, self.psr, self.heroes, self.msg = [0]*10, [0]*10, [0]*10, []
+        self.builds = [[] for i in range(10)]
     
     def run(self):
         for line in self.logfile:
@@ -107,6 +109,18 @@ class honlog:
             time = strftime('%H:%M:%S', gmtime(int(time) // 1000))
         return time
 
+    def ABILITY_UPGRADE(self, line):
+        """
+        ABILITY_UPGRADE time:0 x:1662 y:995 z:101 player:1 team:1 name:"Ability_Empath1" level:1 slot:0
+        """
+        l = line.split()
+        ability = l[7].split('"')[1]
+        if ability != 'Ability_AttributeBoost':
+            ability = int(re.sub("\D", "", ability)[-1:])
+        else:
+            ability = 5
+        self.builds[self.order_convert[int(l[5].split(':')[1])]].append(ability)
+
     def PLAYER_CHAT(self, line):
         """
         returns dict of chat line, two types of chat, one before start and after
@@ -145,4 +159,4 @@ class honlog:
         print self.real_order
         print self.names
         print self.order_convert
-        print json.dumps(self.msg)
+        print self.builds

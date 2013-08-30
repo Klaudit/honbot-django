@@ -117,9 +117,10 @@ class honlog:
         chat['msg'] = ''
         l = line.split()
         if line[12] == 'p':
-            chat['name'] = self.names[self.order_convert[int(l[1].split(':')[1])]]
+            chat['position'] = self.order_convert[int(l[1].split(':')[1])]
+            chat['name'] = self.names[chat['position']]
             chat['target'] = l[2].split(':')[1][1:-1]
-            chat['hero'] = self.heroes[self.order_convert[int(l[1].split(':')[1])]]
+            chat['hero'] = self.heroes[chat['position']]
             chat['time'] = "Lobby"
             chat['msg'] = line.split('msg:')[1]
             if chat['target'] == 'all':
@@ -127,10 +128,12 @@ class honlog:
             else:
                 chat['target'] = self.teams[self.order_convert[int(l[1].split(':')[1])]]
         else:
+            chat['position'] = self.order_convert[int(l[2].split(':')[1])]
             chat['time'] = self.set_time(l[1].split(':')[1])
-            chat['name'] = self.names[self.order_convert[int(l[2].split(':')[1])]]
+            chat['name'] = self.names[chat['position']]
             chat['target'] = l[3].split(':')[1][1:-1]
             chat['msg'] = line.split('msg:')[1]
+            chat['hero'] = self.heroes[chat['position']]
             if chat['target'] == 'all':
                 chat['target'] = 3
             else:

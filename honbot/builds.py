@@ -1,5 +1,5 @@
 import logparse
-from honbot.models import Builds, Matches
+from honbot.models import Builds, Matches, PlayerMatches
 from django.shortcuts import redirect
 import datetime
 from error import error
@@ -22,7 +22,7 @@ def build_view(request, match_id):
                 match['mode'] = "Public"
             for build in builds:
                 build['json'] = json.loads(build['json'])
-            return render_to_response('build.html', {'builds': builds['json'], 'match':match})
+            return render_to_response('build.html', {'builds': builds, 'match':match})
         else:
             if logparse.download(match_id, match[0]['replay_url']):
                 logparse.parse(match_id)

@@ -101,6 +101,10 @@ class honlog:
     def save(self):
         c = Chat(match_id=self.match_id, json=json.dumps(self.msg))
         c.save()
+        for index, build in enumerate(self.builds):
+            if len(build) != 0:
+                b = Builds(match_id=self.match_id, json=json.dumps(build), hero=self.heroes[index])
+                b.save()
 
     def set_time(self, time):
         if int(time) < 3599999:

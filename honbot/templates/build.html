@@ -31,45 +31,37 @@
     <div class="row">
         <div class="col-lg-12">
             <ul class="nav nav-pills nav-justified">
-                <li><a href="/match/{{ match_id }}/">Overview</a></li>
-                <li><a href="/chat/{{ match_id }}/">Chat Logs</a></li>
-                <li class="active"><a href="/builds/{{ match_id }}/">Builds</a></li>
+                <li><a href="/match/{{ match.match_id }}/">Overview</a></li>
+                <li><a href="/chat/{{ match.match_id }}/">Chat Logs</a></li>
+                <li class="active"><a href="/builds/{{ match.match_id }}/">Builds</a></li>
             </ul>
         </div>
     </div>
 </div>
 <div class="container">
-    {% for players in builds %}
+    {% for build in builds %}
     <div class="row">
         <div class="col-lg-12">
-        {% for player in players %}
-            {% if forloop.counter0 == 0 %}
-            <h3 style="margin-bottom: 0px;" class="player-{{player.position}}">
-                <img style="padding-bottom: 6px; width: 44px;" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'> 
-                <a href="/player/{{ player.nickname }}">{{ player.nickname }}</a>
-                {% for item in player.items %}
-                    {% if item != None  %}
-                        <img style="padding-bottom:5px; width: 30px;" src='/static/img/items/{{item}}.jpg'>
-                    {% endif %}
-                {% endfor %}
+            <h3 style="margin-bottom: 0px;" class="player-{{build.position}}">
+                <img style="padding-bottom: 6px; width: 45px;" src='/static/img/heroes/{{ build.hero }}/icon_128.jpg'> 
+                <a href="/player/{{ build.nickname }}">{{ build.nickname }}</a>
             </h3>
             <div class="build-container">
                 <div class="build-row">
-                    <img src="/static/img/heroes/{{ player.hero }}/ability1_128.jpg">
-                    <img src="/static/img/heroes/{{ player.hero }}/ability2_128.jpg">
-                    <img src="/static/img/heroes/{{ player.hero }}/ability3_128.jpg">
-                    <img src="/static/img/heroes/{{ player.hero }}/ability4_128.jpg">
+                    <img src="/static/img/heroes/{{ build.hero }}/ability1_128.jpg">
+                    <img src="/static/img/heroes/{{ build.hero }}/ability2_128.jpg">
+                    <img src="/static/img/heroes/{{ build.hero }}/ability3_128.jpg">
+                    <img src="/static/img/heroes/{{ build.hero }}/ability4_128.jpg">
                     <img src="/static/img/heroes/boost_50.gif">
                 </div>
-            {% else %}
+            {% for ability in build.json %}
                 <div class="build-row">
-                    <div {% if player.ability == 1 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 1 %}selected{% endif %}">{% if player.ability == 1 %}{{forloop.counter0 }}{% endif %}</div>
-                    <div {% if player.ability == 2 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 2 %}selected{% endif %}">{% if player.ability == 2 %}{{forloop.counter0 }}{% endif %}</div>
-                    <div {% if player.ability == 3 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 3 %}selected{% endif %}">{% if player.ability == 3 %}{{forloop.counter0 }}{% endif %}</div>
-                    <div {% if player.ability == 4 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 4 %}selected{% endif %}">{% if player.ability == 4 %}{{forloop.counter0 }}{% endif %}</div>
-                    <div {% if player.ability == 5 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if player.ability == 5 %}selected{% endif %}">{% if player.ability == 5 %}{{forloop.counter0 }}{% endif %}</div>
+                    <div {% if ability == 1 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if ability == 1 %}selected{% endif %}">{% if ability == 1 %}{{forloop.counter }}{% endif %}</div>
+                    <div {% if ability == 2 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if ability == 2 %}selected{% endif %}">{% if ability == 2 %}{{forloop.counter }}{% endif %}</div>
+                    <div {% if ability == 3 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if ability == 3 %}selected{% endif %}">{% if ability == 3 %}{{forloop.counter }}{% endif %}</div>
+                    <div {% if ability == 4 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if ability == 4 %}selected{% endif %}">{% if ability == 4 %}{{forloop.counter }}{% endif %}</div>
+                    <div {% if ability == 5 %}style="border-color: #000; background-color: #fff;"{% endif %} class="build-move {% if ability == 5 %}selected{% endif %}">{% if ability == 5 %}{{forloop.counter }}{% endif %}</div>
                 </div>
-            {% endif %}
         {% endfor %}
             </div>
         </div>

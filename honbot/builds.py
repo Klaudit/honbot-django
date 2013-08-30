@@ -9,7 +9,7 @@ import json
 def build_view(request, match_id):
     match = Matches.objects.filter(match_id=match_id).values()
     if match.exists():
-        builds = Builds.objects.filter(match_id=match_id).values('json')
+        builds = Builds.objects.filter(match_id=match_id).values()
         if builds.exists():
             match = match[0]
             match['date'] = datetime.datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)

@@ -103,7 +103,7 @@ class honlog:
         c.save()
         for index, build in enumerate(self.builds):
             if len(build) != 0:
-                b = Builds(match_id=self.match_id, json=json.dumps(build), hero=self.heroes[index])
+                b = Builds(match_id=self.match_id, json=json.dumps(build), hero=self.heroes[index], nickname=self.names[index])
                 b.save()
 
     def set_time(self, time):

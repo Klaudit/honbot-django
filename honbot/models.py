@@ -258,6 +258,7 @@ class Builds(models.Model):
     match_id = models.PositiveIntegerField(null=False, default=1, db_index=True)
     hero = models.PositiveSmallIntegerField(default=0, db_index=True)
     json = models.TextField(default="")
+    nickname = models.CharField(max_length=30, default="")
     lvl1 = models.PositiveSmallIntegerField(default=0)
     lvl2 = models.PositiveSmallIntegerField(default=0)
     lvl3 = models.PositiveSmallIntegerField(default=0)

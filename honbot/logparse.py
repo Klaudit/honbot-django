@@ -11,7 +11,6 @@ directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'm
 
 
 def download(match_id, url):
-    return True #remove this dev only
     url = url[:-9] + 'zip'
     # download file
     r = requests.get(url)
@@ -30,7 +29,7 @@ def download(match_id, url):
 
 def parse(match_id):
     log = honlog(match_id)
-    log.get_order()
+    log.setup()
     log.open_file()
     log.run()
     log.out()
@@ -42,7 +41,7 @@ class honlog:
         self.real_order, self.order_convert, self.teams = {}, {}, {}
         self.logfile = file
         self.date, self.time = '', ''
-        self.names, self.psr, self.heroes, self.msg = [0]*10, [0]*10, [0]*10, []
+        self.names, self.psr, self.heroes, self.win, self.msg = [0]*10, [0]*10, [0]*10, [0]*10, []
         self.builds = [[] for i in range(10)]
     
     def run(self):
@@ -54,12 +53,12 @@ class honlog:
             except AttributeError:
                 pass
 
-    def get_order(self):
+    def setup(self):
         """
         This gets the proper order of players from the db
         creates self.real_order[player_id]=real_position
         """
-        positions = PlayerMatches.objects.filter(match_id=self.match_id).order_by('position').values('position', 'player_id', 'hero', 'team')
+        positions = PlayerMatches.objects.filter(match_id=self.match_id).order_by('position').values('position', 'player_id', 'hero', 'team', 'win')
         for p in positions:
             pid = str(p['player_id'])
             self.real_order[pid] = p['position']
@@ -102,8 +101,19 @@ class honlog:
         c = Chat(match_id=self.match_id, json=json.dumps(self.msg))
         c.save()
         for index, build in enumerate(self.builds):
-            if len(build) != 0:
-                b = Builds(match_id=self.match_id, json=json.dumps(build), hero=self.heroes[index], nickname=self.names[index])
+            if len(build) != 0 and self.heroes[index] != 0:
+                difference = 25 - len(build)
+                for d in range(difference):
+                    build.append(0)
+                b = Builds(match_id=self.match_id, json=json.dumps(build[:25-difference]), 
+                           hero=self.heroes[index], nickname=self.names[index], 
+                           mmr=self.psr[index], win=self.win[index], position=index,
+                           lvl1=build[0], lvl2=build[1], lvl3=build[2], lvl4=build[3],
+                           lvl5=build[4], lvl6=build[5], lvl7=build[6], lvl8=build[7],
+                           lvl9=build[8], lvl10=build[9], lvl11=build[10], lvl12=build[11],
+                           lvl13=build[12], lvl14=build[13], lvl15=build[14], lvl16=build[15],
+                           lvl17=build[16], lvl18=build[17], lvl19=build[18], lvl20=build[19],
+                           lvl21=build[20], lvl22=build[21], lvl23=build[22], lvl24=build[23], lvl25=build[24])
                 b.save()
 
     def set_time(self, time):

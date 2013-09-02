@@ -88,13 +88,10 @@ def get_player_from_matches(history, account_id):
     """
     this takes a list of matches and returns that player's stats in that match
     """
-    matches = []
+    compiled = []
     for m in history:
-        temp = {}
-        load = PlayerMatches.objects.filter(match_id=m[0], player_id=account_id)
-        if load.exists():
-            temp = load.values()[0]
-            temp['match_id'] = m[0]
-            temp['date'] = datetime.datetime.strptime(str(load[0].match.date), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
-            matches.append(temp)
-    return matches
+        compiled.append(m[0])
+    load = PlayerMatches.objects.filter(match_id__in=compiled, player_id=account_id).values()
+    for m in load:
+        m['date'] = datetime.datetime.strptime(str(m['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
+    return load

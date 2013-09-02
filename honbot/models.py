@@ -3,7 +3,7 @@ from django.db import models
 
 class Matches(models.Model):
     match_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
-    date = models.DateTimeField()
+    date = models.DateTimeField(blank=True, null=False)
     replay_url = models.URLField(max_length=120, default="")
     realtime = models.CharField(max_length=10, default="")
     mode = models.CharField(max_length=10, default="")
@@ -20,7 +20,7 @@ class Matches(models.Model):
 
 class PlayerMatches(models.Model):
     player_id = models.PositiveIntegerField(default=0, db_index=True)
-    match = models.ForeignKey(Matches)
+    match = models.ForeignKey(Matches, null=False)
     deaths = models.PositiveSmallIntegerField(default=0)
     win = models.BooleanField(default=False)
     apm = models.FloatField(default=0)

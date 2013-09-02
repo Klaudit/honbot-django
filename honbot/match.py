@@ -44,6 +44,7 @@ def match_view(request, match_id):
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
 
 def match_save(data, match_id, mode):
+    print match_id
     try:
         data['realtime']
     except KeyError:

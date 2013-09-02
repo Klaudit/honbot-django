@@ -14,11 +14,11 @@ def server_status(request):
     test = """{"cli_name":"Item_CrushingClaws","attributes":{"icon":"Item_CrushingClaws.jpg","cost":"150","isPassive":false,"recipeCost":"150","usedIn":["Item_Strength5","Item_BloodChalice"],"strings":{"description_simple":"^9773 Strength^*","effect_header":"Status Effect(s)","search_terms":"crushingclaws,gauntletsofogrestrength,gauntlets,ogre,3s,3str,3strength,cc,strength,str,crushing,claws","shop_categories":"Filter_Strength","shop_flavor":"Crushing Claws are filled with clockwork gears, sprockets, and springs that give a boost of strength to whomever wears them.  Despite their role in numerous practical jokes gone awry, these gauntlets remain in widespread use in the ranks."},"name":"Crushing Claws"}}"""
     try:
         if json.text == test:
-            return HttpResponse('<li><span class="text-success">Working</span></li>')
+            return HttpResponse('<span class="text-success">Working</span>')
         else:
-            return HttpResponse('<span class="text-danger">Down: Honbot will have trouble working</span>')
+            return HttpResponse('<span class="text-danger">Down, Honbot will have trouble working</span>')
     except:
-        return HttpResponse('<span class="text-danger">Down: Honbot will have trouble working</span>')
+        return HttpResponse('<span class="text-danger">Down, Honbot will have trouble working</span>')
 
 @cache_page(60)
 def match_count(request):

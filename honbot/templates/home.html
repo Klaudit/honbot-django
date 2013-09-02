@@ -36,14 +36,13 @@
               <h1 class="text-center"><img style="margin-bottom: 14px; margin-right: -5.5px;" src="/static/img/testbars.png">HonBot</h1>
             </div>
             <!-- search -->
-            <form id="searchform">
-              <div class="input-group input-group-lg col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-sm-12">
-                <input id="player" type="text" placeholder="Player Username" class="form-control input-lg" autocomplete="off" autofocus>
-                <span class="input-group-btn">
-                  <button class="btn btn-default btn-lg" type="button"><i class="icon-search"></i> Go</button>
-                </span>
+            <form id="searchform" class="form-inline" role="form">
+              <div class="form-group col-lg-6 col-lg-offset-3 col-md-offset-1 col-md-10 col-sm-12">
+                <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                <input id="player" type="text" class="form-control input-lg" placeholder="Player Username" autocomplete="off" autofocus>
               </div>
             </form>
+
           </div>
           <br>
           <div class="row">
@@ -55,7 +54,7 @@
       <!-- Content -->
         <div class="container">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-6">
               <div class="panel panel-default">
                 <div class="panel-heading"><h3 class="panel-title">Recent Changes</h3></div>
                 <div class="panel-body">
@@ -81,7 +80,7 @@
                 <div class="panel-footer"><a href="https://github.com/scttcper/honbot-django">View Source Code</a></div>
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-6">
               <div class="panel panel-default">
                 <div class="panel-heading"><h3 class="panel-title">Server Stats</h3></div>
                 <div class="panel-body">

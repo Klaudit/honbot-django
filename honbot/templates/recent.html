@@ -6,11 +6,12 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Match ID</th>
                     <th>Length</th>
+                    <th>Date</th>
                     <th>Mode</th>
                     <th>Winner</th>
                     <th>Legion</th>
@@ -19,8 +20,9 @@
                 <tbody>
                     {%for m in matches%}
                     <tr>
-                        <td><a href="/match/{{m.match_id}}">{{m.match_id}}</a></td>
+                        <td><a href="/match/{{ m.match_id }}">{{ m.match_id }}</a></td>
                         <td>{{m.realtime}}</td>
+                        <td>{% load prettytimes_tags %}{{ m.date|relative_time }}</td>
                         <td>{%if m.mode == "rnk"%}Ranked{%elif m.mode == "cs"%}Casual{% else %}Public{%endif%}</td>
                         <td>{%if m.winner == 1%}Legion{%else%}Hellborne{%endif%}</td>
                         <td>
@@ -37,18 +39,12 @@
                     {%endfor%}
                 </tbody>
             </table>
-            <div class="pagination text-center">
-                <ul>  
-                    {% if pag.has_previous %}
-                        <li><a href="?page=1"><i class="icon-angle-left"></i><i class="icon-angle-left"></i> first</a></li>
-                        <li><a href="?page={{ pag.previous_page_number }}"><i class="icon-angle-left"></i> previous</a></li>
-                    {% endif %}
-                    {% if pag.has_next %}
-                        <li><a href="?page={{ pag.next_page_number }}">next <i class="icon-angle-right"></i></a></li>
-                        <li><a href="?page={{ pag.paginator.num_pages }}">last <i class="icon-angle-right"></i><i class="icon-angle-right"></i></a></li>
-                    {% endif %} 
+                <ul class="pager">
+                    <li class="{% if not pag.has_previous %}disabled{% endif %}"><a href="?page=1"><i class="icon-angle-left"></i><i class="icon-angle-left"></i> First</a></li>
+                    <li class="{% if not pag.has_previous %}disabled{% endif %}"><a {% if pag.has_previous %}href="?page={{ pag.previous_page_number }}"{% endif %}><i class="icon-angle-left"></i> Previous</a></li>
+                    <li><a href="?page={{ pag.next_page_number }}">Next <i class="icon-angle-right"></i></a></li>
+                    <li><a href="?page={{ pag.paginator.num_pages }}">Last <i class="icon-angle-right"></i><i class="icon-angle-right"></i></a></li>
                 </ul>
-            </div>
             <p class="text-center"><small>Page {{ pag.number }} of {{ pag.paginator.num_pages }}</small></p>
         </div>
     </div>

@@ -288,4 +288,14 @@ class Builds(models.Model):
     lvl24 = models.PositiveSmallIntegerField(default=0)
     lvl25 = models.PositiveSmallIntegerField(default=0)
 
+class PlayerCount(models.Model):
+    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
+    count = models.PositiveIntegerField(default=0)
 
+class MatchCount(models.Model):
+    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
+    count = models.PositiveIntegerField(default=0)
+
+class PlayerMatchCount(models.Model):
+    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
+    count = models.PositiveIntegerField(default=0)

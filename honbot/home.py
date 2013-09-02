@@ -2,7 +2,8 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import api_call
 from random import randint
-from honbot.models import Matches, PlayerStats
+from honbot.models import Matches, PlayerCount, PlayerStats
+import datetime
 from django.views.decorators.cache import cache_page
 from django.template import Context, Template
 
@@ -19,8 +20,7 @@ def server_status(request):
     except:
         return HttpResponse('<span class="text-danger">Down: Honbot will have trouble working</span>')
 
-
-@cache_page(60 * 10)
+@cache_page(60)
 def match_count(request):
     """
     Returns the current number of matches stored in the database
@@ -30,15 +30,20 @@ def match_count(request):
     c = Context({'matches': matches})
     return HttpResponse(t.render(c))
 
-
-@cache_page(60 * 10)
+@cache_page(60)
 def player_count(request):
     """
     Returns the current number of players in the database
     """
-    players = PlayerStats.objects.count()
-    t = Template('{% load humanize %}Players: {{ players|intcomma }}')
-    c = Context({'players': players})
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    current_count = PlayerCount.objects.filter(date=today)
+    if current_count.exists():
+        count = current_count[0].count
+    else:
+        count = PlayerStats.objects.count()
+        PlayerCount(count=count).save()
+    t = Template('{% load humanize %}Players: {{ count|intcomma }}')
+    c = Context({'count': count})
     return HttpResponse(t.render(c))
 
 

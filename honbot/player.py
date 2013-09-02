@@ -1,10 +1,11 @@
 import api_call
 from django.template import Context, loader
 from django.http import HttpResponse
-from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic
+from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount
 from error import error
-from datetime import datetime
+import datetime
 import json
+from django.db.models import F
 
 
 def players(request, name):
@@ -25,7 +26,7 @@ def players(request, name):
         mode = "rnk"
         p = PlayerStats.objects.filter(nickname=name).values()
     if p:
-        tdelta = datetime.now() - datetime.strptime(str(p[0]['updated']), "%Y-%m-%d %H:%M:%S")
+        tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(p[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 1000:
             s = p[0]
             new = False
@@ -65,6 +66,7 @@ def player_save(stats, mode):
                     smackdown=stats['smackdown'], humiliation=stats['humiliation'], nemesis=stats['nemesis'], retribution=stats['retribution'],
                     level=stats['level'], level_exp=stats['level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
                     acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
+        update_player_count()
     elif mode == "acc":
         PlayerStatsPublic(player_id=stats['player_id'], nickname=stats['nickname'],
                           cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],
@@ -98,6 +100,14 @@ def player_save(stats, mode):
                           level=stats['level'], level_exp=stats['level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
                           acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
 
+def update_player_count():
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    current_count = PlayerCount.objects.filter(date=today)
+    if current_count.exists():
+        current_count.update(count=F('count') + 1)
+    else:
+        count = PlayerStats.objects.count()
+        PlayerCount(count=count).save()
 
 def player_math(data, nick, mode):
     """

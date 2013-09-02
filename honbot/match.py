@@ -3,7 +3,8 @@ import api_call
 import time
 import datetime
 from django.shortcuts import render_to_response
-from honbot.models import Matches, PlayerMatches
+from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount
+from django.db.models import F
 from error import error
 
 
@@ -48,6 +49,8 @@ def match_save(data, match_id, mode):
                 minor=data['minor'], revision=data['revision'], build=data['build'],
                 map_used=data['map'])
     m.save()
+    update_match_count()
+    update_players_in_matches(len(data['players']))
     for p in data['players']:
         if data['players'][p]['kdr'] == "Inf.":
             data['players'][p]['kdr'] = 999
@@ -89,6 +92,24 @@ def match_save(data, match_id, mode):
                       position=data['players'][p]['position'],
                       items=json.dumps(data['players'][p]['items']),
                       mode=mode, date=data['date']).save()
+
+def update_match_count():
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    current_count = MatchCount.objects.filter(date=today)
+    if current_count.exists():
+        current_count.update(count=F('count') + 1)
+    else:
+        count = Matches.objects.count()
+        MatchCount(count=count).save()
+
+def update_players_in_matches(count):
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    current_count = PlayerMatchCount.objects.filter(date=today)
+    if current_count.exists():
+        current_count.update(count=F('count') + count)
+    else:
+        count = PlayerMatches.objects.count()
+        PlayerMatchCount(count=count).save()
 
 
 def multimatch(data, history, mode):

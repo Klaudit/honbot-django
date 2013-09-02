@@ -29,28 +29,30 @@
                     <th>GPM</th>
                     <th>Length</th>
                     <th>Win?</th>
+                    <th>Date</th>
                     <th>Match</th>
                 </thead>
                 <tbody>
                     {%for m in kills%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{ m.nickname }}/">{{ m.nickname }}</a></td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{ m.hero }}/icon_128.jpg"> <a href="/player/{{ m.nickname }}/">{{ m.nickname }}</a></td>
                         <td>
                             {% for item in m.items %}
                                 {% if item != None  %}
-                                    <img style="width:30px;" src='/static/img/items/{{item}}.jpg'>
+                                    <img style="width:30px;" src='/static/img/items/{{ item }}.jpg'>
                                 {% endif %}
                             {% endfor %}
                         </td>
-                        <td>{{m.kills}}</td>
-                        <td>{{m.deaths}}</td>
-                        <td>{{m.assists}}</td>
-                        <td>{{m.kdr}}</td>
-                        <td>{{m.apm}}</td>
-                        <td>{{m.gpm}}</td>
-                        <td>{{m.match.realtime}}</td>
+                        <td>{{ m.kills }}</td>
+                        <td>{{ m.deaths }}</td>
+                        <td>{{ m.assists }}</td>
+                        <td>{{ m.kdr }}</td>
+                        <td>{{ m.apm }}</td>
+                        <td>{{ m.gpm }}</td>
+                        <td>{{ m.match.realtime }}</td>
                         <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
-                        <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
+                        <td>{% load prettytimes_tags %}{{ m.date|relative_time }}</td>
+                        <td><a href="/match/{{ m.match_id }}/">{{ m.match_id }}</a></td>
                     </tr>
                     {%endfor%}
                 </tbody>
@@ -58,7 +60,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="span4">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
             <legend class="text-center">Deaths</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
@@ -79,7 +81,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="span4">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
             <legend class="text-center">Wards</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
@@ -100,7 +102,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="span4">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
             <legend class="text-center">Assists</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
@@ -121,7 +123,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="span4">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
             <legend class="text-center">Denies</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
@@ -142,7 +144,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="span4">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
             <legend class="text-center">Creep Kills</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
@@ -163,7 +165,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="span4">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
             <legend class="text-center">Smackdowns</legend>
             <table class="table table-condensed table-striped table-stats">
                 <thead>

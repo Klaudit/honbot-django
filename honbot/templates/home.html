@@ -87,8 +87,9 @@
                 <div class="panel-body">
                   Database: 
                   <ul>
-                    <li id="matches"></li>
-                    <li id="players"></li>
+                    <li id="players">Players: </li>
+                    <li id="matches">Matches: </li>
+                    <li id="playermatches">Players in Matches: </li>
                   </ul>
                   S2 API:
                   <ul id="serverstatus">
@@ -138,10 +139,17 @@
         });
       });
     </script>
-        <script>
+    <script>
       $(document).ready(function() { 
         $.get('/player_count/', function(data) {
           $('#players').append(data);
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function() { 
+        $.get('/player_match_count/', function(data) {
+          $('#playermatches').append(data);
         });
       });
     </script>

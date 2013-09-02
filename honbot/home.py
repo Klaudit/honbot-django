@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import api_call
 from random import randint
-from honbot.models import Matches, PlayerCount, PlayerStats
+from honbot.models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatchCount, PlayerMatches
 import datetime
 from django.views.decorators.cache import cache_page
 from django.template import Context, Template
@@ -25,9 +25,15 @@ def match_count(request):
     """
     Returns the current number of matches stored in the database
     """
-    matches = Matches.objects.count()
-    t = Template('{% load humanize %}Matches: {{ matches|intcomma }}')
-    c = Context({'matches': matches})
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    current_count = MatchCount.objects.filter(date=today)
+    if current_count.exists():
+        count = current_count[0].count
+    else:
+        count = Matches.objects.count()
+        MatchCount(count=count).save()
+    t = Template('{% load humanize %}{{ count|intcomma }}')
+    c = Context({'count': count})
     return HttpResponse(t.render(c))
 
 @cache_page(60)
@@ -42,10 +48,25 @@ def player_count(request):
     else:
         count = PlayerStats.objects.count()
         PlayerCount(count=count).save()
-    t = Template('{% load humanize %}Players: {{ count|intcomma }}')
+    t = Template('{% load humanize %}{{ count|intcomma }}')
     c = Context({'count': count})
     return HttpResponse(t.render(c))
 
+@cache_page(60)
+def player_match_count(request):
+    """
+    Returns the current number of players in the database
+    """
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    current_count = PlayerMatchCount.objects.filter(date=today)
+    if current_count.exists():
+        count = current_count[0].count
+    else:
+        count = PlayerMatches.objects.count()
+        PlayerMatchCount(count=count).save()
+    t = Template('{% load humanize %}{{ count|intcomma }}')
+    c = Context({'count': count})
+    return HttpResponse(t.render(c))
 
 def home(request):
     """

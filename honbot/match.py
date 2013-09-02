@@ -44,8 +44,12 @@ def match_view(request, match_id):
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
 
 def match_save(data, match_id, mode):
+    try:
+        data['realtime']
+    except KeyError:
+        data['realtime'] = 0
     m = Matches(match_id=match_id, date=data['date'], replay_url=data['replay_url'],
-                realtime=data["realtime"], mode=mode, major=data['major'],
+                realtime=data['realtime'], mode=mode, major=data['major'],
                 minor=data['minor'], revision=data['revision'], build=data['build'],
                 map_used=data['map'])
     m.save()

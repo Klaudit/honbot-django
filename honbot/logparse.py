@@ -1,3 +1,4 @@
+# this file is replaceing magic.py
 import re
 from os import path, remove
 from honbot.models import Chat, Builds, PlayerMatches

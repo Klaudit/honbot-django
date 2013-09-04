@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Honbot.com Website Statistics | HonBot {% endblock %}
+{% block main_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1>Website Statistics <small>Free of charge</small></h1>
+            </div>
+            <hr class="soften">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="text-center">Player Stats Stored</h2>
+            <div id="players" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+        </div>
+    </div>
+</div>
+
+{%block js%}
+<script src="/static/js/highcharts.js"></script>
+<script>
+$(function () {
+    $('#players').highcharts({
+        chart:{
+            backgroundColor: null,
+        },
+        title: {
+            text: '',
+        },
+        xAxis: {
+            categories: [{% for p in players %}{{ p.date|date:"d" }},{% endfor %}],
+        },
+        yAxis: [{
+            title: {
+                text: ''
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        }],
+        credits: {enabled: false},
+        colors: ['#2C3E50'],
+        plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    animation: false,
+                }
+            },
+        series: [{
+            showInLegend: false,
+            name: 'Players',
+            data: [{% for p in players %}{{ p.count }},{% endfor %}],
+        }]
+    });
+});
+</script>
+{% endblock %}
+{% endblock %}

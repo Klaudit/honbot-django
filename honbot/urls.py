@@ -24,5 +24,6 @@ urlpatterns = patterns(
     url(r'^recent/$', 'honbot.recent.recent'),
     url(r'^chart/(?P<name>.*)/$', 'honbot.chart.view'), # Player charts for extra swag
     url(r'^top/$', 'honbot.top.seven'),
+    url(r'^sitestats/$', 'honbot.extra.stats'),
     (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt")),
 )

@@ -135,7 +135,6 @@ hr.soften {
   margin-top: 8px;
   margin-bottom: 0;
   display: inline-block;
-  text-transform: uppercase;
 }
 .player-head h2{
   margin-top: 10px;
@@ -583,3 +582,14 @@ hr.soften {
   background-color: #31b0d5;
   border-color: #2aabd2;
 }
+
+/* fix select2 */
+.select2-container {
+  padding: 0px;
+  border-width: 0px;
+}
+.select2-container .select2-choice {
+  height: 38px;
+  line-height: 38px;
+}
+/* end fix select2 */

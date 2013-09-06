@@ -13,12 +13,20 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="text-center">Player Stats Stored</h2>
+            <h2 class="text-center">Players</h2>
             <div id="players" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+        </div>
+        <div class="col-lg-12">
+            <h2 class="text-center">Matches</h2>
+            <div id="matches" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+        </div>
+        <div class="col-lg-12">
+            <h2 class="text-center">Players in Matches</h2>
+            <div id="playermatches" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
         </div>
     </div>
 </div>
-
+<br>
 {%block js%}
 <script src="/static/js/highcharts.js"></script>
 <script>
@@ -47,7 +55,6 @@ $(function () {
         colors: ['#2C3E50'],
         plotOptions: {
                 series: {
-                    cursor: 'pointer',
                     animation: false,
                 }
             },
@@ -55,6 +62,80 @@ $(function () {
             showInLegend: false,
             name: 'Players',
             data: [{% for p in players %}{{ p.count }},{% endfor %}],
+        }]
+    });
+});
+</script>
+<script>
+$(function () {
+    $('#matches').highcharts({
+        chart:{
+            backgroundColor: null,
+        },
+        title: {
+            text: '',
+        },
+        xAxis: {
+            categories: [{% for m in matches %}{{ m.date|date:"d" }},{% endfor %}],
+        },
+        yAxis: [{
+            title: {
+                text: ''
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        }],
+        credits: {enabled: false},
+        colors: ['#2C3E50'],
+        plotOptions: {
+                series: {
+                    animation: false,
+                }
+            },
+        series: [{
+            showInLegend: false,
+            name: 'Players',
+            data: [{% for m in matches %}{{ m.count }},{% endfor %}],
+        }]
+    });
+});
+</script>
+<script>
+$(function () {
+    $('#playermatches').highcharts({
+        chart:{
+            backgroundColor: null,
+        },
+        title: {
+            text: '',
+        },
+        xAxis: {
+            categories: [{% for m in playermatches %}{{ m.date|date:"d" }},{% endfor %}],
+        },
+        yAxis: [{
+            title: {
+                text: ''
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        }],
+        credits: {enabled: false},
+        colors: ['#2C3E50'],
+        plotOptions: {
+                series: {
+                    animation: false,
+                }
+            },
+        series: [{
+            showInLegend: false,
+            name: 'Players',
+            data: [{% for m in playermatches %}{{ m.count }},{% endfor %}],
         }]
     });
 });

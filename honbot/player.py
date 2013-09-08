@@ -35,6 +35,7 @@ def players(request, name):
             new = True
             data = api_call.get_json(url)
     else:
+        update_player_count()
         new = True
         data = api_call.get_json(url)
     if data is not None:
@@ -66,7 +67,6 @@ def player_save(stats, mode):
                     smackdown=stats['smackdown'], humiliation=stats['humiliation'], nemesis=stats['nemesis'], retribution=stats['retribution'],
                     level=stats['level'], level_exp=stats['level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
                     acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
-        update_player_count()
     elif mode == "acc":
         PlayerStatsPublic(player_id=stats['player_id'], nickname=stats['nickname'],
                           cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],

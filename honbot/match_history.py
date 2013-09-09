@@ -91,7 +91,7 @@ def get_player_from_matches(history, account_id):
     compiled = []
     for m in history:
         compiled.append(m[0])
-    load = PlayerMatches.objects.filter(match_id__in=compiled, player_id=account_id).values()
+    load = PlayerMatches.objects.filter(match_id__in=compiled, player_id=account_id).order_by('-date').values()
     for m in load:
         m['date'] = datetime.datetime.strptime(str(m['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
     return load

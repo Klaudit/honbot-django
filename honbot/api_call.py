@@ -1,6 +1,8 @@
 import requests
 from time import sleep
 from django.conf import settings
+from honbot.models import APICount
+from django.db.models import F
 
 
 def get_json(endpoint):
@@ -51,3 +53,11 @@ def pure(endpoint):
         else:
             return None
     return raw
+
+def apicount():
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    current_count = APICount.objects.filter(date=today)
+    if current_count.exists():
+        current_count.update(count=F('count') + 1)
+    else:
+        APICount(count=1).save()

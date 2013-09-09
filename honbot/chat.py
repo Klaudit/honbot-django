@@ -25,8 +25,10 @@ def chat_view(request, match_id):
             return render_to_response('chat.html', {'chat': chat['json'], 'match':match})
         else:
             if logparse.download(match_id, match[0]['replay_url']):
-                logparse.parse(match_id)
-                return chat_view(request, match_id)
+                if logparse.parse(match_id):
+                    return chat_view(request, match_id)
+                else:
+                    return error(request, "The chat logs had trouble somewhere. We all have bad days sometimes.")
             else:
                 return error(request, "Match replay failed to download. It could be too old (28 days), too new, or S2 hates you")
     else:

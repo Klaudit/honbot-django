@@ -1,5 +1,5 @@
 import logparse
-from honbot.models import Builds, Matches, PlayerMatches
+from honbot.models import Builds, Matches
 from django.shortcuts import redirect
 import datetime
 from error import error
@@ -25,8 +25,10 @@ def build_view(request, match_id):
             return render_to_response('build.html', {'builds': builds, 'match':match})
         else:
             if logparse.download(match_id, match[0]['replay_url']):
-                logparse.parse(match_id)
-                return build_view(request, match_id)
+                if logparse.parse(match_id):
+                    return build_view(request, match_id)
+                else:
+                    return error(request, "The chat logs had trouble somewhere. We all have bad days sometimes.")
             else:
                 return error(request, "Match replay failed to download. It could be too old (28 days), too new, or S2 hates you")
     else:

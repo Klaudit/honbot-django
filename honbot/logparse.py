@@ -35,6 +35,8 @@ def parse(match_id):
     log.run()
     log.out()
     log.save()
+    log.delete()
+    return True
 
 class honlog:
     def __init__(self, match_id):
@@ -53,6 +55,9 @@ class honlog:
                 methodToCall(line)
             except AttributeError:
                 pass
+
+    def delete(self):
+        remove(directory + 'm' + str(self.match_id) + '.log')
 
     def setup(self):
         """

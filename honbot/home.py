@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import api_call
 from random import randint
-from honbot.models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatchCount, PlayerMatches
+from honbot.models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatchCount, PlayerMatches, APICount
 import datetime
 from django.views.decorators.cache import cache_page
 from django.template import Context, Template
@@ -64,6 +64,22 @@ def player_match_count(request):
     else:
         count = PlayerMatches.objects.count()
         PlayerMatchCount(count=count).save()
+    t = Template('{% load humanize %}{{ count|intcomma }}')
+    c = Context({'count': count})
+    return HttpResponse(t.render(c))
+
+@cache_page(60)
+def api_count(request):
+    """
+    Returns the current number of players in the database
+    """
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    current_count = APICount.objects.filter(date=today)
+    if current_count.exists():
+        count = current_count[0].count
+    else:
+        count = 1
+        APICount(count=count).save()
     t = Template('{% load humanize %}{{ count|intcomma }}')
     c = Context({'count': count})
     return HttpResponse(t.render(c))

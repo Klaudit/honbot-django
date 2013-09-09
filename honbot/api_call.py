@@ -3,12 +3,14 @@ from time import sleep
 from django.conf import settings
 from honbot.models import APICount
 from django.db.models import F
+import datetime
 
 
 def get_json(endpoint):
     """
      returns json data for requested digg endpoint
     """
+    apicount()
     url = ''.join(['http://api.heroesofnewerth.com', endpoint, '/?token=%s' % settings.TOKEN])
     raw = ''
     print url
@@ -36,6 +38,7 @@ def pure(endpoint):
     """
     returns data for requested digg endpoint
     """
+    apicount()
     url = ''.join(['http://api.heroesofnewerth.com', endpoint, '/?token=%s' % settings.TOKEN])
     raw = ''
     print url

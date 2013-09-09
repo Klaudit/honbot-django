@@ -9,6 +9,7 @@ urlpatterns = patterns(
     url(r'^server_status/$', 'honbot.home.server_status'),
     url(r'^match_count/$', 'honbot.home.match_count'),
     url(r'^player_count/$', 'honbot.home.player_count'),
+    url(r'^api_count/$', 'honbot.home.api_count'),
     url(r'^player_match_count/$', 'honbot.home.player_match_count'),
     url(r'^player/(?P<name>.*)/$', 'honbot.player.players'),  # ranked player stats
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.players'),  # casual player stats

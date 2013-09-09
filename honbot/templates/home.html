@@ -90,11 +90,12 @@
                   <ul>
                     <li id="players">Players: </li>
                     <li id="matches">Matches: </li>
-                    <li id="playermatches">Players in Matches: </li>
+                    <li id="playermatches">Player Match Stats: </li>
                   </ul>
                   S2 API:
                   <ul>
                     <li id="serverstatus">Status: </li>
+                    <li id="apicount">API calls today: </li>
                   </ul>
                 </div>
                 <div class="panel-footer"><a href="/sitestats/">Site Statistics</a></div>
@@ -154,6 +155,13 @@
       $(document).ready(function() { 
         $.get('/player_match_count/', function(data) {
           $('#playermatches').append(data);
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function() { 
+        $.get('/api_count/', function(data) {
+          $('#apicount').append(data);
         });
       });
     </script>

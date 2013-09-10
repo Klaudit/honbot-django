@@ -42,8 +42,8 @@
                 <ul class="pager">
                     <li class="{% if not pag.has_previous %}disabled{% endif %}"><a href="?page=1"><i class="icon-angle-left"></i><i class="icon-angle-left"></i> First</a></li>
                     <li class="{% if not pag.has_previous %}disabled{% endif %}"><a {% if pag.has_previous %}href="?page={{ pag.previous_page_number }}"{% endif %}><i class="icon-angle-left"></i> Previous</a></li>
-                    <li><a href="?page={{ pag.next_page_number }}">Next <i class="icon-angle-right"></i></a></li>
-                    <li><a href="?page={{ pag.paginator.num_pages }}">Last <i class="icon-angle-right"></i><i class="icon-angle-right"></i></a></li>
+                    <li class="{% if not pag.has_next %}disabled{% endif %}"><a {% if pag.has_next %}href="?page={{ pag.next_page_number }}"{%  endif  %}>Next <i class="icon-angle-right"></i></a></li>
+                    <li class="{% if not pag.has_next %}disabled{% endif %}"><a href="?page={{ pag.paginator.num_pages }}">Last <i class="icon-angle-right"></i><i class="icon-angle-right"></i></a></li>
                 </ul>
             <p class="text-center"><small>Page {{ pag.number }} of {{ pag.paginator.num_pages }}</small></p>
         </div>

@@ -27,5 +27,8 @@ def recent(request):
                 m['legion'].append(p['hero'])
             else:
                 m['hellborne'].append(p['hero'])
-        m['winner'] = players[0]['win']
+        try:
+            m['winner'] = players[0]['win']
+        except:
+            m['winner'] = 1
     return render_to_response('recent.html', {"matches": matches, "pag": pag})

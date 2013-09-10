@@ -1,6 +1,7 @@
 from honbot.models import Matches, PlayerMatches
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
+import datetime
 
 
 def recent(request):
@@ -20,6 +21,7 @@ def recent(request):
         players = PlayerMatches.objects.filter(match=m['match_id']).values("hero", "team", "win").order_by('position')
         m['legion'] = []
         m['hellborne'] = []
+        m['date'] = datetime.datetime.strptime(str(m['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
         for p in players:
             if p['team'] == 1:
                 m['legion'].append(p['hero'])

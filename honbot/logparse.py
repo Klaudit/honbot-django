@@ -33,7 +33,7 @@ def parse(match_id):
     log.setup()
     log.open_file()
     log.run()
-    log.out()
+    # log.out()
     log.save()
     log.delete()
     return True

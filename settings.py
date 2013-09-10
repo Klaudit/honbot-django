@@ -2,6 +2,7 @@
 import os.path
 import localsettings
 
+
 DEBUG = localsettings.is_debug()
 handler500 = 'honbot.views.errorfive'
 TEMPLATE_DEBUG = localsettings.is_debug()
@@ -118,6 +119,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'honbot',
     'south',
+    'pretty_times',
 )
 
 TEMPLATE_DIRS = (

@@ -5,3 +5,4 @@ Disallow: /builds/
 Disallow: /match_history/
 Disallow: /recent/
 Disallow: /top/
+Disallow: /history/

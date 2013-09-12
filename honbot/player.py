@@ -52,9 +52,6 @@ def players(request, name):
 
 
 def player_save(stats, mode):
-    for k,v in stats.iteritems():
-        if v == "inf":
-            v = 999999
     if mode == "rnk":
         PlayerStats(player_id=stats['player_id'], nickname=stats['nickname'],
                     cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],

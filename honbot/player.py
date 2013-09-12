@@ -34,7 +34,8 @@ def players(request, name):
             new = True
             data = api_call.get_json(url)
     else:
-        update_player_count()
+        if mode is "rnk":
+            update_player_count()
         new = True
         data = api_call.get_json(url)
     if data is not None:

@@ -5,6 +5,7 @@ from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, Pla
 from error import error
 import datetime
 from django.db.models import F
+import numpy as np
 
 
 def players(request, name):
@@ -26,7 +27,7 @@ def players(request, name):
         p = PlayerStats.objects.filter(nickname=name).values()
     if p:
         tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(p[0]['updated']), "%Y-%m-%d %H:%M:%S")
-        if tdelta.seconds + (tdelta.days * 86400) < 1000:
+        if tdelta.seconds + (tdelta.days * 86400) < 1:
             s = p[0]
             new = False
             data = True
@@ -51,6 +52,9 @@ def players(request, name):
 
 
 def player_save(stats, mode):
+    for k,v in stats.iteritems():
+        if v == "inf":
+            v = 999999
     if mode == "rnk":
         PlayerStats(player_id=stats['player_id'], nickname=stats['nickname'],
                     cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],
@@ -195,20 +199,6 @@ def player_math(data, nick, mode):
             stats['TSR'] = 0
             stats['kdr'] = 0
     else:
-        stats['TSR'] = 0
-        stats['kdr'] = 0
-        stats['kadr'] = 0
-        stats['winpercent'] = 0
-        stats['atime'] = 0
-        stats['akills'] = 0
-        stats['adeaths'] = 0
-        stats['aassists'] = 0
-        stats['aconsumables'] = 0
-        stats['awards'] = 0
-        stats['acs'] = 0
-        stats['adenies'] = 0
-        stats['axpmin'] = 0
-        stats['agoldmin'] = 0
-        stats['aactionsmin'] = 0
-        stats['hours'] = 0
+        # no matches on account
+        stats['TSR'], stats['kdr'], stats['kadr'], stats['winpercent'], stats['atime'], stats['akills'], stats['adeaths'], stats['aassists'], stats['aconsumables'], stats['awards'], stats['acs'], stats['adenies'], stats['axpmin'], stats['agoldmin'], stats['aactionsmin'], stats['hours'] = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     return stats

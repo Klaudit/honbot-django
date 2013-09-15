@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <legend class="text-center">Kills</legend>
+            <h3 class="text-center">Kills</h3>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -61,7 +61,7 @@
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-            <legend class="text-center">Deaths</legend>
+            <h3 class="text-center">Deaths</h3>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -82,7 +82,7 @@
             </table>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-            <legend class="text-center">Wards</legend>
+            <h3 class="text-center">Wards</h3>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -103,7 +103,7 @@
             </table>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-            <legend class="text-center">Assists</legend>
+            <h3 class="text-center">Assists</h3>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -124,7 +124,7 @@
             </table>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-            <legend class="text-center">Denies</legend>
+            <h3 class="text-center">Denies</h3>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -145,7 +145,7 @@
             </table>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-            <legend class="text-center">Creep Kills</legend>
+            <h3 class="text-center">Creep Kills</h3>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -156,9 +156,9 @@
                 <tbody>
                     {%for m in cs%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
-                        <td>{{m.cs}}</td>
-                        <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{ m.nickname }}/">{{ m.nickname }}</a></td>
+                        <td>{{ m.cs }}</td>
+                        <td>{% if m.win %}Yes{% else %}No{% endif %}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
                     </tr>
                     {%endfor%}
@@ -166,7 +166,7 @@
             </table>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-            <legend class="text-center">Smackdowns</legend>
+            <h3 class="text-center">Smackdowns</h3>
             <table class="table table-condensed table-striped table-stats">
                 <thead>
                     <th>Player</th>
@@ -188,4 +188,5 @@
         </div>
     </div>
 </div>
+<br>
 {% endblock main_content %}

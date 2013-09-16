@@ -131,6 +131,10 @@ hr.soften {
     margin-top: -20px;
 
 }
+.player-head .btn-group-vertical {
+  margin-top:-22px; 
+  margin-bottom:-4px;
+}
 .player-head h1{
   margin-top: 8px;
   margin-bottom: 0;
@@ -153,8 +157,9 @@ hr.soften {
 }
 .player-head h1 img{
   margin-top: -10px;
+  margin-bottom: -2px;
   margin-right: 5px;
-  margin-left: 3px;
+  margin-left: 0;
 }
 .nav-pills > li.active > a{
   background-color: #395067;

@@ -8,10 +8,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-md-7 col-sm-12">
-                <div style="margin-top:-15px;" class="btn-group-vertical">
-                    <a class="btn btn-xs btn-{% if mode == 'rnk' %}warning active{% else %}default{% endif %}" href="/player/{{ stats.nickname }}/">Ranked</a>
-                    <a class="btn btn-xs btn-{% if mode == 'cs' %}warning active{% else %}default{% endif %}" href="/c/player/{{ stats.nickname }}/">Casual</a>
-                    <a class="btn btn-xs btn-{% if mode == 'acc' %}warning active{% else %}default{% endif %}" href="/p/player/{{ stats.nickname }}/">Public</a>
+                <div class="btn-group-vertical">
+                    <a class="btn btn-xs btn-{% if mode == 'rnk' %}success active{% else %}default{% endif %}" href="/player/{{ stats.nickname }}/">Ranked</a>
+                    <a class="btn btn-xs btn-{% if mode == 'cs' %}success active{% else %}default{% endif %}" href="/c/player/{{ stats.nickname }}/">Casual</a>
+                    <a class="btn btn-xs btn-{% if mode == 'acc' %}success active{% else %}default{% endif %}" href="/p/player/{{ stats.nickname }}/">Public</a>
                 </div>
                 <h1><div id="avatar" class="pull-left"></div> {{ stats.nickname }}</h1>
             </div>
@@ -39,6 +39,7 @@
     <div class="row">
         <div class="col-lg-12">
             <ul class="nav nav-pills nav-justified">
+                <li class="active"><a href="#">{% if mode == 'rnk' %}Ranked{% elif mode == 'cs' %}Casual{% else %}Public{% endif %} Stats</a></li>
                 <li><a href="/chart/{{ stats.nickname }}/">Charts</a></li>
                 <li><a href="/player_hero/{{ stats.nickname }}/">Hero Stats</a></li>
                 <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
@@ -46,7 +47,6 @@
         </div>
     </div>
 </div>
-<br>
 <div class="container">
     <div class="row">
         <div style="padding-left:0;padding-right:0;" class="col-lg-5 col-md-5 col-sm-3 col-xs-12">
@@ -140,25 +140,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="banner">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Stats Banner: Updates every 24 hours!</h4>
-            </div>
-            <div class="modal-body text-center">
-                <p id="bannerpos"></p>
-                <p>
-                    <h4>BB Code (forums)</h4>
-                    <code>[url=http://honbot.com/player/{{stats.nickname}}/]<br>[img]http://honbot.com/banner/{{stats.nickname}}/[/img][/url]</code>
-                    <h4>Direct Link</h4>
-                    <code>http://honbot.com/banner/{{stats.nickname}}/</code>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'banner.html' %}
 <br>
 {% endblock main_content %}
 {%block js%}
@@ -203,6 +185,7 @@ $("#more").click(function() {
 });
 </script>
 <script>
+// Get Avatar
 $.get("/avatar/{{ stats.player_id }}/60/",
     function(data) {
         $('#avatar').append(data)

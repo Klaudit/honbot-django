@@ -4,7 +4,7 @@ from django.db import models
 class Matches(models.Model):
     match_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
     date = models.DateTimeField(blank=True, null=False)
-    replay_url = models.URLField(max_length=120, default="")
+    replay_url = models.URLField(max_length=120, default="", null=True)
     realtime = models.CharField(max_length=10, default="")
     mode = models.CharField(max_length=10, default="")
     map_used = models.CharField(max_length=30, default="")

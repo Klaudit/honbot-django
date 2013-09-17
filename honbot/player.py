@@ -5,26 +5,24 @@ from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, Pla
 from error import error
 import datetime
 from django.db.models import F
-import numpy as np
 
+# the new setup is to have a seperate function for each mode then combine them in a single view rather than sloppy if -> then
+def player_ranked(request, name):
+    url = "/player_statistics/ranked/nickname/" + name
+    p = PlayerStatsCasual.objects.filter(nickname=name).values()
+    return player_view(request, name, "rnk", url, p)
 
-def players(request, name):
-    """
-    controls the player show
-    """
-    mode = request.get_full_path().split('/')[1]
-    if mode == "c":
-        url = '/player_statistics/casual/nickname/' + name
-        mode = "cs"
-        p = PlayerStatsCasual.objects.filter(nickname=name).values()
-    elif mode == "p":
-        url = '/player_statistics/public/nickname/' + name
-        mode = "acc"
-        p = PlayerStatsPublic.objects.filter(nickname=name).values()
-    else:
-        url = '/player_statistics/ranked/nickname/' + name
-        mode = "rnk"
-        p = PlayerStats.objects.filter(nickname=name).values()
+def player_casual(request, name):
+    url = '/player_statistics/casual/nickname/' + name
+    p = PlayerStats.objects.filter(nickname=name).values()
+    return player_view(request, name, "cs", url, p)
+
+def player_public(request, name):
+    url = '/player_statistics/public/nickname/' + name
+    p = PlayerStatsPublic.objects.filter(nickname=name).values()
+    return player_view(request, name, "acc", url, p)
+
+def player_view(request, name, mode, url, p):
     if p:
         tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(p[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 1:

@@ -11,9 +11,9 @@ urlpatterns = patterns(
     url(r'^player_count/$', 'honbot.home.player_count'),
     url(r'^api_count/$', 'honbot.home.api_count'),
     url(r'^player_match_count/$', 'honbot.home.player_match_count'),
-    url(r'^player/(?P<name>.*)/$', 'honbot.player.players'),  # ranked player stats
-    url(r'^c/player/(?P<name>.*)/$', 'honbot.player.players'),  # casual player stats
-    url(r'^p/player/(?P<name>.*)/$', 'honbot.player.players'),  # public player stats
+    url(r'^player/(?P<name>.*)/$', 'honbot.player.player_ranked'),  # ranked player stats
+    url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),  # casual player stats
+    url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),  # public player stats
     url(r'^banner/(?P<name>.*)/$', 'honbot.banner.banner_view'), # stats banner img
     url(r'^player_hero/(?P<name>.*)/$', 'honbot.player_hero.player_hero'), # 
     url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats'),

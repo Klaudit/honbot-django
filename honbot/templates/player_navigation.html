@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="nav nav-pills nav-justified">
+                <li class="active"><a href="#">{% if mode == 'rnk' %}Ranked{% elif mode == 'cs' %}Casual{% else %}Public{% endif %} Stats</a></li>
+                <li><a href="/chart/{{ stats.nickname }}/">Charts</a></li>
+                <li><a href="/player_hero/{{ stats.nickname }}/">Hero Stats</a></li>
+                <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

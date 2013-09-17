@@ -1,20 +1,19 @@
 import api_call
-from django.template import Context, loader
-from django.http import HttpResponse
 from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount
 from error import error
 import datetime
 from django.db.models import F
+from django.shortcuts import render_to_response
 
 # the new setup is to have a seperate function for each mode then combine them in a single view rather than sloppy if -> then
 def player_ranked(request, name):
     url = "/player_statistics/ranked/nickname/" + name
-    p = PlayerStatsCasual.objects.filter(nickname=name).values()
+    p = PlayerStats.objects.filter(nickname=name).values()
     return player_view(request, name, "rnk", url, p)
 
 def player_casual(request, name):
     url = '/player_statistics/casual/nickname/' + name
-    p = PlayerStats.objects.filter(nickname=name).values()
+    p = PlayerStatsCasual.objects.filter(nickname=name).values()
     return player_view(request, name, "cs", url, p)
 
 def player_public(request, name):
@@ -23,10 +22,10 @@ def player_public(request, name):
     return player_view(request, name, "acc", url, p)
 
 def player_view(request, name, mode, url, p):
-    if p:
-        tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(p[0]['updated']), "%Y-%m-%d %H:%M:%S")
-        if tdelta.seconds + (tdelta.days * 86400) < 1:
-            s = p[0]
+    if p.exists():
+        p = p.values()[0]
+        tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(p['updated']), "%Y-%m-%d %H:%M:%S")
+        if tdelta.seconds + (tdelta.days * 86400) < 900:
             new = False
             data = True
         else:
@@ -39,12 +38,9 @@ def player_view(request, name, mode, url, p):
         data = api_call.get_json(url)
     if data is not None:
         if new:
-            s = player_math(data, name, mode)
-            player_save(s, mode)
-        ### deliver to view ###
-        t = loader.get_template('player.html')
-        c = Context({'stats': s, 'mode': mode})
-        return HttpResponse(t.render(c))
+            p = player_math(data, name, mode)
+            player_save(p, mode)
+        return render_to_response('player.html', {'stats': p, 'mode': mode, 'view': "player"})
     else:
         return error(request, "S2 Servers down or name is incorrect. Try another name or gently refreshing the page.")
 

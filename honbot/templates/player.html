@@ -3,38 +3,12 @@
 {% block page_title %}{{ stats.nickname }} Player Stats | HonBot {% endblock %}
 
 {% block main_content %}
+<!-- Used for facebook metrics -->
 <script type="text/javascript">var fb_param = {};fb_param.pixel_id = '6010565184057';fb_param.value = '0.00';fb_param.currency = 'USD';(function(){var fpw = document.createElement('script');fpw.async = true;fpw.src = '//connect.facebook.net/en_US/fp.js';var ref = document.getElementsByTagName('script')[0];ref.parentNode.insertBefore(fpw, ref);})();</script><noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6010565184057&amp;value=0&amp;currency=USD" /></noscript>
-<header class="player-head">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7 col-md-7 col-sm-12">
-                <div class="btn-group-vertical">
-                    <a class="btn btn-xs btn-{% if mode == 'rnk' %}success active{% else %}default{% endif %}" href="/player/{{ stats.nickname }}/">Ranked</a>
-                    <a class="btn btn-xs btn-{% if mode == 'cs' %}success active{% else %}default{% endif %}" href="/c/player/{{ stats.nickname }}/">Casual</a>
-                    <a class="btn btn-xs btn-{% if mode == 'acc' %}success active{% else %}default{% endif %}" href="/p/player/{{ stats.nickname }}/">Public</a>
-                </div>
-                <h1><div id="avatar" class="pull-left"></div> {{ stats.nickname }}</h1>
-            </div>
-            <div class="col-lg-5 col-md-5 col-sm-12">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-lg-offset-2 col-md-offset-2 text-center">
-                    <h4>mmr</h4>{{ stats.mmr }}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
-                    <h4>tsr</h4>{{ stats.TSR }}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
-                    <h4>win</h4>{{ stats.wins }}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
-                    <h4>loss</h4>{{ stats.losses }}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
-                    <h4 style="margin-top: 21px;">{{ stats.winpercent }}</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+
+<!-- Player Header -->
+{% include 'player_head.html' %}
+
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -183,13 +157,6 @@ $("#more").click(function() {
         $("#match-load").hide();
     });
 });
-</script>
-<script>
-// Get Avatar
-$.get("/avatar/{{ stats.player_id }}/64/",
-    function(data) {
-        $('#avatar').append(data)
-    });
 </script>
 <script>
 $('#banner').one('show.bs.modal', function () {

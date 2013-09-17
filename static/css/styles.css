@@ -126,17 +126,21 @@ hr.soften {
     background-color: #2C3E50;
     color: #FFF;
     font-weight: 200;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    height: 65px;
     margin-top: -20px;
-
+}
+.btn-group-vertical > .btn {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 .player-head .btn-group-vertical {
-  margin-top:-22px; 
-  margin-bottom:-4px;
+  margin-top:-37px;
+  margin-bottom:-5px;
+  margin-left: 1px;
 }
 .player-head h1{
-  margin-top: 8px;
   margin-bottom: 0;
   display: inline-block;
 }
@@ -156,10 +160,10 @@ hr.soften {
   margin-bottom: 2px;
 }
 .player-head h1 img{
-  margin-top: -10px;
+  margin-top: -24px;
   margin-bottom: -2px;
   margin-right: 5px;
-  margin-left: 0;
+  margin-left: -3px;
 }
 .nav-pills > li.active > a{
   background-color: #395067;

@@ -17,3 +17,8 @@
         </div>
     </div>
 </div>
+<script>
+$('#banner').one('show.bs.modal', function () {
+  $('#bannerpos').append('<img src="/banner/{{stats.nickname}}/">')
+});
+</script>

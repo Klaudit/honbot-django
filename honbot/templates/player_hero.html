@@ -6,60 +6,21 @@
 <script src="/static/js/select2.min.js"></script>
 {% endblock %}
 {% block main_content %}
-<header class="player-head">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7 col-md-7 col-sm-12">
-                <h1><div id="avatar" class="pull-left"></div> {{ stats.nickname }}</h1>
-            </div>
-            <div class="col-lg-5 col-md-5 col-sm-12">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-lg-offset-2 col-md-offset-2 text-center">
-                    <h4>mmr</h4>{{ stats.mmr }}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
-                    <h4>tsr</h4>{{ stats.TSR }}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
-                    <h4>win</h4>{{ stats.wins }}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
-                    <h4>loss</h4>{{ stats.losses }}
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
-                    <h4 style="margin-top: 21px;">{{ stats.winpercent }}</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+
+<!-- Player Header -->
+{% include 'player_head.html' %}
+
+<!-- Player Navigation-->
+{% include 'player_navigation.html' %}
+
+<!-- Stats Banner-->
+{% include 'banner.html' %}
+
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <ul class="nav nav-pills nav-justified">
-                <li><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
-                <li><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
-                <li><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
-                <li><a href="/chart/{{ stats.nickname }}/">Charts</a></li>
-                <li class="active"><a href="/player_hero/{{ stats.nickname }}/">Hero Stats</a></li>
-                <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="alert alert-success">
-                Ranked stats only for now. Feel free to <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">complain about it here</a>.
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="col-lg-4 col-lg-offset-2">
-                <select class="col-lg-12 col-lg-offset-1" id="hero1">
+            <div class="col-lg-4 col-lg-offset-1">
+                <select class="col-lg-12" id="hero1">
                     <option></option>
                     <option value="10">Nymphora</option>
                     <option value="102">Andromeda</option>
@@ -181,7 +142,7 @@
                     <option value="96">Maliken</option>
                 </select>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-lg-offset-1">
                 <select class="col-lg-12" id="hero2">
                     <option></option>
                     <option value="216">Gunblade</option>
@@ -308,12 +269,12 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-lg-4 col-lg-offset-2">
+        <div class="col-lg-4 col-md-6 col-lg-offset-1">
             <div id="match-load1" class="text-center"></div>
             <div id="display1">
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-md-6 col-lg-offset-1">
             <div id="match-load2" class="text-center"></div>
             <div id="display2">
             </div>
@@ -337,7 +298,7 @@ $(document).ready(function() {
         if(one!="None")
         {
             $('#match-load1').append('<i class="icon-spinner icon-spin icon-2x"></i>');
-            $.get("/player_hero_stats/{{ player }}/" + one + "/",
+            $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + one + "/",
             function (data) {
                 $('#display1').append(data);
                 $('#rows tr').click(function(){
@@ -349,7 +310,7 @@ $(document).ready(function() {
         }
         if(two!="None"&&two!="")
         {
-            $.get("/player_hero_stats/{{ player }}/" + two + "/",
+            $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + two + "/",
             function (data) {
                 $('#display2').append(data);
                 $('#rows tr').click(function(){
@@ -369,7 +330,7 @@ $("#hero1").change(function(){
     window.location.hash = $("#hero1").select2("val") + '&' + split;
     $('#match-load1').append('<i class="icon-spinner icon-spin icon-2x"></i>');
     $("#display1").empty();
-    $.get("/player_hero_stats/{{ player }}/" + String($("#hero1").select2("val")) + "/",
+    $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + String($("#hero1").select2("val")) + "/",
         function (data) {
             $('#display1').append(data);
             $('#rows tr').click(function(){
@@ -385,7 +346,7 @@ $("#hero2").change(function(){
     window.location.hash = split + '&' + $("#hero2").select2("val");
     $('#match-load2').append('<i class="icon-spinner icon-spin icon-2x"></i>');
     $("#display2").empty();
-    $.get("/player_hero_stats/{{ player }}/" + String($("#hero2").select2("val")) + "/",
+    $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + String($("#hero2").select2("val")) + "/",
         function (data) {
             $('#display2').append(data);
             $('#rows tr').click(function(){
@@ -395,11 +356,5 @@ $("#hero2").change(function(){
             $("#match-load2").empty();
         });
 });
-</script>
-<script>
-$.get("/avatar/{{ stats.player_id }}/",
-    function(data) {
-        $('#avatar').append(data)
-    });
 </script>
 {% endblock main_content %}

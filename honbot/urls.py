@@ -15,10 +15,12 @@ urlpatterns = patterns(
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),  # casual player stats
     url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),  # public player stats
     url(r'^banner/(?P<name>.*)/$', 'honbot.banner.banner_view'), # stats banner img
-    url(r'^player_hero/(?P<name>.*)/$', 'honbot.player_hero.player_hero'),
-    url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.player_hero'),
-    url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.player_hero'),
-    url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats'),
+    url(r'^player_hero/(?P<name>.*)/$', 'honbot.player_hero.ranked_view'),
+    url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.public_view'),
+    url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.casual_view'),
+    url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_ranked'),
+    url(r'^c/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_casual'),
+    url(r'^p/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_public'),
     url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
     url(r'^builds/(?P<match_id>[0-9]+)/$', 'honbot.builds.build_view'),
     url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat_view'),

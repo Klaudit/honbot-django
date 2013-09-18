@@ -70,6 +70,7 @@ class honlog:
             self.real_order[pid] = p['position']
             self.heroes[p['position']] = p['hero']
             self.teams[p['position']] = p['team']
+            self.win[p['position']] = p['win']
 
     def open_file(self):
         self.logfile = codecs.open(directory + 'm' + self.match_id + '.log', encoding='utf-16-le', mode='rb').readlines()

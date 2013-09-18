@@ -15,7 +15,9 @@ urlpatterns = patterns(
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),  # casual player stats
     url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),  # public player stats
     url(r'^banner/(?P<name>.*)/$', 'honbot.banner.banner_view'), # stats banner img
-    url(r'^player_hero/(?P<name>.*)/$', 'honbot.player_hero.player_hero'), # 
+    url(r'^player_hero/(?P<name>.*)/$', 'honbot.player_hero.player_hero'),
+    url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.player_hero'),
+    url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.player_hero'),
     url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats'),
     url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
     url(r'^builds/(?P<match_id>[0-9]+)/$', 'honbot.builds.build_view'),
@@ -23,7 +25,9 @@ urlpatterns = patterns(
     url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
     url(r'^match_history/(?P<account_id>[0-9]+)/$', 'honbot.match_history.history'),
     url(r'^recent/$', 'honbot.recent.recent'),
-    url(r'^chart/(?P<name>.*)/$', 'honbot.chart.view'), # Player charts for extra swag
+    url(r'^chart/(?P<name>.*)/$', 'honbot.chart.ranked_view'),
+    url(r'^p/chart/(?P<name>.*)/$', 'honbot.chart.public_view'),
+    url(r'^c/chart/(?P<name>.*)/$', 'honbot.chart.casual_view'), 
     url(r'^top/$', 'honbot.top.seven'),
     url(r'^sitestats/$', 'honbot.extra.stats'),
     (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt")),

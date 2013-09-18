@@ -115,8 +115,11 @@ hr.soften {
   border-bottom-right-radius: 0 !important;
 }
 .player-head .btn-group-vertical {
-  margin-top:-40px;
+  margin-top:-39px;
   margin-bottom:-5px;
+}
+.player-head .btn-group-vertical a:last-child{
+  padding-bottom: 2px;
 }
 .player-head h1{
   margin-bottom: 0;

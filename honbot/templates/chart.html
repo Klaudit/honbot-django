@@ -4,22 +4,12 @@
 
 {% block main_content %}
 
+<!-- Player Header -->
 {% include 'player_head.html' %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12 col-xs-12">
-            <ul class="nav nav-pills nav-justified">
-                <li><a href="/player/{{ stats.nickname }}/">Ranked</a></li>
-                <li><a href="/c/player/{{ stats.nickname }}/">Casual</a></li>
-                <li><a href="/p/player/{{ stats.nickname }}/">Public</a></li>
-                <li class="active"><a>Charts</a></li>
-                <li><a href="/player_hero/{{ stats.nickname }}/">Hero Stats</a></li>
-                <li><a href="#banner" type="button" data-toggle="modal">Stats Banner</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+<!-- Player Navigation-->
+{% include 'player_navigation.html' %}
+
 <div class="container">
     <div class="row">
         <div class="col-lg-12">

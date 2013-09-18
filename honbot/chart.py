@@ -1,16 +1,39 @@
 from django.shortcuts import render_to_response
-from honbot.models import PlayerMatches, PlayerStats
+from honbot.models import PlayerMatches, PlayerStats, PlayerStatsCasual, PlayerStatsPublic
 from error import error
 from collections import Counter
 import numpy as np
 
-
-def view(request, name):
+def ranked_view(request, name):
     try:
         stats = PlayerStats.objects.filter(nickname=name).values()[0]
     except IndexError:
         return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    matches = PlayerMatches.objects.filter(player_id=stats['player_id'], mode='rnk').order_by('match')[:50]
+    return chart_view(request, name, "rnk", stats)
+
+def casual_view(request, name):
+    try:
+        stats = PlayerStatsCasual.objects.filter(nickname=name).values()[0]
+    except IndexError:
+        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
+    return chart_view(request, name, "cs", stats)
+
+def public_view(request, name):
+    try:
+        stats = PlayerStatsPublic.objects.filter(nickname=name).values()[0]
+    except IndexError:
+        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
+    return chart_view(request, name, "acc", stats)
+
+
+def chart_view(request, name, mode, stats):
+    try:
+        stats = PlayerStats.objects.filter(nickname=name).values()[0]
+    except IndexError:
+        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
+    matches = PlayerMatches.objects.filter(player_id=stats['player_id'], mode=mode).order_by('match')[:50]
+    if matches.count() == 0:
+        return error(request, "You don't seem to have enough matches for us to display this.")
     count = matches.count()
     mmr = [0] * (count+1)
     mmr[-1] = stats['mmr']
@@ -72,4 +95,4 @@ def view(request, name):
         {'mmr':mmr, 'count':count, 'apm':apm, 'aapm':aapm, 'agpm':agpm, 'gpm':gpm, 'kills':kills, 'akills':akills,
         'assists':assists, 'aassists':aassists, 'wards':wards, 'awards':awards, 'razed':razed, 'arazed':arazed, 'mmr_change':mmr_change,
         'ammr_change':ammr_change, 'sdead':sdead, 'asdead':asdead, 'cs':cs, 'acs':acs,
-        'match_list':match_list, 'stats':stats, 'heroes':heroes, 'deaths':deaths, 'adeaths':adeaths})
+        'match_list':match_list, 'stats':stats, 'heroes':heroes, 'deaths':deaths, 'adeaths':adeaths, 'view': "chart", 'mode': mode})

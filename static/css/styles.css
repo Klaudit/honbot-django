@@ -126,14 +126,14 @@ hr.soften {
   display: inline-block;
 }
 .player-head h2{
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 0;
   letter-spacing: 1px;
   display: inline-block;
 }
 .player-head h2 img{
-  margin-top: -12px;
-  width: 60px;
+  margin-top: -20px;
+  width: 65px;
   margin-right: 5px;
   padding-bottom: 0;
 }

@@ -78,6 +78,13 @@
             return false
         });
     </script>
+    <script>
+      $("#srchbtn").click(function () {
+          var player = $('#player-bar').val();
+          window.location.href = "/player/" + player + "/"
+          return false
+      });
+    </script>
     <script type="text/javascript">
     var clicky_site_ids = clicky_site_ids || [];
     clicky_site_ids.push(100593343);

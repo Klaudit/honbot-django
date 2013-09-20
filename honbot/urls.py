@@ -1,6 +1,7 @@
 # app specific urls
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 
 
 urlpatterns = patterns(
@@ -27,7 +28,8 @@ urlpatterns = patterns(
     url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat_view'),
     url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
     url(r'^match_history/(?P<account_id>[0-9]+)/$', 'honbot.match_history.history'),
-    url(r'^match/$', 'honbot.player.recent'),
+    url(r'^match/$', 'honbot.match.recent'),
+    (r'^recent/$', RedirectView.as_view(url='/match/')), # remove this eventually
     url(r'^chart/(?P<name>.*)/$', 'honbot.chart.ranked_view'),
     url(r'^p/chart/(?P<name>.*)/$', 'honbot.chart.public_view'),
     url(r'^c/chart/(?P<name>.*)/$', 'honbot.chart.casual_view'), 

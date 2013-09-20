@@ -6,8 +6,9 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
+            <h5>This is what things look like before I finish them. Please go away</h5>
             <ul class="nav nav-tabs">
-                <li class="active"><a>Statistics</a></li>
+                <li class="active"><a>Histogram</a></li>
                 <li><a>Browse</a></li>
             </ul>
         </div>
@@ -17,7 +18,9 @@
     <div class="row">
         <div class="col-lg-12">
             <h4 class="text-center">Player Curve</h4>
-            <div id="curve" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+            <div id="curve" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+            <h4 class="text-center">True Stat Rating (TSR)</h4>
+            <div id="mmr" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
         </div>
     </div>
 </div>
@@ -34,7 +37,7 @@ $(function () {
             text: '',
         },
         xAxis: {
-            categories: [{% for p in bins %}{{ p }},{% endfor %}],
+            categories: [{% for p in mlable %}{{ p }},{% endfor %}],
             labels: {
                     rotation: -55,
                     align: 'right',
@@ -64,8 +67,46 @@ $(function () {
             },
         series: [{
             showInLegend: false,
-            name: 'mmr',
+            name: 'Players',
             data: [{% for p in mmr %}{{ p }},{% endfor %}],
+        }]
+    });
+});
+</script>
+<script>
+$(function () {
+    $('#mmr').highcharts({
+        chart:{
+            backgroundColor: null,
+        },
+        title: {
+            text: '',
+        },
+        xAxis: {
+            categories: [{% for p in klable %}{{ p }},{% endfor %}],
+        },
+        yAxis: [{
+            title: {
+                text: ''
+            },
+            min: 0,
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        }],
+        credits: {enabled: false},
+        colors: ['#2C3E50'],
+        plotOptions: {
+                series: {
+                    animation: false,
+                }
+            },
+        series: [{
+            showInLegend: false,
+            name: 'mmr',
+            data: [{% for p in kills %}{{ p }},{% endfor %}],
         }]
     });
 });

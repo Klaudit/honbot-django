@@ -100,7 +100,16 @@ hr.soften {
 }
 .panel-footer {
   background-color: #fff;
-  padding-bottom: 0px;
+}
+.no-bpadding{
+  padding-bottom: 0;
+}
+.list-inline > li + li::before {
+    content: "- ";
+    margin-right: 10px;
+    margin-left: 0;
+    padding-right: 0;
+    padding-left: 0;
 }
 /* player view */
 .player-head {

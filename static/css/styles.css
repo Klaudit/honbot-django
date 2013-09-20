@@ -100,6 +100,7 @@ hr.soften {
 }
 .panel-footer {
   background-color: #fff;
+  padding-bottom: 0px;
 }
 /* player view */
 .player-head {

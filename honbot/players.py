@@ -1,7 +1,9 @@
 from django.shortcuts import render_to_response
 from honbot.models import PlayerStats
 import numpy as np
+from django.views.decorators.cache import cache_page
 
+@cache_page(10000)
 def view(requst):
     players = PlayerStats.objects.values_list('mmr', 'TSR')
     kills, mmr, bins = [], [], []

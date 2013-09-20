@@ -11,7 +11,7 @@ urlpatterns = patterns(
     url(r'^player_count/$', 'honbot.home.player_count'),
     url(r'^api_count/$', 'honbot.home.api_count'),
     url(r'^player_match_count/$', 'honbot.home.player_match_count'),
-    url(r'^player/$', 'honbot.players.view'),  # global player page
+    url(r'^distribution/$', 'honbot.player.distribution'),  # global player page
     url(r'^player/(?P<name>.*)/$', 'honbot.player.player_ranked'),  # ranked player stats
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),  # casual player stats
     url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),  # public player stats
@@ -27,7 +27,7 @@ urlpatterns = patterns(
     url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat_view'),
     url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
     url(r'^match_history/(?P<account_id>[0-9]+)/$', 'honbot.match_history.history'),
-    url(r'^recent/$', 'honbot.recent.recent'),
+    url(r'^match/$', 'honbot.player.recent'),
     url(r'^chart/(?P<name>.*)/$', 'honbot.chart.ranked_view'),
     url(r'^p/chart/(?P<name>.*)/$', 'honbot.chart.public_view'),
     url(r'^c/chart/(?P<name>.*)/$', 'honbot.chart.casual_view'), 

@@ -4,6 +4,8 @@ from error import error
 import datetime
 from django.db.models import F
 from django.shortcuts import render_to_response
+import numpy as np
+from django.views.decorators.cache import cache_page
 
 # the new setup is to have a seperate function for each mode then combine them in a single view rather than sloppy if -> then
 def player_ranked(request, name):
@@ -43,6 +45,22 @@ def player_view(request, name, mode, url, p):
         return render_to_response('player.html', {'stats': p, 'mode': mode, 'view': "player"})
     else:
         return error(request, "S2 Servers down or name is incorrect. Try another name or gently refreshing the page.")
+
+@cache_page(10000)
+def distribution(requst):
+    players = PlayerStats.objects.values_list('mmr', 'TSR')
+    tsr, mmr, bins = [], [], []
+    for player in players:
+        mmr.append(player[0])
+        print player[1]
+        tsr.append(player[1])
+    count = 1200
+    for a in range(1,90):
+        count = count + 10
+        bins.append(count)
+    mmr = np.histogram(mmr, bins=bins)
+    tsr = np.histogram(tsr, bins=20)
+    return render_to_response('players_stats.html', {'mmr':mmr[0], 'mlable':mmr[1], 'tsr':tsr[0], 'tlable':tsr[1]})
 
 
 def player_save(stats, mode):

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block page_title %}All mmr | HonBot HoN stats and Graphs {% endblock %}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a>Statistics</a></li>
+                <li><a>Browse</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h4 class="text-center">Player Curve</h4>
+            <div id="curve" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{%block js%}
+<script src="/static/js/highcharts.js"></script>
+<script>
+$(function () {
+    $('#curve').highcharts({
+        chart:{
+            backgroundColor: null,
+        },
+        title: {
+            text: '',
+        },
+        xAxis: {
+            categories: [{% for p in bins %}{{ p }},{% endfor %}],
+            labels: {
+                    rotation: -55,
+                    align: 'right',
+                    style: {
+                        fontSize: '10px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                },
+        },
+        yAxis: [{
+            title: {
+                text: ''
+            },
+            min: 0,
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        }],
+        credits: {enabled: false},
+        colors: ['#2C3E50'],
+        plotOptions: {
+                series: {
+                    animation: false,
+                }
+            },
+        series: [{
+            showInLegend: false,
+            name: 'mmr',
+            data: [{% for p in mmr %}{{ p }},{% endfor %}],
+        }]
+    });
+});
+</script>
+{% endblock %}

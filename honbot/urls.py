@@ -11,6 +11,7 @@ urlpatterns = patterns(
     url(r'^player_count/$', 'honbot.home.player_count'),
     url(r'^api_count/$', 'honbot.home.api_count'),
     url(r'^player_match_count/$', 'honbot.home.player_match_count'),
+    url(r'^player/$', 'honbot.players.view'),  # global player page
     url(r'^player/(?P<name>.*)/$', 'honbot.player.player_ranked'),  # ranked player stats
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),  # casual player stats
     url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),  # public player stats

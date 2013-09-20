@@ -120,8 +120,6 @@ INSTALLED_APPS = (
     'honbot',
     'south',
     'pretty_times',
-    'dajaxice',
-    'dajax',
 )
 
 TEMPLATE_DIRS = (

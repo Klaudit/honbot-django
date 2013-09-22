@@ -66,9 +66,8 @@
                   <strong>September 24th</strong>
                   <ul>
                     <li>Recent is now found at /match/</li>
-                    <li>Added a new player browser</li>
-                    <li>Added a player distribution page</li>
-                    <li>Stats on home page are now updated with ajax.</li>
+                    <li>Added a new <a href="/player/">player browser</a></li>
+                    <li>Added a player <a href="/distribution/">distribution page</a></li>
                   </ul>
                   <strong>September 17th</strong>
                   <ul>
@@ -95,14 +94,14 @@
                 <div class="panel-body">
                   Database: 
                   <ul>
-                    <li id="players">Players: </li>
-                    <li id="matches">Matches: </li>
-                    <li id="playermatches">Player Match Stats: </li>
+                    <li>Players: <span id="players"></span></li>
+                    <li>Matches: <span id="matches"></span></li>
+                    <li>Player Match Stats: <span id="playermatches"></span></li>
                   </ul>
                   S2 API:
                   <ul>
-                    <li id="serverstatus">Status: </li>
-                    <li id="apicount">API calls today: </li>
+                    <li>Status: <span id="serverstatus"></span></li>
+                    <li>API calls today: <span id="apicount"></span></li>
                   </ul>
                 </div>
                 <div class="panel-footer"><a href="/sitestats/">Site Statistics</a></div>
@@ -145,51 +144,23 @@
       });
     </script>
     <script>
-      $(function() { 
-        $.get('/match_count/', function(data) {
-          $('#matches').append(data);
-        });
-      });
+      $( "#matches" ).load( "/match_count/" );
+      $( "#players" ).load( "/player_count/" );
+      $( "#serverstatus" ).load( "/server_status/" );
+      $( "#playermatches" ).load( "/player_match_count/" );
+      $( "#apicount" ).load( "/api_count/" );
     </script>
-    <script>
-      $(function() { 
-        $.get('/server_status/', function(data) {
-          $('#serverstatus').append(data);
-        });
-      });
+    <script type="text/javascript">
+    var clicky_site_ids = clicky_site_ids || [];
+    clicky_site_ids.push(100593343);
+    (function() {
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = '//static.getclicky.com/js';
+      ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
+    })();
     </script>
-    <script>
-      $(function() { 
-        $.get('/player_count/', function(data) {
-          $('#players').append(data);
-        });
-      });
-    </script>
-    <script>
-      $(function() { 
-        $.get('/player_match_count/', function(data) {
-          $('#playermatches').append(data);
-        });
-      });
-    </script>
-    <script>
-      $(function() { 
-        $.get('/api_count/', function(data) {
-          $('#apicount').append(data);
-        });
-      });
-    </script>
-<script type="text/javascript">
-var clicky_site_ids = clicky_site_ids || [];
-clicky_site_ids.push(100593343);
-(function() {
-  var s = document.createElement('script');
-  s.type = 'text/javascript';
-  s.async = true;
-  s.src = '//static.getclicky.com/js';
-  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
-})();
-</script>
 <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100593343ns.gif" /></p></noscript>
   </body>
 </html>

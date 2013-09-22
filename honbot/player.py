@@ -60,7 +60,7 @@ def distribution(requst):
         bins.append(count)
     mmr = np.histogram(mmr, bins=bins)
     tsr = np.histogram(tsr, bins=20)
-    return render_to_response('players_stats.html', {'mmr':mmr[0], 'mlable':mmr[1], 'tsr':tsr[0], 'tlable':tsr[1]})
+    return render_to_response('distribution.html', {'mmr':mmr[0], 'mlable':mmr[1], 'tsr':tsr[0], 'tlable':tsr[1]})
 
 
 def player_save(stats, mode):

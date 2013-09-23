@@ -2,6 +2,7 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 from django.views.generic import RedirectView
+from honbot.player import PlayerList
 
 
 urlpatterns = patterns(
@@ -12,6 +13,8 @@ urlpatterns = patterns(
     url(r'^player_count/$', 'honbot.home.player_count'),
     url(r'^api_count/$', 'honbot.home.api_count'),
     url(r'^player_match_count/$', 'honbot.home.player_match_count'),
+    url(r'^pdata/$', PlayerList.as_view()), # player list data
+    url(r'^player/$', 'honbot.player.browse'),  # player browser
     url(r'^distribution/$', 'honbot.player.distribution'),  # global player page
     url(r'^player/(?P<name>.*)/$', 'honbot.player.player_ranked'),  # ranked player stats
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),  # casual player stats

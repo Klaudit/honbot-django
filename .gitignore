@@ -6,3 +6,5 @@
 match/*
 banners/*
 *localsettings.py*
+
+scripts/names.txt

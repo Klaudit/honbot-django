@@ -21,11 +21,13 @@
                                 <th>MMR</th>
                                 <th>TSR</th>
                                 <th>Wins</th>
-                                <th>Losses</th>
+                                <th>Loss</th>
                                 <th>Kills</th>
                                 <th>Deaths</th>
                                 <th>KDR</th>
-                                <th>Updated</th>
+                                <th>APM</th>
+                                <th>GPM</th>
+                                <th>XPM</th>
                             </tr>
                         </thead>
                     </table>
@@ -47,6 +49,7 @@ $(document).ready(function() {
         "iDisplayLength": 30,
         "aLengthMenu": [[50, 100], [50, 100]],
         "sAjaxSource": "/pdata/",
+        "bSortMulti": false,
         "aoColumnDefs": [ {
           "aTargets": [ 0 ],
           "mRender": function ( data, type, full ) {
@@ -63,6 +66,8 @@ $(document).ready(function() {
       { "asSorting": [ "desc", "asc" ] },
       { "asSorting": [ "desc", "asc" ] },
       { "asSorting": [ "desc", "asc" ] },
+      { "asSorting": [ "desc", "asc" ] },
+      { "asSorting": [ "desc", "asc" ] }
     ]
     });
     // ...

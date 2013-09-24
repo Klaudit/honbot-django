@@ -72,13 +72,13 @@ class PlayerList(BaseDatatableView):
     model = PlayerStats
 
     # define the columns that will be returned
-    columns = ['nickname', 'mmr', 'TSR', 'wins', 'losses' 'kills', 'deaths', 'kdr', 'updated']
+    columns = ['nickname', 'mmr', 'TSR', 'wins', 'losses' 'kills', 'deaths', 'kdr', 'aactionsmin', 'agoldmin', 'axpmin']
 
     # define column names that will be used in sorting
     # order is important and should be same as order of columns
     # displayed by datatables. For non sortable columns use empty
     # value like ''
-    order_columns = ['nickname', 'mmr', 'TSR', 'wins', 'losses' 'kills', 'deaths', 'kdr', 'updated']
+    order_columns = ['nickname', 'mmr', 'TSR', 'wins', 'losses' 'kills', 'deaths', 'kdr', 'aactionsmin', 'agoldmin', 'axpmin']
 
     # set max limit of records returned, this is used to protect our site if someone tries to attack our site
     # and make it return huge amount of data
@@ -114,7 +114,9 @@ class PlayerList(BaseDatatableView):
                 item.kills,
                 item.deaths,
                 item.kdr,
-                item.updated.strftime("%Y-%m-%d %H:%M:%S")
+                item.aactionsmin,
+                item.agoldmin,
+                item.axpmin
             ])
         return json_data
 

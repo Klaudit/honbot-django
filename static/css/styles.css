@@ -470,18 +470,13 @@ body {
 }
 
 /*
- * Data Table
- */
-
-/*
- * Table
+ * DataTable.js
  */
 table.dataTable {
   margin: 0 auto;
   clear: both;
   width: 100%;
 }
-
 table.dataTable thead th {
   padding: 3px 18px 3px 10px;
   border-bottom: 1px solid black;
@@ -489,83 +484,34 @@ table.dataTable thead th {
   cursor: pointer;
   *cursor: hand;
 }
-
 table.dataTable tfoot th {
   padding: 3px 18px 3px 10px;
   border-top: 1px solid black;
   font-weight: bold;
 }
-
 table.dataTable td {
   padding: 3px 10px;
 }
-
 table.dataTable td.center,
 table.dataTable td.dataTables_empty {
   text-align: center;
 }
-
 table.dataTable tr.odd { background-color: #EEE; }
 table.dataTable tr.even { background-color: white; }
 
-table.dataTable tr.odd td.sorting_1 { background-color: #D3D6FF; }
-table.dataTable tr.odd td.sorting_2 { background-color: #DADCFF; }
-table.dataTable tr.odd td.sorting_3 { background-color: #E0E2FF; }
-table.dataTable tr.even td.sorting_1 { background-color: #EAEBFF; }
-table.dataTable tr.even td.sorting_2 { background-color: #F2F3FF; }
-table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
-
-
-/*
- * Table wrapper
- */
-.dataTables_wrapper {
-  position: relative;
-  clear: both;
-  *zoom: 1;
-}
-
-
-/*
- * Page length menu
- */
-.dataTables_length {
-  float: left;
-}
-
-
-/*
- * Filter
- */
-.dataTables_filter {
-  float: right;
-  text-align: right;
-}
-
-
-/*
- * Table information
- */
-.dataTables_info {
-  clear: both;
-  float: left;
-}
-
-
-/*
- * Pagination
- */
-.dataTables_paginate {
-  float: right;
-  text-align: right;
-}
+table.dataTable tr.odd td.sorting_1 { background-color: #bebebe; }
+table.dataTable tr.odd td.sorting_2 { background-color: #bebebe; }
+table.dataTable tr.odd td.sorting_3 { background-color: #bebebe; }
+table.dataTable tr.even td.sorting_1 { background-color: #d6d6d6; }
+table.dataTable tr.even td.sorting_2 { background-color: #d6d6d6; }
+table.dataTable tr.even td.sorting_3 { background-color: #d6d6d6; }
 
 /* Two button pagination - previous / next */
 .paginate_disabled_previous,
 .paginate_enabled_previous,
 .paginate_disabled_next,
 .paginate_enabled_next {
-  height: 19px;
+  height: 26px;
   float: left;
   cursor: pointer;
   *cursor: hand;
@@ -597,7 +543,6 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
   padding-right: 23px;
   margin-left: 10px;
 }
-
 .paginate_enabled_previous { background: url('../img/back_enabled.png') no-repeat top left; }
 .paginate_enabled_previous:hover { background: url('../img/back_enabled_hover.png') no-repeat top left; }
 .paginate_disabled_previous { background: url('../img/back_disabled.png') no-repeat top left; }
@@ -617,7 +562,6 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
 .paging_full_numbers a:hover {
   text-decoration: none;
 }
-
 .paging_full_numbers a.paginate_button,
 .paging_full_numbers a.paginate_active {
   border: 1px solid #aaa;
@@ -630,21 +574,16 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
   *cursor: hand;
   color: #333 !important;
 }
-
 .paging_full_numbers a.paginate_button {
   background-color: #ddd;
 }
-
 .paging_full_numbers a.paginate_button:hover {
   background-color: #ccc;
   text-decoration: none !important;
 }
-
 .paging_full_numbers a.paginate_active {
   background-color: #99B3FF;
 }
-
-
 /*
  * Processing indicator
  */
@@ -653,33 +592,22 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
   top: 50%;
   left: 50%;
   width: 250px;
-  height: 30px;
+  height: 40px;
   margin-left: -125px;
   margin-top: -15px;
-  padding: 14px 0 2px 0;
+  padding: 10px 0 2px 0;
   border: 1px solid #ddd;
   text-align: center;
   color: #999;
   font-size: 14px;
   background-color: white;
 }
-
-
-/*
- * Sorting
- */
 .sorting { background: url('../img/sort_both.png') no-repeat center right; }
 .sorting_asc { background: url('../img/sort_asc.png') no-repeat center right; }
 .sorting_desc { background: url('../img/sort_desc.png') no-repeat center right; }
 
 .sorting_asc_disabled { background: url('../img/sort_asc_disabled.png') no-repeat center right; }
 .sorting_desc_disabled { background: url('../img/sort_desc_disabled.png') no-repeat center right; }
- 
-table.dataTable thead th:active,
-table.dataTable thead td:active {
-  outline: none;
-}
-
 
 .box.box-condensed .box-title {
   padding: 2px 0 2px 4px;
@@ -718,27 +646,10 @@ table.dataTable thead td:active {
   padding: 5px;
 }
 .box.box-color .box-title {
-  background: #368ee0;
+  background: #2C3E50;
 }
 .box.box-color .box-title h3 {
   color: #fff;
-}
-.box.box-color .box-title .tabs > li.active > a {
-  background: #fff;
-  color: #368ee0;
-}
-.box.box-color .box-title .tabs > li > a {
-  color: #fff;
-}
-.box.box-color .box-title .tabs > li > a:hover {
-  color: #368ee0;
-}
-.box.box-color .box-title .actions > a {
-  color: #fff;
-}
-.box.box-color .box-title .actions > a:hover {
-  background: #fff;
-  color: #368ee0;
 }
 .box.box-bordered .table {
   margin-bottom: 0;
@@ -765,10 +676,10 @@ table.dataTable thead td:active {
   margin-bottom: 0;
 }
 .box.box-bordered.box-color .box-title {
-  border-color: #368ee0;
+  border-color: #2C3E50;
 }
 .box.box-bordered.box-color .box-content {
-  border-color: #368ee0;
+  border-color: #2C3E50;
 }
 .box.box-bordered .box-title {
   border: 2px solid #ddd;
@@ -862,7 +773,6 @@ table.dataTable thead td:active {
   vertical-align: middle;
   background: #eee;
 }
-
 .table-mail tbody tr > td {
   cursor: pointer;
 }
@@ -891,7 +801,6 @@ table.dataTable thead td:active {
 .table-mail .table-fixed-medium {
   width: 200px;
 }
-
 .table-pagination {
   float: right;
   margin-right: 5px;
@@ -931,26 +840,21 @@ table.dataTable thead td:active {
 .disabled {
   color: #999;
 }
-
 button.ColVis_Button {
   text-align: left;
 }
-
 div.ColVis_collection button.ColVis_Button:hover {
   border: 1px solid #999;
   background-color: #f0f0f0;
 }
-
 div.ColVis_collection button.ColVis_Group:hover {
   background: #bababa;
   border: 1px solid #424242;
 }
-
 span.ColVis_radio {
   display: inline-block;
   width: 20px;
 }
-
 .dataTables_wrapper .ColVis {
   margin: 10px 10px 10px 0;
 }
@@ -1070,7 +974,6 @@ span.ColVis_radio {
   color: #fff;
   padding: 2px 8px;
 }
-
 .nopadding {
   padding: 0 !important;
 }

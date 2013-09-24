@@ -54,7 +54,6 @@ def distribution(requst):
     tsr, mmr, bins = [], [], []
     for player in players:
         mmr.append(player[0])
-        print player[1]
         tsr.append(player[1])
     count = 1200
     for a in range(1,90):

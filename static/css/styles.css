@@ -477,6 +477,9 @@ table.dataTable {
   clear: both;
   width: 100%;
 }
+table.dataTable a{
+  color: #000;
+}
 table.dataTable thead th {
   padding: 3px 18px 3px 10px;
   border-bottom: 1px solid black;
@@ -496,8 +499,8 @@ table.dataTable td.center,
 table.dataTable td.dataTables_empty {
   text-align: center;
 }
-table.dataTable tr.odd { background-color: #EEE; }
-table.dataTable tr.even { background-color: white; }
+table.dataTable tr.odd { background-color: #efefef; }
+table.dataTable tr.even { background-color: #FFF; }
 
 table.dataTable tr.odd td.sorting_1 { background-color: #bebebe; }
 table.dataTable tr.odd td.sorting_2 { background-color: #bebebe; }
@@ -529,7 +532,6 @@ table.dataTable tr.even td.sorting_3 { background-color: #d6d6d6; }
 .paginate_enabled_next:active {
   outline: none;
 }
-
 .paginate_disabled_previous,
 .paginate_disabled_next {
   color: #666 !important;
@@ -543,14 +545,6 @@ table.dataTable tr.even td.sorting_3 { background-color: #d6d6d6; }
   padding-right: 23px;
   margin-left: 10px;
 }
-.paginate_enabled_previous { background: url('../img/back_enabled.png') no-repeat top left; }
-.paginate_enabled_previous:hover { background: url('../img/back_enabled_hover.png') no-repeat top left; }
-.paginate_disabled_previous { background: url('../img/back_disabled.png') no-repeat top left; }
-
-.paginate_enabled_next { background: url('../img/forward_enabled.png') no-repeat top right; }
-.paginate_enabled_next:hover { background: url('../img/forward_enabled_hover.png') no-repeat top right; }
-.paginate_disabled_next { background: url('../img/forward_disabled.png') no-repeat top right; }
-
 /* Full number pagination */
 .paging_full_numbers {
   height: 22px;
@@ -605,9 +599,6 @@ table.dataTable tr.even td.sorting_3 { background-color: #d6d6d6; }
 .sorting { background: url('../img/sort_both.png') no-repeat center right; }
 .sorting_asc { background: url('../img/sort_asc.png') no-repeat center right; }
 .sorting_desc { background: url('../img/sort_desc.png') no-repeat center right; }
-
-.sorting_asc_disabled { background: url('../img/sort_asc_disabled.png') no-repeat center right; }
-.sorting_desc_disabled { background: url('../img/sort_desc_disabled.png') no-repeat center right; }
 
 .box.box-condensed .box-title {
   padding: 2px 0 2px 4px;

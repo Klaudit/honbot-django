@@ -773,34 +773,6 @@ table.dataTable tr.even td.sorting_3 { background-color: #d6d6d6; }
   vertical-align: middle;
   background: #eee;
 }
-.table-mail tbody tr > td {
-  cursor: pointer;
-}
-.table-mail tbody tr.warning > td {
-  background-color: #deecfa;
-}
-.table-mail .table-checkbox {
-  width: 15px;
-}
-.table-mail .table-icon {
-  width: 20px;
-}
-.table-mail .table-icon .sel-star {
-  color: #aaa;
-  text-decoration: none;
-}
-.table-mail .table-icon .sel-star:hover {
-  color: #f8a31f;
-}
-.table-mail .table-icon .sel-star.active {
-  color: #f8a31f;
-}
-.table-mail .table-date {
-  width: 100px;
-}
-.table-mail .table-fixed-medium {
-  width: 200px;
-}
 .table-pagination {
   float: right;
   margin-right: 5px;
@@ -951,28 +923,12 @@ span.ColVis_radio {
   background: #368ee0;
   color: #fff;
 }
-
 .dataTables_scroll {
   clear: both;
 }
-
 .dataTables_scrollBody {
   *margin-top: -1px;
   -webkit-overflow-scrolling: touch;
-}
-
-.ms-container .ms-list {
-  -webkit-border-radius: 0 !important;
-  -moz-border-radius: 0 !important;
-  border-radius: 0 !important;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-  box-shadow: none !important;
-}
-.ms-container .multi-custom-header {
-  background: #368ee0;
-  color: #fff;
-  padding: 2px 8px;
 }
 .nopadding {
   padding: 0 !important;

@@ -54,7 +54,6 @@
 <script>
 $(document).ready(function() {
     var oTable = $('#players').dataTable({
-        // ...
         "bProcessing": true,
         "bServerSide": true,
         "iDisplayLength": 25,
@@ -82,7 +81,6 @@ $(document).ready(function() {
       { "asSorting": [ "desc", "asc" ] }
     ]
     });
-    // ...
 });
 </script>
 {% endblock js %}

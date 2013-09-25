@@ -71,13 +71,13 @@ class PlayerList(BaseDatatableView):
     model = PlayerStats
 
     # define the columns that will be returned
-    columns = ['nickname', 'mmr', 'TSR', 'wins', 'losses' 'kills', 'deaths', 'kdr', 'aactionsmin', 'agoldmin', 'axpmin']
+    columns = ['nickname', 'mmr', 'TSR', 'wins', 'losses', 'kills', 'deaths', 'kdr', 'aactionsmin', 'agoldmin', 'axpmin']
 
     # define column names that will be used in sorting
     # order is important and should be same as order of columns
     # displayed by datatables. For non sortable columns use empty
     # value like ''
-    order_columns = ['nickname', 'mmr', 'TSR', 'wins', 'losses' 'kills', 'deaths', 'kdr', 'aactionsmin', 'agoldmin', 'axpmin']
+    order_columns = columns
 
     # set max limit of records returned, this is used to protect our site if someone tries to attack our site
     # and make it return huge amount of data
@@ -88,7 +88,7 @@ class PlayerList(BaseDatatableView):
         # these are simply objects displayed in datatable
         # You should not filter data returned here by any filter values entered by user. This is because
         # we need some base queryset to count total number of records.
-        return PlayerStats.objects.filter()
+        return PlayerStats.objects.all()
 
     def filter_queryset(self, qs):
         # use request parameters to filter queryset
@@ -115,7 +115,7 @@ class PlayerList(BaseDatatableView):
                 item.kdr,
                 item.aactionsmin,
                 item.agoldmin,
-                item.axpmin
+                item.axpmin,
             ])
         return json_data
 

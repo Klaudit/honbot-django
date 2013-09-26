@@ -95,9 +95,9 @@ class honlog:
         psr = int(float(l[-1].split(':')[1]))
         name = l[2].split(':')[1][1:-1] # get name
         name = name.split(']')[-1] # remove clan tag
-        if psr != -1:
+        pid = str(l[-2].split(':')[1])
+        if pid in self.real_order:
             position = int(l[1].split(':')[1])
-            pid = str(l[-2].split(':')[1])
             self.names[self.real_order[pid]] = name
             self.psr[self.real_order[pid]] = psr
             self.order_convert[position] = self.real_order[pid]
@@ -134,13 +134,14 @@ class honlog:
         """
         ABILITY_UPGRADE time:0 x:1662 y:995 z:101 player:1 team:1 name:"Ability_Empath1" level:1 slot:0
         """
-        l = line.split()
-        ability = l[7].split('"')[1]
-        if ability != 'Ability_AttributeBoost':
-            ability = int(re.sub("\D", "", ability)[-1:])
-        else:
-            ability = 5
-        self.builds[self.order_convert[int(l[5].split(':')[1])]].append(ability)
+        if "Ability_Taunt" not in line:
+            l = line.split()
+            ability = l[7].split('"')[1]
+            if ability != 'Ability_AttributeBoost':
+                ability = int(re.sub("\D", "", ability)[-1:])
+            else:
+                ability = 5
+            self.builds[self.order_convert[int(l[5].split(':')[1])]].append(ability)
 
     def PLAYER_CHAT(self, line):
         """

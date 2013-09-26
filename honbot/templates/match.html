@@ -62,7 +62,7 @@
                 </thead>
                 <tbody>
                 {% for player in players %}
-                {% if player.position == 5 %}</tbody><tbody>{% endif %}
+                {% if player.team == 1%}
                     <tr class="player-{{ player.position }}-row">
                         <td>
                             <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'> 
@@ -89,6 +89,39 @@
                         <td>{{ player.apm }}</td>
                         <td>{{ player.wards }}</td>
                     </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+                <tbody>
+                {% for player in players %}
+                {% if player.team == 2%}
+                    <tr class="player-{{ player.position }}-row">
+                        <td>
+                            <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'> 
+                            <a href="/player/{{ player.nickname }}/">
+                                {{ player.nickname }} 
+                            </a>
+                        </td>
+                        <td>
+                            {% for item in player.items %}
+                                {% if item != None  %}
+                                    <img style="width:30px;" src='/static/img/items/{{ item }}.jpg'>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ player.level }}</td>
+                        <td>{{ player.kills }}</td>
+                        <td>{{ player.deaths }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.kdr }}</td>
+                        <td>{{ player.cs }}</td>
+                        <td>{{ player.denies }}</td>
+                        <td>{{ player.gpm }}</td>
+                        <td>{{ player.xpm }}</td>
+                        <td>{{ player.apm }}</td>
+                        <td>{{ player.wards }}</td>
+                    </tr>
+                {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
@@ -181,11 +214,11 @@ $(function () {
                 type: 'pie',
                 name: 'Damage',
                 data: [
-                    ['{{ players.0.nickname }}', {{ players.0.herodmg }}],
-                    ['{{ players.1.nickname }}', {{ players.1.herodmg }}],
-                    ['{{ players.2.nickname }}', {{ players.2.herodmg }}],
-                    ['{{ players.3.nickname }}', {{ players.3.herodmg }}],
-                    ['{{ players.4.nickname }}', {{ players.4.herodmg }}]
+                    {% for player in players %}
+                        {% if player.team == 1%}
+                            ['{{ player.nickname }}', {{ player.herodmg }}],
+                        {% endif %}
+                    {% endfor %}
                 ]
             }]
         });
@@ -232,11 +265,11 @@ $(function () {
                 type: 'pie',
                 name: 'Damage',
                 data: [
-                    ['{{ players.5.nickname }}', {{ players.5.herodmg }}],
-                    ['{{ players.6.nickname }}', {{ players.6.herodmg }}],
-                    ['{{ players.7.nickname }}', {{ players.7.herodmg }}],
-                    ['{{ players.8.nickname }}', {{ players.8.herodmg }}],
-                    ['{{ players.9.nickname }}', {{ players.9.herodmg }}]
+                    {% for player in players %}
+                        {% if player.team == 2%}
+                            ['{{ player.nickname }}', {{ player.herodmg }}],
+                        {% endif %}
+                    {% endfor %}
                 ]
             }]
         });
@@ -284,50 +317,53 @@ $(function () {
             credits: {
                 enabled: false
             },
-            series: [{
-                name: '{{ players.0.nickname }}',
-                data: [{{ players.0.gpm }}]
-    
-            }, {
-                name: '{{ players.1.nickname }}',
-                data: [{{ players.1.gpm }}]
-    
-            }, {
-                name: '{{ players.2.nickname }}',
-                data: [{{ players.2.gpm }}]
-    
-            }, {
-                name: '{{ players.3.nickname }}',
-                data: [{{ players.3.gpm }}]
-    
-            }, {
-                name: '{{ players.4.nickname }}',
-                data: [{{ players.4.gpm }}]
-    
-            }, {
-                name: '{{ players.5.nickname }}',
-                data: [{{ players.5.gpm }}]
-    
-            }, {
-                name: '{{ players.6.nickname }}',
-                data: [{{ players.6.gpm }}]
-    
-            }, {
-                name: '{{ players.7.nickname }}',
-                data: [{{ players.7.gpm }}]
-    
-            }, {
-                name: '{{ players.8.nickname }}',
-                data: [{{ players.8.gpm }}]
-    
-            }, {
-                name: '{{ players.9.nickname }}',
-                data: [{{ players.9.gpm }}]
-    
-            }]
+            series: [
+            {% for player in players%}
+            {% if player.position == 0 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            },{% endif %} 
+            {% if player.position == 1 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            },{% endif %} 
+            {% if player.position == 2 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            },{% endif %} 
+            {% if player.position == 3 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            },{% endif %} 
+            {% if player.position == 4 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            },{% endif %} 
+            {% if player.position == 5 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            },{% endif %} 
+            {% if player.position == 6 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            },{% endif %} 
+            {% if player.position == 7 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            },{% endif %} 
+            {% if player.position == 8 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            },{% endif %} 
+            {% if player.position == 9 %}{
+                name: '{{ player.nickname }}',
+                data: [{{ player.gpm }}]
+            }{% endif %}
+            {% endfor %}]
         });
     });
 </script>
+wtf
 <script>
 //total kills
 $(function () {

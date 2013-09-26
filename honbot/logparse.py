@@ -67,6 +67,7 @@ class honlog:
         positions = PlayerMatches.objects.filter(match_id=self.match_id).order_by('position').values('position', 'player_id', 'hero', 'team', 'win')
         for p in positions:
             pid = str(p['player_id'])
+            print str(p['position']) + " " + pid
             self.real_order[pid] = p['position']
             self.heroes[p['position']] = p['hero']
             self.teams[p['position']] = p['team']
@@ -130,6 +131,12 @@ class honlog:
             time = strftime('%H:%M:%S', gmtime(int(time) // 1000))
         return time
 
+    def position(self, position):
+        if position in self.order_convert:
+            return self.order_convert[position]
+        else:
+            return 9
+
     def ABILITY_UPGRADE(self, line):
         """
         ABILITY_UPGRADE time:0 x:1662 y:995 z:101 player:1 team:1 name:"Ability_Empath1" level:1 slot:0
@@ -141,7 +148,7 @@ class honlog:
                 ability = int(re.sub("\D", "", ability)[-1:])
             else:
                 ability = 5
-            self.builds[self.order_convert[int(l[5].split(':')[1])]].append(ability)
+            self.builds[self.position(int(l[5].split(':')[1]))].append(ability)
 
     def PLAYER_CHAT(self, line):
         """
@@ -153,7 +160,7 @@ class honlog:
         chat['msg'] = ''
         l = line.split()
         if line[12] == 'p':
-            chat['position'] = self.order_convert[int(l[1].split(':')[1])]
+            chat['position'] = self.position(int(l[1].split(':')[1]))
             chat['name'] = self.names[chat['position']]
             chat['target'] = l[2].split(':')[1][1:-1]
             chat['hero'] = self.heroes[chat['position']]
@@ -162,9 +169,9 @@ class honlog:
             if chat['target'] == 'all':
                 chat['target'] = 3
             else:
-                chat['target'] = self.teams[self.order_convert[int(l[1].split(':')[1])]]
+                chat['target'] = self.teams[self.position(int(l[1].split(':')[1]))]
         else:
-            chat['position'] = self.order_convert[int(l[2].split(':')[1])]
+            chat['position'] = self.position(int(l[2].split(':')[1]))
             chat['time'] = self.set_time(l[1].split(':')[1])
             chat['name'] = self.names[chat['position']]
             chat['target'] = l[3].split(':')[1][1:-1]
@@ -173,7 +180,7 @@ class honlog:
             if chat['target'] == 'all':
                 chat['target'] = 3
             else:
-                chat['target'] = self.teams[self.order_convert[int(l[2].split(':')[1])]]
+                chat['target'] = self.teams[self.position(int(l[2].split(':')[1]))]
         chat['msg'] = chat['msg'][1:-3]
         self.msg.append(chat)
 

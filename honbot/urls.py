@@ -1,42 +1,58 @@
-# app specific urls
 from django.conf.urls import patterns, url
-from django.views.generic import TemplateView
-from django.views.generic import RedirectView
-from honbot.player import PlayerList
+from django.views.generic import TemplateView, RedirectView
+from honbot.player_browse import PlayerList
 
 
 urlpatterns = patterns(
     '',
+    # Home Page
     url('^$', 'honbot.home.home'),
+    # API's for Server stats
     url(r'^server_status/$', 'honbot.home.server_status'),
     url(r'^match_count/$', 'honbot.home.match_count'),
     url(r'^player_count/$', 'honbot.home.player_count'),
     url(r'^api_count/$', 'honbot.home.api_count'),
     url(r'^player_match_count/$', 'honbot.home.player_match_count'),
-    url(r'^pdata/$', PlayerList.as_view()), # player list data
-    url(r'^player/$', 'honbot.player.browse'),  # player browser
-    url(r'^distribution/$', 'honbot.player.distribution'),  # global player page
-    url(r'^player/(?P<name>.*)/$', 'honbot.player.player_ranked'),  # ranked player stats
-    url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),  # casual player stats
-    url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),  # public player stats
-    url(r'^banner/(?P<name>.*)/$', 'honbot.banner.banner_view'), # stats banner img
-    url(r'^player_hero/(?P<name>.*)/$', 'honbot.player_hero.ranked_view'),
-    url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.public_view'),
-    url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.casual_view'),
-    url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_ranked'),
-    url(r'^c/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_casual'),
-    url(r'^p/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_public'),
-    url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
-    url(r'^builds/(?P<match_id>[0-9]+)/$', 'honbot.builds.build_view'),
-    url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat_view'),
-    url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
-    url(r'^match_history/(?P<account_id>[0-9]+)/$', 'honbot.match_history.history'),
-    url(r'^match/$', 'honbot.match.recent'),
-    (r'^recent/$', RedirectView.as_view(url='/match/')), # remove this eventually
+    # Player Browser
+    url(r'^pdata/$', PlayerList.as_view()),
+    url(r'^player/$', 'honbot.player_browse.browse'),
+    # Player Distribution
+    url(r'^distribution/$', 'honbot.player.distribution'), 
+    # Player
+    url(r'^player/(?P<name>.*)/$', 'honbot.player.player_ranked'),
+    url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),
+    url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),
+    # Player Charts
     url(r'^chart/(?P<name>.*)/$', 'honbot.chart.ranked_view'),
     url(r'^p/chart/(?P<name>.*)/$', 'honbot.chart.public_view'),
     url(r'^c/chart/(?P<name>.*)/$', 'honbot.chart.casual_view'), 
+    # Player Avatar
+    url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
+    # Player Match History
+    url(r'^match_history/(?P<account_id>[0-9]+)/$', 'honbot.match_history.history'),
+    # Player Banner
+    url(r'^banner/(?P<name>.*)/$', 'honbot.banner.banner_view'),
+    # Player Hero page
+    url(r'^player_hero/(?P<name>.*)/$', 'honbot.player_hero.ranked_view'),
+    url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.public_view'),
+    url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.casual_view'),
+    # Player hero data
+    url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_ranked'),
+    url(r'^c/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_casual'),
+    url(r'^p/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_public'),
+    # Match View
+    url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
+    # Match Build
+    url(r'^builds/(?P<match_id>[0-9]+)/$', 'honbot.builds.build_view'),
+    # Match Chat
+    url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat_view'),
+    # Recent Matches
+    url(r'^match/$', 'honbot.match.recent'),
+    (r'^recent/$', RedirectView.as_view(url='/match/')), # remove this eventually
+    # High scores
     url(r'^top/$', 'honbot.top.seven'),
+    # Site stats
     url(r'^sitestats/$', 'honbot.extra.stats'),
+    # Robots.txt
     (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt")),
 )

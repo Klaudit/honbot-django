@@ -7,7 +7,6 @@ from django.shortcuts import render_to_response
 import numpy as np
 from django.views.decorators.cache import cache_page
 
-# the new setup is to have a seperate function for each mode then combine them in a single view rather than sloppy if -> then
 def player_ranked(request, name):
     url = "/player_statistics/ranked/nickname/" + name
     p = PlayerStats.objects.filter(nickname=name).values()
@@ -60,7 +59,6 @@ def distribution(requst):
     mmr = np.histogram(mmr, bins=bins)
     tsr = np.histogram(tsr, bins=20)
     return render_to_response('distribution.html', {'mmr':mmr[0], 'mlable':mmr[1], 'tsr':tsr[0], 'tlable':tsr[1]})
-
 
 def player_save(stats, mode):
     if mode == "rnk":

@@ -10,7 +10,8 @@ Settings file requires a localsettings.py file with the following functions. It 
 * get_avatar_session() returns string of session for HoN forums to pull avatars 
 
 ###honbot db
-Handled by [South](http://south.aeracode.org/)
+Handled by [South](http://south.aeracode.org/)  
+
 1. Initial Setup
 2. Create Migrations for any db changes
 3. Apply changes

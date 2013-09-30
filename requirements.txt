@@ -9,5 +9,5 @@ django-debug-toolbar==0.9.4
 django-pretty-times==0.1.0
 numpy==1.7.1
 pip-tools==0.3.4
-requests==1.2.3
+requests==2.0.0
 wsgiref==0.1.2

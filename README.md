@@ -12,9 +12,9 @@ Settings file requires a localsettings.py file with the following functions. It 
 ###honbot db
 Handled by [South](http://south.aeracode.org/)  
 
-1. Initial Setup
-2. Create Migrations for any db changes
-3. Apply changes  
+Initial Setup  
+Create Migrations for any db changes  
+Apply Changes  
 
     python manage.py syncdb  
     python manage.py schemamigration honbot --auto  

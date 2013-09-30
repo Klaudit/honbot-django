@@ -1,8 +1,10 @@
 honbot-django
 =============
-HoN [Heroes of Newerth](http://www.heroesofnewerth.com/) Stats website written in django for the HoN api
+HoN [Heroes of Newerth](http://www.heroesofnewerth.com/) Stats website written in django for the [HoN API](http://api.heroesofnewerth.com/).
 
 ###requirements
+Usually any version will work, but this is my setup (Sept 30, 2013)  
+
     Django==1.5.4
     MySQL-python==1.2.4
     PIL==1.1.7

@@ -14,11 +14,11 @@ Handled by [South](http://south.aeracode.org/)
 
 1. Initial Setup
 2. Create Migrations for any db changes
-3. Apply changes
+3. Apply changes  
 
-    python manage.py syncdb
-    python manage.py schemamigration honbot --auto
-    python manage.py migrate honbot 
+    python manage.py syncdb  
+    python manage.py schemamigration honbot --auto  
+    python manage.py migrate honbot   
 
 ###honbot server
 Stop / start the fastcgi server

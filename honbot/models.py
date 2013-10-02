@@ -20,7 +20,7 @@ class Matches(models.Model):
 
 class PlayerMatches(models.Model):
     player_id = models.PositiveIntegerField(default=0, db_index=True)
-    match = models.ForeignKey(Matches, null=False)
+    match = models.ForeignKey(Matches, null=False, db_index=True)
     deaths = models.PositiveSmallIntegerField(default=0)
     win = models.BooleanField(default=False)
     apm = models.FloatField(default=0)
@@ -55,7 +55,7 @@ class PlayerMatches(models.Model):
     team = models.PositiveSmallIntegerField(default=0)
     position = models.PositiveSmallIntegerField(default=0)
     items = models.CharField(max_length=50, default="")
-    mode = models.CharField(max_length=10, default="")
+    mode = models.CharField(max_length=10, default="", db_index=True)
     date = models.DateTimeField(db_index=True, blank=True, null=True)
 
 

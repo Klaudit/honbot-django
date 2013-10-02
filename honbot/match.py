@@ -137,13 +137,13 @@ def recent(request):
     for m in matches:
         players = PlayerMatches.objects.filter(match=m['match_id']).values("hero", "team", "win").order_by('position')
         m['legion'] = []
-        m['hellborne'] = []
+        m['hellbourne'] = []
         m['date'] = datetime.datetime.strptime(str(m['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
         for p in players:
             if p['team'] == 1:
                 m['legion'].append(p['hero'])
             else:
-                m['hellborne'].append(p['hero'])
+                m['hellbourne'].append(p['hero'])
         try:
             m['winner'] = players[0]['win']
         except:

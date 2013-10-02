@@ -757,9 +757,9 @@ table.dataTable tr.even td.sorting_3 { background-color: #d6d6d6; }
 .table tr td .label {
   margin-right: 3px;
 }
-.table tr th {
-  vertical-align: middle;
-  background: #eee;
+.table-header thead{
+  border: 1px solid #dddddd;
+  border-radius: 2px;
 }
 .table-pagination {
   float: right;

@@ -409,7 +409,7 @@ body {
 }
 .chat-team{
   display: inline-block;
-  min-width: 60px;
+  min-width: 70px;
 }
 .chat-name, .chat-msg{
   display: inline-block;

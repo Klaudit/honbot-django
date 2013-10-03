@@ -17,15 +17,15 @@ urlpatterns = patterns(
     url(r'^pdata/$', PlayerList.as_view()),
     url(r'^player/$', 'honbot.player_browse.browse'),
     # Player Distribution
-    url(r'^distribution/$', 'honbot.player.distribution'), 
+    url(r'^distribution/$', 'honbot.player.distribution'),
     # Player
     url(r'^player/(?P<name>.*)/$', 'honbot.player.player_ranked'),
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),
     url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),
     # Player Charts
-    url(r'^chart/(?P<name>.*)/$', 'honbot.chart.ranked_view'),
+    url(r'^chart/(?P<name>.*)/$', 'honbot.chart.ranked_view', name="chart"),
     url(r'^p/chart/(?P<name>.*)/$', 'honbot.chart.public_view'),
-    url(r'^c/chart/(?P<name>.*)/$', 'honbot.chart.casual_view'), 
+    url(r'^c/chart/(?P<name>.*)/$', 'honbot.chart.casual_view'),
     # Player Avatar
     url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
     # Player Match History

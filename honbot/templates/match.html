@@ -65,9 +65,9 @@
                 {% if player.team == 1%}
                     <tr class="player-{{ player.position }}-row">
                         <td>
-                            <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'> 
+                            <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'>
                             <a href="/player/{{ player.nickname }}/">
-                                {{ player.nickname }} 
+                                {{ player.nickname }}
                             </a>
                         </td>
                         <td>
@@ -97,9 +97,9 @@
                 {% if player.team == 2%}
                     <tr class="player-{{ player.position }}-row">
                         <td>
-                            <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'> 
+                            <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'>
                             <a href="/player/{{ player.nickname }}/">
-                                {{ player.nickname }} 
+                                {{ player.nickname }}
                             </a>
                         </td>
                         <td>
@@ -223,7 +223,7 @@ $(function () {
             }]
         });
     });
-    
+
 });
 </script>
 <script>
@@ -274,7 +274,7 @@ $(function () {
             }]
         });
     });
-    
+
 });
 </script>
 <script>
@@ -322,39 +322,39 @@ $(function () {
             {% if player.position == 0 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
-            },{% endif %} 
+            },{% endif %}
             {% if player.position == 1 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
-            },{% endif %} 
+            },{% endif %}
             {% if player.position == 2 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
-            },{% endif %} 
+            },{% endif %}
             {% if player.position == 3 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
-            },{% endif %} 
+            },{% endif %}
             {% if player.position == 4 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
-            },{% endif %} 
+            },{% endif %}
             {% if player.position == 5 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
-            },{% endif %} 
+            },{% endif %}
             {% if player.position == 6 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
-            },{% endif %} 
+            },{% endif %}
             {% if player.position == 7 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
-            },{% endif %} 
+            },{% endif %}
             {% if player.position == 8 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
-            },{% endif %} 
+            },{% endif %}
             {% if player.position == 9 %}{
                 name: '{{ player.nickname }}',
                 data: [{{ player.gpm }}]
@@ -363,7 +363,6 @@ $(function () {
         });
     });
 </script>
-wtf
 <script>
 //total kills
 $(function () {
@@ -409,7 +408,7 @@ $(function () {
             }]
         });
     });
-    
+
 });
 </script>
 <script>
@@ -461,7 +460,7 @@ $(function () {
             }]
         });
     });
-    
+
 });
 </script>
 <script>
@@ -509,7 +508,7 @@ $(function () {
             }]
         });
     });
-    
+
 });
 </script>
 <script>
@@ -557,7 +556,7 @@ $(function () {
             }]
         });
     });
-    
+
 });
 </script>
 <script>
@@ -609,7 +608,7 @@ $(function () {
             }]
         });
     });
-    
+
 });
 </script>
 <script>
@@ -661,7 +660,7 @@ $(function () {
             }]
         });
     });
-    
+
 });
 </script>
 {%endblock js%}

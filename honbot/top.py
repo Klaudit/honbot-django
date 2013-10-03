@@ -5,7 +5,7 @@ from datetime import timedelta, datetime
 from json import loads
 from django.views.decorators.cache import cache_page
 
-
+@cache_page(7000)
 def seven(request):
     enddate = datetime.today()
     startdate = enddate - timedelta(days=5)

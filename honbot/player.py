@@ -92,12 +92,20 @@ def update_player_count():
         count = PlayerStats.objects.count()
         PlayerCount(count=count).save()
 
+def divide(num1, num2, rounder):
+    try:
+        answer = round(float(num1) / float(num2), rounder)
+    except ZeroDivisionError:
+        return 0
+    return answer
+
 def player_math(data, nick, mode):
     """
     This will get all the right information for the players view and store it in dict
     returns dict
     TSR calculation
     """
+    print mode
     stats = {}
     stats['player_id'] = int(data['account_id'])  # account id
     try:
@@ -159,16 +167,16 @@ def player_math(data, nick, mode):
             stats['kdr'] = 0
         stats['winpercent'] = str(int(float(stats['wins']) / float(stats['wins'] + stats['losses']) * 100)) + '%'  # win percent
         stats['atime'] = int(data[mode + '_secs']) / stats['matches'] / 60  # average time
-        stats['akills'] = round(float(stats['kills']) / stats['matches'], 1)  # average kills
+        stats['akills'] = divide(stats['kills'], stats['matches'], 1)  # average kills
         stats['adeaths'] = round(float(stats['deaths']) / stats['matches'], 1)  # average deaths
         stats['aassists'] = round(float(stats['assists']) / stats['matches'], 1)  # average assists
         stats['aconsumables'] = round(float(data[mode + '_consumables']) / stats['matches'], 1)  # average consumables
         stats['awards'] = round(float(data[mode + '_wards']) / stats['matches'], 1)  # average wards
         stats['acs'] = round(float(data[mode + '_teamcreepkills']) / stats['matches'], 1)  # average creep score
         stats['adenies'] = round(float(data[mode + '_denies']) / stats['matches'], 1)  # average creep score
-        stats['axpmin'] = int(float(data[mode + '_exp']) / (float(data[mode + '_secs']) / 60))  # average xp / min
-        stats['agoldmin'] = int(float(data[mode + '_gold']) / (float(data[mode + '_secs']) / 60))  # average gold / min
-        stats['aactionsmin'] = int(float(data[mode + '_actions']) / (float(data[mode + '_secs']) / 60))  # average actions / min
+        stats['axpmin'] = divide(data[mode + '_exp'], divide(data[mode + '_secs'], 60, 9), 0)  # average xp / min
+        stats['agoldmin'] = divide(data[mode + '_gold'], (float(data[mode + '_secs']) / 60), 1)  # average gold / min
+        stats['aactionsmin'] = divide(data[mode + '_actions'], divide(data[mode + '_secs'], 60, 9), 1)  # average actions / min
         ### TSR CALC ###
         if stats['matches'] > 5:
             stats['TSR'] = ((float(data[mode + '_herokills'])/float(data[mode + '_deaths'])/1.15)*0.65)+((float(data[mode + '_heroassists'])/float(data[mode + '_deaths'])/1.55)*1.20)+(((float(data[mode + '_wins'])/(float(data[mode + '_wins'])+float(data[mode + '_losses'])))/0.55)*0.9)+(((float(data[mode + '_gold'])/float(data[mode + '_secs'])*60)/230)*(1-((230/195)*((float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.35)+((((float(data[mode + '_exp'])/float(data[mode + '_time_earning_exp'])*60)/380)*(1-((380/565)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.40)+((((((float(data[mode + '_denies'])/float(data[mode + '_games_played']))/12)*(1-((4.5/8.5)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.70)+((((float(data[mode + '_teamcreepkills'])/float(data[mode + '_games_played']))/93)*(1-((63/81)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.50)+((float(data[mode + '_wards'])/float(data[mode + '_games_played']))/1.45*0.30))*(37.5/(float(data[mode + '_secs'])/float(data[mode + '_games_played'])/60)))

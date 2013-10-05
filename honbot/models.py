@@ -69,7 +69,7 @@ class PlayerHistory(models.Model):
     player_id = models.PositiveIntegerField(default=0, db_index=True)
     history = models.TextField(default="")
     updated = models.DateTimeField(auto_now=True, default=0)
-    mode = models.CharField(max_length=10, default="")
+    mode = models.CharField(max_length=10, default="", db_index=True)
 
 
 class PlayerStats(models.Model):

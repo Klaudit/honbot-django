@@ -96,6 +96,7 @@
                         <th class="text-center">Match #</th>
                     </tr>
                 </thead>
+
                 <tbody id="recent-matches">
                 </tbody>
             </table>
@@ -106,47 +107,7 @@
     </div>
 </div>
 {% include 'banner.html' %}
-<br>
 {% endblock main_content %}
 {%block js%}
-<script>
-$.get("/match_history/{{ stats.player_id }}/?more=0&mode={{ mode }}",
-function (data) {
-    if (data == "stop") {
-        $('#more').remove();
-        $('#no-more').append("HonBot has reached the end of your recent matches");
-    } else {
-        $('#recent-matches').append(data);
-        $('#recent-matches tr').click(function(){
-            window.location = $(this).attr('href');
-            return false;
-        });
-    }
-    $("#match-load").hide();
-});
-</script>
-<script>
-var counter = 0;
-$("#more").click(function() {
-    $("#match-load").show();
-    var table = $('#recent-matches')
-    counter++;
-    url = "/match_history/{{ stats.player_id }}/?more=" + String(counter) + "&mode={{ mode }}"
-    $.get(url,
-    function(data) {
-        if(data == "stop") {
-            $('#more').remove();
-            $('#no-more').append("HonBot has reached the end of your recent matches")
-        } 
-        else {
-            table.append(data);
-            $('#recent-matches tr').click(function(){
-                window.location = $(this).attr('href');
-                return false;
-            });
-        }
-        $("#match-load").hide();
-    });
-});
-</script>
+
 {%endblock js%}

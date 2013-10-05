@@ -88,11 +88,8 @@ body {
 .container .credit-links {
   margin: 20px 0;
 }
-.panel-footer {
-  background-color: #fff;
-}
 .no-bpadding{
-  padding-bottom: 0;
+  padding-bottom: 1px;
 }
 .list-inline > li{
   padding-right: 0;
@@ -157,7 +154,7 @@ body {
   border-top-left-radius: 0;
 }
 .nav-pills > li > a:hover{
-  background-color: #222;
+  background-color: #395067;
   color: #fff;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
@@ -168,8 +165,8 @@ body {
   box-shadow: inset 0 3px 5px rgba(125, 125, 125, 0.125);
 }
 .nav-pills > li > a{
-  background-color: #fff;
-  color: #000;
+  background-color: #008693;
+  color: #eee;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   margin-right: 6px;
@@ -756,10 +753,6 @@ table.dataTable tr.even td.sorting_3 { background-color: #d6d6d6; }
 }
 .table tr td .label {
   margin-right: 3px;
-}
-.table-header thead{
-  border: 1px solid #dddddd;
-  border-radius: 2px;
 }
 .table-pagination {
   float: right;

@@ -105,7 +105,6 @@ def player_math(data, nick, mode):
     returns dict
     TSR calculation
     """
-    print mode
     stats = {}
     stats['player_id'] = int(data['account_id'])  # account id
     try:

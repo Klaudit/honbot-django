@@ -132,7 +132,7 @@ $("#more").click(function() {
     $("#match-load").show();
     var table = $('#recent-matches')
     counter++;
-    url = "{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_history/{{ stats.player_id }}/?more=" + String(counter)"
+    url = "{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_history/{{ stats.player_id }}/?more=" + String(counter)
     $.get(url,
     function(data) {
         if(data == "stop") {

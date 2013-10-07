@@ -6,7 +6,7 @@ class Matches(models.Model):
     date = models.DateTimeField(blank=True, null=False)
     replay_url = models.URLField(max_length=120, default="", null=True)
     realtime = models.CharField(max_length=10, default="")
-    mode = models.CharField(max_length=10, default="")
+    mode = models.CharField(max_length=10, default="", db_index=True)
     map_used = models.CharField(max_length=30, default="")
     major = models.PositiveSmallIntegerField(default=0)
     minor = models.PositiveSmallIntegerField(default=0)

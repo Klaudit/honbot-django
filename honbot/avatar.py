@@ -10,8 +10,8 @@ def avatar(request, number, width):
     p = PlayerIcon.objects.filter(player_id=number)
     if p.exists():
         tdelta = datetime.now() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
-        if tdelta.days < 14:
-            return HttpResponse('<img style="width:' + width + 'px;" src="' + p.values()[0]['avatar'] + '">')
+        if tdelta.days < 20:
+            return HttpResponse('<img style="width:' + width + 'px;" src="' + p.values('avatar')[0]['avatar'] + '">')
     opener = urllib2.build_opener()
     curl = settings.PHP
     opener.addheaders.append(('Cookie', curl))

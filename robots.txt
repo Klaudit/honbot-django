@@ -9,6 +9,7 @@ Disallow: /match_history/
 Disallow: /recent/
 Disallow: /top/
 Disallow: /history/
+Disallow: /player_hero/
 Disallow: /player_history/
 Disallow: /c/player_history/
 Disallow: /p/player_history/

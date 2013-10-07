@@ -44,7 +44,10 @@ def history(request, account_id, mode, url):
 
 def update_history(url, account_id, mode):
 	raw = get_json(url)
-	raw = raw[0]['history']
+	try:
+		raw = raw[0]['history']
+	except:
+		return []
 	data = []
 	for match in raw.split(','):
 		data.append(int(match.split('|')[0]))

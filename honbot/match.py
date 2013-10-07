@@ -37,7 +37,7 @@ def match_view(request, match_id):
         # grab solo match for fucks sake
         url = '/multi_match/all/matchids/' + str(match_id)
         data = api_call.get_json(url)
-        h = [[str(match_id), '1/1/1']]
+        h = [str(match_id)]
         if data is not None:
             multimatch(data, h, "rnk")
             return match_view(request, match_id)
@@ -171,6 +171,8 @@ def multimatch(data, history, mode):
         players = {}
         allmatches[str(m)]['players'] = players
     for m in data[2]:
+        print m
+        print allmatches
         matchlength = round(float(m['secs']) / 60, 1)
         allmatches[m['match_id']]['matchlength'] = matchlength
         allmatches[m['match_id']]['realtime'] = time.strftime('%H:%M:%S', time.gmtime(int(m['secs'])))

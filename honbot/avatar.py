@@ -8,7 +8,7 @@ from django.conf import settings
 
 def avatar(request, number, width):
     p = PlayerIcon.objects.filter(player_id=number)
-    if bool(p):
+    if p.exists():
         tdelta = datetime.now() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.days < 14:
             return HttpResponse('<img style="width:' + width + 'px;" src="' + p.values()[0]['avatar'] + '">')

@@ -21,6 +21,9 @@ def history_public(request, account_id):
     return history(request, account_id, "acc", url)
 
 def history(request, account_id, mode, url):
+	"""
+	this is the main function of player history
+	"""
 	phistory = PlayerHistory.objects.filter(player_id=account_id, mode=mode)
 	count = int(request.GET.get('more', '')) * return_size
 	# if history exists check the age
@@ -43,6 +46,9 @@ def history(request, account_id, mode, url):
 		return HttpResponse('stop')
 
 def update_history(url, account_id, mode):
+	"""
+	Updates a player's history and saves it to db. [] is saved if no result
+	"""
 	raw = get_json(url)
 	# if no recent matches just save an empty array
 	try:
@@ -58,6 +64,9 @@ def update_history(url, account_id, mode):
 	return data[::-1]
 
 def verify_matches(data, mode):
+	"""
+	this checks for matches to exist in the database. If they do not exist they are then downloaded.
+	"""
 	findexisting = Matches.objects.filter(match_id__in=data).values('match_id')
 	existing = set([int(match['match_id']) for match in findexisting])
 	missing = [x for x in data if x not in existing]

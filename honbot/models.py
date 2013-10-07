@@ -60,7 +60,7 @@ class PlayerMatches(models.Model):
 
 
 class PlayerIcon(models.Model):
-    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
+    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
     avatar = models.URLField(max_length=300, default="")
     updated = models.DateTimeField(auto_now=True, default=0)
 

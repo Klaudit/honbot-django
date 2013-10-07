@@ -1,9 +1,12 @@
 from honbot.models import PlayerMatches, PlayerHistory, Matches
 from django.shortcuts import render_to_response
+from django.http import HttpResponse
 from api_call import get_json
 from datetime import datetime
 from json import dumps, loads
 from match import multimatch
+
+return_size = 25
 
 def history_ranked(request, account_id):
     url = "/match_history/ranked/accountid/" + account_id
@@ -19,6 +22,7 @@ def history_public(request, account_id):
 
 def history(request, account_id, mode, url):
 	phistory = PlayerHistory.objects.filter(player_id=account_id, mode=mode)
+	count = int(request.GET.get('more', '')) * return_size
 	# if history exists check the age
 	if phistory.exists():
 		# find age
@@ -31,8 +35,12 @@ def history(request, account_id, mode, url):
 			data = update_history(url, account_id, mode)
 	else:
 		data = update_history(url, account_id, mode)
-	verify_matches(data[:25], mode)
-	return display_history(request, data, account_id, mode)
+	verify_matches(data[(count-return_size):count], mode)
+	matches = PlayerMatches.objects.filter(match_id__in=data[(count-return_size):count], player_id=account_id).order_by('-date').values()
+	if len(matches) != 0:
+		return render_to_response('player_history.html', {'matches': matches})
+	else:
+		return HttpResponse('stop')
 
 def update_history(url, account_id, mode):
 	raw = get_json(url)
@@ -58,7 +66,3 @@ def verify_matches(data, mode):
 		raw = get_json(url)
 		if raw != None:
 			multimatch(raw, missing, mode)
-
-def display_history(request, data, account_id, mode):
-	matches = PlayerMatches.objects.filter(match_id__in=data, player_id=account_id).values()
-	return render_to_response('player_history.html', {'matches': matches})

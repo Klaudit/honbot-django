@@ -165,8 +165,9 @@ body {
   box-shadow: inset 0 3px 5px rgba(125, 125, 125, 0.125);
 }
 .nav-pills > li > a{
-  background-color: #008693;
-  color: #eee;
+  background-color: #cbcfd6;
+  color: #000;
+  font-weight: 400;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   margin-right: 6px;

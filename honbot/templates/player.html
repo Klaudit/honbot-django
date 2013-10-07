@@ -106,8 +106,48 @@
         </div>
     </div>
 </div>
+<br>
 {% include 'banner.html' %}
 {% endblock main_content %}
 {%block js%}
-
+<script>
+$.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_history/{{ stats.player_id }}/?more=1",
+function (data) {
+    if (data == "stop") {
+        $('#more').remove();
+        $('#no-more').append("HonBot has reached the end of your recent matches");
+    } else {
+        $('#recent-matches').append(data);
+        $('#recent-matches tr').click(function(){
+            window.location = $(this).attr('href');
+            return false;
+        });
+    }
+    $("#match-load").hide();
+});
+</script>
+<script>
+var counter = 1;
+$("#more").click(function() {
+    $("#match-load").show();
+    var table = $('#recent-matches')
+    counter++;
+    url = "{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_history/{{ stats.player_id }}/?more=" + String(counter)"
+    $.get(url,
+    function(data) {
+        if(data == "stop") {
+            $('#more').remove();
+            $('#no-more').append("HonBot has reached the end of your recent matches")
+        }
+        else {
+            table.append(data);
+            $('#recent-matches tr').click(function(){
+                window.location = $(this).attr('href');
+                return false;
+            });
+        }
+        $("#match-load").hide();
+    });
+});
+</script>
 {%endblock js%}

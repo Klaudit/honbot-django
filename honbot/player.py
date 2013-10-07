@@ -170,15 +170,18 @@ def player_math(data, nick, mode):
         stats['adeaths'] = round(float(stats['deaths']) / stats['matches'], 1)  # average deaths
         stats['aassists'] = round(float(stats['assists']) / stats['matches'], 1)  # average assists
         stats['aconsumables'] = round(float(data[mode + '_consumables']) / stats['matches'], 1)  # average consumables
-        stats['awards'] = round(float(data[mode + '_wards']) / stats['matches'], 1)  # average wards
+        stats['awards'] = round(float(data[mode + '_wards']) / stats['matches'], 2)  # average wards
         stats['acs'] = round(float(data[mode + '_teamcreepkills']) / stats['matches'], 1)  # average creep score
         stats['adenies'] = round(float(data[mode + '_denies']) / stats['matches'], 1)  # average creep score
         stats['axpmin'] = divide(data[mode + '_exp'], divide(data[mode + '_secs'], 60, 9), 0)  # average xp / min
         stats['agoldmin'] = divide(data[mode + '_gold'], (float(data[mode + '_secs']) / 60), 1)  # average gold / min
         stats['aactionsmin'] = divide(data[mode + '_actions'], divide(data[mode + '_secs'], 60, 9), 1)  # average actions / min
         ### TSR CALC ###
-        if stats['matches'] > 5:
-            stats['TSR'] = ((float(data[mode + '_herokills'])/float(data[mode + '_deaths'])/1.15)*0.65)+((float(data[mode + '_heroassists'])/float(data[mode + '_deaths'])/1.55)*1.20)+(((float(data[mode + '_wins'])/(float(data[mode + '_wins'])+float(data[mode + '_losses'])))/0.55)*0.9)+(((float(data[mode + '_gold'])/float(data[mode + '_secs'])*60)/230)*(1-((230/195)*((float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.35)+((((float(data[mode + '_exp'])/float(data[mode + '_time_earning_exp'])*60)/380)*(1-((380/565)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.40)+((((((float(data[mode + '_denies'])/float(data[mode + '_games_played']))/12)*(1-((4.5/8.5)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.70)+((((float(data[mode + '_teamcreepkills'])/float(data[mode + '_games_played']))/93)*(1-((63/81)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.50)+((float(data[mode + '_wards'])/float(data[mode + '_games_played']))/1.45*0.30))*(37.5/(float(data[mode + '_secs'])/float(data[mode + '_games_played'])/60)))
+        if stats['matches'] > 10:
+            try:
+                stats['TSR'] = ((float(data[mode + '_herokills'])/float(data[mode + '_deaths'])/1.15)*0.65)+((float(data[mode + '_heroassists'])/float(data[mode + '_deaths'])/1.55)*1.20)+(((float(data[mode + '_wins'])/(float(data[mode + '_wins'])+float(data[mode + '_losses'])))/0.55)*0.9)+(((float(data[mode + '_gold'])/float(data[mode + '_secs'])*60)/230)*(1-((230/195)*((float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.35)+((((float(data[mode + '_exp'])/float(data[mode + '_time_earning_exp'])*60)/380)*(1-((380/565)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.40)+((((((float(data[mode + '_denies'])/float(data[mode + '_games_played']))/12)*(1-((4.5/8.5)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.70)+((((float(data[mode + '_teamcreepkills'])/float(data[mode + '_games_played']))/93)*(1-((63/81)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.50)+((float(data[mode + '_wards'])/float(data[mode + '_games_played']))/1.45*0.30))*(37.5/(float(data[mode + '_secs'])/float(data[mode + '_games_played'])/60)))
+            except:
+                stats['TSR'] = 0
             stats['TSR'] = round(stats['TSR'], 1)
             if stats['TSR'] > 10:
                 stats['TSR'] = 10

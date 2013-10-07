@@ -51,7 +51,8 @@ def update_history(url, account_id, mode):
 		return []
 	data = []
 	for match in raw.split(','):
-		data.append(int(match.split('|')[0]))
+		if len(match) > 20:
+			data.append(int(match.split('|')[0]))
 	PlayerHistory(player_id=account_id, history=dumps(data[::-1]), mode=mode).save()
 	return data[::-1]
 

@@ -165,11 +165,11 @@ def multimatch(data, history, mode):
     allmatches = {}
     for m in history:
         match = {}
-        match['match_id'] = m[0]
+        match['match_id'] = m
         match['mode'] = mode
-        allmatches[str(m[0])] = match
+        allmatches[str(m)] = match
         players = {}
-        allmatches[m[0]]['players'] = players
+        allmatches[str(m)]['players'] = players
     for m in data[2]:
         matchlength = round(float(m['secs']) / 60, 1)
         allmatches[m['match_id']]['matchlength'] = matchlength
@@ -267,4 +267,4 @@ def multimatch(data, history, mode):
         allmatches[m['match_id']]['map'] = m['map']
     ### Save to file ###
     for m in history:
-        match_save(allmatches[m[0]], m[0], s2mode)
+        match_save(allmatches[str(m)], m, s2mode)

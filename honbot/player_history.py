@@ -47,6 +47,7 @@ def update_history(url, account_id, mode):
 	try:
 		raw = raw[0]['history']
 	except:
+		PlayerHistory(player_id=account_id, history=dumps([]), mode=mode).save()
 		return []
 	data = []
 	for match in raw.split(','):

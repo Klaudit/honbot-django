@@ -46,7 +46,7 @@ class honlog:
         self.date, self.time = '', ''
         self.names, self.psr, self.heroes, self.win, self.msg = [0]*10, [0]*10, [0]*10, [0]*10, []
         self.builds = [[] for i in range(10)]
-    
+
     def run(self):
         for line in self.logfile:
             word = line.split()[0]
@@ -113,8 +113,8 @@ class honlog:
                 difference = 25 - len(build)
                 for d in range(difference):
                     build.append(0)
-                b = Builds(match_id=self.match_id, json=json.dumps(build[:25-difference]), 
-                           hero=self.heroes[index], nickname=self.names[index], 
+                b = Builds(match_id=self.match_id, json=json.dumps(build[:25-difference]),
+                           hero=self.heroes[index], nickname=self.names[index],
                            mmr=self.psr[index], win=self.win[index], position=index,
                            lvl1=build[0], lvl2=build[1], lvl3=build[2], lvl4=build[3],
                            lvl5=build[4], lvl6=build[5], lvl7=build[6], lvl8=build[7],

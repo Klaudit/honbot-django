@@ -44,6 +44,7 @@ def history(request, account_id, mode, url):
 
 def update_history(url, account_id, mode):
 	raw = get_json(url)
+	# if no recent matches just save an empty array
 	try:
 		raw = raw[0]['history']
 	except:
@@ -51,7 +52,7 @@ def update_history(url, account_id, mode):
 		return []
 	data = []
 	for match in raw.split(','):
-		if len(match) > 20:
+		if len(match) > 20: # this fixes an error on broken player histories
 			data.append(int(match.split('|')[0]))
 	PlayerHistory(player_id=account_id, history=dumps(data[::-1]), mode=mode).save()
 	return data[::-1]

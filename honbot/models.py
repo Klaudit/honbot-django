@@ -74,7 +74,7 @@ class PlayerHistory(models.Model):
 
 class PlayerStats(models.Model):
     player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
-    nickname = models.CharField(max_length=30, default="")
+    nickname = models.CharField(max_length=30, default="", db_index=True)
     updated = models.DateTimeField(auto_now=True, default=0)
     cccalls = models.PositiveIntegerField(default=0)
     deaths = models.PositiveIntegerField(default=0)
@@ -92,7 +92,7 @@ class PlayerStats(models.Model):
     razed = models.PositiveIntegerField(default=0)
     agoldmin = models.PositiveIntegerField(default=0)
     matches = models.PositiveIntegerField(default=0)
-    mmr = models.PositiveIntegerField(default=0)
+    mmr = models.PositiveIntegerField(default=0, db_index=True)
     hours = models.PositiveIntegerField(default=0)
     assists = models.PositiveIntegerField(default=0)
     awards = models.PositiveIntegerField(default=0)

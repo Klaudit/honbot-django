@@ -2,6 +2,7 @@ User-agent: *
 Crawl-delay: 3
 Disallow: /chat/
 Disallow: /chart/
+Disallow: /match/
 Disallow: /p/chart/
 Disallow: /c/chart/
 Disallow: /builds/

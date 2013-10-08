@@ -8,24 +8,24 @@ from match import multimatch
 
 return_size = 25
 
-def history_ranked(request, account_id):
+def history_ranked(request, account_id, page):
     url = "/match_history/ranked/accountid/" + account_id
-    return history(request, account_id, "rnk", url)
+    return history(request, account_id, "rnk", url, page)
 
-def history_casual(request, account_id):
+def history_casual(request, account_id, page):
     url = '/match_history/casual/accountid/' + account_id
-    return history(request, account_id, "cs", url)
+    return history(request, account_id, "cs", url, page)
 
-def history_public(request, account_id):
+def history_public(request, account_id, page):
     url = '/match_history/public/accountid/' + account_id
-    return history(request, account_id, "acc", url)
+    return history(request, account_id, "acc", url, page)
 
-def history(request, account_id, mode, url):
+def history(request, account_id, mode, url, page):
 	"""
 	this is the main function of player history
 	"""
 	phistory = PlayerHistory.objects.filter(player_id=account_id, mode=mode)
-	count = int(request.GET.get('more', '')) * return_size
+	count = int(page) * return_size
 	# if history exists check the age
 	if phistory.exists():
 		# find age

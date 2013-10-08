@@ -29,9 +29,9 @@ urlpatterns = patterns(
     # Player Avatar
     url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
     # Player History
-    url(r'^player_history/(?P<account_id>[0-9]+)/$', 'honbot.player_history.history_ranked'),
-    url(r'^c/player_history/(?P<account_id>[0-9]+)/$', 'honbot.player_history.history_casual'),
-    url(r'^p/player_history/(?P<account_id>[0-9]+)/$', 'honbot.player_history.history_public'),
+    url(r'^player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history_ranked'),
+    url(r'^c/player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history_casual'),
+    url(r'^p/player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history_public'),
     # Player Banner
     url(r'^banner/(?P<name>.*)/$', 'honbot.banner.banner_view'),
     # Player Hero page

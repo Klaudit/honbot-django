@@ -111,7 +111,7 @@
 {% endblock main_content %}
 {%block js%}
 <script>
-$.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_history/{{ stats.player_id }}/?more=1",
+$.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_history/{{ stats.player_id }}/1/",
 function (data) {
     if (data == "stop") {
         $('#more').remove();
@@ -132,7 +132,7 @@ $("#more").click(function() {
     $("#match-load").show();
     var table = $('#recent-matches')
     counter++;
-    url = "{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_history/{{ stats.player_id }}/?more=" + String(counter)
+    url = "{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_history/{{ stats.player_id }}/" + String(counter) + "/"
     $.get(url,
     function(data) {
         if(data == "stop") {

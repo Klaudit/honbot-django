@@ -1,7 +1,7 @@
 import logparse
 from honbot.models import Chat, Matches
 from django.shortcuts import redirect
-import datetime
+from datetime import datetime, timedelta
 from error import error
 from django.shortcuts import render_to_response
 import json
@@ -13,7 +13,7 @@ def chat_view(request, match_id):
         if chat.exists():
             chat = chat[0]
             match = match[0]
-            match['date'] = datetime.datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
+            match['date'] = datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
             # this needs to be a template
             if match['mode'] == "rnk":
                 match['mode'] = "Ranked"

@@ -1,8 +1,8 @@
-from django.shortcuts import render_to_response
-import api_call
+from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
 from honbot.models import PlayerStats, PlayerHeroStats, PlayerStatsPublic, PlayerStatsCasual
 from datetime import datetime
+import api_call
 import json
 
 
@@ -13,15 +13,24 @@ def divided(num1, num2):
         return 0
 
 def ranked_view(request, name):
-    stats = PlayerStats.objects.filter(nickname=name).values()[0]
+    try:
+        stats = PlayerStats.objects.filter(nickname=name).values()[0]
+    except:
+        return redirect('/player/%s/' % name)
     return render_to_response('player_hero.html', {'player': name, 'stats': stats, 'mode': "rnk", 'view': "player_hero"})
 
 def casual_view(request, name):
-    stats = PlayerStatsCasual.objects.filter(nickname=name).values()[0]
+    try:
+        stats = PlayerStatsCasual.objects.filter(nickname=name).values()[0]
+    except:
+        return redirect('/c/player/%s/' % name)
     return render_to_response('player_hero.html', {'player': name, 'stats': stats, 'mode': "cs", 'view': "player_hero"})
 
 def public_view(request, name):
-    stats = PlayerStatsPublic.objects.filter(nickname=name).values()[0]
+    try:
+        stats = PlayerStatsPublic.objects.filter(nickname=name).values()[0]
+    except:
+        return redirect('/p/player/%s/' % name)
     return render_to_response('player_hero.html', {'player': name, 'stats': stats, 'mode': "acc", 'view': "player_hero"})
 
 def ph_ranked(request, name, hero):

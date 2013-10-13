@@ -61,12 +61,13 @@ def match_save(data, match_id, mode):
     m.save()
     update_match_count()
     update_players_in_matches(len(data['players']))
+    bulk = []
     for p in data['players']:
         if data['players'][p]['kdr'] == "Inf.":
             data['players'][p]['kdr'] = 999
         if data['players'][p]['nickname'] is None:
             data['players'][p]['nickname'] = p
-        PlayerMatches(player_id=int(p), match=m,
+        bulk.append(PlayerMatches(player_id=int(p), match=m,
                       deaths=data['players'][p]['deaths'],
                       kills=data['players'][p]['kills'],
                       win=bool(data['players'][p]['win']),
@@ -101,7 +102,9 @@ def match_save(data, match_id, mode):
                       team=data['players'][p]['team'],
                       position=data['players'][p]['position'],
                       items=json.dumps(data['players'][p]['items']),
-                      mode=mode, date=data['date']).save()
+                      mode=mode, date=data['date']))
+    if len(bulk) > 0:
+        PlayerMatches.objects.bulk_create(bulk)
 
 def update_match_count():
     today = datetime.date.today().strftime("%Y-%m-%d")

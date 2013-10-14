@@ -245,6 +245,19 @@ body {
 .panel-swag-right{
   margin-right: 0;
 }
+.ptip-header{
+  padding: 10px 5px;
+  margin:-10px -15px 0px -15px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+.ptip-body{
+  margin: 0 -10px 0 -10px;
+}
+.ptip-header img{
+  margin-top: -5px;
+}
 .table-match th, .table-match td{
   text-align: center;
 }

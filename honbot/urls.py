@@ -22,6 +22,8 @@ urlpatterns = patterns(
     url(r'^player/(?P<name>.*)/$', 'honbot.player.player_ranked'),
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),
     url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),
+    # player tooltip
+    url(r'^ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip_ranked'),
     # Player Charts
     url(r'^chart/(?P<name>.*)/$', 'honbot.chart.ranked_view', name="chart"),
     url(r'^p/chart/(?P<name>.*)/$', 'honbot.chart.public_view'),

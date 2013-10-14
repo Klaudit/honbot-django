@@ -1,0 +1,9 @@
+<h4 class="ptip-header"><div id="ptip-avatar-{{ player.nickname }}" class="pull-left"></div> {{ player.nickname }}</h4>
+<ul class="list-unstyled ptip-body">
+	<li>MMR <span class="pull-right">{{ player.mmr }}</span></li>
+	<li>KDR <span class="pull-right">{{ player.kdr }}</span></li>
+</ul>
+
+<script>
+$("#ptip-avatar-{{ player.nickname }}").load("/avatar/{{ player.player_id }}/30/");
+</script>

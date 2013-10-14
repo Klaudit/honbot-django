@@ -7,25 +7,30 @@ from django.shortcuts import render_to_response
 import numpy as np
 from django.views.decorators.cache import cache_page
 
+
 def player_ranked(request, name):
     url = "/player_statistics/ranked/nickname/" + name
     p = PlayerStats.objects.filter(nickname=name).values()
     return player_view(request, name, "rnk", url, p)
+
 
 def player_casual(request, name):
     url = '/player_statistics/casual/nickname/' + name
     p = PlayerStatsCasual.objects.filter(nickname=name).values()
     return player_view(request, name, "cs", url, p)
 
+
 def player_public(request, name):
     url = '/player_statistics/public/nickname/' + name
     p = PlayerStatsPublic.objects.filter(nickname=name).values()
     return player_view(request, name, "acc", url, p)
 
+
 def player_view(request, name, mode, url, p):
     if p.exists():
         p = p.values()[0]
-        tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(p['updated']), "%Y-%m-%d %H:%M:%S")
+        tdelta = datetime.datetime.now() - datetime.datetime.strptime(
+            str(p['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 900:
             new = False
             data = True
@@ -45,6 +50,12 @@ def player_view(request, name, mode, url, p):
     else:
         return error(request, "S2 Servers down or name is incorrect. Try another name or gently refreshing the page.")
 
+
+def tooltip_ranked(request, account_id):
+    player = PlayerStats.objects.filter(player_id=account_id)[0]
+    return render_to_response('player_tooltip.html', {'player': player})
+
+
 @cache_page(10000)
 def distribution(requst):
     players = PlayerStats.objects.values_list('mmr', 'TSR')
@@ -53,12 +64,13 @@ def distribution(requst):
         mmr.append(player[0])
         tsr.append(player[1])
     count = 1200
-    for a in range(1,90):
+    for a in range(1, 90):
         count = count + 10
         bins.append(count)
     mmr = np.histogram(mmr, bins=bins)
     tsr = np.histogram(tsr, bins=20)
-    return render_to_response('distribution.html', {'mmr':mmr[0], 'mlable':mmr[1], 'tsr':tsr[0], 'tlable':tsr[1]})
+    return render_to_response('distribution.html', {'mmr': mmr[0], 'mlable': mmr[1], 'tsr': tsr[0], 'tlable': tsr[1]})
+
 
 def player_save(stats, mode):
     if mode == "rnk":
@@ -67,21 +79,32 @@ def player_save(stats, mode):
         p = PlayerStatsPublic
     elif mode == "cs":
         p = PlayerStatsCasual
+    print stats['ks9']
     p(player_id=stats['player_id'], nickname=stats['nickname'],
         cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],
         assists=stats['assists'], TSR=stats['TSR'], kdr=stats['kdr'],
         adenies=stats['adenies'], aconsumables=stats['aconsumables'],
-        kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
-        akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
+        kills=stats['kills'], winpercent=stats[
+            'winpercent'], kadr=stats['kadr'],
+        akills=stats['akills'], kicked=stats[
+            'kicked'], agoldmin=stats['agoldmin'],
         matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
-        awards=stats['awards'], atime=stats['atime'], left=stats['left'], razed=stats['razed'],
-        aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
-        ks3=stats['ks3'], ks4=stats['ks4'], ks5=stats['ks5'], ks6=stats['ks6'], ks7=stats['ks7'],
-        ks8=stats['ks8'], ks9=stats['ks9'], ks10=stats['ks10'], ks15=stats['ks15'], bloodlust=stats['bloodlust'],
-        doublekill=stats['doublekill'], triplekill=stats['triplekill'], quadkill=stats['quadkill'], annihilation=stats['annihilation'],
-        smackdown=stats['smackdown'], humiliation=stats['humiliation'], nemesis=stats['nemesis'], retribution=stats['retribution'],
-        level=stats['level'], level_exp=stats['level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
+        awards=stats['awards'], atime=stats[
+            'atime'], left=stats['left'], razed=stats['razed'],
+        aactionsmin=stats['aactionsmin'], axpmin=stats[
+            'axpmin'], adeaths=stats['adeaths'],
+        ks3=stats['ks3'], ks4=stats['ks4'], ks5=stats[
+            'ks5'], ks6=stats['ks6'], ks7=stats['ks7'],
+        ks8=stats['ks8'], ks9=stats['ks9'], ks10=stats[
+            'ks10'], ks15=stats['ks15'], bloodlust=stats['bloodlust'],
+        doublekill=stats['doublekill'], triplekill=stats[
+            'triplekill'], quadkill=stats['quadkill'], annihilation=stats['annihilation'],
+        smackdown=stats['smackdown'], humiliation=stats[
+            'humiliation'], nemesis=stats['nemesis'], retribution=stats['retribution'],
+        level=stats['level'], level_exp=stats[
+            'level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
         acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
+
 
 def update_player_count():
     today = datetime.date.today().strftime("%Y-%m-%d")
@@ -92,12 +115,14 @@ def update_player_count():
         count = PlayerStats.objects.count()
         PlayerCount(count=count).save()
 
+
 def divide(num1, num2, rounder):
     try:
         answer = round(float(num1) / float(num2), rounder)
     except ZeroDivisionError:
         return 0
     return answer
+
 
 def player_math(data, nick, mode):
     """
@@ -157,29 +182,57 @@ def player_math(data, nick, mode):
         stats['max_exp'] = 0
     if stats['matches'] > 0:
         stats['hours'] = (int(data[mode + '_secs']) / 60) / 60  # hours played
-        stats['acs'] = round(int(data[mode + '_teamcreepkills']) / float(stats['matches']), 1)  # average creep score
+        # average creep score
+        stats['acs'] = round(
+            int(data[mode + '_teamcreepkills']) / float(stats['matches']), 1)
         if stats['deaths'] > 0 and stats['kills'] > 0:
-            stats['kadr'] = round((float(stats['kills']) + float(stats['assists'])) / float(stats['deaths']), 2)  # k+A : d
-            stats['kdr'] = round(float(stats['kills']) / float(stats['deaths']), 2)  # kill death ratio
+            # k+A : d
+            stats['kadr'] = round(
+                (float(stats['kills']) + float(stats['assists'])) / float(stats['deaths']), 2)
+            # kill death ratio
+            stats['kdr'] = round(
+                float(stats['kills']) / float(stats['deaths']), 2)
         else:
             stats['kadr'] = 0
             stats['kdr'] = 0
-        stats['winpercent'] = str(int(float(stats['wins']) / float(stats['wins'] + stats['losses']) * 100)) + '%'  # win percent
-        stats['atime'] = int(data[mode + '_secs']) / stats['matches'] / 60  # average time
-        stats['akills'] = divide(stats['kills'], stats['matches'], 1)  # average kills
-        stats['adeaths'] = round(float(stats['deaths']) / stats['matches'], 1)  # average deaths
-        stats['aassists'] = round(float(stats['assists']) / stats['matches'], 1)  # average assists
-        stats['aconsumables'] = round(float(data[mode + '_consumables']) / stats['matches'], 1)  # average consumables
-        stats['awards'] = round(float(data[mode + '_wards']) / stats['matches'], 2)  # average wards
-        stats['acs'] = round(float(data[mode + '_teamcreepkills']) / stats['matches'], 1)  # average creep score
-        stats['adenies'] = round(float(data[mode + '_denies']) / stats['matches'], 1)  # average creep score
-        stats['axpmin'] = divide(data[mode + '_exp'], divide(data[mode + '_secs'], 60, 9), 0)  # average xp / min
-        stats['agoldmin'] = divide(data[mode + '_gold'], (float(data[mode + '_secs']) / 60), 1)  # average gold / min
-        stats['aactionsmin'] = divide(data[mode + '_actions'], divide(data[mode + '_secs'], 60, 9), 1)  # average actions / min
-        ### TSR CALC ###
+        # win percent
+        stats['winpercent'] = str(
+            int(float(stats['wins']) / float(stats['wins'] + stats['losses']) * 100)) + '%'
+        # average time
+        stats['atime'] = int(data[mode + '_secs']) / stats['matches'] / 60
+        # average kills
+        stats['akills'] = divide(stats['kills'], stats['matches'], 1)
+        # average deaths
+        stats['adeaths'] = round(float(stats['deaths']) / stats['matches'], 1)
+        # average assists
+        stats['aassists'] = round(
+            float(stats['assists']) / stats['matches'], 1)
+        # average consumables
+        stats['aconsumables'] = round(
+            float(data[mode + '_consumables']) / stats['matches'], 1)
+        # average wards
+        stats['awards'] = round(
+            float(data[mode + '_wards']) / stats['matches'], 2)
+        # average creep score
+        stats['acs'] = round(
+            float(data[mode + '_teamcreepkills']) / stats['matches'], 1)
+        # average creep score
+        stats['adenies'] = round(
+            float(data[mode + '_denies']) / stats['matches'], 1)
+        # average xp / min
+        stats['axpmin'] = divide(
+            data[mode + '_exp'], divide(data[mode + '_secs'], 60, 9), 0)
+        # average gold / min
+        stats['agoldmin'] = divide(
+            data[mode + '_gold'], (float(data[mode + '_secs']) / 60), 1)
+        # average actions / min
+        stats['aactionsmin'] = divide(
+            data[mode + '_actions'], divide(data[mode + '_secs'], 60, 9), 1)
+        # TSR CALC ###
         if stats['matches'] > 10:
             try:
-                stats['TSR'] = ((float(data[mode + '_herokills'])/float(data[mode + '_deaths'])/1.15)*0.65)+((float(data[mode + '_heroassists'])/float(data[mode + '_deaths'])/1.55)*1.20)+(((float(data[mode + '_wins'])/(float(data[mode + '_wins'])+float(data[mode + '_losses'])))/0.55)*0.9)+(((float(data[mode + '_gold'])/float(data[mode + '_secs'])*60)/230)*(1-((230/195)*((float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.35)+((((float(data[mode + '_exp'])/float(data[mode + '_time_earning_exp'])*60)/380)*(1-((380/565)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.40)+((((((float(data[mode + '_denies'])/float(data[mode + '_games_played']))/12)*(1-((4.5/8.5)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.70)+((((float(data[mode + '_teamcreepkills'])/float(data[mode + '_games_played']))/93)*(1-((63/81)*(float(data[mode + '_em_played'])/float(data[mode + '_games_played'])))))*0.50)+((float(data[mode + '_wards'])/float(data[mode + '_games_played']))/1.45*0.30))*(37.5/(float(data[mode + '_secs'])/float(data[mode + '_games_played'])/60)))
+                stats['TSR'] = ((float(data[mode + '_herokills']) / float(data[mode + '_deaths']) / 1.15) * 0.65) + ((float(data[mode + '_heroassists']) / float(data[mode + '_deaths']) / 1.55) * 1.20) + (((float(data[mode + '_wins']) / (float(data[mode + '_wins']) + float(data[mode + '_losses']))) / 0.55) * 0.9) + (((float(data[mode + '_gold']) / float(data[mode + '_secs']) * 60) / 230) * (1 - ((230 / 195) * ((float(data[mode + '_em_played']) / float(data[mode + '_games_played']))))) * 0.35) + ((((float(data[mode + '_exp']) / float(data[mode + '_time_earning_exp']) * 60) / 380) * (1 - ((380 / 565) * (float(data[mode + '_em_played']) / float(data[mode + '_games_played']))))) * 0.40) + (
+                    (((((float(data[mode + '_denies']) / float(data[mode + '_games_played'])) / 12) * (1 - ((4.5 / 8.5) * (float(data[mode + '_em_played']) / float(data[mode + '_games_played']))))) * 0.70) + ((((float(data[mode + '_teamcreepkills']) / float(data[mode + '_games_played'])) / 93) * (1 - ((63 / 81) * (float(data[mode + '_em_played']) / float(data[mode + '_games_played']))))) * 0.50) + ((float(data[mode + '_wards']) / float(data[mode + '_games_played'])) / 1.45 * 0.30)) * (37.5 / (float(data[mode + '_secs']) / float(data[mode + '_games_played']) / 60)))
             except:
                 stats['TSR'] = 0
             stats['TSR'] = round(stats['TSR'], 1)
@@ -190,5 +243,6 @@ def player_math(data, nick, mode):
             stats['kdr'] = 0
     else:
         # no matches on account
-        stats['TSR'], stats['kdr'], stats['kadr'], stats['winpercent'], stats['atime'], stats['akills'], stats['adeaths'], stats['aassists'], stats['aconsumables'], stats['awards'], stats['acs'], stats['adenies'], stats['axpmin'], stats['agoldmin'], stats['aactionsmin'], stats['hours'] = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        stats['TSR'], stats['kdr'], stats['kadr'], stats['winpercent'], stats['atime'], stats['akills'], stats['adeaths'], stats['aassists'], stats['aconsumables'], stats[
+            'awards'], stats['acs'], stats['adenies'], stats['axpmin'], stats['agoldmin'], stats['aactionsmin'], stats['hours'] = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     return stats

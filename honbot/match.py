@@ -15,10 +15,11 @@ def match_view(request, match_id):
     """
     match = Matches.objects.filter(match_id=match_id)
     if match.exists():
-        #get match and setup data for view
+        # get match and setup data for view
         match = match.values()[0]
         # The time may be need to be subtracted by an hour? - Aug 26
-        match['date'] = datetime.datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
+        match['date'] = datetime.datetime.strptime(
+            str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
         # this should be a template
         if match['mode'] == "rnk":
             match['mode'] = "Ranked"
@@ -27,12 +28,13 @@ def match_view(request, match_id):
         elif match['mode'] == "acc":
             match['mode'] = "Public"
         # get players and setup for view
-        players = PlayerMatches.objects.filter(match_id=match_id).order_by('position').values()
+        players = PlayerMatches.objects.filter(
+            match_id=match_id).order_by('position').values()
         for player in players:
             player['items'] = json.loads(player['items'])
             if player['kdr'] == 999:
                 player['kdr'] = "Inf"
-        return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players':players})
+        return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players': players})
     else:
         # grab solo match for fucks sake
         url = '/multi_match/all/matchids/' + str(match_id)
@@ -44,6 +46,7 @@ def match_view(request, match_id):
         else:
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
 
+
 def match_save(data, match_id, mode):
     print match_id
     try:
@@ -54,10 +57,12 @@ def match_save(data, match_id, mode):
         data['date']
     except KeyError:
         date['date'] = "2000-01-01 11:11:11"
-    m = Matches(match_id=match_id, date=data['date'], replay_url=data['replay_url'],
-                realtime=data['realtime'], mode=mode, major=data['major'],
-                minor=data['minor'], revision=data['revision'], build=data['build'],
-                map_used=data['map'])
+    m = Matches(
+        match_id=match_id, date=data['date'], replay_url=data['replay_url'],
+        realtime=data['realtime'], mode=mode, major=data['major'],
+        minor=data['minor'], revision=data[
+            'revision'], build=data['build'],
+        map_used=data['map'])
     m.save()
     update_match_count()
     update_players_in_matches(len(data['players']))
@@ -68,43 +73,48 @@ def match_save(data, match_id, mode):
         if data['players'][p]['nickname'] is None:
             data['players'][p]['nickname'] = p
         bulk.append(PlayerMatches(player_id=int(p), match=m,
-                      deaths=data['players'][p]['deaths'],
-                      kills=data['players'][p]['kills'],
-                      win=bool(data['players'][p]['win']),
-                      apm=float(data['players'][p]['apm']),
-                      cs=data['players'][p]['cs'],
-                      smackdown=data['players'][p]['smackdown'],
-                      secsdead=data['players'][p]['secsdead'],
-                      gpm=float(data['players'][p]['gpm']),
-                      bdmg=data['players'][p]['bdmg'],
-                      herodmg=data['players'][p]['herodmg'],
-                      xpm=float(data['players'][p]['xpm']),
-                      kdr=float(data['players'][p]['kdr']),
-                      goldlost2death=data['players'][p]['goldlost2death'],
-                      denies=data['players'][p]['denies'],
-                      hero=data['players'][p]['hero'],
-                      consumables=data['players'][p]['consumables'],
-                      assists=data['players'][p]['assists'],
-                      bloodlust=data['players'][p]['bloodlust'],
-                      doublekill=data['players'][p]['doublekill'],
-                      triplekill=data['players'][p]['triplekill'],
-                      annihilation=data['players'][p]['annihilation'],
-                      bgold=data['players'][p]['bgold'],
-                      exp_denied=data['players'][p]['exp_denied'],
-                      gold_spent=data['players'][p]['gold_spent'],
-                      razed=data['players'][p]['razed'],
-                      quadkill=data['players'][p]['quadkill'],
-                      nickname=data['players'][p]['nickname'],
-                      level=data['players'][p]['level'],
-                      buybacks=data['players'][p]['buybacks'],
-                      mmr_change=data['players'][p]['mmr_change'],
-                      wards=data['players'][p]['wards'],
-                      team=data['players'][p]['team'],
-                      position=data['players'][p]['position'],
-                      items=json.dumps(data['players'][p]['items']),
-                      mode=mode, date=data['date']))
+                                  deaths=data['players'][p]['deaths'],
+                                  kills=data['players'][p]['kills'],
+                                  win=bool(data['players'][p]['win']),
+                                  apm=float(data['players'][p]['apm']),
+                                  cs=data['players'][p]['cs'],
+                                  smackdown=data['players'][p]['smackdown'],
+                                  secsdead=data['players'][p]['secsdead'],
+                                  gpm=float(data['players'][p]['gpm']),
+                                  bdmg=data['players'][p]['bdmg'],
+                                  herodmg=data['players'][p]['herodmg'],
+                                  xpm=float(data['players'][p]['xpm']),
+                                  kdr=float(data['players'][p]['kdr']),
+                                  goldlost2death=data['players'][
+                                      p]['goldlost2death'],
+                                  denies=data['players'][p]['denies'],
+                                  hero=data['players'][p]['hero'],
+                                  consumables=data['players'][
+                                      p]['consumables'],
+                                  assists=data['players'][p]['assists'],
+                                  bloodlust=data['players'][p]['bloodlust'],
+                                  doublekill=data['players'][p]['doublekill'],
+                                  triplekill=data['players'][p]['triplekill'],
+                                  annihilation=data['players'][
+                                      p]['annihilation'],
+                                  bgold=data['players'][p]['bgold'],
+                                  exp_denied=data['players'][p]['exp_denied'],
+                                  gold_spent=data['players'][p]['gold_spent'],
+                                  razed=data['players'][p]['razed'],
+                                  quadkill=data['players'][p]['quadkill'],
+                                  nickname=data['players'][p]['nickname'],
+                                  level=data['players'][p]['level'],
+                                  buybacks=data['players'][p]['buybacks'],
+                                  mmr_change=data['players'][p]['mmr_change'],
+                                  wards=data['players'][p]['wards'],
+                                  team=data['players'][p]['team'],
+                                  position=data['players'][p]['position'],
+                                  items=json.dumps(
+                                      data['players'][p]['items']),
+                                  mode=mode, date=data['date']))
     if len(bulk) > 0:
         PlayerMatches.objects.bulk_create(bulk)
+
 
 def update_match_count():
     today = datetime.date.today().strftime("%Y-%m-%d")
@@ -115,6 +125,7 @@ def update_match_count():
         count = Matches.objects.count()
         MatchCount(count=count).save()
 
+
 def update_players_in_matches(count):
     today = datetime.date.today().strftime("%Y-%m-%d")
     current_count = PlayerMatchCount.objects.filter(date=today)
@@ -123,6 +134,7 @@ def update_players_in_matches(count):
     else:
         count = PlayerMatches.objects.count()
         PlayerMatchCount(count=count).save()
+
 
 def recent(request):
     paginator = Paginator(Matches.objects.all(), 20)  # Show 20 matches a page
@@ -135,13 +147,16 @@ def recent(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         pag = paginator.page(paginator.num_pages)
-    matches = Matches.objects.all().values()[(pag.start_index()-1):pag.end_index()]
+    matches = Matches.objects.all().values()[
+        (pag.start_index() - 1):pag.end_index()]
     # get heroes
     for m in matches:
-        players = PlayerMatches.objects.filter(match=m['match_id']).values("hero", "team", "win").order_by('position')
+        players = PlayerMatches.objects.filter(match=m['match_id']).values(
+            "hero", "team", "win").order_by('position')
         m['legion'] = []
         m['hellbourne'] = []
-        m['date'] = datetime.datetime.strptime(str(m['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
+        m['date'] = datetime.datetime.strptime(
+            str(m['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
         for p in players:
             if p['team'] == 1:
                 m['legion'].append(p['hero'])
@@ -176,9 +191,11 @@ def multimatch(data, history, mode):
     for m in data[2]:
         matchlength = round(float(m['secs']) / 60, 1)
         allmatches[m['match_id']]['matchlength'] = matchlength
-        allmatches[m['match_id']]['realtime'] = time.strftime('%H:%M:%S', time.gmtime(int(m['secs'])))
+        allmatches[m['match_id']]['realtime'] = time.strftime(
+            '%H:%M:%S', time.gmtime(int(m['secs'])))
         if int(allmatches[m['match_id']]['realtime'].split(':')[0]) == 0:
-            allmatches[m['match_id']]['realtime'] = allmatches[m['match_id']]['realtime'][3:]
+            allmatches[m['match_id']]['realtime'] = allmatches[
+                m['match_id']]['realtime'][3:]
         player = {}
         player['id'] = m['account_id']
         player['kills'] = m['herokills']
@@ -216,7 +233,8 @@ def multimatch(data, history, mode):
             player['apm'] = 0
         player['cs'] = m['teamcreepkills']
         try:
-            player['kdr'] = round(float(player['kills']) / float(player['deaths']), 1)
+            player['kdr'] = round(
+                float(player['kills']) / float(player['deaths']), 1)
         except ZeroDivisionError:
             player['kdr'] = 'Inf.'
         player['win'] = bool(int(m['wins']))
@@ -229,7 +247,7 @@ def multimatch(data, history, mode):
         allmatches[m['match_id']]['players'][m['account_id']] = player
         allmatches[m['match_id']]['players'][m['account_id']]['items'] = None
     for m in data[1]:
-        items = [None]*6
+        items = [None] * 6
         items[0] = m['slot_1']
         items[1] = m['slot_2']
         items[2] = m['slot_3']
@@ -237,11 +255,13 @@ def multimatch(data, history, mode):
         items[4] = m['slot_5']
         items[5] = m['slot_6']
         try:
-            allmatches[m['match_id']]['players'][m['account_id']]['items'] = items
+            allmatches[m['match_id']]['players'][
+                m['account_id']]['items'] = items
         except:
             pass
         try:
-            allmatches[m['match_id']]['players'][m['account_id']]['nickname'] = m['nickname']
+            allmatches[m['match_id']]['players'][
+                m['account_id']]['nickname'] = m['nickname']
         except KeyError:
             pass
     for m in data[0]:
@@ -268,6 +288,6 @@ def multimatch(data, history, mode):
             allmatches[m['match_id']]['build'] = 0
         allmatches[m['match_id']]['date'] = m['mdt']
         allmatches[m['match_id']]['map'] = m['map']
-    ### Save to file ###
+    # Save to file ###
     for m in history:
         match_save(allmatches[str(m)], m, s2mode)

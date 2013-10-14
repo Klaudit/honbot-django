@@ -2,7 +2,8 @@ from django.db import models
 
 
 class Matches(models.Model):
-    match_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
+    match_id = models.PositiveIntegerField(
+        primary_key=True, null=False, unique=True, db_index=True)
     date = models.DateTimeField(blank=True, null=False)
     replay_url = models.URLField(max_length=120, default="", null=True)
     realtime = models.CharField(max_length=10, default="")
@@ -60,7 +61,8 @@ class PlayerMatches(models.Model):
 
 
 class PlayerIcon(models.Model):
-    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
+    player_id = models.PositiveIntegerField(
+        primary_key=True, null=False, unique=True, db_index=True)
     avatar = models.URLField(max_length=300, default="")
     updated = models.DateTimeField(auto_now=True, default=0)
 
@@ -73,7 +75,8 @@ class PlayerHistory(models.Model):
 
 
 class PlayerStats(models.Model):
-    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
+    player_id = models.PositiveIntegerField(
+        primary_key=True, null=False, unique=True, db_index=True)
     nickname = models.CharField(max_length=30, default="", db_index=True)
     updated = models.DateTimeField(auto_now=True, default=0)
     cccalls = models.PositiveIntegerField(default=0)
@@ -130,7 +133,8 @@ class PlayerStats(models.Model):
 
 
 class PlayerStatsCasual(models.Model):
-    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
+    player_id = models.PositiveIntegerField(
+        primary_key=True, null=False, unique=True)
     nickname = models.CharField(max_length=30, default="")
     updated = models.DateTimeField(auto_now=True, default=0)
     cccalls = models.PositiveIntegerField(default=0)
@@ -187,7 +191,8 @@ class PlayerStatsCasual(models.Model):
 
 
 class PlayerStatsPublic(models.Model):
-    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
+    player_id = models.PositiveIntegerField(
+        primary_key=True, null=False, unique=True)
     nickname = models.CharField(max_length=30, default="")
     updated = models.DateTimeField(auto_now=True, default=0)
     cccalls = models.PositiveIntegerField(default=0)
@@ -250,12 +255,16 @@ class PlayerHeroStats(models.Model):
     updated = models.DateTimeField(auto_now=True, default=0)
     mode = models.CharField(max_length=10, default="rnk")
 
+
 class Chat(models.Model):
-    match_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
+    match_id = models.PositiveIntegerField(
+        primary_key=True, null=False, unique=True, db_index=True)
     json = models.TextField(default="")
 
+
 class Builds(models.Model):
-    match_id = models.PositiveIntegerField(null=False, default=1, db_index=True)
+    match_id = models.PositiveIntegerField(
+        null=False, default=1, db_index=True)
     hero = models.PositiveSmallIntegerField(default=0, db_index=True)
     json = models.TextField(default="")
     nickname = models.CharField(max_length=30, default="")
@@ -288,18 +297,26 @@ class Builds(models.Model):
     lvl24 = models.PositiveSmallIntegerField(default=0)
     lvl25 = models.PositiveSmallIntegerField(default=0)
 
+
 class PlayerCount(models.Model):
-    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
+    date = models.DateField(
+        primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)
+
 
 class MatchCount(models.Model):
-    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
+    date = models.DateField(
+        primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)
+
 
 class PlayerMatchCount(models.Model):
-    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
+    date = models.DateField(
+        primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)
 
+
 class APICount(models.Model):
-    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
+    date = models.DateField(
+        primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)

@@ -20,6 +20,7 @@ def server_status(request):
     except:
         return HttpResponse('<span class="text-danger">Down, Honbot will have trouble working</span>')
 
+
 @cache_page(60)
 def match_count(request):
     """
@@ -35,6 +36,7 @@ def match_count(request):
     t = Template('{% load humanize %}{{ count|intcomma }}')
     c = Context({'count': count})
     return HttpResponse(t.render(c))
+
 
 @cache_page(60)
 def player_count(request):
@@ -52,6 +54,7 @@ def player_count(request):
     c = Context({'count': count})
     return HttpResponse(t.render(c))
 
+
 @cache_page(60)
 def player_match_count(request):
     """
@@ -68,6 +71,7 @@ def player_match_count(request):
     c = Context({'count': count})
     return HttpResponse(t.render(c))
 
+
 @cache_page(60)
 def api_count(request):
     """
@@ -83,6 +87,7 @@ def api_count(request):
     t = Template('{% load humanize %}{{ count|intcomma }}')
     c = Context({'count': count})
     return HttpResponse(t.render(c))
+
 
 def home(request):
     """

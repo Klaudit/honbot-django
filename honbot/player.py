@@ -84,25 +84,16 @@ def player_save(stats, mode):
         cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],
         assists=stats['assists'], TSR=stats['TSR'], kdr=stats['kdr'],
         adenies=stats['adenies'], aconsumables=stats['aconsumables'],
-        kills=stats['kills'], winpercent=stats[
-            'winpercent'], kadr=stats['kadr'],
-        akills=stats['akills'], kicked=stats[
-            'kicked'], agoldmin=stats['agoldmin'],
+        kills=stats['kills'], winpercent=stats['winpercent'], kadr=stats['kadr'],
+        akills=stats['akills'], kicked=stats['kicked'], agoldmin=stats['agoldmin'],
         matches=stats['matches'], mmr=stats['mmr'], hours=stats['hours'],
-        awards=stats['awards'], atime=stats[
-            'atime'], left=stats['left'], razed=stats['razed'],
-        aactionsmin=stats['aactionsmin'], axpmin=stats[
-            'axpmin'], adeaths=stats['adeaths'],
-        ks3=stats['ks3'], ks4=stats['ks4'], ks5=stats[
-            'ks5'], ks6=stats['ks6'], ks7=stats['ks7'],
-        ks8=stats['ks8'], ks9=stats['ks9'], ks10=stats[
-            'ks10'], ks15=stats['ks15'], bloodlust=stats['bloodlust'],
-        doublekill=stats['doublekill'], triplekill=stats[
-            'triplekill'], quadkill=stats['quadkill'], annihilation=stats['annihilation'],
-        smackdown=stats['smackdown'], humiliation=stats[
-            'humiliation'], nemesis=stats['nemesis'], retribution=stats['retribution'],
-        level=stats['level'], level_exp=stats[
-            'level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
+        awards=stats['awards'], atime=stats['atime'], left=stats['left'], razed=stats['razed'],
+        aactionsmin=stats['aactionsmin'], axpmin=stats['axpmin'], adeaths=stats['adeaths'],
+        ks3=stats['ks3'], ks4=stats['ks4'], ks5=stats['ks5'], ks6=stats['ks6'], ks7=stats['ks7'],
+        ks8=stats['ks8'], ks9=stats['ks9'], ks10=stats['ks10'], ks15=stats['ks15'], bloodlust=stats['bloodlust'],
+        doublekill=stats['doublekill'], triplekill=stats['triplekill'], quadkill=stats['quadkill'], annihilation=stats['annihilation'],
+        smackdown=stats['smackdown'], humiliation=stats['humiliation'], nemesis=stats['nemesis'], retribution=stats['retribution'],
+        level=stats['level'], level_exp=stats['level_exp'], min_exp=stats['min_exp'], max_exp=stats['max_exp'],
         acs=stats['acs'], wins=stats['wins'], losses=stats['losses'], aassists=stats['aassists']).save()
 
 

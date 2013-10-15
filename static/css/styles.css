@@ -255,8 +255,15 @@ body {
 .ptip-body{
   margin: 0 -10px 0 -10px;
 }
+.ptip-body li{
+  padding: 0 0 0 0;
+  margin: 0 0 -8px 0;
+}
+.list-unstyled > li + li:before{
+  border-bottom: 1px solid #ebebeb;
+}
 .ptip-header img{
-  margin-top: -6px;
+  margin-top: -5px;
   margin-right: 4px;
 }
 .table-match th, .table-match td{

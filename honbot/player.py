@@ -187,8 +187,7 @@ def player_math(data, nick, mode):
             stats['kadr'] = 0
             stats['kdr'] = 0
         # win percent
-        stats['winpercent'] = str(
-            int(float(stats['wins']) / float(stats['wins'] + stats['losses']) * 100)) + '%'
+        stats['winpercent'] = str(int(float(stats['wins']) / float(stats['wins'] + stats['losses'] + 1) * 100)) + '%'
         # average time
         stats['atime'] = int(data[mode + '_secs']) / stats['matches'] / 60
         # average kills
@@ -196,29 +195,21 @@ def player_math(data, nick, mode):
         # average deaths
         stats['adeaths'] = round(float(stats['deaths']) / stats['matches'], 1)
         # average assists
-        stats['aassists'] = round(
-            float(stats['assists']) / stats['matches'], 1)
+        stats['aassists'] = round(float(stats['assists']) / stats['matches'], 1)
         # average consumables
-        stats['aconsumables'] = round(
-            float(data[mode + '_consumables']) / stats['matches'], 1)
+        stats['aconsumables'] = round(float(data[mode + '_consumables']) / stats['matches'], 1)
         # average wards
-        stats['awards'] = round(
-            float(data[mode + '_wards']) / stats['matches'], 2)
+        stats['awards'] = round(float(data[mode + '_wards']) / stats['matches'], 2)
         # average creep score
-        stats['acs'] = round(
-            float(data[mode + '_teamcreepkills']) / stats['matches'], 1)
+        stats['acs'] = round(float(data[mode + '_teamcreepkills']) / stats['matches'], 1)
         # average creep score
-        stats['adenies'] = round(
-            float(data[mode + '_denies']) / stats['matches'], 1)
+        stats['adenies'] = round(float(data[mode + '_denies']) / stats['matches'], 1)
         # average xp / min
-        stats['axpmin'] = divide(
-            data[mode + '_exp'], divide(data[mode + '_secs'], 60, 9), 0)
+        stats['axpmin'] = divide(data[mode + '_exp'], divide(data[mode + '_secs'], 60, 9), 0)
         # average gold / min
-        stats['agoldmin'] = divide(
-            data[mode + '_gold'], (float(data[mode + '_secs']) / 60), 1)
+        stats['agoldmin'] = divide(data[mode + '_gold'], (float(data[mode + '_secs']) / 60), 1)
         # average actions / min
-        stats['aactionsmin'] = divide(
-            data[mode + '_actions'], divide(data[mode + '_secs'], 60, 9), 1)
+        stats['aactionsmin'] = divide(data[mode + '_actions'], divide(data[mode + '_secs'], 60, 9), 1)
         # TSR CALC ###
         if stats['matches'] > 10:
             try:

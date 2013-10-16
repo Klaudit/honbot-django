@@ -24,7 +24,7 @@
                         <td>{{m.realtime}}</td>
                         <td>{% load prettytimes_tags %}{{ m.date|relative_time }}</td>
                         <td>{%if m.mode == "rnk"%}Ranked{%elif m.mode == "cs"%}Casual{% else %}Public{%endif%}</td>
-                        <td>{%if m.winner == 1%}Legion{%else%}hellbourne{%endif%}</td>
+                        <td>{%if m.winner == 1%}Legion{%else%}Hellbourne{%endif%}</td>
                         <td>
                             {% for h in m.legion %}
                                 <img style="width:30px" src='/static/img/heroes/{{ h }}/icon_128.jpg'>

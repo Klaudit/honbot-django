@@ -31,7 +31,7 @@ def match_view(request, match_id):
             if len(team1) > 0:
                 t1exist = True
             else:
-                t2exist = False
+                t1exist = False
             if len(team2) > 0:
                 t2exist = True
             else:

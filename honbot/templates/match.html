@@ -61,8 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for player in players %}
-                {% if player.team == 1%}
+                {% for player in team1 %}
                     <tr class="player-{{ player.position }}-row">
                         <td>
                             <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'>
@@ -89,12 +88,10 @@
                         <td>{{ player.apm }}</td>
                         <td>{{ player.wards }}</td>
                     </tr>
-                {% endif %}
                 {% endfor %}
                 </tbody>
                 <tbody>
-                {% for player in players %}
-                {% if player.team == 2%}
+                {% for player in team2 %}
                     <tr class="player-{{ player.position }}-row">
                         <td>
                             <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'>
@@ -121,7 +118,6 @@
                         <td>{{ player.apm }}</td>
                         <td>{{ player.wards }}</td>
                     </tr>
-                {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
@@ -198,6 +194,7 @@ $(document).ready(function() {
 });
 </script>
 <script src="/static/js/highcharts.js"></script>
+{% if t1exist %}
 <script>
 //legion herodmg
 $(function () {
@@ -237,18 +234,15 @@ $(function () {
                 type: 'pie',
                 name: 'Damage',
                 data: [
-                    {% for player in players %}
-                        {% if player.team == 1%}
-                            ['{{ player.nickname }}', {{ player.herodmg }}],
-                        {% endif %}
-                    {% endfor %}
+                    {% for player in team1 %}['{{ player.nickname }}', {{ player.herodmg }}],{% endfor %}
                 ]
             }]
         });
     });
-
 });
 </script>
+{% endif %}
+{% if t2exist %}
 <script>
 //hellbourne herodmg
 $(function () {
@@ -288,11 +282,7 @@ $(function () {
                 type: 'pie',
                 name: 'Damage',
                 data: [
-                    {% for player in players %}
-                        {% if player.team == 2%}
-                            ['{{ player.nickname }}', {{ player.herodmg }}],
-                        {% endif %}
-                    {% endfor %}
+                    {% for player in team2 %}['{{ player.nickname }}', {{ player.herodmg }}],{% endfor %}
                 ]
             }]
         });
@@ -300,6 +290,7 @@ $(function () {
 
 });
 </script>
+{% endif %}
 <script>
 $(function () {
         $('#lgpm').highcharts({
@@ -425,8 +416,8 @@ $(function () {
                 type: 'pie',
                 name: 'Kills',
                 data: [
-                    ['Hellbourne', ({% for p in players %}{% if p.team == 2%}+{{p.kills}}{%endif%}{% endfor %})],
-                    ['Legion', ({% for p in players %}{% if p.team == 1%}+{{p.kills}}{%endif%}{% endfor %})]
+                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.kills }}{% endfor %})],{% endif %}
+                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.kills }}{% endfor %})]{% endif %}
                 ]
             }]
         });
@@ -477,8 +468,8 @@ $(function () {
                 type: 'pie',
                 name: 'Deaths',
                 data: [
-                    ['Hellbourne', ({% for p in players %}{% if p.team == 2%}+{{p.xpm}}{%endif%}{% endfor %})],
-                    ['Legion', ({% for p in players %}{% if p.team == 1%}+{{p.xpm}}{%endif%}{% endfor %})]
+                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.xpm }}{% endfor %})],{% endif %}
+                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.xpm }}{% endfor %})]{% endif %}
                 ]
             }]
         });
@@ -525,8 +516,8 @@ $(function () {
                 type: 'pie',
                 name: 'Assists',
                 data: [
-                    ['Hellbourne', ({% for p in players %}{% if p.team == 2%}+{{p.assists}}{%endif%}{% endfor %})],
-                    ['Legion', ({% for p in players %}{% if p.team == 1%}+{{p.assists}}{%endif%}{% endfor %})]
+                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{p.assists}}{% endfor %})],{% endif %}
+                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{p.assists}}{% endfor %})]{% endif %}
                 ]
             }]
         });
@@ -573,8 +564,8 @@ $(function () {
                 type: 'pie',
                 name: 'Creeps',
                 data: [
-                    ['Hellbourne', ({% for p in players %}{% if p.team == 2%}+{{p.cs}}{%endif%}{% endfor %})],
-                    ['Legion', ({% for p in players %}{% if p.team == 1%}+{{p.cs}}{%endif%}{% endfor %})]
+                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.cs }}{% endfor %})],{% endif %}
+                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.cs }}{% endfor %})]{% endif %}
                 ]
             }]
         });
@@ -625,8 +616,8 @@ $(function () {
                 type: 'pie',
                 name: 'GPM',
                 data: [
-                    ['Hellbourne', ({% for p in players %}{% if p.team == 2%}+{{p.gpm}}{%endif%}{% endfor %})],
-                    ['Legion', ({% for p in players %}{% if p.team == 1%}+{{p.gpm}}{%endif%}{% endfor %})]
+                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.gpm }}{% endfor %})],{% endif %}
+                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.gpm }}{% endfor %})]{% endif %}
                 ]
             }]
         });
@@ -677,8 +668,8 @@ $(function () {
                 type: 'pie',
                 name: 'APM',
                 data: [
-                    ['Hellbourne', ({% for p in players %}{% if p.team == 2%}+{{p.apm}}{%endif%}{% endfor %})],
-                    ['Legion', ({% for p in players %}{% if p.team == 1%}+{{p.apm}}{%endif%}{% endfor %})]
+                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.apm }}{% endfor %})],{% endif %}
+                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.apm }}{% endfor %})]{% endif %}
                 ]
             }]
         });

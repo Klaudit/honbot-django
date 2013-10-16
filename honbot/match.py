@@ -15,6 +15,7 @@ def match_view(request, match_id):
     """
     match = Matches.objects.filter(match_id=match_id)
     if match.exists():
+        team1, team2, = [], []
         # get match and setup data for view
         match = match.values()[0]
         # get players and setup for view
@@ -23,7 +24,19 @@ def match_view(request, match_id):
             player['items'] = json.loads(player['items'])
             if player['kdr'] == 999:
                 player['kdr'] = "Inf"
-        return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players': players})
+            if player['team'] == 1:
+                team1.append(player)
+            else:
+                team2.append(player)
+            if len(team1) > 0:
+                t1exist = True
+            else:
+                t2exist = False
+            if len(team2) > 0:
+                t2exist = True
+            else:
+                t2exist = False
+        return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players': players, 'team1': team1, 'team2': team2, 't1exist': t1exist, 't2exist': t2exist})
     else:
         # grab solo match for fucks sake
         url = '/multi_match/all/matchids/' + str(match_id)

@@ -15,7 +15,7 @@
                     <h4 style="margin-bottom: 2px;">Winner</h4>{% if players.0.win %}Legion{% else %}Hellbourne{% endif %}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
-                    <h4 style="margin-bottom: 2px;">Type</h4>{{ match.mode }}
+                    <h4 style="margin-bottom: 2px;">Type</h4>{% if match.mode == "rnk" %}Ranked{% elif match.mode == "cs" %}Casual{% elif match.mode == "acc" %}Public{% endif %}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
                     <h4 style="margin-bottom: 2px;">Duration</h4>{{ match.realtime }}

@@ -17,8 +17,6 @@ def match_view(request, match_id):
     if match.exists():
         # get match and setup data for view
         match = match.values()[0]
-        # The time may be need to be subtracted by an hour? - Aug 26
-        match['date'] = datetime.datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
         # get players and setup for view
         players = PlayerMatches.objects.filter(match_id=match_id).order_by('position').values()
         for player in players:

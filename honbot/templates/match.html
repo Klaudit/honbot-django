@@ -327,7 +327,6 @@ $(function () {
                     animation: false
                 }
             },
-            colors: ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29', '#ff44ab', '#727272', '#00a0da', '#006448', '#562507'],
             credits: {
                 enabled: false
             },
@@ -335,43 +334,53 @@ $(function () {
             {% for player in players%}
             {% if player.position == 0 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#002c9f'
             },{% endif %}
             {% if player.position == 1 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#00c19e'
             },{% endif %}
             {% if player.position == 2 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#770092'
             },{% endif %}
             {% if player.position == 3 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#f2d500'
             },{% endif %}
             {% if player.position == 4 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#ff7d29'
             },{% endif %}
             {% if player.position == 5 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#ff44ab'
             },{% endif %}
             {% if player.position == 6 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#727272'
             },{% endif %}
             {% if player.position == 7 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#00a0da'
             },{% endif %}
             {% if player.position == 8 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#006448'
             },{% endif %}
             {% if player.position == 9 %}{
                 name: '{{ player.nickname }}',
-                data: [{{ player.gpm }}]
+                data: [{{ player.gpm }}],
+                color: '#562507'
             }{% endif %}
             {% endfor %}]
         });

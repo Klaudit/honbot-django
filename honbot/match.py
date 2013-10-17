@@ -51,7 +51,9 @@ def match_view(request, match_id):
             if int(data[0][0]['cas']) == 1:
                 mode = "cs"
             if int(data[0][0]['nl']) == 0:
-                mode = "aac"
+                mode = "acc"
+            print mode
+            print "MODE PRINTED"
             multimatch(data, h, mode)
             return match_view(request, match_id)
         else:
@@ -63,7 +65,7 @@ def update_check(player, mode):
         result = PlayerStats.objects.filter(player_id=player)
     elif mode == 'cs':
         result = PlayerStatsCasual.objects.filter(player_id=player)
-    elif mode == 'aac':
+    elif mode == 'acc':
         result = PlayerStatsPublic.objects.filter(player_id=player)
     if result.exists():
         result = result.values('updated')[0]
@@ -83,7 +85,7 @@ def update_player(pid, mode):
         url = "/player_statistics/ranked/accountid/" + str(pid)
     elif mode == 'cs':
         url = '/player_statistics/casual/accountid/' + str(pid)
-    elif mode == 'aac':
+    elif mode == 'acc':
         url = '/player_statistics/public/accountid/' + str(pid)
     data = api_call.get_json(url)
     p = player_math(data, mode)

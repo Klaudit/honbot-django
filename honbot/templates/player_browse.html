@@ -14,35 +14,36 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row">
-        <div style="margin-top:-20px;" class="col-lg-12">
-            <div class="box box-color box-bordered">
-                <div class="box-title">
-                    <h3>
-                        <i class="icon-table"></i>
-                        Player Browse
-                    </h3>
-                </div>
-                <div class="box-content nopadding">
-                    <table class="table-nomargin table-bordered dataTable dataTable-noheader dataTable-nofooter" id="players">
-                        <thead>
-                            <tr>
-                                <th>Nickname</th>
-                                <th>MMR</th>
-                                <th>TSR</th>
-                                <th>Wins</th>
-                                <th>Loss</th>
-                                <th>Kills</th>
-                                <th>Deaths</th>
-                                <th>KDR</th>
-                                <th>APM</th>
-                                <th>GPM</th>
-                                <th>XPM</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+<div class="row">
+    <div style="margin-top:-20px;" class="col-lg-12">
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-table"></i>
+                    Player Browse
+                </h3>
+            </div>
+            <div class="box-content nopadding">
+                <table class="table-nomargin table-bordered dataTable dataTable-noheader dataTable-nofooter" id="players">
+                    <thead>
+                        <tr>
+                            <th>Nickname</th>
+                            <th>MMR</th>
+                            <th>TSR</th>
+                            <th>Wins</th>
+                            <th>Loss</th>
+                            <th>Kills</th>
+                            <th>Deaths</th>
+                            <th>KDR</th>
+                            <th>APM</th>
+                            <th>GPM</th>
+                            <th>XPM</th>
+                            <th>Hours</th>
+                            <th>Annihil</th>
+                            <th>Updated</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
@@ -69,6 +70,9 @@ $(document).ready(function() {
         } ],
         "aoColumns": [
       { "asSorting": [ "asc", "desc" ] },
+      { "asSorting": [ "desc", "asc" ] },
+      { "asSorting": [ "desc", "asc" ] },
+      { "asSorting": [ "desc", "asc" ] },
       { "asSorting": [ "desc", "asc" ] },
       { "asSorting": [ "desc", "asc" ] },
       { "asSorting": [ "desc", "asc" ] },

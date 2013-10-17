@@ -131,8 +131,7 @@ class PlayerStats(models.Model):
 
 
 class PlayerStatsCasual(models.Model):
-    player_id = models.PositiveIntegerField(
-        primary_key=True, null=False, unique=True)
+    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
     nickname = models.CharField(max_length=30, default="")
     updated = models.DateTimeField(auto_now=True, default=0)
     cccalls = models.PositiveIntegerField(default=0)
@@ -189,8 +188,7 @@ class PlayerStatsCasual(models.Model):
 
 
 class PlayerStatsPublic(models.Model):
-    player_id = models.PositiveIntegerField(
-        primary_key=True, null=False, unique=True)
+    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
     nickname = models.CharField(max_length=30, default="")
     updated = models.DateTimeField(auto_now=True, default=0)
     cccalls = models.PositiveIntegerField(default=0)

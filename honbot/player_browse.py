@@ -10,7 +10,7 @@ class PlayerList(BaseDatatableView):
     model = PlayerStats
 
     # define the columns that will be returned
-    columns = ['nickname', 'mmr', 'TSR', 'wins', 'losses', 'kills', 'deaths', 'kdr', 'aactionsmin', 'agoldmin', 'axpmin']
+    columns = ['nickname', 'mmr', 'TSR', 'wins', 'losses', 'kills', 'deaths', 'kdr', 'aactionsmin', 'agoldmin', 'axpmin', 'hours', 'ks15', 'updated']
 
     # define column names that will be used in sorting
     # order is important and should be same as order of columns
@@ -55,5 +55,8 @@ class PlayerList(BaseDatatableView):
                 item.aactionsmin,
                 item.agoldmin,
                 item.axpmin,
+                item.hours,
+                item.ks15,
+                item.updated,
             ])
         return json_data

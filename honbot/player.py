@@ -51,18 +51,23 @@ def player_view(request, name, mode, url, p):
 
 
 def tooltip_ranked(request, account_id):
-    avatar = PlayerIcon.objects.get(player_id=account_id)
     player = PlayerStats.objects.get(player_id=account_id)
-    return render_to_response('player_tooltip.html', {'player': player, 'avatar': avatar})
+    return tooltip(request, account_id, player)
 
 def tooltip_casual(request, account_id):
-    avatar = PlayerIcon.objects.get(player_id=account_id)
     player = PlayerStatsCasual.objects.get(player_id=account_id)
-    return render_to_response('player_tooltip.html', {'player': player, 'avatar': avatar})
+    return tooltip(request, account_id, player)
 
 def tooltip_public(request, account_id):
-    avatar = PlayerIcon.objects.get(player_id=account_id)
     player = PlayerStatsPublic.objects.get(player_id=account_id)
+    return tooltip(request, account_id, player)
+
+def tooltip(request, account_id, player):
+    try:
+        avatar = PlayerIcon.objects.get(player_id=account_id)
+    except:
+        avatar = {}
+        avatar['avatar'] = "/static/img/default_avatar.png"
     return render_to_response('player_tooltip.html', {'player': player, 'avatar': avatar})
 
 

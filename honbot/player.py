@@ -55,6 +55,16 @@ def tooltip_ranked(request, account_id):
     player = PlayerStats.objects.get(player_id=account_id)
     return render_to_response('player_tooltip.html', {'player': player, 'avatar': avatar})
 
+def tooltip_casual(request, account_id):
+    avatar = PlayerIcon.objects.get(player_id=account_id)
+    player = PlayerStatsCasual.objects.get(player_id=account_id)
+    return render_to_response('player_tooltip.html', {'player': player, 'avatar': avatar})
+
+def tooltip_public(request, account_id):
+    avatar = PlayerIcon.objects.get(player_id=account_id)
+    player = PlayerStatsPublic.objects.get(player_id=account_id)
+    return render_to_response('player_tooltip.html', {'player': player, 'avatar': avatar})
+
 
 @cache_page(10000)
 def distribution(requst):

@@ -3,7 +3,7 @@ import api_call
 import time
 import datetime
 from django.shortcuts import render_to_response
-from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats
+from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic
 from django.db.models import F
 from error import error
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -39,7 +39,7 @@ def match_view(request, match_id):
                 t2exist = True
             else:
                 t2exist = False
-            thread.start_new_thread(update_array, (player['player_id'], match['mode']))
+            thread.start_new_thread(update_check, (player['player_id'], match['mode']))
         return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players': players, 'team1': team1, 'team2': team2, 't1exist': t1exist, 't2exist': t2exist})
     else:
         # grab solo match for fucks sake
@@ -53,8 +53,13 @@ def match_view(request, match_id):
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
 
 
-def update_array(player, mode):
-    result = PlayerStats.objects.filter(player_id=player)
+def update_check(player, mode):
+    if mode == 'rnk':
+        result = PlayerStats.objects.filter(player_id=player)
+    elif mode == 'cs':
+        result = PlayerStatsCasual.objects.filter(player_id=player)
+    elif mode == 'aac':
+        result = PlayerStatsPublic.objects.filter(player_id=player)
     if result.exists():
         result = result.values('updated')[0]
         tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(result['updated']), "%Y-%m-%d %H:%M:%S")

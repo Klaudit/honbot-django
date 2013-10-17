@@ -46,7 +46,7 @@ def banner_view(request, name):
         data = get_json(url)
         if data is not None:
             statsdict = data
-            s = player_math(statsdict, name, "rnk")
+            s = player_math(statsdict, "rnk")
             player_save(s, "rnk")
             response = HttpResponse(mimetype="image/png")
             img = banner(s)

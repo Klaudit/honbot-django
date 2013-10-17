@@ -47,7 +47,12 @@ def match_view(request, match_id):
         data = api_call.get_json(url)
         h = [str(match_id)]
         if data is not None:
-            multimatch(data, h, "rnk")
+            mode = "rnk"
+            if int(data[0][0]['cas']) == 1:
+                mode = "cs"
+            if int(data[0][0]['nl']) == 0:
+                mode = "aac"
+            multimatch(data, h, mode)
             return match_view(request, match_id)
         else:
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")

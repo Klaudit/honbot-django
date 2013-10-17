@@ -65,7 +65,7 @@
                     <tr class="player-{{ player.position }}-row">
                         <td>
                             <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'>
-                            <a href="/player/{{ player.nickname }}/" class="player-hover" data-trigger="hover" data-poload="/ptip/{{ player.player_id }}/">
+                            <a href="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/player/{{ player.nickname }}/" class="player-hover" data-trigger="hover" data-poload="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/ptip/{{ player.player_id }}/">
                                 {{ player.nickname }}
                             </a>
                         </td>
@@ -95,7 +95,7 @@
                     <tr class="player-{{ player.position }}-row">
                         <td>
                             <img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_128.jpg'>
-                            <a href="/player/{{ player.nickname }}/" class="player-hover" data-trigger="hover" data-poload="/ptip/{{ player.player_id }}/">
+                            <a href="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/player/{{ player.nickname }}/" class="player-hover" data-trigger="hover" data-poload="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/ptip/{{ player.player_id }}/">
                                 {{ player.nickname }}
                             </a>
                         </td>

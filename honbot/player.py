@@ -1,5 +1,5 @@
 import api_call
-from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount
+from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
 from error import error
 import datetime
 from django.db.models import F
@@ -29,8 +29,7 @@ def player_public(request, name):
 def player_view(request, name, mode, url, p):
     if p.exists():
         p = p.values()[0]
-        tdelta = datetime.datetime.now() - datetime.datetime.strptime(
-            str(p['updated']), "%Y-%m-%d %H:%M:%S")
+        tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(p['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 900:
             new = False
             data = True
@@ -44,7 +43,7 @@ def player_view(request, name, mode, url, p):
         data = api_call.get_json(url)
     if data is not None:
         if new:
-            p = player_math(data, name, mode)
+            p = player_math(data, mode)
             player_save(p, mode)
         return render_to_response('player.html', {'stats': p, 'mode': mode, 'view': "player"})
     else:
@@ -52,8 +51,9 @@ def player_view(request, name, mode, url, p):
 
 
 def tooltip_ranked(request, account_id):
-    player = PlayerStats.objects.filter(player_id=account_id)[0]
-    return render_to_response('player_tooltip.html', {'player': player})
+    avatar = PlayerIcon.objects.get(player_id=account_id)
+    player = PlayerStats.objects.get(player_id=account_id)
+    return render_to_response('player_tooltip.html', {'player': player, 'avatar': avatar})
 
 
 @cache_page(10000)
@@ -79,7 +79,6 @@ def player_save(stats, mode):
         p = PlayerStatsPublic
     elif mode == "cs":
         p = PlayerStatsCasual
-    print stats['ks9']
     p(player_id=stats['player_id'], nickname=stats['nickname'],
         cccalls=stats['cccalls'], deaths=stats['deaths'], cc=stats['cc'],
         assists=stats['assists'], TSR=stats['TSR'], kdr=stats['kdr'],
@@ -115,7 +114,7 @@ def divide(num1, num2, rounder):
     return answer
 
 
-def player_math(data, nick, mode):
+def player_math(data, mode):
     """
     This will get all the right information for the players view and store it in dict
     returns dict
@@ -123,10 +122,7 @@ def player_math(data, nick, mode):
     """
     stats = {}
     stats['player_id'] = int(data['account_id'])  # account id
-    try:
-        stats['nickname'] = str(data['nickname'])  # name
-    except:
-        stats['nickname'] = nick
+    stats['nickname'] = str(data['nickname'])  # name
     stats['matches'] = int(data[mode + '_games_played'])  # matches
     stats['wins'] = int(data[mode + '_wins'])  # wins
     stats['losses'] = int(data[mode + '_losses'])  # losses

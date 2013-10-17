@@ -61,8 +61,7 @@ class PlayerMatches(models.Model):
 
 
 class PlayerIcon(models.Model):
-    player_id = models.PositiveIntegerField(
-        primary_key=True, null=False, unique=True, db_index=True)
+    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
     avatar = models.URLField(max_length=300, default="")
     updated = models.DateTimeField(auto_now=True, default=0)
 
@@ -75,8 +74,7 @@ class PlayerHistory(models.Model):
 
 
 class PlayerStats(models.Model):
-    player_id = models.PositiveIntegerField(
-        primary_key=True, null=False, unique=True, db_index=True)
+    player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
     nickname = models.CharField(max_length=30, default="", db_index=True)
     updated = models.DateTimeField(auto_now=True, default=0)
     cccalls = models.PositiveIntegerField(default=0)

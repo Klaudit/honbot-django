@@ -11,7 +11,7 @@ def avatar(request, number, width):
     if p.exists():
         tdelta = datetime.now() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.days < 20:
-            return HttpResponse('<img style="width:' + width + 'px;" src="' + p.values('avatar')[0]['avatar'] + '">')
+            return HttpResponse('<img style="width:' + str(width) + 'px;" src="' + p.values('avatar')[0]['avatar'] + '">')
     opener = urllib2.build_opener()
     curl = settings.PHP
     opener.addheaders.append(('Cookie', curl))
@@ -21,10 +21,10 @@ def avatar(request, number, width):
         img = soup.find("img", {"alt": "Account Icon"})['src']
     except:
         PlayerIcon(player_id=number, avatar="/static/img/default_avatar.png").save()
-        return HttpResponse('<img style="width:' + width + 'px;" src="/static/img/default_avatar.png">')
+        return HttpResponse('<img style="width:' + str(width) + 'px;" src="/static/img/default_avatar.png">')
     if img and img != "http://forums.heroesofnewerth.com/":
         PlayerIcon(player_id=number, avatar=str(img)).save()
-        return HttpResponse('<img style="width:' + width + 'px;" src="' + img + '">')
+        return HttpResponse('<img style="width:' + str(width) + 'px;" src="' + img + '">')
     else:
         PlayerIcon(player_id=number, avatar="/static/img/default_avatar.png").save()
-        return HttpResponse('<img style="width:' + width + 'px;" src="/static/img/default_avatar.png">')
+        return HttpResponse('<img style="width:' + str(width) + 'px;" src="/static/img/default_avatar.png">')

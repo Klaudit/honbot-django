@@ -3,10 +3,13 @@ import api_call
 import time
 import datetime
 from django.shortcuts import render_to_response
-from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount
+from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats
 from django.db.models import F
 from error import error
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from player import player_math, player_save
+from avatar import avatar
+import thread
 
 
 def match_view(request, match_id):
@@ -15,12 +18,13 @@ def match_view(request, match_id):
     """
     match = Matches.objects.filter(match_id=match_id)
     if match.exists():
-        team1, team2, = [], []
+        team1, team2, update = [], [], []
         # get match and setup data for view
         match = match.values()[0]
         # get players and setup for view
         players = PlayerMatches.objects.filter(match_id=match_id).order_by('position').values()
         for player in players:
+            update.append(player['player_id'])
             player['items'] = json.loads(player['items'])
             if player['kdr'] == 999:
                 player['kdr'] = "Inf"
@@ -36,6 +40,7 @@ def match_view(request, match_id):
                 t2exist = True
             else:
                 t2exist = False
+        thread.start_new_thread(update_array, (update, match['mode']))
         return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players': players, 'team1': team1, 'team2': team2, 't1exist': t1exist, 't2exist': t2exist})
     else:
         # grab solo match for fucks sake
@@ -47,6 +52,35 @@ def match_view(request, match_id):
             return match_view(request, match_id)
         else:
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
+
+
+def update_array(players, mode):
+    for player in players:
+        result = PlayerStats.objects.filter(player_id=player)
+        if result.exists():
+            result = result.values('updated')[0]
+            tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(result['updated']), "%Y-%m-%d %H:%M:%S")
+            if tdelta.seconds + (tdelta.days * 86400) > 8640:
+                print tdelta.seconds + (tdelta.days * 86400)
+                print player
+                avatar(None, player, 10)
+                update_player(player, mode)
+        else:
+            avatar(None, player, 10)
+            update_player(player, mode)
+
+
+def update_player(pid, mode):
+    if mode == 'rnk':
+        url = "/player_statistics/ranked/accountid/" + str(pid)
+    elif mode == 'cs':
+        url = '/player_statistics/casual/accountid/' + str(pid)
+    elif mode == 'aac':
+        url = '/player_statistics/public/accountid/' + str(pid)
+    data = api_call.get_json(url)
+    p = player_math(data, mode)
+    player_save(p, mode)
+
 
 
 def match_save(data, match_id, mode):

@@ -248,6 +248,7 @@ body {
 .ptip-header{
   padding: 9px 6px;
   margin:-10px -15px 0px -15px;
+  padding-bottom: 3px;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
   border-radius: 5px 5px 0 0;
@@ -265,6 +266,7 @@ body {
 .ptip-header img{
   margin-top: -5px;
   margin-right: 4px;
+  padding-bottom: -10px;
 }
 .table-match th, .table-match td{
   text-align: center;

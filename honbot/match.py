@@ -52,8 +52,6 @@ def match_view(request, match_id):
                 mode = "cs"
             if int(data[0][0]['nl']) == 0:
                 mode = "acc"
-            print mode
-            print "MODE PRINTED"
             multimatch(data, h, mode)
             return match_view(request, match_id)
         else:
@@ -71,8 +69,6 @@ def update_check(player, mode):
         result = result.values('updated')[0]
         tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(result['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) > 8640:
-            print tdelta.seconds + (tdelta.days * 86400)
-            print player
             avatar(None, player, 10)
             update_player(player, mode)
     else:

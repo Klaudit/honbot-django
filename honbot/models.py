@@ -253,14 +253,12 @@ class PlayerHeroStats(models.Model):
 
 
 class Chat(models.Model):
-    match_id = models.PositiveIntegerField(
-        primary_key=True, null=False, unique=True, db_index=True)
+    match_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
     json = models.TextField(default="")
 
 
 class Builds(models.Model):
-    match_id = models.PositiveIntegerField(
-        null=False, default=1, db_index=True)
+    match_id = models.PositiveIntegerField(null=False, default=1, db_index=True)
     hero = models.PositiveSmallIntegerField(default=0, db_index=True)
     json = models.TextField(default="")
     nickname = models.CharField(max_length=30, default="")
@@ -295,24 +293,20 @@ class Builds(models.Model):
 
 
 class PlayerCount(models.Model):
-    date = models.DateField(
-        primary_key=True, auto_now=True, unique=True, db_index=True)
+    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)
 
 
 class MatchCount(models.Model):
-    date = models.DateField(
-        primary_key=True, auto_now=True, unique=True, db_index=True)
+    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)
 
 
 class PlayerMatchCount(models.Model):
-    date = models.DateField(
-        primary_key=True, auto_now=True, unique=True, db_index=True)
+    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)
 
 
 class APICount(models.Model):
-    date = models.DateField(
-        primary_key=True, auto_now=True, unique=True, db_index=True)
+    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)

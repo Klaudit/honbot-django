@@ -187,12 +187,11 @@ $(document).ready(function() {
     setTimeout(function(){
         $('.player-hover').each(function() {
             var e=$(this);
-            e.unbind('mouseenter');
             $.get(e.data('poload'),function(d) {
                 e.popover({content: d, html: true, delay: { show: 100, hide: 0 }});
             });
         });
-    }, 500);
+    }, 1000);
 });
 </script>
 <script src="/static/js/highcharts.js"></script>

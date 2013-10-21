@@ -113,6 +113,8 @@ class honlog:
                 difference = 25 - len(build)
                 for d in range(difference):
                     build.append(0)
+                if len(build) > 25:
+                    build = build[:25]
                 b = Builds(match_id=self.match_id, json=json.dumps(build[:25-difference]),
                            hero=self.heroes[index], nickname=self.names[index],
                            mmr=self.psr[index], win=self.win[index], position=index,

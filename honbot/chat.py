@@ -1,5 +1,5 @@
 import logparse
-from honbot.models import Chat, Matches
+from honbot.models import Chat, Matches, PlayerMatches
 from django.shortcuts import redirect
 from datetime import datetime, timedelta
 from error import error
@@ -14,15 +14,9 @@ def chat_view(request, match_id):
             chat = chat[0]
             match = match[0]
             match['date'] = datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
-            # this needs to be a template
-            if match['mode'] == "rnk":
-                match['mode'] = "Ranked"
-            elif match['mode'] == "cs":
-                match['mode'] = "Casual"
-            elif match['mode'] == "acc":
-                match['mode'] = "Public"
             chat['json'] = json.loads(chat['json'])
-            return render_to_response('chat.html', {'chat': chat['json'], 'match':match})
+            players = PlayerMatches.objects.filter(match=match_id).order_by('position')
+            return render_to_response('chat.html', {'chat': chat['json'], 'match':match, 'players':players})
         else:
             if logparse.download(match_id, match[0]['replay_url']):
                 if logparse.parse(match_id):

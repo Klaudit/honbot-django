@@ -13,16 +13,10 @@ def build_view(request, match_id):
         if builds.exists():
             match = match[0]
             match['date'] = datetime.datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
-            # this needs to be a template
-            if match['mode'] == "rnk":
-                match['mode'] = "Ranked"
-            elif match['mode'] == "cs":
-                match['mode'] = "Casual"
-            elif match['mode'] == "acc":
-                match['mode'] = "Public"
+            players = PlayerMatches.objects.filter(match=match_id).order_by('position')
             for build in builds:
                 build['json'] = json.loads(build['json'])
-            return render_to_response('build.html', {'builds': builds, 'match':match})
+            return render_to_response('build.html', {'builds': builds, 'match':match, 'players':players})
         else:
             if logparse.download(match_id, match[0]['replay_url']):
                 if logparse.parse(match_id):

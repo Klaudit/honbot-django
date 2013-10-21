@@ -1,15 +1,12 @@
-import requests
+from requests import get, exceptions
 from time import sleep
 from django.conf import settings
 from honbot.models import APICount
 from django.db.models import F
-import datetime
+from datetime import date
 
 
 def get_json(endpoint):
-    """
-     returns json data for requested digg endpoint
-    """
     apicount()
     url = ''.join(['http://api.heroesofnewerth.com', endpoint, '/?token=%s' % settings.TOKEN])
     raw = ''
@@ -17,12 +14,12 @@ def get_json(endpoint):
     while True:
         count = 0
         try:
-            raw = requests.get(url, timeout=0.8)
-        except requests.exceptions.Timeout:
+            raw = get(url, timeout=0.8)
+        except exceptions.Timeout:
             count += 1
             try:
-                raw = requests.get(url, timeout=2)
-            except requests.exceptions.Timeout:
+                raw = get(url, timeout=2)
+            except exceptions.Timeout:
                 return None
         if raw.status_code == 429 and count < 5:
             count += 1
@@ -35,9 +32,6 @@ def get_json(endpoint):
 
 
 def pure(endpoint):
-    """
-    returns data for requested digg endpoint
-    """
     apicount()
     url = ''.join(['http://api.heroesofnewerth.com', endpoint, '/?token=%s' % settings.TOKEN])
     raw = ''
@@ -45,8 +39,8 @@ def pure(endpoint):
     while True:
         count = 0
         try:
-            raw = requests.get(url, timeout=0.5)
-        except requests.exceptions.Timeout:
+            raw = get(url, timeout=0.5)
+        except exceptions.Timeout:
             count += 1
         if raw.status_code == 429 and count < 2:
             count += 1
@@ -58,7 +52,7 @@ def pure(endpoint):
     return raw
 
 def apicount():
-    today = datetime.date.today().strftime("%Y-%m-%d")
+    today = date.today().strftime("%Y-%m-%d")
     current_count = APICount.objects.filter(date=today)
     if current_count.exists():
         current_count.update(count=F('count') + 1)

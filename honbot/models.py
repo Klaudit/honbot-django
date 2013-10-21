@@ -310,3 +310,17 @@ class PlayerMatchCount(models.Model):
 class APICount(models.Model):
     date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)
+
+class HeroAll(models.Model):
+    hero_id = models.PositiveSmallIntegerField(primary_key=True, unique=True, db_index=True)
+    disp_name = models.TextField(default="")
+    description = models.TextField(default="")
+    primaryattribute = models.TextField(default="")
+    attacktype = models.TextField(default="")
+    team = models.TextField(default="")
+
+class HeroUseage(models.Model):
+    date = models.DateField(auto_now=True, db_index=True)
+    hero_id = models.PositiveSmallIntegerField(default=0, db_index=True)
+    usage = models.PositiveIntegerField(default=0)
+

@@ -38,6 +38,21 @@ body {
 -------------------------------------------------- */
 body {
   background-color: #e7ebf2;
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: bold;
 }
 .navbar-inverse{
   padding-top: 0;
@@ -167,7 +182,6 @@ body {
 .nav-pills > li > a{
   background-color: #cbcfd6;
   color: #000;
-  font-weight: 400;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   margin-right: 6px;

@@ -1,6 +1,6 @@
 <h4 class="ptip-header"><img style="width: 30px" src="{{ avatar.avatar }}">{{ player.nickname }}</h4>
 <ul class="list-unstyled ptip-body">
 	<li class="text-center"><span class="text-success">{{ player.wins }}</span> - <span class="text-danger">{{ player.losses }}</span> - {{ player.winpercent }}</li>
-	<li class="text-center">MMR - {{ player.mmr }}</li>
-	<li class="text-center">KDR - {{ player.kdr }}</li>
+	<li class="text-center">MMR - <span class="text-info">{{ player.mmr }}</span></li>
+	<li class="text-center">KDR - <span class="{% if player.kdr >= 1 %}text-success{% elif player.kdr < 1 and player.kdr > .5 %}text-warning{% else %}text-danger{% endif %}">{{ player.kdr }}</span></li>
 </ul>

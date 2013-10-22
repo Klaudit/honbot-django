@@ -1,7 +1,7 @@
 import json
 import api_call
 import time
-import datetime
+from datetime import timedelta, datetime, date
 from django.shortcuts import render_to_response
 from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic
 from django.db.models import F
@@ -67,7 +67,7 @@ def update_check(player, mode):
         result = PlayerStatsPublic.objects.filter(player_id=player)
     if result.exists():
         result = result.values('updated')[0]
-        tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(result['updated']), "%Y-%m-%d %H:%M:%S")
+        tdelta = datetime.now() - datetime.strptime(str(result['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) > 8640:
             avatar(None, player, 10)
             update_player(player, mode)
@@ -159,7 +159,7 @@ def match_save(data, match_id, mode):
 
 
 def update_match_count():
-    today = datetime.date.today().strftime("%Y-%m-%d")
+    today = date.today().strftime("%Y-%m-%d")
     current_count = MatchCount.objects.filter(date=today)
     if current_count.exists():
         current_count.update(count=F('count') + 1)
@@ -169,7 +169,7 @@ def update_match_count():
 
 
 def update_players_in_matches(count):
-    today = datetime.date.today().strftime("%Y-%m-%d")
+    today = date.today().strftime("%Y-%m-%d")
     current_count = PlayerMatchCount.objects.filter(date=today)
     if current_count.exists():
         current_count.update(count=F('count') + count)
@@ -197,8 +197,7 @@ def recent(request):
             "hero", "team", "win").order_by('position')
         m['legion'] = []
         m['hellbourne'] = []
-        m['date'] = datetime.datetime.strptime(
-            str(m['date']), '%Y-%m-%d %H:%M:%S') - datetime.timedelta(hours=1)
+        m['date'] = datetime.strptime(str(m['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
         for p in players:
             if p['team'] == 1:
                 m['legion'].append(p['hero'])

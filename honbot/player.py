@@ -2,10 +2,10 @@ from django.db.models import F
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
-from error import error
-from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
 from api_call import get_json
 from datetime import date, datetime
+from error import error
+from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
 from numpy import histogram
 
 

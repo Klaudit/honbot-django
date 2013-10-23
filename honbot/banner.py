@@ -1,13 +1,11 @@
-from PIL import ImageFont
-from PIL import Image
-from PIL import ImageDraw
-from time import time
-from os import remove, path
-from django.http import HttpResponse
 from api_call import get_json
-from player import player_math, player_save
-from honbot.models import PlayerStats
 from datetime import datetime
+from django.http import HttpResponse
+from honbot.models import PlayerStats
+from os import remove, path
+from PIL import Image, ImageDraw, ImageFont
+from player import player_math, player_save
+from time import time
 
 
 directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'banners')) + '/'

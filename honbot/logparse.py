@@ -1,12 +1,11 @@
-# this file is replaceing magic.py
-import re
-from os import path, remove
+from codecs import open as op
 from honbot.models import Chat, Builds, PlayerMatches
-import requests
-import codecs
-from zipfile import ZipFile
+from json import dumps
+from os import path, remove
+from re import sub
+from requests import get
 from time import strftime, gmtime
-import json
+from zipfile import ZipFile
 
 directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'match')) + '/'
 
@@ -14,7 +13,7 @@ directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'm
 def download(match_id, url):
     url = url[:-9] + 'zip'
     # download file
-    r = requests.get(url)
+    r = get(url)
     if r.status_code == 404:
         return False
     # write zip file to directory
@@ -74,7 +73,7 @@ class honlog:
             self.win[p['position']] = p['win']
 
     def open_file(self):
-        self.logfile = codecs.open(directory + 'm' + self.match_id + '.log', encoding='utf-16-le', mode='rb').readlines()
+        self.logfile = op(directory + 'm' + self.match_id + '.log', encoding='utf-16-le', mode='rb').readlines()
         self.INFO_DATE(self.logfile.pop(0))
 
     def INFO_DATE(self, line):
@@ -106,7 +105,7 @@ class honlog:
             self.spectators[position] = name
 
     def save(self):
-        c = Chat(match_id=self.match_id, json=json.dumps(self.msg))
+        c = Chat(match_id=self.match_id, json=dumps(self.msg))
         c.save()
         for index, build in enumerate(self.builds):
             if len(build) != 0 and self.heroes[index] != 0:
@@ -115,7 +114,7 @@ class honlog:
                     build.append(0)
                 if len(build) > 25:
                     build = build[:25]
-                b = Builds(match_id=self.match_id, json=json.dumps(build[:25-difference]),
+                b = Builds(match_id=self.match_id, json=dumps(build[:25-difference]),
                            hero=self.heroes[index], nickname=self.names[index],
                            mmr=self.psr[index], win=self.win[index], position=index,
                            lvl1=build[0], lvl2=build[1], lvl3=build[2], lvl4=build[3],
@@ -147,7 +146,7 @@ class honlog:
             l = line.split()
             ability = l[7].split('"')[1]
             if ability != 'Ability_AttributeBoost':
-                ability = int(re.sub("\D", "", ability)[-1:])
+                ability = int(sub("\D", "", ability)[-1:])
             else:
                 ability = 5
             self.builds[self.position(int(l[5].split(':')[1]))].append(ability)

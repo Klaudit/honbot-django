@@ -1,10 +1,9 @@
+from django.shortcuts import render_to_response, redirect
 from datetime import datetime, timedelta
-from django.shortcuts import redirect
-from django.shortcuts import render_to_response
 from error import error
 from honbot.models import Chat, Matches, PlayerMatches
-from logparse import download, parse
 from json import loads
+from logparse import download, parse
 
 def chat_view(request, match_id):
     match = Matches.objects.filter(match_id=match_id).values()

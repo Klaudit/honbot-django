@@ -40,15 +40,42 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-lg-3">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4 class="panel-title text-center">Controls</h4></div>
-            <div class="panel-body">
-                hello
-            </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="bs-docs-sidenav affix-top" data-spy="affix" data-offset-top="170">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4 class="panel-title text-center">Controls</h4></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                        <strong>Legion Chat</strong>
+                        <span class="pull-right">
+                            <div id="legion-switch" class="make-switch">
+                                <input type="checkbox" checked>
+                            </div>
+                        </span>
+                    </li>
+                        <li class="list-group-item"></li>
+                        <li class="list-group-item"></li>
+                        <li class="list-group-item"></li>
+                        <li class="list-group-item"></li>
+                    </ul>
+                </div>
+                <div class="panel panel-default text-center adsbygoogle hidden-xs hidden-sm">
+                    <div class="panel-heading"><span class="panel-title">Sponsored</span></div>
+                    <div class="panel-body">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- player page -->
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:160px;height:600px"
+                             data-ad-client="ca-pub-7640562161899788"
+                             data-ad-slot="3802411358"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-9 col-md-9">
             <div class="chat well well-sm">
                 {% for l in chat %}
                 <div class="chat-row">
@@ -64,4 +91,10 @@
 </div>
 <br>
 {% endblock main_content %}
+{%block js%}
+<script src="/static/js/bootstrap-switch.js"></script>
+<script>
+$('#legion-switch').bootstrapSwitch();
+</script>
+{% endblock js %}
 

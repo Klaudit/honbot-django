@@ -4,9 +4,9 @@ from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
 from error import error
 from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
-import api_call
-import datetime
-import numpy as np
+from api_call import get_json
+from datetime import date, datetime
+from numpy import histogram
 
 
 def player_ranked(request, name):
@@ -30,18 +30,18 @@ def player_public(request, name):
 def player_view(request, name, mode, url, p):
     if p.exists():
         p = p.values()[0]
-        tdelta = datetime.datetime.now() - datetime.datetime.strptime(str(p['updated']), "%Y-%m-%d %H:%M:%S")
+        tdelta = datetime.now() - datetime.strptime(str(p['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 900:
             new = False
             data = True
         else:
             new = True
-            data = api_call.get_json(url)
+            data = get_json(url)
     else:
         if mode is "rnk":
             update_player_count()
         new = True
-        data = api_call.get_json(url)
+        data = get_json(url)
     if data is not None:
         if new:
             p = player_math(data, mode)
@@ -92,8 +92,8 @@ def distribution(requst):
     for a in range(1, 90):
         count = count + 10
         bins.append(count)
-    mmr = np.histogram(mmr, bins=bins)
-    tsr = np.histogram(tsr, bins=20)
+    mmr = histogram(mmr, bins=bins)
+    tsr = histogram(tsr, bins=20)
     return render_to_response('distribution.html', {'mmr': mmr[0], 'mlable': mmr[1], 'tsr': tsr[0], 'tlable': tsr[1]})
 
 
@@ -122,7 +122,7 @@ def player_save(stats, mode):
 
 
 def update_player_count():
-    today = datetime.date.today().strftime("%Y-%m-%d")
+    today = date.today().strftime("%Y-%m-%d")
     current_count = PlayerCount.objects.filter(date=today)
     if current_count.exists():
         current_count.update(count=F('count') + 1)

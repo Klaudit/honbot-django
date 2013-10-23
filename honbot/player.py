@@ -1,11 +1,12 @@
-import api_call
-from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
-from error import error
-import datetime
 from django.db.models import F
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
-import numpy as np
 from django.views.decorators.cache import cache_page
+from error import error
+from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
+import api_call
+import datetime
+import numpy as np
 
 
 def player_ranked(request, name):
@@ -51,16 +52,25 @@ def player_view(request, name, mode, url, p):
 
 
 def tooltip_ranked(request, account_id):
-    player = PlayerStats.objects.get(player_id=account_id)
-    return tooltip(request, account_id, player)
+    try:
+        player = PlayerStats.objects.get(player_id=account_id)
+        return tooltip(request, account_id, player)
+    except:
+        return HttpResponse(status=202)
 
 def tooltip_casual(request, account_id):
-    player = PlayerStatsCasual.objects.get(player_id=account_id)
-    return tooltip(request, account_id, player)
+    try:
+        player = PlayerStatsCasual.objects.get(player_id=account_id)
+        return tooltip(request, account_id, player)
+    except:
+        return HttpResponse(status=202)
 
 def tooltip_public(request, account_id):
-    player = PlayerStatsPublic.objects.get(player_id=account_id)
-    return tooltip(request, account_id, player)
+    try:
+        player = PlayerStatsPublic.objects.get(player_id=account_id)
+        return tooltip(request, account_id, player)
+    except:
+        return HttpResponse(status=202)
 
 def tooltip(request, account_id, player):
     try:

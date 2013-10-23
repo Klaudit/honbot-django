@@ -68,7 +68,7 @@ def update_check(player, mode):
     if result.exists():
         result = result.values('updated')[0]
         tdelta = datetime.now() - datetime.strptime(str(result['updated']), "%Y-%m-%d %H:%M:%S")
-        if tdelta.seconds + (tdelta.days * 86400) > 8640:
+        if tdelta.seconds + (tdelta.days * 86400) > 12000:
             avatar(None, player, 10)
             update_player(player, mode)
     else:

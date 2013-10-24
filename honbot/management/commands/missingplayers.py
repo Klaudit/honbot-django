@@ -8,7 +8,11 @@ class Command(BaseCommand):
     help = 'This will find players that are missing and slam them into our database'
 
     def handle(self, *args, **options):
-        players = PlayerStats.objects.raw("""SELECT A.`player_id` FROM honbot_playerstats A LEFT JOIN honbot_playermatches B ON A.`player_id` = B.`player_id` WHERE B.`player_id` is NULL and A.`player_id` != 0""")
+        players = PlayerStats.objects.raw("""SELECT DISTINCT B.`player_id`
+                                             FROM honbot_playerstats A
+                                             RIGHT JOIN honbot_playermatches B
+                                             ON A.`player_id` = B.`player_id`
+                                             WHERE A.`player_id` is NULL""")
         count = 0
         for player in players:
             data = get_json('/player_statistics/ranked/accountid/' + str(player.player_id))

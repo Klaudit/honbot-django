@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from honbot.api_call import get_json
 from honbot.models import PlayerStats
 from honbot.player import player_math, player_save, update_player_count
+from time import sleep
 
 
 class Command(BaseCommand):
@@ -15,12 +16,13 @@ class Command(BaseCommand):
                                              WHERE A.`player_id` is NULL""")
         count = 0
         for player in players:
+            sleep(2)
             data = get_json('/player_statistics/ranked/accountid/' + str(player.player_id))
             if data != None:
                 data = player_math(data, 'rnk')
                 player_save(data, 'rnk')
                 update_player_count()
                 count += 1
-            if count >= 100:
+            if count >= 10000:
                 break
         self.stdout.write("success on " + str(count))

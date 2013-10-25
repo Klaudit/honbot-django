@@ -46,28 +46,40 @@
                     <div class="panel-heading"><h4 class="panel-title text-center">Controls</h4></div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                        <strong>Legion Chat</strong>
-                        <span class="pull-right">
-                            <div id="legion-switch" class="make-switch">
-                                <input type="checkbox" checked>
-                            </div>
-                        </span>
-                    </li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
+                            <strong class="text-success">Legion Chat</strong>
+                            <span class="pull-right">
+                                <div id="legion-switch" class="make-switch">
+                                    <input type="checkbox" checked>
+                                </div>
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-danger">Hellbourne Chat</strong>
+                            <span class="pull-right">
+                                <div id="hellbourne-switch" class="make-switch">
+                                    <input type="checkbox" checked>
+                                </div>
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-info">All Chat</strong>
+                            <span class="pull-right">
+                                <div id="all-chat-switch" class="make-switch">
+                                    <input type="checkbox" checked>
+                                </div>
+                            </span>
+                        </li>
                     </ul>
                 </div>
                 <div class="panel panel-default text-center adsbygoogle hidden-xs hidden-sm">
                     <div class="panel-heading"><span class="panel-title">Sponsored</span></div>
                     <div class="panel-body">
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- player page -->
+                        <!-- Chat page -->
                         <ins class="adsbygoogle"
                              style="display:inline-block;width:160px;height:600px"
                              data-ad-client="ca-pub-7640562161899788"
-                             data-ad-slot="3802411358"></ins>
+                             data-ad-slot="8896602152"></ins>
                         <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
@@ -78,7 +90,7 @@
         <div class="col-lg-9 col-md-9">
             <div class="chat well well-sm">
                 {% for l in chat %}
-                <div class="chat-row">
+                <div class="chat-row {% if l.target == 2 %}hellbourne{% elif l.target == 1 %}legion{% elif l.target == 3 %}all-chat{% endif %}">
                     <span class="chat-time">{{ l.time }}</span>
                     <span class="chat-team">{% if l.target == 2 %}<span class="text-danger">Hellbourne{% elif l.target == 1 %}<span class="text-success">Legion{% elif l.target == 3 %}<span class="text-info">All Chat{% endif %}</span></span>
                     <span class="chat-name player-{{ l.position }}"><img style="margin-top: -3px; width: 17px;" src='/static/img/heroes/{{ l.hero }}/icon_30.jpg'> <a href="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/player/{{l.name}}/">{{ l.name }}</a>:</span>
@@ -94,7 +106,22 @@
 {%block js%}
 <script src="/static/js/bootstrap-switch.js"></script>
 <script>
-$('#legion-switch').bootstrapSwitch();
+$('#legion-switch').bootstrapSwitch().bootstrapSwitch('setState', true);
+$('#legion-switch').on('switch-change', function (e, data) {
+    $('.legion').toggle();
+});
+</script>
+<script>
+$('#hellbourne-switch').bootstrapSwitch().bootstrapSwitch('setState', true);
+$('#hellbourne-switch').on('switch-change', function (e, data) {
+    $('.hellbourne').toggle();
+});
+</script>
+<script>
+$('#all-chat-switch').bootstrapSwitch().bootstrapSwitch('setState', true);
+$('#all-chat-switch').on('switch-change', function (e, data) {
+    $('.all-chat').toggle();
+});
 </script>
 {% endblock js %}
 

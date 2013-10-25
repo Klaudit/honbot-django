@@ -16,7 +16,7 @@ class Command(BaseCommand):
                                              WHERE A.`player_id` is NULL""")
         count = 0
         for player in players:
-            sleep(2)
+            sleep(1)
             data = get_json('/player_statistics/ranked/accountid/' + str(player.player_id))
             if data != None:
                 data = player_math(data, 'rnk')

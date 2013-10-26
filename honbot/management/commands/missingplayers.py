@@ -23,6 +23,6 @@ class Command(BaseCommand):
                 player_save(data, 'rnk')
                 update_player_count()
                 count += 1
-            if count >= 10:
+            if count >= 10000:
                 break
         self.stdout.write("success on " + str(count))

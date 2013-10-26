@@ -18,7 +18,7 @@ class Command(BaseCommand):
         for player in players:
             sleep(1)
             data = get_json('/player_statistics/ranked/accountid/' + str(player.player_id))
-            if data != None:
+            if data is not None:
                 data = player_math(data, 'rnk')
                 player_save(data, 'rnk')
                 update_player_count()

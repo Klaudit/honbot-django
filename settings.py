@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'honbot',
     'south',
     'pretty_times',
+    'django_cron'
 )
 
 TEMPLATE_DIRS = (
@@ -157,3 +158,10 @@ LOGGING = {
         },
     }
 }
+
+CRON_CLASSES = [
+    "honbot.tasks.missingplayers",
+    "honbot.tasks.heroes",
+    "honbot.tasks.herouse",
+    "honbot.tasks.removenullmatches",
+]

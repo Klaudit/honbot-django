@@ -13,9 +13,10 @@ __make sure you install everything in requirements.txt__ no known version specif
 
 ###honbot db
 Handled by [South](http://south.aeracode.org/)  
-Initial Setup 
+Initial Setup + use of django_cron
 
     python manage.py syncdb
+    python manage.py migrate django_cron
 Create Migrations for any db changes  
 
     python manage.py schemamigration honbot --auto  

@@ -21,8 +21,8 @@ def chat_view(request, match_id):
                 if parse(match_id):
                     return chat_view(request, match_id)
                 else:
-                    return error(request, "The chat logs had trouble somewhere. We all have bad days sometimes.")
+                    return error(request, "The chat logs had trouble somewhere.<br> We all have bad days sometimes. Sorry")
             else:
-                return error(request, "Match replay failed to download. It could be too old (28 days), too new, or S2 hates you")
+                return error(request, "Downloading the chat log failed.<br> It could be too old (28 days) or too new. Try again soon.")
     else:
         return redirect('/match/' + match_id + '/')

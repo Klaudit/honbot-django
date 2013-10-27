@@ -33,7 +33,7 @@ class herouse(CronJobBase):
 
 
 class removenullmatches(CronJobBase):
-    RUN_EVERY_MINS = 3 * 60 # every three hours
+    RUN_EVERY_MINS = 10 # every 10 minutes
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'honbot.removenullmatches'
 

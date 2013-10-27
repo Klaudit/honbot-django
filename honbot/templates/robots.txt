@@ -1,3 +1,6 @@
+User-agent: Mediapartners-Google
+Disallow:
+
 User-agent: *
 Crawl-delay: 3
 Disallow: /chart/
@@ -17,3 +20,4 @@ Disallow: /distribution/
 Disallow: /avatar/
 Disallow: /banner/
 Disallow: /sitestats/
+Disallow: /chat/

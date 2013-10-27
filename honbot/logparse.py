@@ -107,6 +107,10 @@ class honlog:
         else:
             self.spectators[position] = name
 
+    def HERO_DEATH(self, line):
+        print line
+
+
     def save(self):
         c = Chat(match_id=self.match_id, json=dumps(self.msg))
         c.save()

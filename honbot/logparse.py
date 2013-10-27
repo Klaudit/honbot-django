@@ -112,16 +112,22 @@ class honlog:
         """
         HERO_DEATH time:430300 x:2663 y:13571 z:128 player:7 team:1 attacker:"Hero_Legionnaire" owner:2
         [u'HERO_DEATH', u'time:3605100', u'x:8930', u'y:12665', u'z:128', u'player:7', u'team:1', u'attacker:"Hero_Ra"', u'owner:9']
+        [u'HERO_DEATH', u'time:235200', u'x:5017', u'y:12836', u'z:128', u'player:9', u'team:2', u'attacker:"Neutral_WolfCommander"']
         """
         l = line.split()
         kill = {}
         kill['kill'] = True
         kill['time'] = self.set_time(l[1].split(':')[1])
-        kill['killer'] = self.position(int(sub("\D", "", l[-1])))
+        try:
+            kill['killer'] = self.position(int(sub("\D", "", l[-1])))
+            kill['herokiller'] = self.heroes[kill['killer']]
+            kill['killername'] = self.names[kill['killer']]
+        except:
+            kill['killer'] = 42
+            kill['herokiller'] = 42
+            kill['killername'] = 42
         kill['killed'] = self.position(int(sub("\D", "", l[5])))
-        kill['herokiller'] = self.heroes[kill['killer']]
         kill['herokilled'] = self.heroes[kill['killed']]
-        kill['killername'] = self.names[kill['killer']]
         kill['killedname'] = self.names[kill['killed']]
         self.msg.append(kill)
 

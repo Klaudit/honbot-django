@@ -7,6 +7,7 @@ from requests import get
 from time import strftime, gmtime
 from zipfile import ZipFile
 
+
 directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'match')) + '/'
 
 
@@ -17,7 +18,7 @@ def download(match_id, url):
     if r.status_code == 404:
         return False
     # write zip file to directory
-    with open(directory + str(match_id) +".zip", "wb") as filesave:
+    with open(directory + str(match_id) + ".zip", "wb") as filesave:
         filesave.write(r.content)
     # unzip
     z = ZipFile(directory + str(match_id) + '.zip')
@@ -26,6 +27,7 @@ def download(match_id, url):
     # delete zip
     remove(directory + str(match_id) + '.zip')
     return True
+
 
 def parse(match_id):
     log = honlog(match_id)
@@ -37,13 +39,14 @@ def parse(match_id):
     log.delete()
     return True
 
+
 class honlog:
     def __init__(self, match_id):
         self.match_id = match_id
         self.real_order, self.order_convert, self.teams = {}, {}, {}
         self.logfile = file
         self.date, self.time = '', ''
-        self.names, self.psr, self.heroes, self.win, self.msg = [0]*10, [0]*10, [0]*10, [0]*10, []
+        self.names, self.psr, self.heroes, self.win, self.msg = [0] * 10, [0] * 10, [0] * 10, [0] * 10, []
         self.builds = [[] for i in range(10)]
 
     def run(self):
@@ -93,8 +96,8 @@ class honlog:
         """
         l = line.split()
         psr = int(float(l[-1].split(':')[1]))
-        name = l[2].split(':')[1][1:-1] # get name
-        name = name.split(']')[-1] # remove clan tag
+        name = l[2].split(':')[1][1:-1]  # get name
+        name = name.split(']')[-1]  # remove clan tag
         pid = str(l[-2].split(':')[1])
         if pid in self.real_order:
             position = int(l[1].split(':')[1])
@@ -114,7 +117,7 @@ class honlog:
                     build.append(0)
                 if len(build) > 25:
                     build = build[:25]
-                b = Builds(match_id=self.match_id, json=dumps(build[:25-difference]),
+                Builds(match_id=self.match_id, json=dumps(build[:25-difference]),
                            hero=self.heroes[index], nickname=self.names[index],
                            mmr=self.psr[index], win=self.win[index], position=index,
                            lvl1=build[0], lvl2=build[1], lvl3=build[2], lvl4=build[3],
@@ -122,8 +125,7 @@ class honlog:
                            lvl9=build[8], lvl10=build[9], lvl11=build[10], lvl12=build[11],
                            lvl13=build[12], lvl14=build[13], lvl15=build[14], lvl16=build[15],
                            lvl17=build[16], lvl18=build[17], lvl19=build[18], lvl20=build[19],
-                           lvl21=build[20], lvl22=build[21], lvl23=build[22], lvl24=build[23], lvl25=build[24])
-                b.save()
+                           lvl21=build[20], lvl22=build[21], lvl23=build[22], lvl24=build[23], lvl25=build[24]).save()
 
     def set_time(self, time):
         if int(time) < 3599999:

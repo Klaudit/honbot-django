@@ -115,6 +115,9 @@ h6,
     padding-right: 0;
     padding-left: 0;
 }
+.less-padding-list{
+  padding:8px 10px 8px 10px;
+}
 /* player view */
 .player-head {
     background-color: #2C3E50;
@@ -435,7 +438,18 @@ h6,
   padding-left: 1px;
   border-left:solid #562507;
 }
-
+.text-kill{
+  color: #4a4b4e;
+  font-style: italic;
+}
+.text-kill{
+  color: #b2b6bc;
+  font-style: italic;
+}
+.kill-row a, .kill-row{
+  color: #2f3031;
+  font-style: italic;
+}
 .chat-time{
   display: inline-block;
   min-width: 40px;
@@ -443,7 +457,7 @@ h6,
 }
 .chat-team{
   display: inline-block;
-  min-width: 70px;
+  min-width: 25px;
 }
 .chat-row{
   display: block;

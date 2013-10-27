@@ -6,6 +6,7 @@ from re import sub
 from requests import get
 from time import strftime, gmtime
 from zipfile import ZipFile
+from re import sub
 
 
 directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'match')) + '/'
@@ -108,7 +109,21 @@ class honlog:
             self.spectators[position] = name
 
     def HERO_DEATH(self, line):
-        print line
+        """
+        HERO_DEATH time:430300 x:2663 y:13571 z:128 player:7 team:1 attacker:"Hero_Legionnaire" owner:2
+        [u'HERO_DEATH', u'time:3605100', u'x:8930', u'y:12665', u'z:128', u'player:7', u'team:1', u'attacker:"Hero_Ra"', u'owner:9']
+        """
+        l = line.split()
+        kill = {}
+        kill['kill'] = True
+        kill['time'] = self.set_time(l[1].split(':')[1])
+        kill['killer'] = self.position(int(sub("\D", "", l[-1])))
+        kill['killed'] = self.position(int(sub("\D", "", l[5])))
+        kill['herokiller'] = self.heroes[kill['killer']]
+        kill['herokilled'] = self.heroes[kill['killed']]
+        kill['killername'] = self.names[kill['killer']]
+        kill['killedname'] = self.names[kill['killed']]
+        self.msg.append(kill)
 
 
     def save(self):

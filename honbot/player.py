@@ -30,25 +30,24 @@ def player_public(request, name):
 def player_view(request, name, mode, url, p):
     if p.exists():
         p = p.values()[0]
+        exists = True
         tdelta = datetime.now() - datetime.strptime(str(p['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 900:
-            new = False
-            data = True
-        else:
-            new = True
-            data = get_json(url)
+            return render_to_response('player.html', {'stats': p, 'mode': mode, 'view': "player"})
     else:
         if mode is "rnk":
             update_player_count()
-        new = True
-        data = get_json(url)
+    data = get_json(url)
     if data is not None:
-        if new:
-            p = player_math(data, mode)
-            player_save(p, mode)
+        p = player_math(data, mode)
+        player_save(p, mode)
         return render_to_response('player.html', {'stats': p, 'mode': mode, 'view': "player"})
     else:
-        return error(request, "S2 Servers down or name is incorrect. Try another name or gently refreshing the page.")
+        # server down, show old results
+        if exists:
+            return render_to_response('player.html', {'stats': p, 'mode': mode, 'view': "player", 'fallback': True})
+        else:
+            return error(request, "S2 Servers down or name is incorrect. Try another name or gently refreshing the page.")
 
 
 def tooltip_ranked(request, account_id):

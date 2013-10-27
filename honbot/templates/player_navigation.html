@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container hidden-sm hidden-xs">
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12">
             <ul class="nav nav-pills nav-justified">
                 <li {% if view == "player" %}class="active"{% endif %}>
                     <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player/{{ stats.nickname }}/">
@@ -15,6 +15,28 @@
                 </li>
                 <li>
                     <a href="#banner" type="button" data-toggle="modal">Stats Banner</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container hidden-lg hidden-md">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <ul class="nav nav-pills">
+                <li {% if view == "player" %}class="active"{% endif %}>
+                    <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player/{{ stats.nickname }}/">
+                        Stats
+                    </a>
+                </li>
+                <li {% if view == "chart" %}class="active"{% endif %}>
+                    <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/chart/{{ stats.nickname }}/">Charts</a>
+                </li>
+                <li {% if view == "player_hero" %}class="active"{% endif %}>
+                    <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero/{{ stats.nickname }}/">Hero Stats</a>
+                </li>
+                <li>
+                    <a href="#banner" type="button" data-toggle="modal">Banner</a>
                 </li>
             </ul>
         </div>

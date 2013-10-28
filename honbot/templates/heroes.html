@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block page_title %}{{ stats.nickname }} Heroes | HonBot {% endblock %}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="controls">
+                <h3>Team</h3>
+                <ul>
+                    <li class="filter" data-filter="all">Show All</li>
+                    <li class="filter" data-filter="Legion">Legion</li>
+                    <li class="filter" data-filter="Hellbourne">Hellbourne</li>
+                </ul>
+            </div>
+
+            <div class="controls">
+                <h3>Popularity</h3>
+                <ul>
+                    <li class="sort" data-sort="data-popularity" data-order="desc">Descending</li>
+                    <li class="sort" data-sort="data-popularity" data-order="asc">Ascending</li>
+                    <li class="sort active" data-sort="default" data-order="desc">Default</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <ul id="Grid">
+                {% for hero in heroes %}
+                <li class="mix {{ hero.team }}" data-popularity="{{ hero.popularity }}"><img style="width: 60px;" src="/static/img/heroes/{{ hero.hero_id }}/icon_128.jpg"</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% for hero in heroes %}
+{{ hero.hero_id }}
+{% endfor %}
+{% endblock %}
+{% block js%}
+<script src="/static/js/jquery.mixitup.js"></script>
+<script>
+$(function(){
+    $('#Grid').mixitup();
+});
+</script>
+{% endblock %}

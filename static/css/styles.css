@@ -1111,3 +1111,32 @@ span.ColVis_radio {
   border-radius: 0 6px 6px 0;
   border-color: #eee;
 }
+/* GRID for HEROES */
+#Grid .mix{
+  display: none;
+  opacity: 0;
+  width: 60px;
+  height: 60px;
+  vertical-align: top;
+  color: #fff;
+
+  font-size: 30px;
+  text-align: center;
+  line-height: 60px;
+}
+.controls{
+  display: inline-block;
+  width: 180px;
+  margin: 0 0 30px;
+  vertical-align: top;
+}
+
+.controls li{
+  margin-left: 20px;
+  cursor: pointer;
+  list-style-type: square;
+}
+
+.controls li.active{
+  font-weight: 700;
+}

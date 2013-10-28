@@ -61,4 +61,6 @@ urlpatterns = patterns(
     url(r'^sitestats/$', 'honbot.extra.stats'),
     # Robots.txt
     (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt")),
+    # heroes main page
+    url(r'^hero/$', 'honbot.heroes.main'),
 )

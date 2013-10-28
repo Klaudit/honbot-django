@@ -3,7 +3,7 @@ from django.core.management import call_command
 
 
 class missingplayers(CronJobBase):
-    RUN_EVERY_MINS = 6 * 60 # every 5 hours
+    RUN_EVERY_MINS = 10 # every 20 min
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'honbot.missingplayers'
 
@@ -33,7 +33,7 @@ class herouse(CronJobBase):
 
 
 class removenullmatches(CronJobBase):
-    RUN_EVERY_MINS = 10 # every 10 minutes
+    RUN_EVERY_MINS = 60 * 3 # every 3 hours
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'honbot.removenullmatches'
 

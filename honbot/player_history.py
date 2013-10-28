@@ -30,14 +30,15 @@ def history(request, account_id, mode, url, page):
 	if phistory.exists():
 		# find age
 		existing = phistory.values()[0]
+		old = existing['id']
 		tdelta = datetime.now() - datetime.strptime(str(existing['updated']), "%Y-%m-%d %H:%M:%S")
 		if tdelta.seconds + (tdelta.days * 86400) < 1080:
 			data = loads(existing['history'])
 		else:
-			phistory.delete()
-			data = update_history(url, account_id, mode)
+			data = update_history(url, account_id, mode, True)
+			delete = PlayerHistory.objects.get(id=old).delete()
 	else:
-		data = update_history(url, account_id, mode)
+		data = update_history(url, account_id, mode, False)
 	verify_matches(data[(count-return_size):count], mode)
 	matches = PlayerMatches.objects.filter(match_id__in=data[(count-return_size):count], player_id=account_id).order_by('-date').values()
 	if len(matches) != 0:
@@ -45,7 +46,7 @@ def history(request, account_id, mode, url, page):
 	else:
 		return HttpResponse('stop')
 
-def update_history(url, account_id, mode):
+def update_history(url, account_id, mode, exists):
 	"""
 	Updates a player's history and saves it to db. [] is saved if no result
 	"""
@@ -54,8 +55,14 @@ def update_history(url, account_id, mode):
 	try:
 		raw = raw[0]['history']
 	except:
-		PlayerHistory(player_id=account_id, history=dumps([]), mode=mode).save()
-		return []
+		# try to fallback if api down
+		if exists:
+			data = loads(PlayerHistory.objects.filter(player_id=account_id, mode=mode).values()[0]['history'])
+			PlayerHistory(player_id=account_id, history=dumps(data), mode=mode).save()
+			return data
+		else:
+			PlayerHistory(player_id=account_id, history=dumps([]), mode=mode).save()
+			return []
 	data = []
 	for match in raw.split(','):
 		if len(match) > 20: # this fixes an error on broken player histories

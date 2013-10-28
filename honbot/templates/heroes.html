@@ -1,45 +1,42 @@
 {% extends 'base.html' %}
 
-{% block page_title %}{{ stats.nickname }} Heroes | HonBot {% endblock %}
+{% block page_title %}Heroes | HonBot {% endblock %}
 
 {% block main_content %}
+<style type="text/css">
+    body{
+        background-image: url('/static/img/swatch_sandbox.gif');
+        color: #666;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="controls">
-                <h3>Team</h3>
-                <ul>
-                    <li class="filter" data-filter="all">Show All</li>
-                    <li class="filter" data-filter="Legion">Legion</li>
-                    <li class="filter" data-filter="Hellbourne">Hellbourne</li>
-                </ul>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                <h4>Sort</h4>
+                <div class="button sort" data-sort="data-popularity" data-order="desc">Popularity</div>
+                <div class="button sort" data-sort="data-popularity" data-order="asc">Ascending</div>
+                <div class="button sort" data-sort="random">Randomize</div>
+                <div class="button sort active" data-sort="default" data-order="desc">Default</div>
             </div>
-            <div class="controls">
-                <h3>Popularity</h3>
-                <ul>
-                    <li class="sort" data-sort="data-popularity" data-order="desc">Descending</li>
-                    <li class="sort" data-sort="data-popularity" data-order="asc">Ascending</li>
-                    <li class="sort" data-sort="random">Randomize</li>
-                    <li class="sort active" data-sort="default" data-order="desc">Default</li>
-                    <li class="button ib layout anim150" id="GoList">List</li>
-                </ul>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                <h4>Team</h4>
+                <div class="button filter" data-filter="Legion">Legion</div>
+                <div class="button filter" data-filter="Hellbourne">Hellbourne</div>
+                <div class="button filter" data-filter="all">All</div>
             </div>
-            <div class="controls">
-                <h3>Primary Attribute</h3>
-                <ul>
-                    <li class="filter" data-filter="all">Show All</li>
-                    <li class="filter" data-filter="Agility">Agility</li>
-                    <li class="filter" data-filter="Intelligence">Intelligence</li>
-                    <li class="filter" data-filter="Strength">Strength</li>
-                </ul>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                <h4>Primary Attribute</h4>
+                <div class="button filter" data-filter="all">Show All</div>
+                <div class="button filter" data-filter="Agility">Agility</div>
+                <div class="button filter" data-filter="Intelligence">Intelligence</div>
+                <div class="button filter" data-filter="Strength">Strength</div>
             </div>
-            <div class="controls">
-                <h3>Attack Type</h3>
-                <ul>
-                    <li class="filter" data-filter="all">Show All</li>
-                    <li class="filter" data-filter="ranged">Ranged</li>
-                    <li class="filter" data-filter="melee">Melee</li>
-                </ul>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                <h4>Attack Type</h4>
+                <div class="button filter" data-filter="all">Show All</div>
+                <div class="button filter" data-filter="ranged">Ranged</div>
+                <div class="button filter" data-filter="melee">Melee</div>
             </div>
         </div>
     </div>
@@ -49,7 +46,7 @@
         <div class="col-lg-12">
             <ul id="Grid">
                 {% for hero in heroes %}
-                <li class="mix {{ hero.team }} {{ hero.primaryattribute }} {{ hero.attacktype }}" data-popularity="{{ hero.popularity }}">
+                <li class="mix {{ hero.team }} {{ hero.primaryattribute }} {{ hero.attacktype }}" data-popularity="{{ hero.popularity }}" data-toggle="tooltip" title="{{ hero.disp_name }}">
                     <img style="width: 60px;" src="/static/img/heroes/{{ hero.hero_id }}/icon_128.jpg">
                 </li>
                 {% endfor %}
@@ -62,7 +59,11 @@
 <script src="/static/js/jquery.mixitup.js"></script>
 <script>
 $(function(){
-    $('#Grid').mixitup();
+    $('#Grid').mixitup({
+    });
 });
+</script>
+<script>
+
 </script>
 {% endblock %}

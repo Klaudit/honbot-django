@@ -1115,14 +1115,23 @@ span.ColVis_radio {
 #Grid .mix{
   display: none;
   opacity: 0;
-  width: 60px;
-  height: 60px;
   vertical-align: top;
   color: #fff;
 
   font-size: 30px;
   text-align: center;
-  line-height: 60px;
+  background: #1e1e1e;
+  margin: 10px 10px 10px 10px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 12px #000;
+  -moz-box-shadow: 0 0 12px #000;
+  -ms-box-shadow: 0 0 12px #000;
+  -o-box-shadow: 0 0 12px #000;
+  box-shadow: 0 0 12px #000;
 }
 .controls{
   display: inline-block;

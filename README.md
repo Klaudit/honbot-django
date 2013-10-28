@@ -2,7 +2,7 @@ honbot-django
 =============
 HoN [Heroes of Newerth](http://www.heroesofnewerth.com/) Stats website written in django for the [HoN API](http://api.heroesofnewerth.com/).
 
-###Run a local copy of HonBot
+####Run a local copy of HonBot
 Settings file requires a localsettings.py file with the following functions. It is required in main folder for production and honbot-django/ for dev.
 
 * def is_debug(): returns true/false
@@ -11,7 +11,7 @@ Settings file requires a localsettings.py file with the following functions. It 
 
 __make sure you install everything in requirements.txt__ no known version specific requirements
 
-###honbot db
+####honbot db
 Handled by [South](http://south.aeracode.org/)  
 Initial Setup + use of django_cron
 
@@ -24,14 +24,14 @@ Apply Changes
 
     python manage.py migrate honbot   
 
-###honbot server
+####honbot server
 Stop / start the fastcgi server. The third line is if using new relic's monitoring service
 
     pkill -f "runfcgi"
     python manage.py runfcgi host=127.0.0.1 port=8081 --settings=settings
     NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-python manage.py runfcgi host=127.0.0.1 port=8081 --settings=settings
 
-###cron job
+####cron job
 Using django_cron involves calling it every 5 minutes
 
     crontab -e

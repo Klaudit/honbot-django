@@ -319,7 +319,7 @@ class Heroes(models.Model):
     attacktype = models.TextField(default="")
     team = models.TextField(default="")
 
-class HeroUseage(models.Model):
+class HeroUse(models.Model):
     date = models.DateField(auto_now=True, db_index=True)
     hero_id = models.PositiveSmallIntegerField(default=0, db_index=True)
     popularity = models.PositiveSmallIntegerField(default=0)

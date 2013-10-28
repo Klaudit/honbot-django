@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from honbot.api_call import get_json
-from honbot.models import HeroUseage
+from honbot.models import HeroUse
 from datetime import date
 from collections import OrderedDict
 
@@ -15,7 +15,7 @@ class Command(BaseCommand):
         del heroes['total']
         heroes = OrderedDict(sorted(heroes.items(), key=lambda t: t[1]))
         for index, hero in enumerate(heroes):
-            bulk.append(HeroUseage(
+            bulk.append(HeroUse(
                 date=today,
                 hero_id=hero,
                 popularity=index+1,

@@ -105,10 +105,10 @@ h6,
 .no-bpadding{
   padding-bottom: 1px;
 }
-.list-inline > li{
+.home-inline > li{
   padding-right: 0;
 }
-.list-inline > li + li::before {
+.home-inline > li + li::before {
     content: "- ";
     margin-right: 5px;
     margin-left: 0;

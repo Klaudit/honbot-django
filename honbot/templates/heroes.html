@@ -12,35 +12,36 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <h4>Sort</h4>
-                <div class="button sort" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
-                <div class="button sort" data-sort="data-popularity" data-order="asc">Popularity <i class="fa fa-caret-up"></i></div>
-                <div class="button sort" data-sort="random">Randomize</div>
-                <div class="button sort active" data-sort="default" data-order="desc">Hero ID</div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <h4>Team</h4>
-                <div class="button filter" data-filter="Legion">Legion</div>
-                <div class="button filter" data-filter="Hellbourne">Hellbourne</div>
-                <div class="button filter" data-filter="all">All</div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <h4>Primary Attribute</h4>
-                <div class="button filter" data-filter="all">Show All</div>
-                <div class="button filter" data-filter="Agility">Agility</div>
-                <div class="button filter" data-filter="Intelligence">Intelligence</div>
-                <div class="button filter" data-filter="Strength">Strength</div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <h4>Attack Type</h4>
-                <div class="button filter" data-filter="all">Show All</div>
-                <div class="button filter" data-filter="ranged">Ranged</div>
-                <div class="button filter" data-filter="melee">Melee</div>
+            <div class="group" id="Filters">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <h4>Sort</h4>
+                    <div class="button sort" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
+                    <div class="button sort" data-sort="data-popularity" data-order="asc">Popularity <i class="fa fa-caret-up"></i></div>
+                    <div class="button sort" data-sort="random">Randomize</div>
+                    <div class="button sort active" data-sort="default" data-order="desc">Hero ID</div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <h4>Team</h4>
+                    <ul class="">
+                        <li class="button" data-filter="Legion" data-dimension="team">Legion</li>
+                        <li class="button" data-filter="Hellbourne" data-dimension="team">Hellbourne</li>
+                        <li class="button active" data-filter="all" data-dimension="team">All</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <h4>Primary Attribute</h4>
+                    <ul class="">
+                        <li class="button" data-filter="Agility" data-dimension="attribute">Agility</li>
+                        <li class="button" data-filter="Intelligence" data-dimension="attribute" >Intelligence</li>
+                        <li class="button" data-filter="Strength" data-dimension="attribute">Strength</li>
+                        <li class="button active" data-filter="all" data-dimension="attribute">Show All</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<br>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -61,9 +62,79 @@
 $(function(){
     $('#Grid').mixitup({
     });
-});
-</script>
-<script>
+    $('.mix').tooltip();
+    // HANDLE MULTI-DIMENSIONAL CHECKBOX FILTERING
 
+    /*
+    *   The desired behaviour of multi-dimensional filtering can differ greatly
+    *   from project to project. MixItUp's built in filter button handlers are best
+    *   suited to simple filter operations, so we will need to build our own handlers
+    *   for this demo to achieve the precise behaviour we need.
+    */
+
+    var $filters = $('#Filters').find('li'),
+        dimensions = {
+            team: 'all', // Create string for first dimension
+            attribute: 'all' // Create string for second dimension
+        };
+
+    // Bind checkbox click handlers:
+
+    $filters.on('click',function(){
+        var $t = $(this),
+            dimension = $t.attr('data-dimension'),
+            filter = $t.attr('data-filter'),
+            filterString = dimensions[dimension];
+
+        if(filter == 'all'){
+            // If "all"
+            if(!$t.hasClass('active')){
+                // if unchecked, check "all" and uncheck all other active filters
+                $t.addClass('active').siblings().removeClass('active');
+                // Replace entire string with "all"
+                filterString = 'all';
+            } else {
+                // Uncheck
+                $t.removeClass('active');
+                // Emtpy string
+                filterString = '';
+            }
+        } else {
+            // Else, uncheck "all"
+            $t.siblings('[data-filter="all"]').removeClass('active');
+            // Remove "all" from string
+            filterString = filterString.replace('all','');
+            if(!$t.hasClass('active')){
+                // Check checkbox
+                $t.addClass('active');
+                // Append filter to string
+                filterString = filterString == '' ? filter : filterString+' '+filter;
+            } else {
+                // Uncheck
+                $t.removeClass('active');
+                // Remove filter and preceeding space from string with RegEx
+                var re = new RegExp('(\\s|^)'+filter);
+                filterString = filterString.replace(re,'');
+            };
+        };
+
+        // Set demension with filterString
+        dimensions[dimension] = filterString;
+
+        // We now have two strings containing the filter arguments for each dimension:
+        console.info('dimension 1: '+dimensions.team);
+        console.info('dimension 2: '+dimensions.attribute);
+
+        /*
+        *   We then send these strings to MixItUp using the filter method. We can send as
+        *   many dimensions to MixitUp as we need using an array as the second argument
+        *   of the "filter" method. Each dimension must be a space seperated string.
+        *
+        *   In this case, MixItUp will show elements using OR logic within each dimension and
+        *   AND logic between dimensions. At least one dimension must pass for the element to show.
+        */
+        $('#Grid').mixitup('filter',[dimensions.team, dimensions.attribute])
+    });
+});
 </script>
 {% endblock %}

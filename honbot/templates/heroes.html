@@ -14,10 +14,10 @@
         <div class="col-lg-12">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                 <h4>Sort</h4>
-                <div class="button sort active" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
+                <div class="button sort" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
                 <div class="button sort" data-sort="data-popularity" data-order="asc">Popularity <i class="fa fa-caret-up"></i></div>
                 <div class="button sort" data-sort="random">Randomize</div>
-                <div class="button sort" data-sort="default" data-order="desc">Hero ID</div>
+                <div class="button sort active" data-sort="default" data-order="desc">Hero ID</div>
             </div>
             <div class="group" id="team">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
@@ -40,20 +40,19 @@
                     </ul>
                 </div>
             </div>
-            <div class="group" id="attribute">
+            <div class="group" id="attack">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                     <h4>Attack Type</h4>
                     <ul class="list-inline">
                         <li class="button" data-filter="ranged" data-dimension="attack">Ranged</li>
                         <li class="button" data-filter="melee" data-dimension="attack">Melee</li>
-                        <li class="button active" data-filter="all" data-dimension="attack">Show All</li>
+                        <li class="button active" data-filter="all" data-dimension="attack">All</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<br>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -78,78 +77,55 @@ $(function(){
         }
     });
     $('.mix').tooltip();
-    // HANDLE MULTI-DIMENSIONAL CHECKBOX FILTERING
 
-    /*
-    *   The desired behaviour of multi-dimensional filtering can differ greatly
-    *   from project to project. MixItUp's built in filter button handlers are best
-    *   suited to simple filter operations, so we will need to build our own handlers
-    *   for this demo to achieve the precise behaviour we need.
-    */
+    dimensions = {
+        team: 'all',
+        attack: 'all',
+        attribute: 'all',
+        attbool: true
+    };
 
-    var $filters = $('#Filters').find('li'),
-        dimensions = {
-            attack: 'all', // Create string for first dimension
-            attribute: 'all' // Create string for second dimension
-        };
-
-    // Bind checkbox click handlers:
-
-    $filters.on('click',function(){
-        var $t = $(this),
-            dimension = $t.attr('data-dimension'),
-            filter = $t.attr('data-filter'),
-            filterString = dimensions[dimension];
-
-        if(filter == 'all'){
-            // If "all"
-            if(!$t.hasClass('active')){
-                // if unchecked, check "all" and uncheck all other active filters
-                $t.addClass('active').siblings().removeClass('active');
-                // Replace entire string with "all"
-                filterString = 'all';
-            } else {
-                // Uncheck
-                $t.removeClass('active');
-                // Emtpy string
-                filterString = '';
-            }
-        } else {
-            // Else, uncheck "all"
-            $t.siblings('[data-filter="all"]').removeClass('active');
-            // Remove "all" from string
-            filterString = filterString.replace('all','');
-            if(!$t.hasClass('active')){
-                // Check checkbox
-                $t.addClass('active');
-                // Append filter to string
-                filterString = filterString == '' ? filter : filterString+' '+filter;
-            } else {
-                // Uncheck
-                $t.removeClass('active');
-                // Remove filter and preceeding space from string with RegEx
-                var re = new RegExp('(\\s|^)'+filter);
-                filterString = filterString.replace(re,'');
-            };
-        };
-
-        // Set demension with filterString
-        dimensions[dimension] = filterString;
-
-        // We now have two strings containing the filter arguments for each dimension:
-        console.info('dimension 1: '+dimensions.attack);
-        console.info('dimension 2: '+dimensions.attribute);
-
-        /*
-        *   We then send these strings to MixItUp using the filter method. We can send as
-        *   many dimensions to MixitUp as we need using an array as the second argument
-        *   of the "filter" method. Each dimension must be a space seperated string.
-        *
-        *   In this case, MixItUp will show elements using OR logic within each dimension and
-        *   AND logic between dimensions. At least one dimension must pass for the element to show.
-        */
-        $('#Grid').mixitup('filter',[dimensions.attack, dimensions.attribute])
+    $('#team').find('li').on('click',function(){
+        var $t = $(this);
+        legion($t);
+        superfilter();
+        swag();
+    });
+    $('#attack').find('li').on('click',function(){
+        var $t = $(this);
+        attack($t);
+        superfilter();
+        swag();
+    });
+    $('#attribute').find('li').on('click',function(){
+        var $t = $(this);
+        attribute($t);
+        superfilter();
+        swag();
     });
 });
+function superfilter() {
+    $('#Grid').mixitup('filter',[dimensions.team, dimensions.attack, dimensions.attribute]);
+};
+function swag(){
+    console.info('dimension 1: '+dimensions.team);
+    console.info('dimension 2: '+dimensions.attack);
+    console.info('dimension 3: '+dimensions.attribute);
+};
+function legion(element){
+    console.info(element.attr('data-filter') + ' clicked');
+    dimensions.team = element.attr('data-filter');
+    $('#team').find('li').siblings().removeClass('active');
+    element.addClass('active');
+};
+function attack(element){
+    console.info(element.attr('data-filter') + ' clicked');
+    dimensions.attack = element.attr('data-filter');
+    $('#attack').find('li').siblings().removeClass('active');
+    element.addClass('active');
+};
+function attribute(element){
+    console.info(element.attr('data-filter') + ' clicked');
+};
 </script>
 {% endblock %}

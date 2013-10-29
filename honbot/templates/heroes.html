@@ -36,7 +36,7 @@
                         <li class="button" data-filter="Agility" data-dimension="attribute">Agility</li>
                         <li class="button" data-filter="Intelligence" data-dimension="attribute" >Intelligence</li>
                         <li class="button" data-filter="Strength" data-dimension="attribute">Strength</li>
-                        <li class="button active" data-filter="all" data-dimension="attribute">All</li>
+                        <li id="attall" class="button active" data-filter="all" data-dimension="attribute">All</li>
                     </ul>
                 </div>
             </div>
@@ -126,6 +126,43 @@ function attack(element){
 };
 function attribute(element){
     console.info(element.attr('data-filter') + ' clicked');
+    if(element.attr('data-filter') == 'all'){
+        $('#attribute').find('li').siblings().removeClass('active');
+        element.addClass('active');
+        dimensions.attribute = 'all';
+    }
+    else{
+        $('#attall').removeClass('active');
+        if(dimensions.attribute == 'all'){
+            dimensions.attribute = '';
+        }
+        else{
+            dimensions.attribute += ' ';
+        }
+        if(element.hasClass('active')){
+            dimensions.attribute = String(dimensions.attribute).replace(String(element.attr('data-filter')), '');
+            element.removeClass('active')
+            if(dimensions.attribute.length < 4){
+                $('#attall').addClass('active');
+                dimensions.attribute = 'all';
+            }
+        }
+        else{
+            element.addClass('active');
+            dimensions.attribute += element.attr('data-filter');
+        }
+    }
+    if(dimensions.attribute.length < 4)
+    {
+        dimensions.attribute = 'all';
+    }
+    dimensions.attribute = String(dimensions.attribute).trim()
+    if(dimensions.attribute.length > 22){
+        dimensions.attribute = 'all';
+        $('#attribute').find('li').removeClass('active');
+        $('#attall').addClass('active');
+    }
+
 };
 </script>
 {% endblock %}

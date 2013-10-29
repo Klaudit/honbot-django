@@ -15,8 +15,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                 <h4 class="text-center">Sort</h4>
                 <div class="button sort active" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
-                <div class="button sort" data-sort="data-popularity-2" data-order="asc">Popularity <i class="fa fa-caret-up"></i></div>
-                <div class="button sort" data-sort="random">Randomize</div>
+                <div class="button sort" data-sort="data-popularity" data-order="asc">Popularity <i class="fa fa-caret-up"></i></div>
                 <div class="button sort" data-sort="default" data-order="desc">Hero ID</div>
             </div>
             <div class="group" id="team">
@@ -58,7 +57,7 @@
         <div class="col-lg-12">
             <ul id="Grid">
                 {% for hero in heroes %}
-                <li class="mix {{ hero.team }} {{ hero.primaryattribute }} {{ hero.attacktype }}" data-popularity="{{ hero.popularity }}" data-popularity-2="{{ hero.popularity }}" data-toggle="tooltip" title="{{ hero.disp_name }}">
+                <li class="mix {{ hero.team }} {{ hero.primaryattribute }} {{ hero.attacktype }}" data-popularity="{{ hero.popularity }}" data-toggle="tooltip" title="{{ hero.disp_name }}">
                     <img style="width: 60px;" src="/static/img/heroes/{{ hero.hero_id }}/icon_128.jpg">
                 </li>
                 {% endfor %}
@@ -72,7 +71,8 @@
 <script>
 $(function(){
     $('#Grid').mixitup({
-        sortOnLoad: 'data-popularity',
+        sortOnLoad: ['data-popularity','desc'],
+        effects: ['fade'],
         onMixEnd: function(){
             $('.mix').tooltip();
         }

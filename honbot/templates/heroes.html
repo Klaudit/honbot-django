@@ -12,14 +12,14 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="group" id="Filters">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                    <h4>Sort</h4>
-                    <div class="button sort active" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
-                    <div class="button sort" data-sort="data-popularity" data-order="asc">Popularity <i class="fa fa-caret-up"></i></div>
-                    <div class="button sort" data-sort="random">Randomize</div>
-                    <div class="button sort" data-sort="default" data-order="desc">Hero ID</div>
-                </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                <h4>Sort</h4>
+                <div class="button sort active" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
+                <div class="button sort" data-sort="data-popularity" data-order="asc">Popularity <i class="fa fa-caret-up"></i></div>
+                <div class="button sort" data-sort="random">Randomize</div>
+                <div class="button sort" data-sort="default" data-order="desc">Hero ID</div>
+            </div>
+            <div class="group" id="team">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                     <h4>Team</h4>
                     <ul class="list-inline">
@@ -28,6 +28,8 @@
                         <li class="button active" data-filter="all" data-dimension="team">All</li>
                     </ul>
                 </div>
+            </div>
+            <div class="group" id="attribute">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                     <h4>Primary Attribute</h4>
                     <ul class="list-inline">
@@ -35,6 +37,16 @@
                         <li class="button" data-filter="Intelligence" data-dimension="attribute" >Intelligence</li>
                         <li class="button" data-filter="Strength" data-dimension="attribute">Strength</li>
                         <li class="button active" data-filter="all" data-dimension="attribute">All</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="group" id="attribute">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <h4>Attack Type</h4>
+                    <ul class="list-inline">
+                        <li class="button" data-filter="ranged" data-dimension="attack">Ranged</li>
+                        <li class="button" data-filter="melee" data-dimension="attack">Melee</li>
+                        <li class="button active" data-filter="all" data-dimension="attack">Show All</li>
                     </ul>
                 </div>
             </div>
@@ -77,7 +89,7 @@ $(function(){
 
     var $filters = $('#Filters').find('li'),
         dimensions = {
-            team: 'all', // Create string for first dimension
+            attack: 'all', // Create string for first dimension
             attribute: 'all' // Create string for second dimension
         };
 
@@ -125,7 +137,7 @@ $(function(){
         dimensions[dimension] = filterString;
 
         // We now have two strings containing the filter arguments for each dimension:
-        console.info('dimension 1: '+dimensions.team);
+        console.info('dimension 1: '+dimensions.attack);
         console.info('dimension 2: '+dimensions.attribute);
 
         /*
@@ -136,7 +148,7 @@ $(function(){
         *   In this case, MixItUp will show elements using OR logic within each dimension and
         *   AND logic between dimensions. At least one dimension must pass for the element to show.
         */
-        $('#Grid').mixitup('filter',[dimensions.team, dimensions.attribute])
+        $('#Grid').mixitup('filter',[dimensions.attack, dimensions.attribute])
     });
 });
 </script>

@@ -15,10 +15,10 @@
             <div class="group" id="Filters">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                     <h4>Sort</h4>
-                    <div class="button sort" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
+                    <div class="button sort active" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
                     <div class="button sort" data-sort="data-popularity" data-order="asc">Popularity <i class="fa fa-caret-up"></i></div>
                     <div class="button sort" data-sort="random">Randomize</div>
-                    <div class="button sort active" data-sort="default" data-order="desc">Hero ID</div>
+                    <div class="button sort" data-sort="default" data-order="desc">Hero ID</div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                     <h4>Team</h4>
@@ -57,7 +57,7 @@
 </div>
 {% endblock %}
 {% block js%}
-<script src="/static/js/jquery.mixitup.js"></script>
+<script src="/static/js/jquery.mixitup.min.js"></script>
 <script>
 $(function(){
     $('#Grid').mixitup({

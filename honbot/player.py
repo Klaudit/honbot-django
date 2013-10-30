@@ -57,6 +57,7 @@ def tooltip_ranked(request, account_id):
     except:
         return HttpResponse(status=202)
 
+
 def tooltip_casual(request, account_id):
     try:
         player = PlayerStatsCasual.objects.get(player_id=account_id)
@@ -64,12 +65,14 @@ def tooltip_casual(request, account_id):
     except:
         return HttpResponse(status=202)
 
+
 def tooltip_public(request, account_id):
     try:
         player = PlayerStatsPublic.objects.get(player_id=account_id)
         return tooltip(request, account_id, player)
     except:
         return HttpResponse(status=202)
+
 
 def tooltip(request, account_id, player):
     try:

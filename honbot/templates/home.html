@@ -41,7 +41,7 @@
               <div class="input-group input-group-lg col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-sm-12">
                 <input id="player" type="text" placeholder="Player Username" class="form-control input-lg" autocomplete="off" autofocus>
                 <span class="input-group-btn">
-                  <button id="searchbutton" class="btn btn-default btn-lg" type="button"><i class="icon-search"></i> Go</button>
+                  <button id="searchbutton" class="btn btn-default btn-lg" type="button"><i class="fa fa-search"></i> Go</button>
                 </span>
               </div>
             </form>
@@ -91,7 +91,7 @@
                   </ul>
                 </div>
                 <div class="panel-footer no-bpadding">
-                  <ul class="list-inline">
+                  <ul class="list-inline home-inline">
                     <li><a href="https://github.com/scttcper/honbot-django">Source Code</a></li>
                     <li><a href="/static/web/changelog.html">History</a></li>
                   </ul>
@@ -102,13 +102,13 @@
                 <div class="panel panel-default">
                   <div class="panel-heading"><h3 class="panel-title">Server Stats</h3></div>
                   <div class="panel-body">
-                    Database:
+                    <strong>Database:</strong>
                     <ul>
                       <li>Players: <span id="players"></span></li>
                       <li>Matches: <span id="matches"></span></li>
                       <li>Player Match Stats: <span id="playermatches"></span></li>
                     </ul>
-                    S2 API:
+                    <strong>S2 API:</strong>
                     <ul>
                       <li>Status: <span id="serverstatus"></span></li>
                       <li>API calls today: <span id="apicount"></span></li>

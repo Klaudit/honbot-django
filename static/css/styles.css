@@ -659,7 +659,7 @@ body.modal-open,
 
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
-  background-color: #080808;
+  background-color: rgba(0, 0, 0, .2);
 }
 
 .table-hover > tbody > tr:hover > td,
@@ -777,7 +777,27 @@ table th[class*="col-"] {
   border-color: #232323;
 }
 
+.pager li > a,
+.pager li > span {
+  background-color: #222222;
+  border: 1px solid #282828;
+}
 
+.pager li > a:hover,
+.pager li > a:focus {
+  background-color: #3b3c3c;
+}
+
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > a:focus,
+.pager .disabled > span {
+  color: #888888;
+  background-color: #222222;
+}
+
+
+/* self made styles */
 .navbar-inverse{
   padding-top: 0;
   padding-bottom: 0;
@@ -1151,7 +1171,7 @@ table th[class*="col-"] {
   color: #b2b6bc;
 }
 .kill-row a, .kill-row{
-  color: #474849;
+  color: #727374;
   font-style: italic;
 }
 .chat-time{

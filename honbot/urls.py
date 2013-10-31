@@ -49,7 +49,7 @@ urlpatterns = patterns(
     # Match View
     url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
     # Match Build
-    url(r'^builds/(?P<match_id>[0-9]+)/$', 'honbot.builds.build_view'),
+    url(r'^builds/(?P<match_id>[0-9]+)/$', 'honbot.builds.match_view'),
     # Match Chat
     url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat_view'),
     # Recent Matches

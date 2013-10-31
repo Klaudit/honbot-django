@@ -18,5 +18,7 @@ def main(request):
 
 
 def hero(request, name):
-	h = HeroData.objects.filter(cli_name=name)[0]
-	return render_to_response('hero.html', {'hero': h})
+	h = HeroData.objects.filter(cli_name=name).values()[0]
+	use = HeroUse.objects.filter(hero_id=h['hero_id'])[:10]
+	popularity = HeroUse.objects.filter(hero_id=h['hero_id'])[:1][0]
+	return render_to_response('hero.html', {'hero': h, 'use': use, 'popularity': popularity})

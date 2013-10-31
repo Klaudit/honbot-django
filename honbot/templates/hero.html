@@ -5,10 +5,10 @@
 {% block main_content %}
 <div class="container">
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-md-4">
             <div class="row">
                 <div class="col-lg-3">
-                    <img style="width: 90px;" src="/static/img/heroes/{{ hero.hero_id }}/icon_128.jpg">
+                    <img class="dropshadow" style="width: 85px;" src="/static/img/heroes/{{ hero.hero_id }}/icon_128.jpg">
                 </div>
                 <div class="col-lg-9">
                     <h4 style="margin: 0;">Name: </h4>{{ hero.disp_name }}
@@ -28,7 +28,85 @@
             </script>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 text-center">
+            <div id="use" style="min-width: 310px; height: 100px; margin: 0 auto"></div>
+            <strong>Current Rank: {{ popularity.popularity }}</strong>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block js%}
+<script src="/static/js/highcharts.js"></script>
+<script>
+$(function () {
+    $('#use').highcharts({
+        chart:{
+            backgroundColor: null,
+            spacingLeft: -5,
+        },
+        title: {
+            text: '',
+        },
+        xAxis: {
+            categories: [{%for u in use%}"{{ u.date }}",{%endfor%}],
+            labels:{ enabled: false },
+            lineColor: 'transparent',
+            minorTickLength: 0,
+            tickLength: 0
+        },
+        yAxis: [{
+            title: {
+                text: 'Hero Use',
+                style:{
+                    color: '#aedf16',
+                    fontSize: '16px'
+                }
+            },
+            labels:
+            {
+              enabled: false
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+            }],
+            gridLineColor: '#222',
+        }],
+        credits: {enabled: false},
+        colors: ['#aedf16'],
+        tooltip: {
+            shared: true,
+            useHTML: true,
+            formatter: function() {
+                return '<strong>' + this.x + '</strong><br>' + Math.round(this.y*10)/10;
+            },
+        },
+        plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    animation: false,
+                    point: {
+                        events: {
+                            click: function() {
+                                window.location.href = "/match/" + this.category + '/';
+                            }
+                        }
+                    },
+                }
+            },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            showInLegend: false,
+            name: 'MMR',
+            data: [{% for u in use %}{{ u.usage }},{%endfor%}],
+        }]
+    });
+});
+</script>
 {% endblock %}

@@ -8,6 +8,7 @@ class missingplayers(CronJobBase):
     code = 'honbot.missingplayers'
 
     def do(self):
+        print "missing players"
     	call_command('missingplayers')
         pass
 

@@ -328,7 +328,7 @@ class HeroUse(models.Model):
 class HeroData(models.Model):
     hero_id = models.PositiveSmallIntegerField(primary_key=True, unique=True, db_index=True)
     disp_name = models.TextField(default="")
-    cli_name = models.TextField(default="")
+    cli_name = models.CharField(default="", max_length=120, db_index=True)
     category = models.TextField(default="")
     difficulty = models.FloatField(default=0)
     solorating = models.FloatField(default=0)

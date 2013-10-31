@@ -63,4 +63,5 @@ urlpatterns = patterns(
     (r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt")),
     # heroes main page
     url(r'^hero/$', 'honbot.heroes.main'),
+    url(r'^hero/(?P<name>.*)/$', 'honbot.heroes.hero'),
 )

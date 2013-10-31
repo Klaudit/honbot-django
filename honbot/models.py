@@ -325,3 +325,65 @@ class HeroUse(models.Model):
     popularity = models.PositiveSmallIntegerField(default=0)
     usage = models.PositiveIntegerField(default=0)
 
+class HeroData(models.Model):
+    hero_id = models.PositiveSmallIntegerField(primary_key=True, unique=True, db_index=True)
+    disp_name = models.TextField(default="")
+    cli_name = models.TextField(default="")
+    category = models.TextField(default="")
+    difficulty = models.FloatField(default=0)
+    solorating = models.FloatField(default=0)
+    junglerating = models.FloatField(default=0)
+    carryrating = models.FloatField(default=0)
+    supportrating = models.FloatField(default=0)
+    initiatorrating = models.FloatField(default=0)
+    gankerating = models.FloatField(default=0)
+    pushrating = models.FloatField(default=0)
+    rangerating = models.FloatField(default=0)
+    melerating = models.FloatField(default=0)
+    movespeed = models.PositiveSmallIntegerField(default=0)
+    turnrate = models.PositiveSmallIntegerField(default=0)
+    maxhealth = models.PositiveSmallIntegerField(default=0)
+    healthregen = models.FloatField(default=0)
+    manaregen = models.FloatField(default=0)
+    armor = models.FloatField(default=0)
+    magicarmor = models.FloatField(default=0)
+    attackduration = models.PositiveSmallIntegerField(default=0)
+    attackactiontime = models.PositiveSmallIntegerField(default=0)
+    attackcooldown = models.PositiveSmallIntegerField(default=0)
+    attackdamagemin = models.PositiveSmallIntegerField(default=0)
+    attackdamagemax = models.PositiveSmallIntegerField(default=0)
+    attacknumanims = models.PositiveSmallIntegerField(default=0)
+    attackoffset = models.PositiveSmallIntegerField(default=0)
+    attackrange = models.PositiveSmallIntegerField(default=0)
+    attacktype = models.TextField(default="")
+    aggrorange = models.PositiveSmallIntegerField(default=0)
+    sightrangeday = models.PositiveSmallIntegerField(default=0)
+    sightrangenight = models.PositiveSmallIntegerField(default=0)
+    wanderrange = models.PositiveSmallIntegerField(default=0)
+    primaryattribute = models.TextField(default="")
+    strength = models.PositiveSmallIntegerField(default=0)
+    strengthperlevel = models.FloatField(default=0)
+    agility = models.PositiveSmallIntegerField(default=0)
+    agilityperlevel = models.FloatField(default=0)
+    intelligence = models.PositiveSmallIntegerField(default=0)
+    calcattackspeed = models.FloatField(default=0)
+    attackspeedpersec = models.FloatField(default=0)
+    effectivearmor = models.FloatField(default=0)
+    health = models.FloatField(default=0)
+    mana = models.FloatField(default=0)
+    ability1 = models.TextField(default="")
+    ability2 = models.TextField(default="")
+    ability3 = models.TextField(default="")
+    ability4 = models.TextField(default="")
+
+
+
+
+
+
+
+
+
+
+
+

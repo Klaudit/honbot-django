@@ -21,7 +21,7 @@
                 <p>This is currently being developed in my free time. Please be patient and as always <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">feedback is encouraged</a>.</p>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <div id="mmr" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+                <div id="mmr" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h4 class="text-center">Recently Most Played Hero Averages</h4>
+            <h4 class="text-center">Most Played Hero Averages</h4>
             <div class="row">
                 {%for hero in heroes%}
                 <div class="col-lg-2 col-sm-4 col-xs-6">
@@ -37,7 +37,8 @@
                         <div style="margin-bottom: 18px;" class="panel-heading text-center panel-hero"><img style="width:50px" src='/static/img/heroes/{{hero.hero}}/icon_128.jpg'></div>
                         <ul style="margin-top: -16px;" class="list-group">
                             <li class="list-group-item panel-hero">Times Played: <p class="pull-right">{{hero.used}}</p></li>
-                            <li class="list-group-item panel-hero">Wins: <p class="pull-right">{{hero.wins}} - {%if hero.win_percent < 50%}<span class="text-danger">{%else%}<span class="text-success">{%endif%}{{hero.win_percent}}</span>%</p></li>
+                            <li class="list-group-item panel-hero">Win - Loss: <p class="pull-right">{{ hero.wins }} - {{ hero.losses }}</span></p></li>
+                            <li class="list-group-item panel-hero">Percent: <p class="pull-right">{%if hero.win_percent < 50%}<span class="text-danger">{%else%}<span class="text-success">{%endif%}{{hero.win_percent}}%</span></p></li>
                             <li class="list-group-item panel-hero">K/D/A: <p class="pull-right">{{hero.kills}}/{{hero.deaths}}/{{hero.assists}}</p></li>
                             <li class="list-group-item panel-hero">MMR +/-: {%if hero.mmr < 0%}<p class="pull-right text-danger">{%else%}<p class="pull-right text-success">{%endif%}{{hero.mmr}}</p></li>
                             <li class="list-group-item panel-hero">APM: <p class="pull-right">{{hero.apm}}</p></li>
@@ -53,104 +54,87 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h4 class="text-center">APM</h4>
-                    <div id="apm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
-                </div>
-                <div class="col-lg-6">
-                    <h4 class="text-center">GPM</h4>
-                    <div id="gpm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
-                </div>
-            </div>
+        <div class="col-lg-6">
+            <div id="apm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="gpm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
         </div>
     </div>
 </div>
 <br>
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h4 class="text-center panel-title">Recent Stats</h4></div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Catagory</th>
-                                <th class="text-right">Total</th>
-                                <th class="text-right">Average</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Kills</strong></th>
-                                <td class="text-right">{{kills}}</th>
-                                <td class="text-right">{{akills}}</th>
-                            </tr>
-                            <tr>
-                                <td><strong>Deaths</strong></th>
-                                <td class="text-right">{{deaths}}</th>
-                                <td class="text-right">{{adeaths}}</th>
-                            </tr>
-                            <tr>
-                                <td><strong>Assists</strong></th>
-                                <td class="text-right">{{assists}}</th>
-                                <td class="text-right">{{aassists}}</th>
-                            </tr>
-                            <tr>
-                                <td><strong>Creep Kills</strong></th>
-                                <td class="text-right">{{cs}}</th>
-                                <td class="text-right">{{acs}}</th>
-                            </tr>
-                            <tr>
-                                <td><strong>Wards</strong></th>
-                                <td class="text-right">{{wards}}</th>
-                                <td class="text-right">{{awards}}</th>
-                            </tr>
-                            <tr>
-                                <td><strong>Buildings</strong></th>
-                                <td class="text-right">{{razed}}</th>
-                                <td class="text-right">{{arazed}}</th>
-                            </tr>
-                            <tr>
-                                <td><strong>MMR Change</strong></th>
-                                <td class="text-right">{{mmr_change}}</th>
-                                <td class="text-right">{{ammr_change}}</th>
-                            </tr>
-                            <tr>
-                                <td><strong>Sec Dead</strong></th>
-                                <td class="text-right">{{sdead}} min</th>
-                                <td class="text-right">{{asdead}}</th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="text-center panel-title">Stats</h4></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Catagory</th>
+                            <th class="text-right">Total</th>
+                            <th class="text-right">Average</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Kills</strong></th>
+                            <td class="text-right">{{kills}}</th>
+                            <td class="text-right">{{akills}}</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Deaths</strong></th>
+                            <td class="text-right">{{deaths}}</th>
+                            <td class="text-right">{{adeaths}}</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Assists</strong></th>
+                            <td class="text-right">{{assists}}</th>
+                            <td class="text-right">{{aassists}}</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Creep Kills</strong></th>
+                            <td class="text-right">{{cs}}</th>
+                            <td class="text-right">{{acs}}</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Wards</strong></th>
+                            <td class="text-right">{{wards}}</th>
+                            <td class="text-right">{{awards}}</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Buildings</strong></th>
+                            <td class="text-right">{{razed}}</th>
+                            <td class="text-right">{{arazed}}</th>
+                        </tr>
+                        <tr>
+                            <td><strong>MMR Change</strong></th>
+                            <td class="text-right">{{mmr_change}}</th>
+                            <td class="text-right">{{ammr_change}}</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Sec Dead</strong></th>
+                            <td class="text-right">{{sdead}} min</th>
+                            <td class="text-right">{{asdead}}</th>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6 text-center adsbygoogle hidden-xs hidden-sm">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- dark square -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:336px;height:280px"
+                 data-ad-client="ca-pub-7640562161899788"
+                 data-ad-slot="3963214959"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
 </div>
-<br>
-<div class="modal fade" id="banner">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Stats Banner: Updates every 24 hours!</h4>
-            </div>
-            <div class="modal-body text-center">
-                <p id="bannerpos"></p>
-                <p>
-                    <h4>BB Code (forums)</h4>
-                    <code>[url=http://honbot.com/player/{{stats.nickname}}/]<br>[img]http://honbot.com/banner/{{stats.nickname}}/[/img][/url]</code>
-                    <h4>Direct Link</h4>
-                    <code>http://honbot.com/banner/{{stats.nickname}}/</code>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-<br>
+{% include 'banner.html' %}
 {% endblock main_content %}
 {%block js%}
 <script src="/static/js/highcharts.js"></script>
@@ -169,16 +153,19 @@ $(function () {
         },
         yAxis: [{
             title: {
-                text: 'MMR'
+                text: 'MMR',
+                style:{
+                    color: '#aedf16',
+                    fontSize: '16px'
+                }
             },
             plotLines: [{
                 value: 0,
                 width: 1,
-                color: '#808080'
             }]
         }],
         credits: {enabled: false},
-        colors: ['#2C3E50'],
+        colors: ['#aedf16'],
         tooltip: {
             shared: true,
             useHTML: true,
@@ -228,16 +215,20 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: ''
+                text: 'APM',
+                style:{
+                    color: '#aedf16',
+                    fontSize: '16px'
+                }
             },
             plotLines: [{
-                color: '#FF0000',
+                color: '#cc0000',
                 width: 2,
                 value: {{aapm}}
             }]
         },
         credits: {enabled: false},
-        colors: ['#343256'],
+        colors: ['#1974FF'],
         tooltip: {
             shared: true,
             useHTML: true,
@@ -287,16 +278,20 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: ''
+                text: 'GPM',
+                style:{
+                    color: '#aedf16',
+                    fontSize: '16px'
+                }
             },
             plotLines: [{
-                color: '#FF0000',
+                color: '#cc0000',
                 width: 2,
                 value: {{agpm}}
             }]
         },
         credits: {enabled: false},
-        colors: ['#2A5344'],
+        colors: ['#e800ff'],
         tooltip: {
             shared: true,
             useHTML: true,

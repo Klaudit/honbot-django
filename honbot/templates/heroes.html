@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Heroes | HonBot {% endblock %}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                <h4 class="text-center">Sort</h4>
+                <div class="button sort active" data-sort="data-popularity" data-order="desc">Popularity <i class="fa fa-caret-down"></i></div>
+                <div class="button sort" data-sort="data-popularity" data-order="asc">Popularity <i class="fa fa-caret-up"></i></div>
+                <div class="button sort" data-sort="default" data-order="desc">Hero ID</div>
+            </div>
+            <div class="group" id="team">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <h4 class="text-center">Team</h4>
+                    <ul class="list-inline">
+                        <li class="button" data-filter="Legion" data-dimension="team">Legion</li>
+                        <li class="button" data-filter="Hellbourne" data-dimension="team">Hellbourne</li>
+                        <li class="button active" data-filter="all" data-dimension="team">All</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="group" id="attribute">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <h4 class="text-center">Primary Attribute</h4>
+                    <ul class="list-inline">
+                        <li class="button" data-filter="Agility" data-dimension="attribute">Agility</li>
+                        <li class="button" data-filter="Intelligence" data-dimension="attribute" >Intelligence</li>
+                        <li class="button" data-filter="Strength" data-dimension="attribute">Strength</li>
+                        <li id="attall" class="button active" data-filter="all" data-dimension="attribute">All</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="group" id="attack">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <h4 class="text-center">Attack Type</h4>
+                    <ul class="list-inline">
+                        <li class="button" data-filter="ranged" data-dimension="attack">Ranged</li>
+                        <li class="button" data-filter="melee" data-dimension="attack">Melee</li>
+                        <li class="button active" data-filter="all" data-dimension="attack">All</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <ul id="Grid">
+                {% for hero in heroes %}
+                <li class="mix {{ hero.team }} {{ hero.primaryattribute }} {{ hero.attacktype }}" data-popularity="{{ hero.popularity }}" data-toggle="tooltip" title="{{ hero.disp_name }}">
+                    <a href="/hero/{{ hero.cli_name }}/"><img style="width: 60px;" src="/static/img/heroes/{{ hero.hero_id }}/icon_128.jpg"></a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js%}
+<script src="/static/js/jquery.mixitup.min.js"></script>
+<script>
+$(function(){
+    $('#Grid').mixitup({
+        sortOnLoad: ['data-popularity','desc'],
+        effects: ['fade'],
+        transitionSpeed: 400,
+        onMixEnd: function(){
+            $('.mix').tooltip();
+        }
+    });
+    $('.mix').tooltip();
+
+    dimensions = {
+        team: 'all',
+        attack: 'all',
+        attribute: 'all',
+        attbool: true
+    };
+
+    $('#team').find('li').on('click',function(){
+        var $t = $(this);
+        legion($t);
+        superfilter();
+        swag();
+    });
+    $('#attack').find('li').on('click',function(){
+        var $t = $(this);
+        attack($t);
+        superfilter();
+        swag();
+    });
+    $('#attribute').find('li').on('click',function(){
+        var $t = $(this);
+        attribute($t);
+        superfilter();
+        swag();
+    });
+});
+function superfilter() {
+    $('#Grid').mixitup('filter',[dimensions.team, dimensions.attack, dimensions.attribute]);
+};
+function swag(){
+    console.info('dimension 1: '+dimensions.team);
+    console.info('dimension 2: '+dimensions.attack);
+    console.info('dimension 3: '+dimensions.attribute);
+};
+function legion(element){
+    console.info(element.attr('data-filter') + ' clicked');
+    dimensions.team = element.attr('data-filter');
+    $('#team').find('li').siblings().removeClass('active');
+    element.addClass('active');
+};
+function attack(element){
+    console.info(element.attr('data-filter') + ' clicked');
+    dimensions.attack = element.attr('data-filter');
+    $('#attack').find('li').siblings().removeClass('active');
+    element.addClass('active');
+};
+function attribute(element){
+    console.info(element.attr('data-filter') + ' clicked');
+    if(element.attr('data-filter') == 'all'){
+        $('#attribute').find('li').siblings().removeClass('active');
+        element.addClass('active');
+        dimensions.attribute = 'all';
+    }
+    else{
+        $('#attall').removeClass('active');
+        if(dimensions.attribute == 'all'){
+            dimensions.attribute = '';
+        }
+        else{
+            dimensions.attribute += ' ';
+        }
+        if(element.hasClass('active')){
+            dimensions.attribute = String(dimensions.attribute).replace(String(element.attr('data-filter')), '');
+            element.removeClass('active')
+            if(dimensions.attribute.length < 4){
+                $('#attall').addClass('active');
+                dimensions.attribute = 'all';
+            }
+        }
+        else{
+            element.addClass('active');
+            dimensions.attribute += element.attr('data-filter');
+        }
+    }
+    if(dimensions.attribute.length < 4)
+    {
+        dimensions.attribute = 'all';
+    }
+    dimensions.attribute = String(dimensions.attribute).trim()
+    if(dimensions.attribute.length > 22){
+        dimensions.attribute = 'all';
+        $('#attribute').find('li').removeClass('active');
+        $('#attall').addClass('active');
+    }
+
+};
+</script>
+{% endblock %}

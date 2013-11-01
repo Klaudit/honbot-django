@@ -12,7 +12,12 @@
 
     <link href="/static/css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/styles.css" rel="stylesheet">
+<<<<<<< HEAD
     <link href="/static/css/font-awesome.css" rel="stylesheet">
+=======
+    <!-- Font Awesome -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+>>>>>>> heroes
     <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
     <style type="text/css">
     .hero-container{
@@ -38,16 +43,17 @@
               <div class="input-group input-group-lg col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-sm-12">
                 <input id="player" type="text" placeholder="Player Username" class="form-control input-lg" autocomplete="off" autofocus>
                 <span class="input-group-btn">
-                  <button id="searchbutton" class="btn btn-default btn-lg" type="button"><i class="icon-search"></i> Go</button>
+                  <button id="searchbutton" class="btn btn-default btn-lg" type="button"><i class="fa fa-search"></i> Go</button>
                 </span>
               </div>
             </form>
           </div>
           <br>
           <div class="row">
-            <ul class="list-inline text-muted text-center">
+            <ul class="list-inline text-muted text-center home-inline">
               <li><a href="/player/">Players</a></li>
               <li><a href="/match/">Matches</a></li>
+              <li><a href="/hero/">Heroes</a></li>
             </ul>
           </div>
         </div>
@@ -60,6 +66,15 @@
               <div class="panel panel-default">
                 <div class="panel-heading"><h3 class="panel-title">Recent Changes</h3></div>
                 <div class="panel-body">
+                  <strong style="color: orange;">October 31st - Halloween Release</strong>
+                  <ul>
+                    <li>HonBot has gone black - still work to be done</li>
+                    <li>New: <a href="/hero/">Heroes page</a></li>
+                    <li>Individual hero pages still a work in progress</a></li>
+                    <li>Match hero builds are disabled until further notice. Working on a fix.</a></li>
+                    <li>I've added ads to fund the website. Feel free to use an adblocker.</a></li>
+                    <li>Good news: there's lots of singles in my area!</a></li>
+                  </ul>
                   <strong>October 27th</strong>
                   <ul>
                     <li>Players and player history now fall back if the API is unavailable</li>
@@ -75,19 +90,13 @@
                   </ul>
                   <strong>October 24th</strong>
                   <ul>
-                    <li>New script that find players missing from the database</li>
+                    <li>New script that finds players missing from the database</li>
                     <li>Chat now has toggles to turn things on/off</li>
                     <li>Back end optimizations</li>
                   </ul>
-                  <strong>October 16th</strong>
-                  <ul>
-                    <li>Tooltips for players in matches!</li>
-                    <li>Matches save faster to database.</li>
-                    <li>Fixed a server error when switching between ranked/casual/public modes.</li>
-                  </ul>
                 </div>
                 <div class="panel-footer no-bpadding">
-                  <ul class="list-inline">
+                  <ul class="list-inline home-inline">
                     <li><a href="https://github.com/scttcper/honbot-django">Source Code</a></li>
                     <li><a href="/static/web/changelog.html">History</a></li>
                   </ul>
@@ -98,14 +107,14 @@
                 <div class="panel panel-default">
                   <div class="panel-heading"><h3 class="panel-title">Server Stats</h3></div>
                   <div class="panel-body">
-                    Database:
-                    <ul>
+                    <strong>Database:</strong>
+                    <ul class="list-unstyled list-push">
                       <li>Players: <span id="players"></span></li>
                       <li>Matches: <span id="matches"></span></li>
                       <li>Player Match Stats: <span id="playermatches"></span></li>
                     </ul>
-                    S2 API:
-                    <ul>
+                    <strong>S2 API:</strong>
+                    <ul class="list-unstyled list-push">
                       <li>Status: <span id="serverstatus"></span></li>
                       <li>API calls today: <span id="apicount"></span></li>
                     </ul>
@@ -116,11 +125,11 @@
                   <div class="panel-heading"><h3 class="panel-title">Sponsored</h3></div>
                   <div class="panel-body text-center">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- 468x60 black/white -->
+                    <!-- dark - 468 x 60 -->
                     <ins class="adsbygoogle"
                          style="display:inline-block;width:468px;height:60px"
                          data-ad-client="ca-pub-7640562161899788"
-                         data-ad-slot="2646748954"></ins>
+                         data-ad-slot="4940420557"></ins>
                     <script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>

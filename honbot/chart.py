@@ -72,7 +72,7 @@ def chart_view(request, name, mode, stats):
     for h in top_heroes:
         new = {}
         new['hero'], new['used'] = h
-        new['kills'], new['assists'], new['deaths'], new['wins'], new['mmr'], new['apm'], new['gpm'], new['cs'] = (0,)*8
+        new['kills'], new['assists'], new['deaths'], new['wins'], new['losses'], new['mmr'], new['apm'], new['gpm'], new['cs'] = (0,)*9
         for m in matches:
             if m.hero == new['hero']:
                 new['kills'] += m.kills
@@ -83,7 +83,8 @@ def chart_view(request, name, mode, stats):
                 new['apm'] += m.apm
                 new['gpm'] += m.gpm
                 new['cs'] += m.cs
-        new['win_percent'] = int(float(new['wins']) / new['used'] * 100) 
+        new['win_percent'] = int(float(new['wins']) / new['used'] * 100)
+        new['losses'] = new['used'] - new['wins']
         new['kills'] = new['kills'] / new['used']
         new['assists'] = new['assists'] / new['used']
         new['deaths'] = new['deaths'] / new['used']
@@ -91,7 +92,7 @@ def chart_view(request, name, mode, stats):
         new['gpm'] = int(new['gpm'] / new['used'])
         new['cs'] = int(new['cs'] / new['used'])
         heroes.append(new)
-    return render_to_response('chart.html', 
+    return render_to_response('chart.html',
         {'mmr':mmr, 'count':count, 'apm':apm, 'aapm':aapm, 'agpm':agpm, 'gpm':gpm, 'kills':kills, 'akills':akills,
         'assists':assists, 'aassists':aassists, 'wards':wards, 'awards':awards, 'razed':razed, 'arazed':arazed, 'mmr_change':mmr_change,
         'ammr_change':ammr_change, 'sdead':sdead, 'asdead':asdead, 'cs':cs, 'acs':acs,

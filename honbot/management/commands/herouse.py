@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand, CommandError
 from honbot.api_call import get_json
-from honbot.models import HeroUseage
+from honbot.models import HeroUse
 from datetime import date
 from collections import OrderedDict
-
+import json
 
 class Command(BaseCommand):
     help = 'This will get hero usage'
@@ -13,13 +13,15 @@ class Command(BaseCommand):
         today = date.today().strftime("%Y-%m-%d")
         bulk = []
         del heroes['total']
-        heroes = OrderedDict(sorted(heroes.items(), key=lambda t: t[1]))
-        for index, hero in enumerate(heroes):
-            bulk.append(HeroUseage(
+        del heroes['0']
+        print json.dumps(heroes)
+        order = sorted(heroes, key=lambda key: heroes[key])
+        for index, hero in enumerate(order[::-1]):
+            bulk.append(HeroUse(
                 date=today,
                 hero_id=hero,
                 popularity=index+1,
                 usage=heroes[hero]
             ))
-        HeroUseage.objects.bulk_create(bulk)
+        HeroUse.objects.bulk_create(bulk)
         self.stdout.write("success")

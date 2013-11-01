@@ -16,13 +16,13 @@ class Command(BaseCommand):
                                              WHERE A.`player_id` is NULL""")
         count = 0
         for player in players:
-            sleep(1)
+            sleep(.1)
             data = get_json('/player_statistics/ranked/accountid/' + str(player.player_id))
             if data is not None:
                 data = player_math(data, 'rnk')
                 player_save(data, 'rnk')
                 update_player_count()
-                count += 1
-            if count >= 20:
+            count += 1
+            if count == 100:
                 break
         self.stdout.write("success on " + str(count))

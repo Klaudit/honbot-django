@@ -33,7 +33,7 @@
             <ul class="nav nav-pills nav-justified">
                 <li><a href="/match/{{ match.match_id }}">Overview</a></li>
                 <li class="active"><a href="/chat/{{ match.match_id }}">Chat Logs</a></li>
-                <li><a href="/builds/{{ match.match_id }}">Builds</a></li>
+                <!-- <li><a href="/builds/{{ match.match_id }}">Builds</a></li> -->
             </ul>
         </div>
     </div>
@@ -83,11 +83,11 @@
                     <div class="panel-heading"><span class="panel-title">Sponsored</span></div>
                     <div class="panel-body">
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- Chat page -->
+                        <!-- dark - player page -->
                         <ins class="adsbygoogle"
                              style="display:inline-block;width:160px;height:600px"
                              data-ad-client="ca-pub-7640562161899788"
-                             data-ad-slot="8896602152"></ins>
+                             data-ad-slot="7475084559"></ins>
                         <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
@@ -101,14 +101,14 @@
                     {% if not l.kill %}
                     <div class="chat-row {% if l.target == 2 %}hellbourne{% elif l.target == 1 %}legion{% elif l.target == 3 %}all-chat{% endif %}">
                         <span class="chat-time">{{ l.time }}</span>
-                        <span class="chat-team">{% if l.target == 2 %}<span class="text-danger">Hell{% elif l.target == 1 %}<span class="text-success">Leg{% elif l.target == 3 %}<span class="text-info">All{% endif %}</span></span>
+                        <span class="chat-team">{% if l.target == 2 %}<span class="text-danger">HEL{% elif l.target == 1 %}<span class="text-success">LEG{% elif l.target == 3 %}<span class="text-info">ALL{% endif %}</span></span>
                         <span class="chat-name player-{{ l.position }}"><img style="margin-top: -3px; width: 17px;" src='/static/img/heroes/{{ l.hero }}/icon_30.jpg'> <a href="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/player/{{l.name}}/">{{ l.name }}</a>:</span>
                         <span class="chat-msg">{{ l.msg }}</span>
                     </div>
                     {% else %}
                     <div class="chat-row kill-row">
                         <span class="chat-time">{{ l.time }}</span>
-                        <span class="chat-team text-kill">kill</span>
+                        <span class="chat-team"> </span>
                         <span class="chat-name player-{{ l.killer }}">
                             {% if l.killer = 42 %}
                             Creeps
@@ -126,6 +126,22 @@
                     </div>
                     {% endif %}
                 {% endfor %}
+            </div>
+            <div class="text-center adsbygoogle hidden-xs hidden-sm">
+                <style>
+                .dark-responsive { width: 320px; height: 50px; }
+                @media(min-width: 500px) { .dark-responsive { width: 468px; height: 60px; } }
+                @media(min-width: 800px) { .dark-responsive { width: 728px; height: 90px; } }
+                </style>
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- dark - responsive -->
+                <ins class="adsbygoogle dark-responsive"
+                     style="display:inline-block"
+                     data-ad-client="ca-pub-7640562161899788"
+                     data-ad-slot="5579548954"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </div>
     </div>

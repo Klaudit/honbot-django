@@ -8,6 +8,7 @@ class missingplayers(CronJobBase):
     code = 'honbot.missingplayers'
 
     def do(self):
+        print "missing players"
     	call_command('missingplayers')
         pass
 
@@ -23,8 +24,8 @@ class heroes(CronJobBase):
 
 
 class herouse(CronJobBase):
-    RUN_EVERY_MINS = 24 * 60 # every 5 hours
-    schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
+    RUN_AT_TIMES = ['0:00']
+    schedule = Schedule(run_at_times=RUN_AT_TIMES)
     code = 'honbot.herouse'
 
     def do(self):

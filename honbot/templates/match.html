@@ -34,8 +34,23 @@
             <ul class="nav nav-pills nav-justified">
                 <li class="active"><a href="/match/{{ match_id }}/">Overview</a></li>
                 <li><a href="/chat/{{ match_id }}/">Chat Logs</a></li>
-                <li><a href="/builds/{{ match_id }}/">Builds</a></li>
+                <!-- <li><a href="/builds/{{ match_id }}/">Builds</a></li> -->
             </ul>
+        </div>
+    </div>
+</div>
+<div class="container adsbygoogle">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 text-center hidden-xs hidden-sm">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- dark - bottom banner! -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:970px;height:90px"
+                 data-ad-client="ca-pub-7640562161899788"
+                 data-ad-slot="7614685358"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
 </div>
@@ -173,12 +188,27 @@
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
                             <div id="apm" style="min-width: 50px; height: 200px; margin: 0 auto"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="container adsbygoogle">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 text-center hidden-xs hidden-sm">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- dark - bottom banner! -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:970px;height:90px"
+                 data-ad-client="ca-pub-7640562161899788"
+                 data-ad-slot="7614685358"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
 </div>
 {% endblock main_content %}
 {%block js%}
@@ -214,9 +244,10 @@ $(function () {
                     allowPointSelect: true,
                     cursor: 'pointer',
                     animation: false,
+                    borderColor: '#222222',
                     dataLabels: {
                         enabled: true,
-                        style: {color: '#000;'},
+                        style: {color: '#EEE;'},
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -262,9 +293,10 @@ $(function () {
                     allowPointSelect: true,
                     cursor: 'pointer',
                     animation: false,
+                    borderColor: '#222222',
                     dataLabels: {
                         enabled: true,
-                        style: {color: '#000;'},
+                        style: {color: '#EEE;'},
                         formatter: function() {
                             return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) + '%';
                         }
@@ -318,6 +350,15 @@ $(function () {
                 hideDelay: 50,
                 formatter: function() {
                     return this.y;
+                }
+            },
+            legend: {
+                borderWidth: 0,
+                itemStyle: {
+                   color: '#64656d',
+                },
+                itemHoverStyle: {
+                    color: '#FFF'
                 }
             },
             plotOptions: {
@@ -404,6 +445,7 @@ $(function () {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
+                    borderColor: '#222222',
                     animation: false,
                     dataLabels: {
                         enabled: false
@@ -413,7 +455,7 @@ $(function () {
             title: {
                text: 'Kills',
                style: {
-                 color: '#000',
+                 color: '#c8c4cb',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -452,6 +494,7 @@ $(function () {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
+                    borderColor: '#222222',
                     animation: false,
                     dataLabels: {
                         enabled: false
@@ -461,7 +504,7 @@ $(function () {
             title: {
                text: 'XPM',
                style: {
-                 color: '#000',
+                 color: '#c8c4cb',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -504,6 +547,7 @@ $(function () {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
+                    borderColor: '#222222',
                     animation: false,
                     dataLabels: {
                         enabled: false
@@ -513,7 +557,7 @@ $(function () {
             title: {
                text: 'Assists',
                style: {
-                 color: '#000',
+                 color: '#c8c4cb',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -552,6 +596,7 @@ $(function () {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
+                    borderColor: '#222222',
                     animation: false,
                     dataLabels: {
                         enabled: false
@@ -561,7 +606,7 @@ $(function () {
             title: {
                text: 'Creeps',
                style: {
-                 color: '#000',
+                 color: '#c8c4cb',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -599,6 +644,7 @@ $(function () {
             plotOptions: {
                 pie: {
                     allowPointSelect: true,
+                    borderColor: '#222222',
                     cursor: 'pointer',
                     animation: false,
                     dataLabels: {
@@ -609,7 +655,7 @@ $(function () {
             title: {
                text: 'GPM',
                style: {
-                 color: '#000',
+                 color: '#c8c4cb',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },
@@ -652,6 +698,7 @@ $(function () {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
+                    borderColor: '#222222',
                     animation: false,
                     dataLabels: {
                         enabled: false
@@ -661,7 +708,7 @@ $(function () {
             title: {
                text: 'APM',
                style: {
-                 color: '#000',
+                 color: '#c8c4cb',
                  font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
               }
             },

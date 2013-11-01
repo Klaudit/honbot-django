@@ -2,13 +2,13 @@ from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
 from django.db.models import Avg, Max, Min
 from honbot.models import Heroes, HeroUse, HeroData
-from datetime import date
+from datetime import date, timedelta
 import json
 
 
 def main(request):
     heroes = Heroes.objects.all().values()
-    today = date.today().strftime("%Y-%m-%d")
+    today = (date.today()-timedelta(days=1)).strftime("%Y-%m-%d")
     data = HeroData.objects.all().order_by('hero_id').values('cli_name')
     use = list(HeroUse.objects.filter(date=today).order_by('hero_id').values())
     for index, hero in enumerate(heroes):

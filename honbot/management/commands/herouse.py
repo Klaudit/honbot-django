@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from honbot.api_call import get_json
 from honbot.models import HeroUse
-from datetime import date
+from datetime import date, timedelta
 from collections import OrderedDict
 import json
 
@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         heroes = get_json('/heroes/usage')
-        today = date.today().strftime("%Y-%m-%d")
+        today = (date.today()+timedelta(days=1)).strftime("%Y-%m-%d")
         bulk = []
         del heroes['total']
         del heroes['0']

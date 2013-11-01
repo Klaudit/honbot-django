@@ -365,6 +365,7 @@ class HeroData(models.Model):
     agility = models.PositiveSmallIntegerField(default=0)
     agilityperlevel = models.FloatField(default=0)
     intelligence = models.PositiveSmallIntegerField(default=0)
+    intelligenceperlevel = models.FloatField(default=0)
     calcattackspeed = models.FloatField(default=0)
     attackspeedpersec = models.FloatField(default=0)
     effectivearmor = models.FloatField(default=0)

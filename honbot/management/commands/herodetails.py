@@ -55,6 +55,7 @@ class Command(BaseCommand):
                 agility=data['attributes']['AGILITY'],
                 agilityperlevel=data['attributes']['AGILITYPERLEVEL'],
                 intelligence=data['attributes']['INTELLIGENCE'],
+                intelligenceperlevel=data['attributes']['INTELLIGENCEPERLEVEL'],
                 calcattackspeed=data['attributes']['CALCATTACKSPEED'],
                 attackspeedpersec=data['attributes']['ATTACKSPEEDPERSEC'],
                 effectivearmor=data['attributes']['EFFECTIVEARMOR'],

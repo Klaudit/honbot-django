@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
-from django.forms.models import model_to_dict
+from django.db.models import Avg, Max, Min
 from honbot.models import Heroes, HeroUse, HeroData
 from datetime import date
 import json
@@ -18,7 +18,16 @@ def main(request):
 
 
 def hero(request, name):
-	h = HeroData.objects.filter(cli_name=name).values()[0]
-	use = HeroUse.objects.filter(hero_id=h['hero_id'])[:10]
-	popularity = HeroUse.objects.filter(hero_id=h['hero_id'])[:1][0]
-	return render_to_response('hero.html', {'hero': h, 'use': use, 'popularity': popularity})
+    h = HeroData.objects.filter(cli_name=name).values()[0]
+    use = HeroUse.objects.filter(hero_id=h['hero_id'])[:10]
+    popularity = HeroUse.objects.filter(hero_id=h['hero_id'])[:1][0]
+    minmax = HeroData.objects.aggregate(Max('movespeed'),Min('movespeed'),
+        Max('turnrate'),Min('turnrate'),
+        Max('strengthperlevel'),Min('strengthperlevel'),
+        Max('agilityperlevel'),Min('agilityperlevel'),
+        Max('intelligenceperlevel'),Min('intelligenceperlevel'),
+        Max('attackcooldown'),Min('attackcooldown'),
+        Max('attackduration'),Min('attackduration'),
+        Max('attackactiontime'),Min('attackactiontime'),
+        )
+    return render_to_response('hero.html', {'hero': h, 'use': use, 'popularity': popularity, 'minmax': minmax})

@@ -345,6 +345,7 @@ class HeroData(models.Model):
     maxhealth = models.PositiveSmallIntegerField(default=0)
     healthregen = models.FloatField(default=0)
     manaregen = models.FloatField(default=0)
+    maxmana = models.PositiveSmallIntegerField(default=0)
     armor = models.FloatField(default=0)
     magicarmor = models.FloatField(default=0)
     attackduration = models.PositiveSmallIntegerField(default=0)

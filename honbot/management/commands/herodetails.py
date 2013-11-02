@@ -35,6 +35,7 @@ class Command(BaseCommand):
                 maxhealth=data['attributes']['MAXHEALTH'],
                 healthregen=data['attributes']['HEALTHREGEN'],
                 manaregen=data['attributes']['MANAREGEN'],
+                maxmana=data['attributes']['MAXMANA'],
                 armor=data['attributes']['ARMOR'],
                 magicarmor=data['attributes']['MAGICARMOR'],
                 attackduration=data['attributes']['ATTACKDURATION'],

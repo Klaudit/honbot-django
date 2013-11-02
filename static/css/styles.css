@@ -1899,3 +1899,9 @@ border-radius: 5px;
   -o-box-shadow: 0 0 12px #000;
   box-shadow: 0 0 12px #000;
 }
+.hero-table td, .hero-table th{
+  text-align: right;
+}
+.hero-table td:first-child, .hero-table th:first-child{
+  text-align: left;
+}

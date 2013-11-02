@@ -3,7 +3,7 @@ import api_call
 import time
 from datetime import timedelta, datetime, date
 from django.shortcuts import render_to_response
-from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic
+from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData
 from django.db.models import F
 from error import error
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -24,6 +24,7 @@ def match_view(request, match_id):
         # get players and setup for view
         players = PlayerMatches.objects.filter(match_id=match_id).order_by('position').values()
         for player in players:
+            player['cli_name'] = HeroData.objects.get(hero_id=player['hero']).cli_name
             player['items'] = json.loads(player['items'])
             if player['kdr'] == 999:
                 player['kdr'] = "Inf"

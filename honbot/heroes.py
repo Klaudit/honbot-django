@@ -54,9 +54,10 @@ def hero(request, name):
     lvl1['mpregeneration'] = h['manaregen'] + (0.04 * h['intelligence'])
     lvl25['mpregeneration'] = h['manaregen'] + (0.04 * (h['intelligence'] + 20 + floor(h['intelligenceperlevel'] * 24)))
     abilities = []
-    abilities.append(loads(h['ability1'])[1])
-    abilities.append(loads(h['ability2'])[1])
-    abilities.append(loads(h['ability3'])[1])
-    abilities.append(loads(h['ability4'])[1])
+    for ability in [loads(h['ability1'])[1], loads(h['ability2'])[1], loads(h['ability3'])[1], loads(h['ability4'])[1]]:
+        a = {}
+        name = ability['cli_ab_name']
+        a['name'] = ability['STRINGTABLE'][name + '_name']
+        abilities.append(a)
     return render_to_response('hero.html',
         {'hero': h, 'use': use, 'popularity': popularity, 'minmax': minmax, 'lvl1': lvl1, 'lvl25': lvl25, 'abilities': abilities})

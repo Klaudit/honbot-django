@@ -6,7 +6,6 @@ from re import sub
 from requests import get
 from time import strftime, gmtime
 from zipfile import ZipFile
-from re import sub
 
 
 directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'match')) + '/'

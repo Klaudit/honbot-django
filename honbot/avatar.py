@@ -22,7 +22,7 @@ def avatar(request, number, width):
     except:
         PlayerIcon(player_id=number, avatar="/static/img/default_avatar.png").save()
         return HttpResponse('<img style="width:' + str(width) + 'px;" src="/static/img/default_avatar.png">')
-    if img and img != "http://forums.heroesofnewerth.com/" and img != "http://forums.heroesofnewerth.com//ui/fe2/store/icons/community.tga":
+    if img and img != "http://forums.heroesofnewerth.com/" and img != "http://forums.heroesofnewerth.com//ui/fe2/store/icons/community.tga" and img != 'images/account_icons/default.png':
         PlayerIcon(player_id=number, avatar=str(img)).save()
         return HttpResponse('<img style="width:' + str(width) + 'px;" src="' + img + '">')
     else:

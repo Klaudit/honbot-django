@@ -1,4 +1,4 @@
-honbot-django
+honbot-django [![Code Quality](https://landscape.io/github/scttcper/honbot-django/master/landscape.png)](https://landscape.io/github/scttcper/honbot-django/master)
 =============
 HoN [Heroes of Newerth](http://www.heroesofnewerth.com/) Stats website written in django for the [HoN API](http://api.heroesofnewerth.com/).
 

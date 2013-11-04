@@ -131,10 +131,6 @@ def hero(request, name):
         iterable_attribute('requiredlevel', 'REQUIREDLEVEL', a, ability)
         a['effect'] = hon2html(ability['STRINGTABLE'][name + '_description_simple'])
         try:
-            a['effect'] = hon2html(ability['STRINGTABLE'][name + '_IMPACT_effect'])
-        except KeyError:
-            a['effect'] = None
-        try:
             a['impacteffect'] = hon2html(ability['STRINGTABLE'][name + '_description_simple:ult_boost'])
         except KeyError:
             a['impacteffect'] = None

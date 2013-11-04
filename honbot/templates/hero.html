@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block page_title %}Heroes | HonBot {% endblock %}
+{% block page_title %}Hero: {{ hero.disp_name }} | HonBot hero stats and useage {% endblock %}
 
 {% block main_content %}
 <div class="container">
@@ -221,13 +221,23 @@
                         {% endif %}
                         {% if a.requiredlevel %}
                           <li style="padding: 2px 15px 2px 15px;" class="list-group-item">
-                            <span class="text-danger">Required Level:</span> {{ a.requiredlevel }}
+                            <span class="text-danger">Required Level</span>: {{ a.requiredlevel }}
                           </li>
                         {% endif %}
                       </ul>
                       <div class="panel-body">
-                        <h4>Effect</h4>
+                        <h5>Effect:</h5>
                         <p>{{ a.effect|safe }}</p>
+                        {% if a.impacteffect %}
+                          <hr>
+                          <h5>Impact Effect:</h5>
+                          <p>{{ a.impacteffect|safe }}</p>
+                        {% endif %}
+                        {% if a.sotmeffect %}
+                          <hr>
+                          <h5>Staff of the Master Effect:</h5>
+                          <p>{{ a.sotmeffect|safe }}</p>
+                        {% endif %}
                       </div>
                   </div>
                 </div>

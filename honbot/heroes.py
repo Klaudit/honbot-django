@@ -130,6 +130,18 @@ def hero(request, name):
         iterable_attribute('cooldown', 'COOLDOWN', a, ability)
         iterable_attribute('requiredlevel', 'REQUIREDLEVEL', a, ability)
         a['effect'] = hon2html(ability['STRINGTABLE'][name + '_description_simple'])
+        try:
+            a['effect'] = hon2html(ability['STRINGTABLE'][name + '_IMPACT_effect'])
+        except KeyError:
+            a['effect'] = None
+        try:
+            a['impacteffect'] = hon2html(ability['STRINGTABLE'][name + '_description_simple:ult_boost'])
+        except KeyError:
+            a['impacteffect'] = None
+        try:
+            a['sotmeffect'] = hon2html(ability['STRINGTABLE'][name + '_description_simple:ult_boost'])
+        except KeyError:
+            a['sotmeffect'] = None
         abilities[int(ability['ab_slot'])] = a
     return render_to_response('hero.html',
         {'hero': h, 'use': use, 'popularity': popularity, 'minmax': minmax, 'lvl1': lvl1, 'lvl25': lvl25, 'abilities': abilities})

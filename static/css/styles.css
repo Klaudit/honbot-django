@@ -60,7 +60,12 @@ h6,
 .h6 {
   font-weight: bold;
 }
-
+.text-warning{
+  color: orange;
+}
+hr{
+  border-top: 1px solid #6d696f;
+}
 .list-group-item {
   position: relative;
   display: block;

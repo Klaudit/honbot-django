@@ -60,7 +60,7 @@ def hon2html(msg):
             msg += '</span><span style="color: orange;">' + part[1:]
         elif part[0] == 'm' or part[0] == 'M':
             msg += '</span><span style="color: #FF00FF;">' + part[1:]
-        elif len(part) >= 3 and isDigit(part[0]) and part[1].isDigit() and isDigit(part[2]):
+        elif len(part) >= 3 and isDigit(part[0]) and isDigit(part[1]) and isDigit(part[2]):
             msg += '</span><span style="color: #%s%s%s;">' % (hon_colors[int(part[0])],hon_colors[int(part[1])],hon_colors[int(part[2])]) + part[3:]
         elif part[0] == '*':
             msg += '</span>' + base + part[1:]
@@ -113,22 +113,29 @@ def hero(request, name):
     for ability in [loads(h['ability1'])[1], loads(h['ability2'])[1], loads(h['ability3'])[1], loads(h['ability4'])[1]]:
         a = {}
         name = ability['cli_ab_name']
-        a['name'] = ability['STRINGTABLE'][name + '_name']
-        a['description'] = ability['STRINGTABLE'][name + '_description']
-        a['actiontype'] = ability['attributes']['ACTIONTYPE'].replace('_', ' ').title()
         try:
-            a['targetscheme'] = ability['attributes']['TARGETSCHEME'].replace('_', ' ').title()
+            a['name'] = ability['STRINGTABLE'][name + '_name']
         except KeyError:
-            a['targetscheme'] = None
+            a['name'] = ''
         try:
-            a['casteffecttype'] = ability['attributes']['CASTEFFECTTYPE'].replace('_', ' ').title()
+            a['description'] = ability['STRINGTABLE'][name + '_description']
         except KeyError:
-            a['casteffecttype'] = None
-        iterable_attribute('range', 'RANGE', a, ability)
-        iterable_attribute('casttime', 'RANGE', a, ability)
-        iterable_attribute('manacost', 'MANACOST', a, ability)
-        iterable_attribute('cooldown', 'COOLDOWN', a, ability)
-        iterable_attribute('requiredlevel', 'REQUIREDLEVEL', a, ability)
+            a['description'] = ability['STRINGTABLE'][name + '_description_simple']
+        if ability['attributes'] != False:
+            a['actiontype'] = ability['attributes']['ACTIONTYPE'].replace('_', ' ').title()
+            try:
+                a['targetscheme'] = ability['attributes']['TARGETSCHEME'].replace('_', ' ').title()
+            except KeyError:
+                a['targetscheme'] = None
+            try:
+                a['casteffecttype'] = ability['attributes']['CASTEFFECTTYPE'].replace('_', ' ').title()
+            except KeyError:
+                a['casteffecttype'] = None
+            iterable_attribute('range', 'RANGE', a, ability)
+            iterable_attribute('casttime', 'RANGE', a, ability)
+            iterable_attribute('manacost', 'MANACOST', a, ability)
+            iterable_attribute('cooldown', 'COOLDOWN', a, ability)
+            iterable_attribute('requiredlevel', 'REQUIREDLEVEL', a, ability)
         a['effect'] = hon2html(ability['STRINGTABLE'][name + '_description_simple'])
         try:
             a['impacteffect'] = hon2html(ability['STRINGTABLE'][name + '_description_simple:ult_boost'])

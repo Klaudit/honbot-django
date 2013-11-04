@@ -216,12 +216,34 @@
                         {% if a.manacost %}
                           <li style="padding: 2px 15px 2px 15px;" class="list-group-item">Mana Cost: {{ a.manacost }}</li>
                         {% endif %}
-                        <li style="padding: 2px 15px 2px 15px;" class="list-group-item">Cooldown: 1.5 Seconds</li>
+                        {% if a.cooldown %}
+                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item">Cooldown: {{ a.cooldown }}</li>
+                        {% endif %}
+                        {% if a.requiredlevel %}
+                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item">
+                            <span class="text-danger">Required Level:</span> {{ a.requiredlevel }}
+                          </li>
+                        {% endif %}
                       </ul>
+                      <div class="panel-body">
+                        <h4>Effect</h4>
+                        <p>{{ a.effect|safe }}</p>
+                      </div>
                   </div>
                 </div>
             </div>
             {% endfor %}
+            <div class="row text-center adsbygoogle hidden-xs hidden-sm">
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- dark - leaderboard -->
+              <ins class="adsbygoogle"
+                   style="display:inline-block;width:728px;height:90px"
+                   data-ad-client="ca-pub-7640562161899788"
+                   data-ad-slot="1016421757"></ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
         </div>
     </div>
 </div>

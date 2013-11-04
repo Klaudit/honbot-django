@@ -1,5 +1,5 @@
 # project wide urls
-from django.conf.urls import *
+from django.conf.urls import patterns, url, include
 from django.contrib import admin
 admin.autodiscover()
 

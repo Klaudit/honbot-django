@@ -1,7 +1,6 @@
 # project wide urls
 from django.conf.urls import patterns, url, include
 from django.contrib import admin
-admin.autodiscover()
 
 # import your urls from each app here, as needed
 import honbot.urls

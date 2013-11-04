@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="page-header">
+            <div style="border-bottom-color: #6d696f;" class="page-header">
                 <h1>HonBot Statistics <small>Free of charge</small></h1>
             </div>
         </div>
@@ -28,8 +28,22 @@
             <div id="playermatches" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title text-center">Cron Jobs</h4></div>
+                <ul class="list-group list-group-flush">
+                {% for job in cronjobs %}
+                    <li class="list-group-item">{{ job.start_time }} - {{ job.code }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6">
+        </div>
+    </div>
 </div>
-<br>
 {%block js%}
 <script src="/static/js/highcharts.js"></script>
 <script>
@@ -42,7 +56,11 @@ $(function () {
             text: '',
         },
         xAxis: {
-            categories: [{% for p in players %}{{ p.date|date:"d" }},{% endfor %}],
+            categories: [{% for p in players %}"{{ p.date }}",{% endfor %}],
+            labels: {
+                enabled: false
+            },
+            lineColor: '#222222',
         },
         yAxis: [{
             title: {
@@ -53,7 +71,8 @@ $(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+            gridLineColor: '#4f4c50'
         }],
         credits: {enabled: false},
         colors: ['#ff2339'],
@@ -80,7 +99,11 @@ $(function () {
             text: '',
         },
         xAxis: {
-            categories: [{% for m in matches %}{{ m.date|date:"d" }},{% endfor %}],
+            categories: [{% for m in matches %}"{{ m.date }}",{% endfor %}],
+            labels: {
+                enabled: false
+            },
+            lineColor: '#222222',
         },
         yAxis: [{
             title: {
@@ -91,7 +114,8 @@ $(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+            gridLineColor: '#4f4c50'
         }],
         credits: {enabled: false},
         colors: ['#e800ff'],
@@ -102,7 +126,7 @@ $(function () {
             },
         series: [{
             showInLegend: false,
-            name: 'Players',
+            name: 'Matches',
             data: [{% for m in matches %}{{ m.count }},{% endfor %}],
         }]
     });
@@ -118,7 +142,11 @@ $(function () {
             text: '',
         },
         xAxis: {
-            categories: [{% for m in playermatches %}{{ m.date|date:"d" }},{% endfor %}],
+            categories: [{% for m in playermatches %}"{{ m.date }}",{% endfor %}],
+            labels: {
+                enabled: false
+            },
+            lineColor: '#222222',
         },
         yAxis: [{
             title: {
@@ -129,7 +157,8 @@ $(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+            gridLineColor: '#4f4c50'
         }],
         credits: {enabled: false},
         colors: ['#1974FF'],
@@ -140,7 +169,7 @@ $(function () {
             },
         series: [{
             showInLegend: false,
-            name: 'Players',
+            name: 'Players in matches',
             data: [{% for m in playermatches %}{{ m.count }},{% endfor %}],
         }]
     });
@@ -156,7 +185,11 @@ $(function () {
             text: '',
         },
         xAxis: {
-            categories: [{% for m in api %}{{ m.date|date:"d" }},{% endfor %}],
+            categories: [{% for m in api %}"{{ m.date }}",{% endfor %}],
+            labels: {
+                enabled: false
+            },
+            lineColor: '#222222',
         },
         yAxis: [{
             title: {
@@ -167,7 +200,8 @@ $(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+            gridLineColor: '#4f4c50'
         }],
         credits: {enabled: false},
         colors: ['#aedf16'],
@@ -178,7 +212,7 @@ $(function () {
             },
         series: [{
             showInLegend: false,
-            name: 'Players',
+            name: 'API calls',
             data: [{% for m in api %}{{ m.count }},{% endfor %}],
         }]
     });

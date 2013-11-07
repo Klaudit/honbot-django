@@ -67,23 +67,8 @@ hr{
   border-top: 1px solid #6d696f;
 }
 .list-group-item {
-  position: relative;
-  display: block;
-  padding: 10px 15px;
-  margin-bottom: -1px;
   background-color: #222222;
   border: 1px solid #282828;
-}
-
-.list-group-item:first-child {
-  border-top-right-radius: 4px;
-  border-top-left-radius: 4px;
-}
-
-.list-group-item:last-child {
-  margin-bottom: 0;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
 }
 
 .list-group-item > .badge {
@@ -257,21 +242,8 @@ a.list-group-item:focus {
   border-color: rgba(0, 0, 0, 0.15);
 }
 
-.well-lg {
-  padding: 24px;
-  border-radius: 6px;
-}
-
-.well-sm {
-  padding: 9px;
-  border-radius: 3px;
-}
-
 .close {
-  float: right;
   font-size: 21px;
-  font-weight: bold;
-  line-height: 1;
   color: #000000;
   text-shadow: 0 1px 0 #ffffff;
   opacity: 0.2;
@@ -307,15 +279,6 @@ a.list-group-item:focus {
 }
 
 .popover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1010;
-  display: none;
-  max-width: 276px;
-  padding: 1px;
-  text-align: left;
-  white-space: normal;
   background-color: #202020;
   border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -323,22 +286,6 @@ a.list-group-item:focus {
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   background-clip: padding-box;
-}
-
-.popover.top {
-  margin-top: -10px;
-}
-
-.popover.right {
-  margin-left: 10px;
-}
-
-.popover.bottom {
-  margin-top: 10px;
-}
-
-.popover.left {
-  margin-left: -10px;
 }
 
 .popover-title {
@@ -352,87 +299,36 @@ a.list-group-item:focus {
   border-radius: 5px 5px 0 0;
 }
 
-.popover-content {
-  padding: 9px 14px;
-}
-
-.popover .arrow,
-.popover .arrow:after {
-  position: absolute;
-  display: block;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-}
-
-.popover .arrow {
-  border-width: 11px;
-}
-
-.popover .arrow:after {
-  border-width: 10px;
-  content: "";
-}
-
 .popover.top .arrow {
-  bottom: -11px;
-  left: 50%;
-  margin-left: -11px;
   border-top-color: #999999;
   border-top-color: rgba(0, 0, 0, 0.25);
-  border-bottom-width: 0;
 }
 
 .popover.top .arrow:after {
-  bottom: 1px;
-  margin-left: -10px;
   border-top-color: #202020;
-  border-bottom-width: 0;
-  content: " ";
 }
 
 .popover.right .arrow {
-  top: 50%;
-  left: -11px;
-  margin-top: -11px;
   border-right-color: #999999;
   border-right-color: rgba(0, 0, 0, 0.25);
-  border-left-width: 0;
 }
 
 .popover.right .arrow:after {
-  bottom: -10px;
-  left: 1px;
   border-right-color: #202020;
-  border-left-width: 0;
-  content: " ";
 }
 
 .popover.bottom .arrow {
-  top: -11px;
-  left: 50%;
-  margin-left: -11px;
   border-bottom-color: #999999;
   border-bottom-color: rgba(0, 0, 0, 0.25);
-  border-top-width: 0;
 }
 
 .popover.bottom .arrow:after {
-  top: 1px;
-  margin-left: -10px;
   border-bottom-color: #202020;
-  border-top-width: 0;
-  content: " ";
 }
 
 .popover.left .arrow {
-  top: 50%;
-  right: -11px;
-  margin-top: -11px;
   border-left-color: #999999;
   border-left-color: rgba(0, 0, 0, 0.25);
-  border-right-width: 0;
 }
 
 .popover.left .arrow:after {
@@ -460,14 +356,6 @@ a.list-group-item:focus {
   vertical-align: bottom;
   border-bottom: 2px solid #222;
 }
-.table-condensed thead > tr > th,
-.table-condensed tbody > tr > th,
-.table-condensed tfoot > tr > th,
-.table-condensed thead > tr > td,
-.table-condensed tbody > tr > td,
-.table-condensed tfoot > tr > td {
-  padding: 5px;
-}
 
 .table-bordered {
   border: 1px solid #282828;
@@ -482,11 +370,6 @@ a.list-group-item:focus {
   border: 1px solid #282828;
 }
 
-.table-bordered > thead > tr > th,
-.table-bordered > thead > tr > td {
-  border-bottom-width: 2px;
-}
-
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: rgba(0, 0, 0, .2);
@@ -495,17 +378,6 @@ a.list-group-item:focus {
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
   background-color: #282828;
-}
-
-table col[class*="col-"] {
-  display: table-column;
-  float: none;
-}
-
-table td[class*="col-"],
-table th[class*="col-"] {
-  display: table-cell;
-  float: none;
 }
 
 .table > thead > tr > td.active,

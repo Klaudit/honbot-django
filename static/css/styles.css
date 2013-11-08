@@ -49,6 +49,18 @@ a:hover{
 .text-honbot{
   color: #aedf16;
 }
+.text-warning, .text-warning:hover{
+  color: orange;
+}
+.text-danger, .text-danger:hover{
+  color: red;
+}
+.text-info, .text-info:hover{
+  color: teal;
+}
+.text-success, .text-success:hover{
+  color: green;
+}
 h1,
 h2,
 h3,
@@ -1355,23 +1367,6 @@ span.ColVis_radio {
 }
 .nopadding {
   padding: 0 !important;
-}
-/* for afix */
-
-.bs-docs-sidenav.affix {
-    top: 10px;
-}
-@media (min-width: 1200px) {
-  .bs-docs-sidenav {
-      width: 258px;
-  }
-  .bs-docs-sidenav {
-      width: 263px;
-      padding: 0;
-  }
-  .affix {
-    position: fixed;
-  }
 }
 /* ============================================================
  * bootstrapSwitch v1.3 by Larentis Mattia @spiritualGuru

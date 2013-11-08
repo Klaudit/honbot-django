@@ -4,7 +4,7 @@ from honbot.models import PlayerMatchCount, PlayerCount, MatchCount, APICount
 from django_cron.models import CronJobLog
 from django.views.decorators.cache import cache_page
 
-@cache_page(1000)
+
 def stats(request):
     players = PlayerCount.objects.all().order_by('-date')[:10][::-1]
     matches = MatchCount.objects.all().order_by('-date')[:10][::-1]

@@ -60,19 +60,23 @@
                     <table class="table table-striped table-bordered hero-table">
                         <tbody>
                             <tr>
-                                <td>Creep Kills <span class="pull-right">{{ stats.acs }}</span></td>
-                                <td><span class="pull-left">XP/min</span> {{ stats.axpmin }}</td>
+                                <td>KDR <span class="pull-right">{{ stats.kdr }}</span></td>
+                                <td><span class="pull-left">K+A:D</span> {{ stats.kadr }}</td>
                             </tr>
                             <tr>
-                                <td>Denies<span class="pull-right">{{ stats.adenies }}</span></td>
-                                <td><span class="pull-left">GPM</span>{{ stats.agoldmin }}</td>
+                                <td>Creep Kills <span class="pull-right">{{ stats.acs }}</span></td>
+                                <td><span class="pull-left">Exp/min</span> {{ stats.axpmin }}</td>
+                            </tr>
+                            <tr>
+                                <td>Creep Denies<span class="pull-right">{{ stats.adenies }}</span></td>
+                                <td><span class="pull-left">Gold/min</span>{{ stats.agoldmin }}</td>
                             </tr>
                                 <td>Wards<span class="pull-right">{{ stats.awards }}</span></td>
-                                <td><span class="pull-left">APM</span>{{ stats.aactionsmin }}</td>
+                                <td><span class="pull-left">Actions/min</span>{{ stats.aactionsmin }}</td>
                             </tr>
                             </tr>
                                 <td>Matches<span class="pull-right">{{ stats.matches }}</span></td>
-                                <td><span class="pull-left">Consumable</span>{{ stats.aconsumables }}</td>
+                                <td><span class="pull-left">Consumables</span>{{ stats.aconsumables }}</td>
                             </tr>
                             </tr>
                                 <td>CC End<span class="pull-right">{{ stats.cc }}</span></td>

@@ -149,7 +149,9 @@ $(function () {
         },
         xAxis: {
             categories: [{%for m in match_list%}{{m}},{%endfor%}],
-            labels:{enabled: false}
+            labels:{enabled: false},
+            lineColor: '#4f4c50',
+            tickColor: '#4f4c50'
         },
         yAxis: [{
             title: {
@@ -162,7 +164,8 @@ $(function () {
             plotLines: [{
                 value: 0,
                 width: 1,
-            }]
+            }],
+            gridLineColor: '#4f4c50'
         }],
         credits: {enabled: false},
         colors: ['#aedf16'],

@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from honbot.api_call import get_json, pure
 from honbot.models import Heroes, HeroData
 from json import dumps, loads

@@ -214,7 +214,9 @@ $(function () {
         },
         xAxis: {
             categories: [{%for m in match_list%}{{m}},{%endfor%}],
-            labels:{enabled: false}
+            labels:{enabled: false},
+            lineColor: '#4f4c50',
+            tickColor: '#4f4c50'
         },
         yAxis: {
             title: {
@@ -228,7 +230,8 @@ $(function () {
                 color: '#cc0000',
                 width: 2,
                 value: {{aapm}}
-            }]
+            }],
+            gridLineColor: '#4f4c50'
         },
         credits: {enabled: false},
         colors: ['#1974FF'],
@@ -277,7 +280,9 @@ $(function () {
         },
         xAxis: {
             categories: [{%for m in match_list%}{{m}},{%endfor%}],
-            labels:{enabled: false}
+            labels:{enabled: false},
+            lineColor: '#4f4c50',
+            tickColor: '#4f4c50'
         },
         yAxis: {
             title: {
@@ -288,10 +293,11 @@ $(function () {
                 }
             },
             plotLines: [{
-                color: '#cc0000',
+                color: 'red',
                 width: 2,
                 value: {{agpm}}
-            }]
+            }],
+            gridLineColor: '#4f4c50'
         },
         credits: {enabled: false},
         colors: ['#e800ff'],

@@ -1,16 +1,16 @@
-from django.shortcuts import render_to_response
 from django.http import HttpResponse
-import api_call
-from random import randint
-from honbot.models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatchCount, PlayerMatches, APICount
-import datetime
-from django.views.decorators.cache import cache_page
+from django.shortcuts import render_to_response
 from django.template import Context, Template
+from django.views.decorators.cache import cache_page
+from honbot.models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatchCount, PlayerMatches, APICount
+from api_call import pure
+from datetime import date
+from random import randint
 
 
 @cache_page(60 * 10)
 def server_status(request):
-    json = api_call.pure('/items/id/10')
+    json = pure('/items/id/10')
     test = """{"cli_name":"Item_CrushingClaws","attributes":{"icon":"Item_CrushingClaws.jpg","cost":"150","isPassive":false,"recipeCost":"150","usedIn":["Item_Strength5","Item_BloodChalice"],"strings":{"description_simple":"^9773 Strength^*","effect_header":"Status Effect(s)","search_terms":"crushingclaws,gauntletsofogrestrength,gauntlets,ogre,3s,3str,3strength,cc,strength,str,crushing,claws","shop_categories":"Filter_Strength","shop_flavor":"Crushing Claws are filled with clockwork gears, sprockets, and springs that give a boost of strength to whomever wears them.  Despite their role in numerous practical jokes gone awry, these gauntlets remain in widespread use in the ranks."},"name":"Crushing Claws"}}"""
     try:
         if json.text == test:
@@ -26,7 +26,7 @@ def match_count(request):
     """
     Returns the current number of matches stored in the database
     """
-    today = datetime.date.today().strftime("%Y-%m-%d")
+    today = date.today().strftime("%Y-%m-%d")
     current_count = MatchCount.objects.filter(date=today)
     if current_count.exists():
         count = current_count[0].count
@@ -43,7 +43,7 @@ def player_count(request):
     """
     Returns the current number of players in the database
     """
-    today = datetime.date.today().strftime("%Y-%m-%d")
+    today = date.today().strftime("%Y-%m-%d")
     current_count = PlayerCount.objects.filter(date=today)
     if current_count.exists():
         count = current_count[0].count
@@ -60,7 +60,7 @@ def player_match_count(request):
     """
     Returns the current number of players in the database
     """
-    today = datetime.date.today().strftime("%Y-%m-%d")
+    today = date.today().strftime("%Y-%m-%d")
     current_count = PlayerMatchCount.objects.filter(date=today)
     if current_count.exists():
         count = current_count[0].count
@@ -77,7 +77,7 @@ def api_count(request):
     """
     Returns the current number of players in the database
     """
-    today = datetime.date.today().strftime("%Y-%m-%d")
+    today = date.today().strftime("%Y-%m-%d")
     current_count = APICount.objects.filter(date=today)
     if current_count.exists():
         count = current_count[0].count

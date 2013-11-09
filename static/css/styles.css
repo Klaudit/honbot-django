@@ -52,14 +52,14 @@ a:hover{
 .text-warning, .text-warning:hover{
   color: orange;
 }
-.text-danger, .text-danger:hover{
-  color: red;
-}
 .text-info, .text-info:hover{
-  color: teal;
+  color: #1974FF;
+}
+.text-danger, .text-danger:hover{
+  color: #d61a00;
 }
 .text-success, .text-success:hover{
-  color: green;
+  color: #009f3e;
 }
 h1,
 h2,
@@ -1581,3 +1581,18 @@ border-radius: 5px;
         background-size: 0 0;
     }
 }
+.bs-docs-sidenav.affix {
+     top: 10px;
+ }
+ @media (min-width: 1200px) {
+   .bs-docs-sidenav {
+       width: 258px;
+   }
+   .bs-docs-sidenav {
+       width: 263px;
+       padding: 0;
+   }
+   .affix {
+     position: fixed;
+   }
+ }

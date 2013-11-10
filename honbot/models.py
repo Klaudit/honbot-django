@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 
 class Matches(models.Model):
@@ -128,6 +129,9 @@ class PlayerStats(models.Model):
     level_exp = models.PositiveIntegerField(default=0)
     min_exp = models.PositiveIntegerField(default=0)
     max_exp = models.PositiveIntegerField(default=0)
+
+    def get_absolute_url(self):
+        return "/player/%s/" % self.nickname
 
 
 class PlayerStatsCasual(models.Model):
@@ -318,6 +322,10 @@ class Heroes(models.Model):
     primaryattribute = models.TextField(default="")
     attacktype = models.TextField(default="")
     team = models.TextField(default="")
+    updated = models.DateTimeField(auto_now=True, default=datetime.now)
+
+    def get_absolute_url(self):
+        return "/hero/%s/" % self.disp_name
 
 class HeroUse(models.Model):
     date = models.DateField(db_index=True)

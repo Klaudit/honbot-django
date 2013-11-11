@@ -3,12 +3,12 @@ from os.path import abspath, dirname, join
 from localsettings import is_debug, get_token, get_avatar_session
 
 
-DEBUG = localsettings.is_debug()
+DEBUG = is_debug()
 handler500 = 'honbot.views.errorfive'
-TEMPLATE_DEBUG = localsettings.is_debug()
+TEMPLATE_DEBUG = is_debug()
 ADMIN_ENABLED = False
-TOKEN = localsettings.get_token()
-PHP = localsettings.get_avatar_session()
+TOKEN = get_token()
+PHP = get_avatar_session()
 
 ADMINS = (
     ('Scott', 'scttcper@gmail.com'),

@@ -1,14 +1,14 @@
 # Django settings for honbot-django
-import os.path
-import localsettings
+from os.path import abspath, dirname, join
+from localsettings import is_debug, get_token, get_avatar_session
 
 
-DEBUG = localsettings.is_debug()
+DEBUG = is_debug()
 handler500 = 'honbot.views.errorfive'
-TEMPLATE_DEBUG = localsettings.is_debug()
+TEMPLATE_DEBUG = is_debug()
 ADMIN_ENABLED = False
-TOKEN = localsettings.get_token()
-PHP = localsettings.get_avatar_session()
+TOKEN = get_token()
+PHP = get_avatar_session()
 
 ADMINS = (
     ('Scott', 'scttcper@gmail.com'),
@@ -56,7 +56,7 @@ USE_TZ = False
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = (
-    str(os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'match')) + '/')
+    str(join(abspath(dirname(dirname(__file__))), 'match')) + '/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -78,7 +78,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'static'),
+    join(abspath(dirname(dirname(__file__))), 'static'),
 
 )
 

@@ -14,7 +14,7 @@ class Matches(models.Model):
     minor = models.PositiveSmallIntegerField(default=0)
     revision = models.PositiveSmallIntegerField(default=0)
     build = models.PositiveSmallIntegerField(default=0)
-    added = models.DateTimeField(auto_now_add=True, default=0)
+    added = models.DateTimeField(auto_now_add=True, default=datetime.now)
 
     class Meta:
         ordering = ['-match_id']

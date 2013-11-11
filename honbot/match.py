@@ -1,15 +1,15 @@
-import json
-import api_call
-import time
-from datetime import timedelta, datetime, date
-from django.shortcuts import render_to_response
-from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData
-from django.db.models import F
-from error import error
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from player import player_math, player_save
+from django.db.models import F
+from django.shortcuts import render_to_response
+from api_call import get_json
 from avatar import avatar
-import thread
+from datetime import timedelta, datetime, date
+from error import error
+from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData
+from json import loads, dumps
+from player import player_math, player_save
+from thread import start_new_thread
+from time import gmtime, strftime
 
 
 def match_view(request, match_id):
@@ -25,7 +25,7 @@ def match_view(request, match_id):
         players = PlayerMatches.objects.filter(match_id=match_id).order_by('position').values()
         for player in players:
             player['cli_name'] = HeroData.objects.get(hero_id=player['hero']).cli_name
-            player['items'] = json.loads(player['items'])
+            player['items'] = loads(player['items'])
             if player['kdr'] == 999:
                 player['kdr'] = "Inf"
             if player['team'] == 1:
@@ -40,12 +40,12 @@ def match_view(request, match_id):
                 t2exist = True
             else:
                 t2exist = False
-            thread.start_new_thread(update_check, (player['player_id'], match['mode']))
+            start_new_thread(update_check, (player['player_id'], match['mode']))
         return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players': players, 'team1': team1, 'team2': team2, 't1exist': t1exist, 't2exist': t2exist})
     else:
         # grab solo match for fucks sake
         url = '/multi_match/all/matchids/' + str(match_id)
-        data = api_call.get_json(url)
+        data = get_json(url)
         h = [str(match_id)]
         if data is not None:
             mode = "rnk"
@@ -84,7 +84,7 @@ def update_player(pid, mode):
         url = '/player_statistics/casual/accountid/' + str(pid)
     elif mode == 'acc':
         url = '/player_statistics/public/accountid/' + str(pid)
-    data = api_call.get_json(url)
+    data = get_json(url)
     p = player_math(data, mode)
     player_save(p, mode)
 
@@ -152,7 +152,7 @@ def match_save(data, match_id, mode):
                                   wards=data['players'][p]['wards'],
                                   team=data['players'][p]['team'],
                                   position=data['players'][p]['position'],
-                                  items=json.dumps(
+                                  items=dumps(
                                       data['players'][p]['items']),
                                   mode=mode, date=data['date']))
     if len(bulk) > 0:
@@ -233,8 +233,8 @@ def multimatch(data, history, mode):
     for m in data[2]:
         matchlength = round(float(m['secs']) / 60, 1)
         allmatches[m['match_id']]['matchlength'] = matchlength
-        allmatches[m['match_id']]['realtime'] = time.strftime(
-            '%H:%M:%S', time.gmtime(int(m['secs'])))
+        allmatches[m['match_id']]['realtime'] = strftime(
+            '%H:%M:%S', gmtime(int(m['secs'])))
         if int(allmatches[m['match_id']]['realtime'].split(':')[0]) == 0:
             allmatches[m['match_id']]['realtime'] = allmatches[
                 m['match_id']]['realtime'][3:]

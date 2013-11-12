@@ -86,7 +86,7 @@ def tooltip(request, account_id, player):
 
 @cache_page(10000)
 def distribution(requst):
-    players = PlayerStats.objects.values_list('mmr', 'TSR')
+    players = PlayerStats.objects.filter(matches__gte=1).values_list('mmr', 'TSR')
     tsr, mmr, bins = [], [], []
     for player in players:
         mmr.append(player[0])

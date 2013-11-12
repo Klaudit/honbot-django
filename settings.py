@@ -4,7 +4,6 @@ from localsettings import is_debug, get_token, get_avatar_session
 
 
 DEBUG = is_debug()
-handler500 = 'honbot.views.errorfive'
 TEMPLATE_DEBUG = is_debug()
 ADMIN_ENABLED = False
 TOKEN = get_token()

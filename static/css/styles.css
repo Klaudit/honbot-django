@@ -49,18 +49,6 @@ a:hover{
 .text-honbot{
   color: #aedf16;
 }
-.text-warning, .text-warning:hover{
-  color: orange;
-}
-.text-info, .text-info:hover{
-  color: #1974FF;
-}
-.text-danger, .text-danger:hover{
-  color: #d61a00;
-}
-.text-success, .text-success:hover{
-  color: #009f3e;
-}
 h1,
 h2,
 h3,

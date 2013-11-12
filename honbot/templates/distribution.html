@@ -69,6 +69,8 @@ $(function () {
                         fontFamily: 'Verdana, sans-serif'
                     }
                 },
+                lineColor: '#4f4c50',
+                tickColor: '#4f4c50'
         },
         yAxis: [{
             title: {
@@ -78,7 +80,8 @@ $(function () {
             plotLines: [{
                 value: 0,
                 width: 1,
-            }]
+            }],
+            gridLineColor: '#4f4c50'
         }],
         credits: {enabled: false},
         colors: ['#aedf16'],
@@ -106,6 +109,8 @@ $(function () {
         },
         xAxis: {
             categories: [{% for p in tlable %}{{ p }},{% endfor %}],
+            lineColor: '#4f4c50',
+            tickColor: '#4f4c50'
         },
         yAxis: [{
             title: {
@@ -116,7 +121,8 @@ $(function () {
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+            gridLineColor: '#4f4c50'
         }],
         credits: {enabled: false},
         colors: ['#1974FF'],

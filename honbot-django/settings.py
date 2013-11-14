@@ -1,6 +1,6 @@
 # Django settings for honbot-django
 from os.path import abspath, dirname, join
-from .localsettings import is_debug, get_token, get_avatar_session
+from localsettings import is_debug, get_token, get_avatar_session
 
 
 DEBUG = is_debug()

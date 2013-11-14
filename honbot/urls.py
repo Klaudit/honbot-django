@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, ListView
 from honbot.player_browse import PlayerList
-
+from honbot.models import PlayerBrackets
 
 urlpatterns = patterns(
     '',
@@ -64,4 +64,5 @@ urlpatterns = patterns(
     # heroes main page
     url(r'^hero/$', 'honbot.heroes.main'),
     url(r'^hero/(?P<name>.*)/$', 'honbot.heroes.hero'),
+    (r'^brackets/$', ListView.as_view(model=PlayerBrackets, template_name='brackets.html')),
 )

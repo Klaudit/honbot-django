@@ -504,7 +504,38 @@ class MasterRanked(models.Model):
     vested_threshold = models.PositiveSmallIntegerField(default=0)
 
 
-
+class PlayerBrackets(models.Model):
+    mmr_bracket = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
+    maxkills = models.FloatField(default=0)
+    akills = models.FloatField(default=0)
+    minkills = models.FloatField(default=0)
+    stdkills = models.FloatField(default=0)
+    maxassists = models.FloatField(default=0)
+    aassists = models.FloatField(default=0)
+    minassists = models.FloatField(default=0)
+    stdassists = models.FloatField(default=0)
+    maxdeaths = models.FloatField(default=0)
+    adeaths = models.FloatField(default=0)
+    mindeaths = models.FloatField(default=0)
+    stddeaths = models.FloatField(default=0)
+    atime = models.FloatField(default=0)
+    maxactionsmin = models.FloatField(default=0)
+    aactionsmin = models.FloatField(default=0)
+    minactionsmin = models.FloatField(default=0)
+    stdactionsmin = models.FloatField(default=0)
+    maxcs = models.FloatField(default=0)
+    acs = models.FloatField(default=0)
+    mincs = models.FloatField(default=0)
+    stdcs = models.FloatField(default=0)
+    maxdenies = models.FloatField(default=0)
+    adenies = models.FloatField(default=0)
+    mindenies = models.FloatField(default=0)
+    stddenies = models.FloatField(default=0)
+    maxwards = models.FloatField(default=0)
+    awards = models.FloatField(default=0)
+    minwards = models.FloatField(default=0)
+    stdwards = models.FloatField(default=0)
+    count = models.PositiveIntegerField(default=0)
 
 
 

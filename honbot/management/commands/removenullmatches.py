@@ -1,4 +1,4 @@
-from honbot.models import Matches
+from .models import Matches
 from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):

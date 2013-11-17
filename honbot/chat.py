@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response, redirect
 from datetime import datetime, timedelta
 from error import error
-from honbot.models import Chat, Matches, PlayerMatches
+from .models import Chat, Matches, PlayerMatches
 from json import loads
 from logparse import download, parse
 

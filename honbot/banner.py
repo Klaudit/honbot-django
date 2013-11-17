@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from api_call import get_json
 from datetime import datetime
-from honbot.models import PlayerStats
+from .models import PlayerStats
 from os import remove, path
 from PIL import Image, ImageDraw, ImageFont
 from player import player_math, player_save

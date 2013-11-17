@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from honbot.models import PlayerBrackets, PlayerStats
+from .models import PlayerBrackets, PlayerStats
 from django.db.models import Avg, Max, Min, StdDev
 
 

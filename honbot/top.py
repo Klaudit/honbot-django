@@ -1,6 +1,6 @@
 from django.template import Context, loader
 from django.http import HttpResponse
-from honbot.models import PlayerMatches
+from .models import PlayerMatches
 from datetime import timedelta, datetime
 from json import loads
 from django.views.decorators.cache import cache_page

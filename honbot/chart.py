@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from honbot.models import PlayerMatches, PlayerStats, PlayerStatsCasual, PlayerStatsPublic
+from .models import PlayerMatches, PlayerStats, PlayerStatsCasual, PlayerStatsPublic
 from error import error
 from collections import Counter
 import numpy as np

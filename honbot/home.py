@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, Template
 from django.views.decorators.cache import cache_page
-from honbot.models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatchCount, PlayerMatches, APICount
+from .models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatchCount, PlayerMatches, APICount
 from api_call import pure
 from datetime import date
 from random import randint

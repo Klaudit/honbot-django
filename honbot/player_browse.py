@@ -1,5 +1,5 @@
 from django_datatables_view.base_datatable_view import BaseDatatableView
-from honbot.models import PlayerStats
+from .models import PlayerStats
 from django.shortcuts import render_to_response
 
 def browse(request):

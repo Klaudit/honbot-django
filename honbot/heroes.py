@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
 from django.db.models import Avg, Max, Min
-from honbot.models import Heroes, HeroUse, HeroData
+from .models import Heroes, HeroUse, HeroData
 from datetime import date
 from math import floor
 from json import loads
@@ -85,7 +85,6 @@ def main(request):
 def hero(request, name):
     h = HeroData.objects.filter(cli_name=name).values()[0]
     use = HeroUse.objects.filter(hero_id=h['hero_id'])[:10]
-    today = date.today().strftime("%Y-%m-%d")
     popularity = HeroUse.objects.get(hero_id=h['hero_id'], date=date.today().strftime("%Y-%m-%d"))
     minmax = HeroData.objects.aggregate(Max('movespeed'),Min('movespeed'),
         Max('turnrate'),Min('turnrate'),
@@ -103,7 +102,7 @@ def hero(request, name):
     lvl1['dmgreduction'] = dmgreduction(lvl1['armor'])
     lvl25['dmgreduction'] = dmgreduction(lvl25['armor'])
     lvl1['healthpoints'] = h['maxhealth'] + (19 * h['strength'])
-    lvl25['healthpoints'] = h['maxhealth'] + ( 19 * (h['strength'] + 20 + floor(h['strengthperlevel'] * 24)))
+    lvl25['healthpoints'] = h['maxhealth'] + (19 * (h['strength'] + 20 + floor(h['strengthperlevel'] * 24)))
     lvl1['manapoints'] = h['maxmana'] + (13 * h['intelligence'])
     lvl25['manapoints'] = h['maxmana'] + (13 * (h['intelligence'] + 20 + floor(h['intelligenceperlevel'] * 24)))
     lvl1['hpregeneration'] = h['healthregen']  + (0.03 * h['strength'])

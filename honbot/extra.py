@@ -1,6 +1,6 @@
 # This file is intended for extra pages like site stats and possibly an about page
 from django.shortcuts import render_to_response
-from honbot.models import PlayerMatchCount, PlayerCount, MatchCount, APICount
+from .models import PlayerMatchCount, PlayerCount, MatchCount, APICount
 from django_cron.models import CronJobLog
 from django.views.decorators.cache import cache_page
 

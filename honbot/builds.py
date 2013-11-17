@@ -1,5 +1,5 @@
 import logparse
-from honbot.models import Builds, Matches, PlayerMatches
+from .models import Builds, Matches, PlayerMatches
 from django.shortcuts import redirect
 import datetime
 from error import error

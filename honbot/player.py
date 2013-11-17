@@ -5,7 +5,7 @@ from django.views.decorators.cache import cache_page
 from api_call import get_json
 from datetime import date, datetime
 from error import error
-from honbot.models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
+from .models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
 from numpy import histogram
 
 

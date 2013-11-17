@@ -1,5 +1,5 @@
 from codecs import open as op
-from honbot.models import Chat, Builds, PlayerMatches
+from .models import Chat, Builds, PlayerMatches
 from json import dumps
 from os import path, remove
 from re import sub

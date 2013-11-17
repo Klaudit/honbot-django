@@ -1,7 +1,7 @@
 from datetime import date
 from django.conf import settings
 from django.db.models import F
-from honbot.models import APICount
+from .models import APICount
 from requests import get, exceptions
 from time import sleep
 

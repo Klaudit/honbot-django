@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib2
 from django.http import HttpResponse
-from honbot.models import PlayerIcon
+from .models import PlayerIcon
 from datetime import datetime
 from django.conf import settings
 

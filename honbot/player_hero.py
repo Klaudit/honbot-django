@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
-from honbot.models import PlayerStats, PlayerHeroStats, PlayerStatsPublic, PlayerStatsCasual
+from .models import PlayerStats, PlayerHeroStats, PlayerStatsPublic, PlayerStatsCasual
 from datetime import datetime
 import api_call
 import json

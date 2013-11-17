@@ -5,7 +5,7 @@ from api_call import get_json
 from avatar import avatar
 from datetime import timedelta, datetime, date
 from error import error
-from honbot.models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData
+from .models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData
 from json import loads, dumps
 from player import player_math, player_save
 from thread import start_new_thread

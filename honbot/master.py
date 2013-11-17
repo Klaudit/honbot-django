@@ -1,5 +1,5 @@
 from requests import get
-from honbot.models import MasterRanked
+from .models import MasterRanked
 
 
 def MasterHero(request):

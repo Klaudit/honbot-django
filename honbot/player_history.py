@@ -1,4 +1,4 @@
-from honbot.models import PlayerMatches, PlayerHistory, Matches
+from .models import PlayerMatches, PlayerHistory, Matches
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from api_call import get_json

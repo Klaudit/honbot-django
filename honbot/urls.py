@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView, RedirectView, ListView
-from honbot.player_browse import PlayerList
+from .player_browse import PlayerList
 from .models import PlayerBrackets
 
 urlpatterns = patterns(

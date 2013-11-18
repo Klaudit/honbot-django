@@ -19,21 +19,45 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4 class="panel-title">Kills</h4></div>
+                <div class="panel-heading"><h4 class="panel-title">Hero Kills</h4></div>
                 <div class="panel-body">
-                    <div id="container" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
+                    <div id="container" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
                 </div>
             </div>
             <div class="panel panel-default">
-                <div class="panel-heading"><h4 class="panel-title">Deaths</h4></div>
+                <div class="panel-heading"><h4 class="panel-title">Hero Deaths</h4></div>
                 <div class="panel-body">
-                    <div id="deaths" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
+                    <div id="deaths" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
                 </div>
             </div>
             <div class="panel panel-default">
-                <div class="panel-heading"><h4 class="panel-title">APM</h4></div>
+                <div class="panel-heading"><h4 class="panel-title">Hero Assists</h4></div>
                 <div class="panel-body">
-                    <div id="apm" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
+                    <div id="assists" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title">Experince Per Minute (XPM)</h4></div>
+                <div class="panel-body">
+                    <div id="xpm" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title">Actions per Minute (APM)</h4></div>
+                <div class="panel-body">
+                    <div id="apm" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title">Creep Denies</h4></div>
+                <div class="panel-body">
+                    <div id="denies" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title">Creep Kills</h4></div>
+                <div class="panel-body">
+                    <div id="cs" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
                 </div>
             </div>
         </div>
@@ -44,6 +68,50 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/highcharts-more.js"></script>
 <script>
+$(function () {
+    Highcharts.setOptions({
+        chart:{
+                backgroundColor: null,
+        },
+        title: {
+            text: null
+        },
+
+        xAxis: {
+            lineColor: '#4f4c50',
+            tickColor: '#4f4c50',
+        },
+        yAxis: {
+            title: {
+                text: null
+            },
+            gridLineColor: '#4f4c50',
+        },
+        credits: {enabled: false},
+        tooltip: {
+            crosshairs: true,
+            shared: true,
+            valueSuffix: null
+        },
+
+        legend: {
+        },
+        plotOptions: {
+            series: {
+                animation: false
+            }
+        },
+        tooltip: {
+             formatter: function() {
+                var s = '<b>'+ this.x +'</b>';
+                    s += '<br/><b>'+ this.points[0].series.name +'</b>: '+ Math.round(this.points[0].y * 100) / 100;
+                    s += '<br/><b>'+ this.points[1].series.name +'</b>: '+ Math.round(this.points[1].point.low * 100) / 100 + ' - ' + Math.round(this.points[1].point.high * 100) / 100;
+                return s;
+            },
+            shared: true
+        }
+    });
+});
 $(function () {
 
     var ranges = [
@@ -59,46 +127,6 @@ $(function () {
 
 
         $('#container').highcharts({
-            chart:{
-                backgroundColor: null,
-            },
-            title: {
-                text: null
-            },
-
-            xAxis: {
-                lineColor: '#4f4c50',
-                tickColor: '#4f4c50',
-            },
-            yAxis: {
-                title: {
-                    text: null
-                },
-                gridLineColor: '#4f4c50',
-            },
-            credits: {enabled: false},
-            tooltip: {
-                crosshairs: true,
-                shared: true,
-                valueSuffix: null
-            },
-
-            legend: {
-            },
-            plotOptions: {
-                series: {
-                    animation: false
-                }
-            },
-            tooltip: {
-                 formatter: function() {
-                    var s = '<b>'+ this.x +'</b>';
-                        s += '<br/><b>'+ this.points[0].series.name +'</b>: '+ Math.round(this.points[0].y * 100) / 100;
-                        s += '<br/><b>'+ this.points[1].series.name +'</b>: '+ Math.round(this.points[1].point.low * 100) / 100 + ' - ' + Math.round(this.points[1].point.high * 100) / 100;
-                    return s;
-                },
-                shared: true
-              },
             series: [{
                 name: 'Average Kills',
                 data: averages,
@@ -107,16 +135,16 @@ $(function () {
                 marker: {
                     fillColor: 'black',
                     lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[2]
+                    lineColor: Highcharts.getOptions().colors[8]
                 },
-                lineColor: Highcharts.getOptions().colors[2],
+                lineColor: Highcharts.getOptions().colors[8],
             }, {
                 name: 'Range',
                 data: ranges,
                 type: 'arearange',
                 lineWidth: 0,
                 linkedTo: ':previous',
-                color: Highcharts.getOptions().colors[0],
+                color: Highcharts.getOptions().colors[8],
                 fillOpacity: 0.3,
                 zIndex: 0
             }]
@@ -124,8 +152,6 @@ $(function () {
         });
 
 });
-</script>
-<script>
 $(function () {
 
     var ranges = [
@@ -141,35 +167,48 @@ $(function () {
 
 
         $('#deaths').highcharts({
-            chart:{
-                backgroundColor: null,
-            },
-            title: {
-                text: null
-            },
-
-            xAxis: {
-                lineColor: '#4f4c50',
-                tickColor: '#4f4c50',
-            },
-            yAxis: {
-                title: {
-                    text: null
-                },
-                gridLineColor: '#4f4c50',
-            },
-
-            tooltip: {
-                crosshairs: true,
-                shared: true,
-                valueSuffix: null
-            },
-
-            legend: {
-            },
 
             series: [{
-                name: 'Average Kills',
+                name: 'Average Deaths',
+                data: averages,
+                showInLegend: false,
+                zIndex: 1,
+                marker: {
+                    fillColor: 'black',
+                    lineWidth: 2,
+                    lineColor: Highcharts.getOptions().colors[4]
+                },
+                lineColor: Highcharts.getOptions().colors[4],
+            }, {
+                name: 'Range',
+                data: ranges,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: Highcharts.getOptions().colors[4],
+                fillOpacity: 0.3,
+                zIndex: 0
+            }]
+
+        });
+
+});
+$(function () {
+    var ranges = [
+            {% for bracket in object_list %}
+            [{{ bracket.mmr_bracket }}, ({{bracket.aassists}}-{{bracket.stdassists}}), ({{bracket.aassists}}+{{bracket.stdassists}})],
+            {% endfor %}
+        ],
+        averages = [
+            {% for bracket in object_list %}
+                [{{ bracket.mmr_bracket }}, {{bracket.aassists}}],
+            {% endfor %}
+        ];
+        $('#assists').highcharts({
+
+            series: [{
+                name: 'Average Deaths',
+                showInLegend: false,
                 data: averages,
                 zIndex: 1,
                 marker: {
@@ -178,7 +217,7 @@ $(function () {
                     lineColor: Highcharts.getOptions().colors[0]
                 }
             }, {
-                name: 'Standard deviation',
+                name: 'Range',
                 data: ranges,
                 type: 'arearange',
                 lineWidth: 0,
@@ -189,12 +228,44 @@ $(function () {
             }]
 
         });
-
 });
-</script>
-<script>
 $(function () {
+    var ranges = [
+            {% for bracket in object_list %}
+            [{{ bracket.mmr_bracket }}, ({{bracket.axpm}}-{{bracket.stdxpm}}), ({{bracket.axpm}}+{{bracket.stdxpm}})],
+            {% endfor %}
+        ],
+        averages = [
+            {% for bracket in object_list %}
+                [{{ bracket.mmr_bracket }}, {{bracket.axpm}}],
+            {% endfor %}
+        ];
+        $('#xpm').highcharts({
+            series: [{
+                name: 'Avg XPM',
+                showInLegend: false,
+                data: averages,
+                zIndex: 1,
+                marker: {
+                    fillColor: 'black',
+                    lineWidth: 2,
+                    lineColor: Highcharts.getOptions().colors[2]
+                },
+                lineColor: Highcharts.getOptions().colors[2]
+            }, {
+                name: 'Range',
+                data: ranges,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: Highcharts.getOptions().colors[2],
+                fillOpacity: 0.3,
+                zIndex: 0
+            }]
 
+        });
+});
+$(function () {
     var ranges = [
             {% for bracket in object_list %}
             [{{ bracket.mmr_bracket }}, ({{bracket.aactionsmin}}-{{bracket.stdactionsmin}}), ({{bracket.aactionsmin}}+{{bracket.stdactionsmin}})],
@@ -205,47 +276,20 @@ $(function () {
                 [{{ bracket.mmr_bracket }}, {{bracket.aactionsmin}}],
             {% endfor %}
         ];
-
-
         $('#apm').highcharts({
-            chart:{
-                backgroundColor: null,
-            },
-            title: {
-                text: null
-            },
-
-            xAxis: {
-                lineColor: '#4f4c50',
-                tickColor: '#4f4c50',
-            },
-            yAxis: {
-                title: {
-                    text: null
-                },
-                gridLineColor: '#4f4c50',
-            },
-
-            tooltip: {
-                crosshairs: true,
-                shared: true,
-                valueSuffix: null
-            },
-
-            legend: {
-            },
-
             series: [{
-                name: 'Average Kills',
+                name: 'Avg APM',
+                showInLegend: false,
                 data: averages,
                 zIndex: 1,
                 marker: {
                     fillColor: 'black',
                     lineWidth: 2,
                     lineColor: Highcharts.getOptions().colors[0]
-                }
+                },
+                lineColor: Highcharts.getOptions().colors[0]
             }, {
-                name: 'Standard deviation',
+                name: 'Range',
                 data: ranges,
                 type: 'arearange',
                 lineWidth: 0,
@@ -256,7 +300,81 @@ $(function () {
             }]
 
         });
+});
+$(function () {
+    var ranges = [
+            {% for bracket in object_list %}
+            [{{ bracket.mmr_bracket }}, ({{bracket.adenies}}-{{bracket.stddenies}}), ({{bracket.adenies}}+{{bracket.stddenies}})],
+            {% endfor %}
+        ],
+        averages = [
+            {% for bracket in object_list %}
+                [{{ bracket.mmr_bracket }}, {{bracket.adenies}}],
+            {% endfor %}
+        ];
+        $('#denies').highcharts({
+            yAxis: {
+                min: 0
+            },
+            series: [{
+                name: 'Avg Denies',
+                showInLegend: false,
+                data: averages,
+                zIndex: 1,
+                marker: {
+                    fillColor: 'black',
+                    lineWidth: 2,
+                    lineColor: Highcharts.getOptions().colors[6]
+                },
+                lineColor: Highcharts.getOptions().colors[6]
+            }, {
+                name: 'Range',
+                data: ranges,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: Highcharts.getOptions().colors[6],
+                fillOpacity: 0.3,
+                zIndex: 0
+            }]
 
+        });
+});
+$(function () {
+    var ranges = [
+            {% for bracket in object_list %}
+            [{{ bracket.mmr_bracket }}, ({{bracket.acs}}-{{bracket.stdcs}}), ({{bracket.acs}}+{{bracket.stdcs}})],
+            {% endfor %}
+        ],
+        averages = [
+            {% for bracket in object_list %}
+                [{{ bracket.mmr_bracket }}, {{bracket.acs}}],
+            {% endfor %}
+        ];
+        $('#cs').highcharts({
+            series: [{
+                name: 'Avg CS',
+                showInLegend: false,
+                data: averages,
+                zIndex: 1,
+                marker: {
+                    fillColor: 'black',
+                    lineWidth: 2,
+                    lineColor: Highcharts.getOptions().colors[7]
+                },
+                lineColor: Highcharts.getOptions().colors[7]
+            }, {
+                name: 'Range',
+                data: ranges,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: Highcharts.getOptions().colors[7],
+                fillOpacity: 0.3,
+                zIndex: 0
+            }]
+
+        });
 });
 </script>
 {% endblock %}

@@ -27,4 +27,6 @@ class Command(BaseCommand):
                 actionsmin = players.aggregate(Max('aactionsmin'), Avg('aactionsmin'), Min('aactionsmin'), StdDev('aactionsmin'))
                 newbr.maxactionsmin, newbr.aactionsmin, newbr.minactionsmin, newbr.stdactionsmin = actionsmin['aactionsmin__max'], actionsmin['aactionsmin__avg'], actionsmin['aactionsmin__min'], actionsmin['aactionsmin__stddev']
                 newbr.atime = players.aggregate(Avg('atime')).values()[0]
+                axpmin = players.aggregate(Max('axpmin'), Avg('axpmin'), Min('axpmin'), StdDev('axpmin'))
+                newbr.maxxpm, newbr.axpm, newbr.minxpm, newbr.stdxpm =axpmin['axpmin__max'],axpmin['axpmin__avg'],axpmin['axpmin__min'],axpmin['axpmin__stddev']
                 newbr.save()

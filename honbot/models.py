@@ -535,6 +535,10 @@ class PlayerBrackets(models.Model):
     awards = models.FloatField(default=0)
     minwards = models.FloatField(default=0)
     stdwards = models.FloatField(default=0)
+    maxxpm = models.FloatField(default=0)
+    axpm = models.FloatField(default=0)
+    minxpm = models.FloatField(default=0)
+    stdxpm = models.FloatField(default=0)
     count = models.PositiveIntegerField(default=0)
 
 

@@ -1,6 +1,6 @@
 honbot-django
 =============
-HoN [Heroes of Newerth](http://www.heroesofnewerth.com/) Stats website written in django for the [HoN API](http://api.heroesofnewerth.com/).
+HonBot is a [Heroes of Newerth](http://www.heroesofnewerth.com/) (HoN) Statistics website written in [django](https://www.djangoproject.com/) for the [HoN API](http://api.heroesofnewerth.com/).
 
 ####Run a local copy of HonBot
 Settings file requires a localsettings.py file with the following functions. It is required in main folder for production and honbot-django/ for dev.

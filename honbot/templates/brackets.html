@@ -404,6 +404,9 @@ $(function () {
             {% endfor %}
         ];
         $('#wards').highcharts({
+            yAxis: {
+                min: 0
+            },
             series: [{
                 name: 'Avg Wards',
                 showInLegend: false,

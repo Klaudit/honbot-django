@@ -47,6 +47,12 @@
                 </div>
             </div>
             <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title">Gold Per Minute (GPM)</h4></div>
+                <div class="panel-body">
+                    <div id="gpm" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
                 <div class="panel-heading"><h4 class="panel-title">Experince Per Minute (XPM)</h4></div>
                 <div class="panel-body">
                     <div id="xpm" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
@@ -275,6 +281,42 @@ $(function () {
                 lineWidth: 0,
                 linkedTo: ':previous',
                 color: Highcharts.getOptions().colors[2],
+                fillOpacity: 0.3,
+                zIndex: 0
+            }]
+
+        });
+});
+$(function () {
+    var ranges = [
+            {% for bracket in object_list %}
+            [{{ bracket.mmr_bracket }}, ({{bracket.agpm}}-{{bracket.stdgpm}}), ({{bracket.agpm}}+{{bracket.stdgpm}})],
+            {% endfor %}
+        ],
+        averages = [
+            {% for bracket in object_list %}
+                [{{ bracket.mmr_bracket }}, {{bracket.agpm}}],
+            {% endfor %}
+        ];
+        $('#gpm').highcharts({
+            series: [{
+                name: 'Avg GPM',
+                showInLegend: false,
+                data: averages,
+                zIndex: 1,
+                marker: {
+                    fillColor: 'black',
+                    lineWidth: 2,
+                    lineColor: '#dfc900'
+                },
+                lineColor: '#dfc900'
+            }, {
+                name: 'Range',
+                data: ranges,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: '#dfc900',
                 fillOpacity: 0.3,
                 zIndex: 0
             }]

@@ -539,6 +539,10 @@ class PlayerBrackets(models.Model):
     axpm = models.FloatField(default=0)
     minxpm = models.FloatField(default=0)
     stdxpm = models.FloatField(default=0)
+    maxgpm = models.FloatField(default=0)
+    agpm = models.FloatField(default=0)
+    mingpm = models.FloatField(default=0)
+    stdgpm = models.FloatField(default=0)
     count = models.PositiveIntegerField(default=0)
 
 

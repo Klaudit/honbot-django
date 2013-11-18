@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-from .api_call import get_json
-from .models import HeroUse
+from honbot.api_call import get_json
+from honbot.models import HeroUse
 from datetime import date, timedelta
 from collections import OrderedDict
 import json

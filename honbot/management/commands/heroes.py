@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-from .api_call import get_json
-from .models import Heroes
+from honbot.api_call import get_json
+from honbot.models import Heroes
 
 
 class Command(BaseCommand):

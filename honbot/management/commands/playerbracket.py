@@ -8,8 +8,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for mmr in xrange(600, 2300, 10):
-            players = PlayerStats.objects.filter(mmr__range=(mmr, (mmr + 4.999999)), akills__lt=20, adeaths__lt=20, aassists__lt=20, matches__gt=20)
-            if players.count() > 30:
+            players = PlayerStats.objects.filter(mmr__range=(mmr, (mmr + 9.999999)), akills__lt=15, adeaths__lt=15, aassists__lt=20, matches__gt=15)
+            if players.count() > 20:
                 print str(players.count()) + " players found at: " + str(mmr)
                 newbr = PlayerBrackets(mmr_bracket=mmr, count=players.count())
                 kills = players.aggregate(Max('akills'), Avg('akills'), Min('akills'), StdDev('akills'))

@@ -76,7 +76,7 @@ $(function () {
                 },
                 gridLineColor: '#4f4c50',
             },
-
+            credits: {enabled: false},
             tooltip: {
                 crosshairs: true,
                 shared: true,
@@ -85,24 +85,39 @@ $(function () {
 
             legend: {
             },
-
+            plotOptions: {
+                series: {
+                    animation: false
+                }
+            },
+            tooltip: {
+                 formatter: function() {
+                    var s = '<b>'+ this.x +'</b>';
+                        s += '<br/><b>'+ this.points[0].series.name +'</b>: '+ Math.round(this.points[0].y * 100) / 100;
+                        s += '<br/><b>'+ this.points[1].series.name +'</b>: '+ Math.round(this.points[1].point.low * 100) / 100 + ' - ' + Math.round(this.points[1].point.high * 100) / 100;
+                    return s;
+                },
+                shared: true
+              },
             series: [{
                 name: 'Average Kills',
                 data: averages,
+                showInLegend: false,
                 zIndex: 1,
                 marker: {
                     fillColor: 'black',
                     lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[0]
-                }
+                    lineColor: Highcharts.getOptions().colors[2]
+                },
+                lineColor: Highcharts.getOptions().colors[2],
             }, {
-                name: 'Standard deviation',
+                name: 'Range',
                 data: ranges,
                 type: 'arearange',
                 lineWidth: 0,
                 linkedTo: ':previous',
                 color: Highcharts.getOptions().colors[0],
-                fillOpacity: 0.5,
+                fillOpacity: 0.3,
                 zIndex: 0
             }]
 

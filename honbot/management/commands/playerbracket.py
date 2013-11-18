@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Performs the math to create averages for player brackets'
 
     def handle(self, *args, **options):
-        for mmr in xrange(600, 2300, 5):
+        for mmr in xrange(600, 2300, 10):
             players = PlayerStats.objects.filter(mmr__range=(mmr, (mmr + 4.999999)), akills__lt=20, adeaths__lt=20, aassists__lt=20, matches__gt=20)
             if players.count() > 30:
                 print str(players.count()) + " players found at: " + str(mmr)

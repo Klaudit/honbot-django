@@ -70,6 +70,12 @@
                     <div id="cs" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="panel-title">Wards</h4></div>
+                <div class="panel-body">
+                    <div id="wards" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -380,6 +386,42 @@ $(function () {
                 lineWidth: 0,
                 linkedTo: ':previous',
                 color: Highcharts.getOptions().colors[7],
+                fillOpacity: 0.3,
+                zIndex: 0
+            }]
+
+        });
+});
+$(function () {
+    var ranges = [
+            {% for bracket in object_list %}
+            [{{ bracket.mmr_bracket }}, ({{bracket.awards}}-{{bracket.stdwards}}), ({{bracket.awards}}+{{bracket.stdwards}})],
+            {% endfor %}
+        ],
+        averages = [
+            {% for bracket in object_list %}
+                [{{ bracket.mmr_bracket }}, {{bracket.awards}}],
+            {% endfor %}
+        ];
+        $('#wards').highcharts({
+            series: [{
+                name: 'Avg Wards',
+                showInLegend: false,
+                data: averages,
+                zIndex: 1,
+                marker: {
+                    fillColor: 'black',
+                    lineWidth: 2,
+                    lineColor: '#dc3ddf'
+                },
+                lineColor: '#dc3ddf'
+            }, {
+                name: 'Range',
+                data: ranges,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: '#dc3ddf',
                 fillOpacity: 0.3,
                 zIndex: 0
             }]

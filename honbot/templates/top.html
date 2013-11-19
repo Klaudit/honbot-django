@@ -52,7 +52,7 @@
                 <tbody>
                     {%for m in kills%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{ m.hero }}/icon_128.jpg"> <a href="/player/{{ m.nickname }}/">{{ m.nickname }}</a></td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{ m.hero }}/icon_128.jpg"> <a class="player-hover" data-ptip="/ptip/{{ m.player_id }}/" data-trigger="hover" href="/player/{{ m.nickname }}/">{{ m.nickname }}</a></td>
                         <td>
                             {% for item in m.items %}
                                 {% if item != None  %}
@@ -89,7 +89,7 @@
                 <tbody>
                     {%for m in deaths%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a class="player-hover" data-ptip="/ptip/{{ m.player_id }}/" data-trigger="hover" href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
                         <td>{{m.deaths}}</td>
                         <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
@@ -110,7 +110,7 @@
                 <tbody>
                     {%for m in wards%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a class="player-hover" data-ptip="/ptip/{{ m.player_id }}/" data-trigger="hover" href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
                         <td>{{m.wards}}</td>
                         <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
@@ -131,7 +131,7 @@
                 <tbody>
                     {%for m in assists%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a class="player-hover" data-ptip="/ptip/{{ m.player_id }}/" data-trigger="hover" href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
                         <td>{{m.assists}}</td>
                         <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
@@ -152,7 +152,7 @@
                 <tbody>
                     {%for m in denies%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a class="player-hover" data-ptip="/ptip/{{ m.player_id }}/" data-trigger="hover" href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
                         <td>{{m.denies}}</td>
                         <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
@@ -173,7 +173,7 @@
                 <tbody>
                     {%for m in cs%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{ m.nickname }}/">{{ m.nickname }}</a></td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a class="player-hover" data-ptip="/ptip/{{ m.player_id }}/" data-trigger="hover" href="/player/{{ m.nickname }}/">{{ m.nickname }}</a></td>
                         <td>{{ m.cs }}</td>
                         <td>{% if m.win %}Yes{% else %}No{% endif %}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
@@ -194,7 +194,7 @@
                 <tbody>
                     {%for m in smackdown%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{m.hero}}/icon_128.jpg"> <a class="player-hover" data-ptip="/ptip/{{ m.player_id }}/" data-trigger="hover" href="/player/{{m.nickname}}/">{{m.nickname}}</a></td>
                         <td>{{m.smackdown}}</td>
                         <td>{% if m.win %}Yes{%else%}No{%endif%}</td>
                         <td><a href="/match/{{m.match_id}}/">{{m.match_id}}</a></td>
@@ -221,3 +221,17 @@
     </div>
 </div>
 {% endblock main_content %}
+{%block js%}
+<script>
+$(document).ready(function() {
+    setTimeout(function(){
+        $('.player-hover').each(function() {
+            var e=$(this);
+            $.get(e.data('ptip'),function(d) {
+                e.popover({content: d, html: true, delay: { show: 100, hide: 0 }});
+            });
+        });
+    }, 800);
+});
+</script>
+{% endblock js %}

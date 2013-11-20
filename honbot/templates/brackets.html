@@ -46,7 +46,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><h4 class="panel-title">Hero Kills</h4></div>
                 <div class="panel-body">
-                    <div id="container" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+                    <div id="kills" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -174,7 +174,7 @@ $(function () {
         ];
 
 
-        $('#container').highcharts({
+        $('#kills').highcharts({
             series: [{
                 name: 'Average Kills',
                 data: averages,

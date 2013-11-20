@@ -115,11 +115,7 @@
                             </a>
                         </td>
                         <td>
-                            {% for item in player.items %}
-                                {% if item != None  %}
-                                    <img style="width:30px;" src='/static/img/items/{{ item }}.jpg'>
-                                {% endif %}
-                            {% endfor %}
+                            {% for item in player.items %}{% if item != None  %}<img style="width:30px;" src='/static/img/items/{{ item }}.jpg'>{% endif %}{% endfor %}
                         </td>
                         <td>{{ player.level }}</td>
                         <td>{{ player.kills }}</td>
@@ -432,307 +428,274 @@ $(function () {
 <script>
 //total kills
 $(function () {
-    var chart;
-    $(document).ready(function() {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'kills',
-                backgroundColor: null,
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    borderColor: '#222222',
-                    animation: false,
-                    dataLabels: {
-                        enabled: false
-                    }
+    $('#kills').highcharts({
+        chart: {
+            type: 'pie',
+            backgroundColor: null,
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+        },
+        title: {
+            text: 'Kills',
+            style: {
+                color: '#c8c4cb',
+                font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+            }
+        },
+        plotOptions: {
+            pie: {
+                borderColor: '#000000',
+                innerSize: '60%',
+                animation: false,
+                dataLabels: {
+                    enabled: false
                 }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b>',
             },
-            title: {
-               text: 'Kills',
-               style: {
-                 color: '#c8c4cb',
-                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
-              }
-            },
-            colors: ['#c0392b', '#27ae60'],
-            credits: {
-                enabled: false
-            },
-            exporting: { enabled: false },
-            series: [{
-                type: 'pie',
-                name: 'Kills',
-                data: [
-                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.kills }}{% endfor %})],{% endif %}
-                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.kills }}{% endfor %})]{% endif %}
-                ]
-            }]
-        });
+        colors: ['#c0392b', '#27ae60'],
+        series: [{
+            name: 'Kills',
+            data: [
+                {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.kills }}{% endfor %})],{% endif %}
+                {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.kills }}{% endfor %})]{% endif %}
+            ]
+        }]
     });
-
 });
 </script>
 <script>
 //total xpm
 $(function () {
-    var chart;
-    $(document).ready(function() {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'xpm',
-                backgroundColor: null,
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    borderColor: '#222222',
-                    animation: false,
-                    dataLabels: {
-                        enabled: false
-                    }
+    $('#xpm').highcharts({
+        chart: {
+            type: 'pie',
+            backgroundColor: null,
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+        },
+        title: {
+            text: 'XPM',
+            style: {
+                color: '#c8c4cb',
+                font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+            }
+        },
+        plotOptions: {
+            pie: {
+                borderColor: '#000000',
+                innerSize: '60%',
+                animation: false,
+                dataLabels: {
+                    enabled: false
                 }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b>',
             },
-            title: {
-               text: 'XPM',
-               style: {
-                 color: '#c8c4cb',
-                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
-              }
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.y:.1f}</b>',
-                percentageDecimals: 1
-            },
-            colors: ['#c0392b', '#27ae60'],
-            credits: {
-                enabled: false
-            },
-            exporting: { enabled: false },
-            series: [{
-                type: 'pie',
-                name: 'Deaths',
-                data: [
-                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.xpm }}{% endfor %})],{% endif %}
-                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.xpm }}{% endfor %})]{% endif %}
-                ]
-            }]
-        });
+        colors: ['#c0392b', '#27ae60'],
+        series: [{
+            name: 'XPM',
+            data: [
+                {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.xpm }}{% endfor %})],{% endif %}
+                {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.xpm }}{% endfor %})]{% endif %}
+            ]
+        }]
     });
-
 });
 </script>
 <script>
 //total assists
 $(function () {
-    var chart;
-    $(document).ready(function() {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'assists',
-                backgroundColor: null,
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    borderColor: '#222222',
-                    animation: false,
-                    dataLabels: {
-                        enabled: false
-                    }
+    $('#assists').highcharts({
+        chart: {
+            type: 'pie',
+            backgroundColor: null,
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+        },
+        title: {
+            text: 'Assists',
+            style: {
+                color: '#c8c4cb',
+                font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+            }
+        },
+        plotOptions: {
+            pie: {
+                borderColor: '#000000',
+                innerSize: '60%',
+                animation: false,
+                dataLabels: {
+                    enabled: false
                 }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b>',
             },
-            title: {
-               text: 'Assists',
-               style: {
-                 color: '#c8c4cb',
-                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
-              }
-            },
-            colors: ['#c0392b', '#27ae60'],
-            credits: {
-                enabled: false
-            },
-            exporting: { enabled: false },
-            series: [{
-                type: 'pie',
-                name: 'Assists',
-                data: [
-                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{p.assists}}{% endfor %})],{% endif %}
-                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{p.assists}}{% endfor %})]{% endif %}
-                ]
-            }]
-        });
+        colors: ['#c0392b', '#27ae60'],
+        series: [{
+            name: 'Assists',
+            data: [
+                {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.assists }}{% endfor %})],{% endif %}
+                {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.assists }}{% endfor %})]{% endif %}
+            ]
+        }]
     });
-
 });
 </script>
 <script>
 //total creeps
 $(function () {
-    var chart;
-    $(document).ready(function() {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'creeps',
-                backgroundColor: null,
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    borderColor: '#222222',
-                    animation: false,
-                    dataLabels: {
-                        enabled: false
-                    }
+    $('#creeps').highcharts({
+        chart: {
+            type: 'pie',
+            backgroundColor: null,
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+        },
+        title: {
+            text: 'Creeps',
+            style: {
+                color: '#c8c4cb',
+                font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+            }
+        },
+        plotOptions: {
+            pie: {
+                borderColor: '#000000',
+                innerSize: '60%',
+                animation: false,
+                dataLabels: {
+                    enabled: false
                 }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b>',
             },
-            title: {
-               text: 'Creeps',
-               style: {
-                 color: '#c8c4cb',
-                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
-              }
-            },
-            colors: ['#c0392b', '#27ae60'],
-            credits: {
-                enabled: false
-            },
-            exporting: { enabled: false },
-            series: [{
-                type: 'pie',
-                name: 'Creeps',
-                data: [
-                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.cs }}{% endfor %})],{% endif %}
-                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.cs }}{% endfor %})]{% endif %}
-                ]
-            }]
-        });
+        colors: ['#c0392b', '#27ae60'],
+        series: [{
+            name: 'Creeps',
+            data: [
+                {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.cs }}{% endfor %})],{% endif %}
+                {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.cs }}{% endfor %})]{% endif %}
+            ]
+        }]
     });
-
 });
 </script>
 <script>
 //total gpm
 $(function () {
-    var chart;
-    $(document).ready(function() {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'gpm',
-                backgroundColor: null,
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    borderColor: '#222222',
-                    cursor: 'pointer',
-                    animation: false,
-                    dataLabels: {
-                        enabled: false
-                    }
+    $('#gpm').highcharts({
+        chart: {
+            type: 'pie',
+            backgroundColor: null,
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+        },
+        title: {
+            text: 'GPM',
+            style: {
+                color: '#c8c4cb',
+                font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+            }
+        },
+        plotOptions: {
+            pie: {
+                borderColor: '#000000',
+                innerSize: '60%',
+                animation: false,
+                dataLabels: {
+                    enabled: false
                 }
-            },
-            title: {
-               text: 'GPM',
-               style: {
-                 color: '#c8c4cb',
-                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
-              }
-            },
-            tooltip: {
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
                 pointFormat: '{series.name}: <b>{point.y:.1f}</b>',
-                percentageDecimals: 1
+                percentageDecimals: 0
             },
-            colors: ['#c0392b', '#27ae60'],
-            credits: {
-                enabled: false
-            },
-            exporting: { enabled: false },
-            series: [{
-                type: 'pie',
-                name: 'GPM',
-                data: [
-                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.gpm }}{% endfor %})],{% endif %}
-                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.gpm }}{% endfor %})]{% endif %}
-                ]
-            }]
-        });
+        colors: ['#c0392b', '#27ae60'],
+        series: [{
+            name: 'GPM',
+            data: [
+                {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.gpm }}{% endfor %})],{% endif %}
+                {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.gpm }}{% endfor %})]{% endif %}
+            ]
+        }]
     });
-
 });
 </script>
 <script>
 //total apm
 $(function () {
-    var chart;
-    $(document).ready(function() {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'apm',
-                backgroundColor: null,
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    borderColor: '#222222',
-                    animation: false,
-                    dataLabels: {
-                        enabled: false
-                    }
+    $('#apm').highcharts({
+        chart: {
+            renderTo: 'container',
+            type: 'pie',
+            backgroundColor: null,
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+        },
+        title: {
+            text: 'APM',
+            style: {
+                color: '#c8c4cb',
+                font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
+            }
+        },
+        plotOptions: {
+            pie: {
+                borderColor: '#000000',
+                innerSize: '60%',
+                animation: false,
+                dataLabels: {
+                    enabled: false
                 }
-            },
-            title: {
-               text: 'APM',
-               style: {
-                 color: '#c8c4cb',
-                 font: 'bold 16px "Helvetica Neue", Helvetica, sans-serif'
-              }
-            },
-            tooltip: {
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
                 pointFormat: '{series.name}: <b>{point.y:.1f}</b>',
                 percentageDecimals: 1
             },
-            colors: ['#c0392b', '#27ae60'],
-            credits: {
-                enabled: false
-            },
-            exporting: { enabled: false },
-            series: [{
-                type: 'pie',
-                name: 'APM',
-                data: [
-                    {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.apm }}{% endfor %})],{% endif %}
-                    {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.apm }}{% endfor %})]{% endif %}
-                ]
-            }]
-        });
+        colors: ['#c0392b', '#27ae60'],
+        series: [{
+            name: 'APM',
+            data: [
+                {% if t2exist %}['Hellbourne', ({% for p in team2 %}+{{ p.apm }}{% endfor %})],{% endif %}
+                {% if t1exist %}['Legion', ({% for p in team1 %}+{{ p.apm }}{% endfor %})]{% endif %}
+            ]
+        }]
     });
-
 });
 </script>
 {%endblock js%}

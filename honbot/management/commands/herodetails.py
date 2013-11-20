@@ -5,13 +5,19 @@ from json import dumps, loads
 
 
 class Command(BaseCommand):
-    help = 'This will get hero data'
+    help = 'This will get hero data, will accept an argument to get an individual hero detail. Must be hero id as argument'
 
     def handle(self, *args, **options):
-        heroes = Heroes.objects.all().values('hero_id')
+        if len(args) == 1:
+            heroes = [int(args[0]),]
+        else:
+            heroes = Heroes.objects.all().values('hero_id')
         bulk = []
         for hero in heroes:
-            data = get_json('/heroes/id/' + str(hero['hero_id']))
+            if len(args) == 1:
+                data = get_json('/heroes/id/' + str(hero))
+            else:
+                data = get_json('/heroes/id/' + str(hero['hero_id']))
             HeroData(hero_id=data['hero_id'],
                 disp_name=data['disp_name'],
                 cli_name=data['cli_name'],

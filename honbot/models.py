@@ -318,7 +318,7 @@ class APICount(models.Model):
 class Heroes(models.Model):
     hero_id = models.PositiveSmallIntegerField(primary_key=True, unique=True, db_index=True)
     disp_name = models.TextField(default="")
-    description = models.TextField(default="")
+    description = models.TextField(default="", null=True)
     primaryattribute = models.TextField(default="")
     attacktype = models.TextField(default="")
     team = models.TextField(default="")

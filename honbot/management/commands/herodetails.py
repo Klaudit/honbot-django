@@ -11,11 +11,7 @@ class Command(BaseCommand):
         heroes = Heroes.objects.all().values('hero_id')
         bulk = []
         for hero in heroes:
-            if hero['hero_id'] is not 185:
-                data = get_json('/heroes/id/' + str(hero['hero_id']))
-            else:
-                data = pure('/heroes/id/' + str(hero['hero_id']))
-                data = loads(data.text.split('line 84')[1])
+            data = get_json('/heroes/id/' + str(hero['hero_id']))
             HeroData(hero_id=data['hero_id'],
                 disp_name=data['disp_name'],
                 cli_name=data['cli_name'],

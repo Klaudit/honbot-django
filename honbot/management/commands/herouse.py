@@ -9,19 +9,24 @@ class Command(BaseCommand):
     help = 'This will get hero usage'
 
     def handle(self, *args, **options):
-        heroes = get_json('/heroes/usage')
         today = date.today().strftime("%Y-%m-%d")
-        bulk = []
-        del heroes['total']
-        del heroes['0']
-        print json.dumps(heroes)
-        order = sorted(heroes, key=lambda key: heroes[key])
-        for index, hero in enumerate(order[::-1]):
-            bulk.append(HeroUse(
-                date=today,
-                hero_id=hero,
-                popularity=index+1,
-                usage=heroes[hero]
-            ))
-        HeroUse.objects.bulk_create(bulk)
-        self.stdout.write("success")
+        print HeroUse.objects.filter(date=today).count()
+        if HeroUse.objects.filter(date=today).count() < 1:
+            heroes = get_json('/heroes/usage')
+            bulk = []
+            del heroes['total']
+            del heroes['0']
+            print json.dumps(heroes)
+            order = sorted(heroes, key=lambda key: heroes[key])
+            for index, hero in enumerate(order[::-1]):
+                bulk.append(HeroUse(
+                    date=today,
+                    hero_id=hero,
+                    popularity=index+1,
+                    usage=heroes[hero]
+                ))
+            HeroUse.objects.bulk_create(bulk)
+            self.stdout.write("success")
+        else:
+            self.stdout.write("success")
+

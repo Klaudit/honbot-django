@@ -23,8 +23,8 @@ class heroes(CronJobBase):
 
 
 class herouse(CronJobBase):
-    RUN_AT_TIMES = ['0:00']
-    schedule = Schedule(run_at_times=RUN_AT_TIMES)
+    RUN_EVERY_MINS = 30
+    schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'honbot.herouse'
 
     def do(self):

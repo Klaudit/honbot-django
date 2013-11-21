@@ -758,9 +758,8 @@ a.list-group-item:focus {
 }
 
 .ptip-header {
-    padding: 9px 6px;
     margin: -10px -15px 0px -15px;
-    padding-bottom: 3px;
+    padding: 9px 6px 3px;
     background-color: #282828;
     border-bottom: 1px solid transparent;
     border-radius: 5px 5px 0 0;

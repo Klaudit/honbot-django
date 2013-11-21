@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         heroes = get_json('/heroes/usage')
-        today = (date.today()+timedelta(days=1)).strftime("%Y-%m-%d")
+        today = date.today().strftime("%Y-%m-%d")
         bulk = []
         del heroes['total']
         del heroes['0']

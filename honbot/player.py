@@ -101,6 +101,7 @@ def distribution(requst):
 
 
 def player_save(stats, mode):
+    global p
     if mode == "rnk":
         p = PlayerStats
     elif mode == "acc":
@@ -189,7 +190,7 @@ def player_math(data, mode):
     stats['player_id'] = int(data['account_id'])  # account id
     try:
         stats['nickname'] = str(data['nickname'])  # name
-    except:
+    except KeyError:
         stats['nickname'] = "Not Found"
     stats['matches'] = int(data[mode + '_games_played'])  # matches
     stats['wins'] = int(data[mode + '_wins'])  # wins

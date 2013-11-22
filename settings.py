@@ -1,4 +1,4 @@
-# Django settings for honbot-django
+# Django settings for honbot-django server
 from os.path import abspath, dirname, join
 from localsettings import is_debug, get_token, get_avatar_session
 

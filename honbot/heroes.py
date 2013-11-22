@@ -84,7 +84,8 @@ def main(request):
 
 def hero(request, name):
     h = HeroData.objects.filter(cli_name=name).values()[0]
-    use = HeroUse.objects.filter(hero_id=h['hero_id'])[:10]
+    use = HeroUse.objects.filter(hero_id=h['hero_id']).order_by('-date')[:10]
+    use = use[::-1]
     popularity = HeroUse.objects.get(hero_id=h['hero_id'], date=date.today().strftime("%Y-%m-%d"))
     minmax = HeroData.objects.aggregate(Max('movespeed'),Min('movespeed'),
         Max('turnrate'),Min('turnrate'),

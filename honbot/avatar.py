@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import urllib2
+from urllib2 import build_opener
 from django.http import HttpResponse
 from .models import PlayerIcon
 from datetime import datetime
@@ -12,7 +12,7 @@ def avatar(request, number, width):
         tdelta = datetime.now() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.days < 20:
             return HttpResponse('<img style="width:' + str(width) + 'px;" src="' + p.values('avatar')[0]['avatar'] + '">')
-    opener = urllib2.build_opener()
+    opener = build_opener()
     curl = settings.PHP
     opener.addheaders.append(('Cookie', curl))
     f = opener.open("http://forums.heroesofnewerth.com/member.php?" + str(number))

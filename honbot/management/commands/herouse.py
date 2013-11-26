@@ -15,7 +15,6 @@ class Command(BaseCommand):
             heroes = get_json('/heroes/usage')
             bulk = []
             del heroes['total']
-            del heroes['0']
             print json.dumps(heroes)
             order = sorted(heroes, key=lambda key: heroes[key])
             for index, hero in enumerate(order[::-1]):

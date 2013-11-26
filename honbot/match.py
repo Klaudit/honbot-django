@@ -104,6 +104,10 @@ def match_save(data, match_id, mode):
         data['replay_url']
     except KeyError:
         data['replay_url'] = ""
+    try:
+        data['major']
+    except KeyError:
+        data['major'], data['minor'], data['revision'], data['build'] = 999, 999, 999, 999
     m = Matches(
         match_id=match_id, date=data['date'], replay_url=data['replay_url'],
         realtime=data['realtime'], mode=mode, major=data['major'],

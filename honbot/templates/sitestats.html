@@ -34,7 +34,7 @@
                 <div class="panel-body">
                     <ul class="list-unstyled">
                     {% for job in cronjobs %}
-                        <li><span class="text-muted">{{ job.start_time }}</span> - {{ job.code }}</li>
+                        <li><span class="text-muted">{{ job.start_time }}</span> - <span class="{% if not job.is_success %}text-danger{% else %}text-success{% endif %}">{{ job.code }}</span></li>
                     {% endfor %}
                     </ul>
                 </div>

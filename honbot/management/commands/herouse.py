@@ -10,6 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         today = date.today().strftime("%Y-%m-%d")
+        print today
         print HeroUse.objects.filter(date=today).count()
         if HeroUse.objects.filter(date=today).count() < 1:
             heroes = get_json('/heroes/usage')

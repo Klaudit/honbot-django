@@ -15,6 +15,8 @@ class Command(BaseCommand):
         if HeroUse.objects.filter(date=today).count() < 1:
             heroes = get_json('/heroes/usage')
             bulk = []
+            if heroes['0']:
+                del heroes['0']
             del heroes['total']
             print json.dumps(heroes)
             order = sorted(heroes, key=lambda key: heroes[key])

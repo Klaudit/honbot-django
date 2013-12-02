@@ -1,52 +1,54 @@
-<div class="row well">
-    <div class="col-lg-12 text-center">
-        <img style="width: 80px;" src="/static/img/heroes/{{hero.id}}/icon_128.jpg">
-    </div>
-    <div class="col-lg-12 text-center">
-        <h3><span class="text-success">{{hero.wins}}</span> - <span class="text-error">{{hero.losses}}</span> - {{hero.percent}}%</h3>
-    </div>
-    <div class="col-lg-12">
-        <table class="table table-stats table-condensed">
-            <tr>
-                <td>Kills</td>
-                <td>{{ hero.kills }}</td>
-            </tr>
-            <tr>
-                <td>Deaths</td>
-                <td>{{ hero.deaths }}</td>
-            </tr>
-            <tr>
-                <td>Kill Death Ratio</td>
-                <td>{{ hero.kdr }}</td>
-            </tr>
-            <tr>
-                <td>Actions Per Minute</td>
-                <td>{{ hero.apm }}</td>
-            </tr>
-            <tr>
-                <td>Gold Per Minute</td>
-                <td>{{ hero.gpm }}</td>
-            </tr>
-            <tr>
-                <td>EXP Per Minute</td>
-                <td>{{ hero.exp }}</td>
-            </tr>
-            <tr>
-                <td>Creep Kills</td>
-                <td>{{ hero.cs }}</td>
-            </tr>
-            <tr>
-                <td>Creep Denies</td>
-                <td>{{ hero.cd }}</td>
-            </tr>
-            <tr>
-                <td>Consumables</td>
-                <td>{{ hero.consume }}</td>
-            </tr>
-            <tr>
-                <td>Wards</td>
-                <td>{{ hero.wards }}</td>
-            </tr>
-        </table>
+<div class="row">
+    <div class="well well-sm">
+        <div class="col-lg-12 text-center">
+            <img style="width: 80px;" src="/static/img/heroes/{{hero.id}}/icon_128.jpg">
+        </div>
+        <div class="col-lg-12 text-center">
+            <h3><span class="text-success">{{hero.wins}}</span> - <span class="text-error">{{hero.losses}}</span> - {{hero.percent}}%</h3>
+        </div>
+        <div class="col-lg-12">
+            <table class="table table-stats table-condensed">
+                <tr>
+                    <td>Kills</td>
+                    <td>{{ hero.kills }}</td>
+                </tr>
+                <tr>
+                    <td>Deaths</td>
+                    <td>{{ hero.deaths }}</td>
+                </tr>
+                <tr>
+                    <td>Kill Death Ratio</td>
+                    <td>{{ hero.kdr }}</td>
+                </tr>
+                <tr>
+                    <td>Actions Per Minute</td>
+                    <td>{{ hero.apm }}</td>
+                </tr>
+                <tr>
+                    <td>Gold Per Minute</td>
+                    <td>{{ hero.gpm }}</td>
+                </tr>
+                <tr>
+                    <td>EXP Per Minute</td>
+                    <td>{{ hero.exp }}</td>
+                </tr>
+                <tr>
+                    <td>Creep Kills</td>
+                    <td>{{ hero.cs }}</td>
+                </tr>
+                <tr>
+                    <td>Creep Denies</td>
+                    <td>{{ hero.cd }}</td>
+                </tr>
+                <tr>
+                    <td>Consumables</td>
+                    <td>{{ hero.consume }}</td>
+                </tr>
+                <tr>
+                    <td>Wards</td>
+                    <td>{{ hero.wards }}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>

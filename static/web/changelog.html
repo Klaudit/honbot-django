@@ -1,3 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HonBot shows statistics for Heroes of Newerth (HoN). Lookup players, share match stats and chat logs. Free auto-updated stats banners!">
+    <meta name="keywords" content="HoN, heroes of newerth, stats, chat, chat logs, MOAB, graphs, hon stats, hon chat, hon bot, honbot">
+    <meta name="author" content="Scott Cooper">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+
+    <title>HonBot.com | Heroes of Newerth Statistics, Chat Logs, </title>
+
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/styles.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+    <div id="wrap">
+<!-- Start Nav -->
+<nav class="navbar navbar-static-top navbar-inverse" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">HonBot</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <form id="searchform" class="navbar-form navbar-left input-group" style="width: 200px;">
+        <input type="text" id="player-bar" class="form-control input-small"  placeholder="Username" autocomplete="off">
+        <span class="input-group-btn">
+          <button id="srchbtn" class="btn btn-default btn-sm" type="button"><i class="fa fa-search"></i></button>
+        </span>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/player/">Players</a></li>
+        <li><a href="/match/">Matches</a></li>
+        <li><a href="/hero/">Heroes</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div>
+</nav><!-- END NAV -->
+
+<div class= "container">
+  <div class="row">
+    <div class="col-lg-12">
+
 <strong>November 27th</strong>
 <ul>
   <li>Added hon version number to bottom of match page</li>
@@ -147,4 +202,24 @@
   <li>Made the chat logs easier to copy and paste. (Removed align:center;)</li>
 </ul>
 
-<strong>Lots happened before this, but it was not written down. Don't cry.</strong>
+<strong>Lots happened before this, but it was not written down. Try not to cry.</strong>
+<br>
+<br>
+
+    <!-- Footer -->
+    </div>
+    </div>
+    </div>
+    </div>
+    <div id="footer">
+      <div class="container">
+        <div class="pull-left">
+          <p class="text-muted credit">Created by <a href="https://twitter.com/scttcper">@scttcper</a></p>
+        </div>
+        <div class="pull-right">
+          <div class="fb-like" style="margin-top: 20px;" data-href="https://www.facebook.com/honbott" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

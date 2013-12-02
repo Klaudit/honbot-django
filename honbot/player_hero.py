@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
-from .models import PlayerStats, PlayerHeroStats, PlayerStatsPublic, PlayerStatsCasual
+from .models import PlayerStats, PlayerHeroStats, PlayerStatsPublic, PlayerStatsCasual, Heroes
 from datetime import datetime
 import api_call
 import json
@@ -15,9 +15,10 @@ def divided(num1, num2):
 def ranked_view(request, name):
     try:
         stats = PlayerStats.objects.filter(nickname=name).values()[0]
+        heroes = Heroes.objects.all().order_by('disp_name')
     except:
         return redirect('/player/%s/' % name)
-    return render_to_response('player_hero.html', {'player': name, 'stats': stats, 'mode': "rnk", 'view': "player_hero"})
+    return render_to_response('player_hero.html', {'player': name, 'stats': stats, 'mode': "rnk", 'view': "player_hero", 'heroes': heroes})
 
 def casual_view(request, name):
     try:

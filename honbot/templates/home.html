@@ -22,7 +22,7 @@
       <script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
 
       <!-- Main Hero -->
-      <div class="hero-container">
+      <div id="hero-container" class="hero-container">
         <div class="container">
           <div class="row">
             <div class="hero-title">
@@ -198,11 +198,11 @@
       ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
     })();
     </script>
-<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100593343ns.gif" /></p></noscript>
+    <script>
+      var number = 1 + Math.floor(Math.random() * 74);
+      var background = 'url(/static/img/home_hero/store-' + String(number) + '.png)';
+      $("#hero-container").css('background-image',background);
+    </script>
+    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100593343ns.gif" /></p></noscript>
   </body>
-  <style type="text/css">
-    .hero-container{
-        background-image: url('/static/img/home_hero/store-{{ random }}.png');
-    }
-    </style>
 </html>

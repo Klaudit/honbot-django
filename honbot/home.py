@@ -93,5 +93,4 @@ def home(request):
     """
     Makes a random background choice and ships that shit
     """
-    random = randint(1, 74)
-    return render_to_response('home.html', {'random': random})
+    return render_to_response('home.html', {})

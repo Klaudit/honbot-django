@@ -22,247 +22,17 @@
             <div class="col-lg-4 col-lg-offset-1">
                 <select class="col-lg-12" id="hero1">
                     <option></option>
-                    <option value="10">Nymphora</option>
-                    <option value="102">Andromeda</option>
-                    <option value="103">Valkyrie</option>
-                    <option value="104">Wretched Hag</option>
-                    <option value="105">Succubus</option>
-                    <option value="106">Magmus</option>
-                    <option value="108">Plague Rider</option>
-                    <option value="109">Soul Reaper</option>
-                    <option value="110">Pandamonium</option>
-                    <option value="114">Corrupted Disciple</option>
-                    <option value="115">Vindicator</option>
-                    <option value="116">Sand Wraith</option>
-                    <option value="117">Rampage</option>
-                    <option value="12">Glacius</option>
-                    <option value="120">Witch Slayer</option>
-                    <option value="121">Forsaken Archer</option>
-                    <option value="122">Engineer</option>
-                    <option value="123">Deadwood</option>
-                    <option value="124">The Chipper</option>
-                    <option value="125">Bubbles</option>
-                    <option value="126">Fayde</option>
-                    <option value="127">Balphagore</option>
-                    <option value="128">Gauntlet</option>
-                    <option value="13">Hammerstorm</option>
-                    <option value="14">Night Hound</option>
-                    <option value="15">Swiftblade</option>
-                    <option value="16">Blood Hunter</option>
-                    <option value="160">Tundra</option>
-                    <option value="161">The Gladiator</option>
-                    <option value="162">Doctor Repulsor</option>
-                    <option value="163">Flint Beastwood</option>
-                    <option value="164">Bombardier</option>
-                    <option value="165">Moraxus</option>
-                    <option value="166">Myrmidon</option>
-                    <option value="167">Dampeer</option>
-                    <option value="168">Empath</option>
-                    <option value="169">Aluna</option>
-                    <option value="17">Kraken</option>
-                    <option value="170">Tremble</option>
-                    <option value="18">Thunderbringer</option>
-                    <option value="185">Silhouette</option>
-                    <option value="187">Flux</option>
-                    <option value="188">Martyr</option>
-                    <option value="192">Amun-Ra</option>
-                    <option value="194">Parasite</option>
-                    <option value="195">Emerald Warden</option>
-                    <option value="196">Revenant</option>
-                    <option value="197">Monkey King</option>
-                    <option value="2">Armadon</option>
-                    <option value="20">Moon Queen</option>
-                    <option value="201">Drunken Master</option>
-                    <option value="202">Master Of Arms</option>
-                    <option value="203">Rhapsody</option>
-                    <option value="204">Geomancer</option>
-                    <option value="205">Midas</option>
-                    <option value="206">Cthulhuphant</option>
-                    <option value="207">Monarch</option>
-                    <option value="208">Gemini</option>
-                    <option value="209">Lord Salforis</option>
-                    <option value="21">Pollywog Priest</option>
-                    <option value="210">Shadowblade</option>
-                    <option value="211">Artesia</option>
-                    <option value="212">Gravekeeper</option>
-                    <option value="213">Berzerker</option>
-                    <option value="214">Draconis</option>
-                    <option value="215">Kinesis</option>
-                    <option value="216">Gunblade</option>
-                    <option value="217">Blitz</option>
-                    <option value="218">Artillery</option>
-                    <option value="219">Ellonia</option>
-                    <option value="22">Pebbles</option>
-                    <option value="220">Riftwalker</option>
-                    <option value="221">Bramble</option>
-                    <option value="222">Ravenor</option>
-                    <option value="223">Prophet</option>
-                    <option value="224">Rally</option>
-                    <option value="225">Oogie</option>
-                    <option value="226">Solstice</option>
-                    <option value="227">Pearl</option>
-                    <option value="228">Grinex</option>
-                    <option value="229">Lodestone</option>
-                    <option value="230">Bushwack</option>
-                    <option value="232">Salomon</option>
-                    <option value="233">Prisoner 945</option>
-                    <option value="234">Sir Benzington</option>
-                    <option value="24">Soulstealer</option>
-                    <option value="25">Keeper of the Forest</option>
-                    <option value="26">The Dark Lady</option>
-                    <option value="27">Voodoo Jester</option>
-                    <option value="29">War Beast</option>
-                    <option value="3">Behemoth</option>
-                    <option value="30">Wildsoul</option>
-                    <option value="31">Zephyr</option>
-                    <option value="34">Pharaoh</option>
-                    <option value="35">Tempest</option>
-                    <option value="36">Ophelia</option>
-                    <option value="37">Magebane</option>
-                    <option value="38">Legionnaire</option>
-                    <option value="39">Predator</option>
-                    <option value="4">Chronos</option>
-                    <option value="40">Accursed</option>
-                    <option value="41">Nomad</option>
-                    <option value="42">The Madman</option>
-                    <option value="43">Demented Shaman</option>
-                    <option value="44">Scout</option>
-                    <option value="5">Defiler</option>
-                    <option value="6">Devourer</option>
-                    <option value="7">Blacksmith</option>
-                    <option value="8">Slither</option>
-                    <option value="89">Jeraziah</option>
-                    <option value="9">Electrician</option>
-                    <option value="90">Torturer</option>
-                    <option value="91">Puppet Master</option>
-                    <option value="92">Arachna</option>
-                    <option value="93">Hellbringer</option>
-                    <option value="94">Pyromancer</option>
-                    <option value="95">Pestilence</option>
-                    <option value="96">Maliken</option>
+                    {% for hero in heroes %}
+                    <option value="{{ hero.hero_id }}">{{ hero.disp_name }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-lg-4 col-lg-offset-1">
                 <select class="col-lg-12" id="hero2">
                     <option></option>
-                    <option value="216">Gunblade</option>
-                    <option  value="217">Blitz</option>
-                    <option value="214">Draconis</option>
-                    <option value="215">Kinesis</option>
-                    <option value="212">Gravekeeper</option>
-                    <option value="213">Berzerker</option>
-                    <option value="210">Shadowblade</option>
-                    <option value="211">Artesia</option>
-                    <option value="218">Artillery</option>
-                    <option value="219">Ellonia</option>
-                    <option value="91">Puppet Master</option>
-                    <option value="165">Moraxus</option>
-                    <option value="93">Hellbringer</option>
-                    <option value="24">Soulstealer</option>
-                    <option value="25">Keeper of the Forest</option>
-                    <option value="26">The Dark Lady</option>
-                    <option value="27">Voodoo Jester</option>
-                    <option value="20">Moon Queen</option>
-                    <option value="21">Pollywog Priest</option>
-                    <option value="22">Pebbles</option>
-                    <option value="95">Pestilence</option>
-                    <option value="29">War Beast</option>
-                    <option value="94">Pyromancer</option>
-                    <option value="4">Chronos</option>
-                    <option value="8">Slither</option>
-                    <option value="96">Maliken</option>
-                    <option value="227">Pearl</option>
-                    <option value="120">Witch Slayer</option>
-                    <option value="121">Forsaken Archer</option>
-                    <option value="122">Engineer</option>
-                    <option value="123">Deadwood</option>
-                    <option value="124">The Chipper</option>
-                    <option value="125">Bubbles</option>
-                    <option value="126">Fayde</option>
-                    <option value="127">Balphagore</option>
-                    <option value="128">Gauntlet</option>
-                    <option value="220">Riftwalker</option>
-                    <option value="195">Emerald Warden</option>
-                    <option value="194">Parasite</option>
-                    <option value="197">Monkey King</option>
-                    <option value="196">Revenant</option>
-                    <option value="192">Amun-Ra</option>
-                    <option value="115">Vindicator</option>
-                    <option value="114">Corrupted Disciple</option>
-                    <option value="117">Rampage</option>
-                    <option value="116">Sand Wraith</option>
-                    <option value="110">Pandamonium</option>
-                    <option value="226">Solstice</option>
-                    <option value="3">Behemoth</option>
-                    <option value="7">Blacksmith</option>
-                    <option value="92">Arachna</option>
-                    <option value="225">Oogie</option>
-                    <option value="108">Plague Rider</option>
-                    <option value="109">Soul Reaper</option>
-                    <option value="102">Andromeda</option>
-                    <option value="103">Valkyrie</option>
-                    <option value="106">Magmus</option>
-                    <option value="104">Wretched Hag</option>
-                    <option value="105">Succubus</option>
-                    <option value="39">Predator</option>
-                    <option value="38">Legionnaire</option>
-                    <option id="fuck" value="31">Zephyr</option>
-                    <option value="30">Wildsoul</option>
-                    <option value="37">Magebane</option>
-                    <option value="36">Ophelia</option>
-                    <option value="35">Tempest</option>
-                    <option value="34">Pharaoh</option>
-                    <option value="223">Prophet</option>
-                    <option value="170">Tremble</option>
-                    <option value="222">Ravenor</option>
-                    <option value="2">Armadon</option>
-                    <option value="187">Flux</option>
-                    <option value="6">Devourer</option>
-                    <option value="188">Martyr</option>
-                    <option value="221">Bramble</option>
-                    <option value="185">Silhouette</option>
-                    <option value="168">Empath</option>
-                    <option value="169">Aluna</option>
-                    <option value="229">Lodestone</option>
-                    <option value="228">Grinex</option>
-                    <option value="164">Bombardier</option>
-                    <option value="90">Torturer</option>
-                    <option value="166">Myrmidon</option>
-                    <option value="167">Dampeer</option>
-                    <option value="160">Tundra</option>
-                    <option value="161">The Gladiator</option>
-                    <option value="162">Doctor Repulsor</option>
-                    <option value="163">Flint Beastwood</option>
-                    <option value="10">Nymphora</option>
-                    <option value="13">Hammerstorm</option>
-                    <option value="12">Glacius</option>
-                    <option value="15">Swiftblade</option>
-                    <option value="14">Night Hound</option>
-                    <option value="17">Kraken</option>
-                    <option value="16">Blood Hunter</option>
-                    <option value="18">Thunderbringer</option>
-                    <option value="89">Jeraziah</option>
-                    <option value="224">Rally</option>
-                    <option value="234">Sir Benzington</option>
-                    <option value="230">Bushwack</option>
-                    <option value="232">Salomon</option>
-                    <option value="233">Prisoner 945</option>
-                    <option value="44">Scout</option>
-                    <option value="42">The Madman</option>
-                    <option value="43">Demented Shaman</option>
-                    <option value="40">Accursed</option>
-                    <option value="41">Nomad</option>
-                    <option value="5">Defiler</option>
-                    <option value="9">Electrician</option>
-                    <option value="201">Drunken Master</option>
-                    <option value="203">Rhapsody</option>
-                    <option value="202">Master Of Arms</option>
-                    <option value="205">Midas</option>
-                    <option value="204">Geomancer</option>
-                    <option value="207">Monarch</option>
-                    <option value="206">Cthulhuphant</option>
-                    <option value="209">Lord Salforis</option>
-                    <option value="208">Gemini</option>
+                    {% for hero in heroes %}
+                    <option value="{{ hero.hero_id }}">{{ hero.disp_name }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -294,10 +64,10 @@ $(document).ready(function() {
     if(location.hash != ""){
         one = location.hash.split('&')[0].split('#')[1];
         two = location.hash.split('&')[1];
-        if(two!="None"&&two!=""){$('#match-load2').append('<i class="fa-spinner fa-spin fa-2x"></i>');}
+        if(two!="None"&&two!=""){$('#match-load2').append('<i class="fa fa-spinner fa-2x fa-spin"></i>');}
         if(one!="None")
         {
-            $('#match-load1').append('<i class="fa-spinner fa-spin fa-2x"></i>');
+            $('#match-load1').append('<i class="fa fa-spinner fa-2x fa-spin"></i>');
             $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + one + "/",
             function (data) {
                 $('#display1').append(data);
@@ -328,7 +98,7 @@ $("#hero1").change(function(){
     split = location.hash.split('&')[1];
     if(split == undefined){split='None'}
     window.location.hash = $("#hero1").select2("val") + '&' + split;
-    $('#match-load1').append('<i class="fa-spinner fa-spin fa-2x"></i>');
+    $('#match-load1').append('<i class="fa fa-spinner fa-2x fa-spin"></i>');
     $("#display1").empty();
     $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + String($("#hero1").select2("val")) + "/",
         function (data) {
@@ -344,7 +114,7 @@ $("#hero2").change(function(){
     split = location.hash.split('&')[0];
     if(split == undefined){split='None'}
     window.location.hash = split + '&' + $("#hero2").select2("val");
-    $('#match-load2').append('<i class="fa-spinner fa-spin fa-2x"></i>');
+    $('#match-load2').append('<i class="fa fa-spinner fa-2x fa-spin"></i>');
     $("#display2").empty();
     $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + String($("#hero2").select2("val")) + "/",
         function (data) {

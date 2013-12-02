@@ -87,10 +87,3 @@ def api_count(request):
     t = Template('{% load humanize %}{{ count|intcomma }}')
     c = Context({'count': count})
     return HttpResponse(t.render(c))
-
-
-def home(request):
-    """
-    Makes a random background choice and ships that shit
-    """
-    return render_to_response('home.html', {})

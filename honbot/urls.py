@@ -6,7 +6,7 @@ from .models import PlayerBrackets
 urlpatterns = patterns(
     '',
     # Home Page
-    url('^$', 'honbot.home.home'),
+    url('^$', TemplateView.as_view(template_name="home.html")),
     # API's for Server stats
     url(r'^server_status/$', 'honbot.home.server_status'),
     url(r'^match_count/$', 'honbot.home.match_count'),

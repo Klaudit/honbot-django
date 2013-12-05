@@ -98,10 +98,12 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 )
 
 ROOT_URLCONF = 'honbot-django.urls'
@@ -115,9 +117,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'honbot',
-    'south',
     'pretty_times',
-    'django_cron'
+    'south',
+    'django_cron',
+    'debug_toolbar',
 )
 
 TEMPLATE_DIRS = (

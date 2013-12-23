@@ -252,7 +252,10 @@ def player_math(data, mode):
             stats['kadr'] = 0
             stats['kdr'] = 0
         # win percent
-        stats['winpercent'] = str(int(round(float(stats['wins']) / float(stats['wins'] + stats['losses'] + 1) * 100))) + '%'
+        if int(stats['losses']) != 0:
+            stats['winpercent'] = str(int(round(float(stats['wins']) / float(stats['wins'] + stats['losses']) * 100))) + '%'
+        else:
+            stats['winpercent'] = "100%"
         # average time
         stats['atime'] = int(data[mode + '_secs']) / stats['matches'] / 60
         # average kills

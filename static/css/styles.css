@@ -597,7 +597,6 @@ a.list-group-item:focus {
 
 /* player view */
 .player-head {
-    background-color: #2C3E50;
     color: #FFF;
     margin-top: -20px;
 }
@@ -634,6 +633,7 @@ a.list-group-item:focus {
 }
 
 .player-head h4 {
+    font-weight: 200;
     margin-bottom: 2px;
 }
 
@@ -659,7 +659,6 @@ a.list-group-item:focus {
 
 .nav-pills > li > a:hover {
     background-color: #395067;
-    color: #fff;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
 }
@@ -672,7 +671,6 @@ a.list-group-item:focus {
 
 .nav-pills > li > a {
     background-color: #3c3c3c;
-    color: #99969b;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
     margin-right: 6px;

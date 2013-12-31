@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from datetime import date
 from django.conf import settings
 from django.db.models import F
@@ -6,11 +8,15 @@ from requests import get, exceptions
 from time import sleep
 
 
+baseurl = 'http://api.heroesofnewerth.com'
+token = '/?token=%s' % settings.TOKEN
+
+
 def get_json(endpoint):
     apicount()
-    url = ''.join(['http://api.heroesofnewerth.com', endpoint, '/?token=%s' % settings.TOKEN])
+    url = ''.join([baseurl, endpoint, token])
     raw = ''
-    print url
+    print(url)
     while True:
         count = 0
         try:
@@ -33,9 +39,9 @@ def get_json(endpoint):
 
 def pure(endpoint):
     apicount()
-    url = ''.join(['http://api.heroesofnewerth.com', endpoint, '/?token=%s' % settings.TOKEN])
+    url = ''.join([baseurl, endpoint, token])
     raw = ''
-    print url
+    print(url)
     while True:
         count = 0
         try:
@@ -50,6 +56,7 @@ def pure(endpoint):
         else:
             return None
     return raw
+
 
 def apicount():
     today = date.today().strftime("%Y-%m-%d")

@@ -32,15 +32,10 @@ def public_view(request, name):
 
 
 def chart_view(request, name, mode, stats):
-    try:
-        stats = PlayerStats.objects.filter(nickname=name).values()[0]
-    except IndexError:
-        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    matches = PlayerMatches.objects.filter(
-        player_id=stats['player_id'], mode=mode).order_by('match')[:50]
-    if matches.count() == 0:
-        return error(request, "You don't seem to have enough matches for us to display this.")
+    matches = PlayerMatches.objects.filter(player_id=stats['player_id'], mode=mode).order_by('match')[:9999]
     count = matches.count()
+    if count == 0:
+        return error(request, "You don't seem to have enough matches for us to display this.")
     mmr = [0] * (count + 1)
     mmr[-1] = stats['mmr']
     i = count - 1

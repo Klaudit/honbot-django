@@ -645,20 +645,20 @@ a.list-group-item:focus {
 }
 
 .nav-pills > li.active > a {
-    background-color: #6e6e6e;
+    background-color: #5a5a5a;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
     margin-bottom: 10px;
 }
 
 .nav-pills > li.active > a:hover {
-    background-color: #6e6e6e;
+    background-color: #5a5a5a;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
 }
 
 .nav-pills > li > a:hover {
-    background-color: #395067;
+    background-color: #5a5a5a;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
 }

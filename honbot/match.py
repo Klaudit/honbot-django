@@ -16,8 +16,9 @@ def match_view(request, match_id):
     """
     /match/####/ url leads here
     """
-    match = Matches.objects.get(match_id=match_id)
-    if Matches.objects.filter(match_id=match.match_id).exists():
+    match = Matches.objects.filter(match_id=match_id)[:1]
+    if match.exists():
+        match = match[0]
         team1, team2 = [], []
         # get players and setup for view
         players = PlayerMatches.objects.filter(
@@ -287,7 +288,7 @@ def multimatch(data, history, mode):
             player['gpm'] = 0
             player['xpm'] = 0
             player['apm'] = 0
-        player['cs'] = m['teamcreepkills']
+        player['cs'] = int(m['teamcreepkills']) + int(m['neutralcreepkills'])
         try:
             player['kdr'] = round(
                 float(player['kills']) / float(player['deaths']), 1)

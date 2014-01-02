@@ -129,7 +129,9 @@ a.list-group-item:focus {
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
-
+.panel-title{
+    color: #ddd;
+}
 .panel > .panel-body + .table {
     border-top: 1px solid #282828;
 }
@@ -156,7 +158,7 @@ a.list-group-item:focus {
 
 .panel-default > .panel-heading {
     color: #c8c4cb;
-    background-color: #3c3c3c;
+    background-color: #333;
     border-color: #282828;
 }
 
@@ -610,7 +612,6 @@ a.list-group-item:focus {
 
 .player-head .btn-group-vertical {
     margin-top: -39px;
-    margin-bottom: -5px;
 }
 
 .player-head h1 {
@@ -620,7 +621,6 @@ a.list-group-item:focus {
 
 .player-head h2 {
     margin-top: 20px;
-    margin-bottom: 0;
     letter-spacing: 1px;
     display: inline-block;
 }
@@ -646,36 +646,20 @@ a.list-group-item:focus {
 
 .nav-pills > li.active > a {
     background-color: #5a5a5a;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
     margin-bottom: 10px;
 }
 
 .nav-pills > li.active > a:hover {
     background-color: #5a5a5a;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
 }
 
 .nav-pills > li > a:hover {
     background-color: #5a5a5a;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-}
-
-.nav-pills > li > a:active {
-    outline: 0;
-    -webkit-box-shadow: inset 0 3px 5px rgba(125, 125, 125, 0.125);
-    box-shadow: inset 0 3px 5px rgba(125, 125, 125, 0.125);
 }
 
 .nav-pills > li > a {
-    background-color: #3c3c3c;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+    background-color: #333333;
     margin-right: 6px;
-    margin-left: 0;
-
 }
 
 .nav-pills > li:last-child > a {
@@ -738,6 +722,9 @@ a.list-group-item:focus {
     margin-left: 5px;
     border-radius: 4px;
     border-bottom: 0;
+}
+.recent-match a{
+    color: #dddddd;
 }
 
 #srchbtn {
@@ -1785,7 +1772,6 @@ span.ColVis_radio {
 .button.active {
     background: #161616;
     color: #aedf16;
-
     -webkit-box-shadow: 0 0 8px rgba(255, 255, 255, .1);
     -moz-box-shadow: 0 0 8px rgba(255, 255, 255, .1);
     -ms-box-shadow: 0 0 8px rgba(255, 255, 255, .1);

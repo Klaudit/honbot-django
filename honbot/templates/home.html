@@ -50,133 +50,127 @@
       </div>
       <br>
       <!-- Content -->
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 col-md-8">
-              <div class="panel panel-default">
-                <div class="panel-heading"><h3 class="panel-title">Recent Changes</h3></div>
-                <div class="panel-body">
-                  <strong>January Something</strong>
-                  <ul>
-                    <li>Fixed creep kills in matches to include neutral creeps.</li>
-                    <li>Some styles changes. Fewer shades of grey. But still... lots of grey.</li>
-                    <li></li>
-                  </ul>
-                  <strong>December 10th</strong>
-                  <ul>
-                    <li>Trying out template caching</li>
-                    <li>Player win percent now rounds up</li>
-                    <li>updated to bootstrap 3.0.2</li>
-                  </ul>
-                  <strong>December 1st</strong>
-                  <ul>
-                    <li>honbot home page is now static html</li>
-                    <li>player hero page now includes all heroes in alphabaetical order</li>
-                  </ul>
-                  <strong>November 27th</strong>
-                  <ul>
-                    <li>Added hon version number to bottom of match page</li>
-                  </ul>
-                  <strong>November 26th</strong>
-                  <ul>
-                    <li>Fixed another hero useage api issue that was stopping the hero page from loading.</li>
-                    <li>Created a way to alert me when cron jobs are not completing.</li>
-                    <li>Fixed an error that would stop match history from loading</li>
-                  </ul>
-                </div>
-                <div class="panel-footer no-bpadding">
-                  <ul class="list-inline home-inline">
-                    <li><a href="https://github.com/scttcper/honbot-django">Source Code</a></li>
-                    <li><a href="/static/web/changelog.html">Change History</a></li>
-                  </ul>
-                </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-8">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="panel-title">Recent Changes</h3></div>
+              <div class="panel-body">
+                <strong>January Something</strong>
+                <ul>
+                  <li>Fixed creep kills in matches to include neutral creeps.</li>
+                  <li>Some css changes.</li>
+                  <li></li>
+                </ul>
+                <strong>December 10th</strong>
+                <ul>
+                  <li>Trying out template caching</li>
+                  <li>Player win percent now rounds up</li>
+                  <li>updated to bootstrap 3.0.2</li>
+                </ul>
+                <strong>December 1st</strong>
+                <ul>
+                  <li>honbot home page is now static html</li>
+                  <li>player hero page now includes all heroes in alphabaetical order</li>
+                </ul>
               </div>
-              <div class="row text-center adsbygoogle hidden-md hidden-sm hidden-xs">
-                  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                  <!-- dark - leaderboard -->
-                  <ins class="adsbygoogle"
-                       style="display:inline-block;width:728px;height:90px"
-                       data-ad-client="ca-pub-7640562161899788"
-                       data-ad-slot="1016421757"></ins>
-                  <script>
-                  (adsbygoogle = window.adsbygoogle || []).push({});
-                  </script>
+              <div class="panel-footer no-bpadding">
+                <ul class="list-inline home-inline">
+                  <li><a href="https://github.com/scttcper/honbot-django">Source Code</a></li>
+                  <li><a href="/static/web/changelog.html">Change History</a></li>
+                </ul>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4">
-                <div class="panel panel-default">
-                  <div class="panel-heading"><h3 class="panel-title">Server Stats</h3></div>
-                  <div class="panel-body">
-                    <strong>Database:</strong>
-                    <ul class="list-unstyled list-push">
-                      <li>Players: <span id="players"></span></li>
-                      <li>Matches: <span id="matches"></span></li>
-                      <li>Player Match Stats: <span id="playermatches"></span></li>
-                    </ul>
-                    <strong>S2 API:</strong>
-                    <ul class="list-unstyled list-push">
-                      <li>Status: <span id="serverstatus"></span></li>
-                      <li>API calls today: <span id="apicount"></span></li>
-                    </ul>
-                  </div>
-                  <div class="panel-footer"><a href="/sitestats/">Site Statistics</a></div>
-                </div>
-                <div class="hidden-md hidden-sm hidden-xs adsbygoogle text-center">
-                  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- dark - large rectangle -->
-                    <ins class="adsbygoogle"
-                         style="display:inline-block;width:336px;height:280px"
-                         data-ad-client="ca-pub-7640562161899788"
-                         data-ad-slot="7981285351"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-              </div>
+            <div class="row text-center adsbygoogle hidden-md hidden-sm hidden-xs">
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- dark - leaderboard -->
+              <ins class="adsbygoogle"
+                   style="display:inline-block;width:728px;height:90px"
+                   data-ad-client="ca-pub-7640562161899788"
+                   data-ad-slot="1016421757"></ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
             </div>
           </div>
-        </div>
 
-    <!-- Footer -->
-    </div>
-    <div id="footer">
-      <div class="container">
-        <div class="pull-left">
-          <p class="text-muted credit">Created by <a href="https://twitter.com/scttcper">@scttcper</a></p>
-        </div>
-        <div class="pull-right">
-          <div class="fb-like" style="margin-top: 20px;" data-href="https://www.facebook.com/honbott" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div>
+          <!-- status pannel -->
+          <div class="col-lg-4 col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="panel-title">Server Stats</h3></div>
+                <div class="panel-body">
+                  <strong>Database:</strong>
+                  <ul class="list-unstyled list-push">
+                    <li>Players: <span id="players"></span></li>
+                    <li>Matches: <span id="matches"></span></li>
+                    <li>Player Match Stats: <span id="playermatches"></span></li>
+                  </ul>
+                  <strong>S2 API:</strong>
+                  <ul class="list-unstyled list-push">
+                    <li>Status: <span id="serverstatus"></span></li>
+                    <li>API calls today: <span id="apicount"></span></li>
+                  </ul>
+                </div>
+              <div class="panel-footer"><a href="/sitestats/">Site Statistics</a></div>
+            </div>
+
+            <!-- square add below status -->
+            <div class="hidden-md hidden-sm hidden-xs adsbygoogle text-center">
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- dark - large rectangle -->
+              <ins class="adsbygoogle"
+                   style="display:inline-block;width:336px;height:280px"
+                   data-ad-client="ca-pub-7640562161899788"
+                   data-ad-slot="7981285351"></ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- JavaScript plugins (requires jQuery) -->
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/static/js/bootstrap.min.js"></script>
-    <!-- Search Jquery -->
-    <script>
-      $("#searchbutton").click(function () {
-          var player = $('#player').val();
-          window.location.href = "/player/" + player + "/"
-          return false
-      });
-    </script>
-    <script>
-      $("#searchform").submit(function () {
-          var player = $('#player').val();
-          window.location.href = "/player/" + player + "/"
-          return false
-      });
-    </script>
-    <script>
-      $("#matches").load("/match_count/");
-      $("#players").load("/player_count/");
-      $("#serverstatus").load("/server_status/");
-      $("#playermatches" ).load("/player_match_count/");
-      $("#apicount").load("/api_count/");
-    </script>
-    <script type="text/javascript">
+  <!-- Footer -->
+  </div>
+  <div id="footer">
+    <div class="container">
+      <div class="pull-left">
+        <p class="text-muted credit">Created by <a href="https://twitter.com/scttcper">@scttcper</a></p>
+      </div>
+      <div class="pull-right">
+        <div class="fb-like" data-href="https://www.facebook.com/honbott" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript plugins (requires jQuery) -->
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="/static/js/bootstrap.min.js"></script>
+  <!-- Search Jquery -->
+  <script>
+    $("#searchbutton").click(function () {
+        var player = $('#player').val();
+        window.location.href = "/player/" + player + "/"
+        return false
+    });
+  </script>
+  <script>
+    $("#searchform").submit(function () {
+        var player = $('#player').val();
+        window.location.href = "/player/" + player + "/"
+        return false
+    });
+  </script>
+  <script>
+    $("#matches").load("/match_count/");
+    $("#players").load("/player_count/");
+    $("#serverstatus").load("/server_status/");
+    $("#playermatches" ).load("/player_match_count/");
+    $("#apicount").load("/api_count/");
+  </script>
+  <script type="text/javascript">
     var clicky_site_ids = clicky_site_ids || [];
     clicky_site_ids.push(100593343);
     (function() {
@@ -186,12 +180,12 @@
       s.src = '//static.getclicky.com/js';
       ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
     })();
-    </script>
-    <script>
-      var number = 1 + Math.floor(Math.random() * 74);
-      var background = 'url(/static/img/home_hero/store-' + String(number) + '.png)';
-      $("#hero-container").css('background-image',background);
-    </script>
-    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100593343ns.gif" /></p></noscript>
+  </script>
+  <script>
+    var number = 1 + Math.floor(Math.random() * 74);
+    var background = 'url(/static/img/home_hero/store-' + String(number) + '.png)';
+    $("#hero-container").css('background-image',background);
+  </script>
+  <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100593343ns.gif" /></p></noscript>
   </body>
 </html>

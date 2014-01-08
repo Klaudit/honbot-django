@@ -79,7 +79,8 @@
                 {% for player in team1 %}
                     <tr class="player-{{ player.position }}-row">
                         <td>
-                            <a href="/hero/{{ player.cli_name }}/"><img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'></a>
+                            <a class="heroicon" href="/hero/{{ player.cli_name }}/" data-toggle="tooltip" title="{{ player.disp_name }}" data-placement="left">
+                            <img src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'></a>
                             <a href="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/player/{{ player.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/ptip/{{ player.player_id }}/">
                                 {{ player.nickname }}
                             </a>
@@ -109,7 +110,8 @@
                 {% for player in team2 %}
                     <tr class="player-{{ player.position }}-row">
                         <td>
-                            <a href="/hero/{{ player.cli_name }}/"><img style="width:30px" src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'></a>
+                            <a class="heroicon" href="/hero/{{ player.cli_name }}/" data-toggle="tooltip" title="{{ player.disp_name }}" data-placement="left">
+                            <img src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'></a>
                             <a href="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/player/{{ player.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/ptip/{{ player.player_id }}/">
                                 {{ player.nickname }}
                             </a>
@@ -211,6 +213,7 @@
 {%block js%}
 <script>
 $('#date').tooltip()
+$('.heroicon').tooltip()
 </script>
 <script>
 $(document).ready(function() {

@@ -27,11 +27,12 @@ def match_view(request, match_id):
         # get players and setup for view
         PMObj = pmoselect(match.mode)
         players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
-        heronames = HeroData.objects.filter(
-            hero_id__in=[p['hero'] for p in players]).values('cli_name')
-        print(heronames)
+        heronames = HeroData.objects.filter(hero_id__in=[p['hero'] for p in players]).values('cli_name', 'hero_id', 'disp_name')
         for player in players:
             player['items'] = loads(player['items'])
+            h = filter(lambda x: x['hero_id'] == player['hero'], heronames)[0]
+            player['cli_name'] = h['cli_name']
+            player['disp_name'] = h['disp_name']
             if player['kdr'] == 999:
                 player['kdr'] = "Inf"
             if player['team'] == 1:

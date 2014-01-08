@@ -228,7 +228,8 @@ def recent(request):
         (pag.start_index() - 1):pag.end_index()]
     # get heroes
     for m in matches:
-        players = PlayerMatches.objects.filter(match=m['match_id']).values("hero", "team", "win").order_by('position')
+        PMObj = pmoselect(m['mode'])
+        players = PMObj.objects.filter(match=m['match_id']).values("hero", "team", "win").order_by('position')
         m['legion'] = []
         m['hellbourne'] = []
         m['date'] = datetime.strptime(str(m['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)

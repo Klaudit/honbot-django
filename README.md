@@ -7,25 +7,25 @@ Settings file requires a localsettings.py file with the following functions. It 
 
 * def is_debug(): returns true/false for production/dev
 * def get_token(): returns string of private [hon api token](http://api.heroesofnewerth.com/)
-* get_avatar_session() returns string of session for HoN forums to pull avatars 
+* get_avatar_session() returns string of session for HoN forums to pull avatars
 
 __make sure you install everything in requirements.txt__ no known version specific requirements
 
 ####honbot db
-Handled by [South](http://south.aeracode.org/)  
+Handled by [South](http://south.aeracode.org/)
 Initial Setup + use of django_cron
 
     python manage.py syncdb
     python manage.py migrate django_cron
-Create Migrations for any db changes  
+Create Migrations for any db changes
 
-    python manage.py schemamigration honbot --auto  
-Apply Changes  
+    python manage.py schemamigration honbot --auto
+Apply Changes
 
-    python manage.py migrate honbot   
+    python manage.py migrate honbot
 
 ####honbot server
-Stop / start the fastcgi server. The third line is if using new relic's monitoring service
+Stop / start the fastcgi server. The third option is if using new relic's monitoring service
 
     pkill -f "runfcgi"
     python manage.py runfcgi host=127.0.0.1 port=8081 --settings=settings

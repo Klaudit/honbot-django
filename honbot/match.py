@@ -25,11 +25,11 @@ def match_view(request, match_id):
         match = match[0]
         team1, team2 = [], []
         # get players and setup for view
-        if mode == "rnk":
+        if match.mode == "rnk":
             PMObj = PlayerMatches
-        elif mode == "cs":
+        elif match.mode == "cs":
             PMObj = PlayerMatchesCasual
-        elif mode == "acc":
+        elif match.mode == "acc":
             PMObj = PlayerStatsPublic
         players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
         heronames = HeroData.objects.filter(hero_id__in=[p['hero'] for p in players]).values('cli_name', 'hero_id', 'disp_name')

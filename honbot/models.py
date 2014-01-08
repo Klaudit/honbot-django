@@ -57,7 +57,7 @@ class PlayerMatches(models.Model):
     team = models.PositiveSmallIntegerField(default=0)
     position = models.PositiveSmallIntegerField(default=0)
     items = models.CharField(max_length=50, default="")
-    mode = models.CharField(max_length=10, default="", db_index=True)
+    mode = models.CharField(max_length=10, default="")
     date = models.DateTimeField(db_index=True, blank=True, null=True)
 
 
@@ -98,7 +98,7 @@ class PlayerMatchesCasual(models.Model):
     team = models.PositiveSmallIntegerField(default=0)
     position = models.PositiveSmallIntegerField(default=0)
     items = models.CharField(max_length=50, default="")
-    mode = models.CharField(max_length=10, default="", db_index=True)
+    mode = models.CharField(max_length=10, default="")
     date = models.DateTimeField(db_index=True, blank=True, null=True)
 
 
@@ -139,7 +139,7 @@ class PlayerMatchesPublic(models.Model):
     team = models.PositiveSmallIntegerField(default=0)
     position = models.PositiveSmallIntegerField(default=0)
     items = models.CharField(max_length=50, default="")
-    mode = models.CharField(max_length=10, default="", db_index=True)
+    mode = models.CharField(max_length=10, default="")
     date = models.DateTimeField(db_index=True, blank=True, null=True)
 
 

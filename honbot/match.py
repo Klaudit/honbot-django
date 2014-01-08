@@ -141,7 +141,12 @@ def match_save(data, match_id, mode):
     update_players_in_matches(len(data['players']))
     bulk = []
     # set correct model class for players in match
-    PMObj = pmoselect(mode)
+    if mode == "rnk":
+        PMObj = PlayerMatches
+    elif mode == "cs":
+        PMObj = PlayerMatchesCasual
+    elif mode == "acc":
+        PMObj = PlayerStatsPublic
     for p in data['players']:
         if data['players'][p]['kdr'] == "Inf.":
             data['players'][p]['kdr'] = 999

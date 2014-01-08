@@ -25,12 +25,7 @@ def match_view(request, match_id):
         match = match[0]
         team1, team2 = [], []
         # get players and setup for view
-        if match.mode == "rnk":
-            PMObj = PlayerMatches
-        elif match.mode == "cs":
-            PMObj = PlayerMatchesCasual
-        elif match.mode == "acc":
-            PMObj = PlayerMatchesPublic
+        PMObj = pmoselect(match.mode)
         players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
         heronames = HeroData.objects.filter(hero_id__in=[p['hero'] for p in players]).values('cli_name', 'hero_id', 'disp_name')
         for player in players:
@@ -69,6 +64,15 @@ def match_view(request, match_id):
             return match_view(request, match_id)
         else:
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
+
+
+def pmoselect(mode):
+    if mode == "rnk":
+        return PlayerMatches
+    elif mode == "cs":
+        return PlayerMatchesCasual
+    elif mode == "acc":
+        return PlayerMatchesPublic
 
 
 def update_check(player, mode):
@@ -137,12 +141,7 @@ def match_save(data, match_id, mode):
     update_players_in_matches(len(data['players']))
     bulk = []
     # set correct model class for players in match
-    if mode == "rnk":
-        PMObj = PlayerMatches
-    elif mode == "cs":
-        PMObj = PlayerMatchesCasual
-    elif mode == "acc":
-        PMObj = PlayerMatchesPublic
+    PMObj = pmoselect(mode)
     for p in data['players']:
         if data['players'][p]['kdr'] == "Inf.":
             data['players'][p]['kdr'] = 999

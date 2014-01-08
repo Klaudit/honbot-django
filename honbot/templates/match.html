@@ -60,8 +60,8 @@
             <table class="table table-condensed table-match table-responsive">
                 <thead>
                     <tr>
-                        <th>Player</th>
-                        <th>Items</th>
+                        <th title="Player">Player</th>
+                        <th title="Items">Items</th>
                         <th title="Level">lvl</th>
                         <th title="Kills">K</th>
                         <th title="Deaths">D</th>
@@ -70,7 +70,7 @@
                         <th title="Creep Kills">CK</th>
                         <th title="Creep Denies">CD</th>
                         <th title="Gold Per Minute">GPM</th>
-                        <th title="XP per minute">XP</th>
+                        <th title="Experience per minute">XP</th>
                         <th title="Actions Per Minute">APM</th>
                         <th title="Wards">W</th>
                     </tr>
@@ -79,8 +79,7 @@
                 {% for player in team1 %}
                     <tr class="player-{{ player.position }}-row">
                         <td>
-                            <a class="heroicon" href="/hero/{{ player.cli_name }}/" data-toggle="tooltip" title="{{ player.disp_name }}" data-placement="left">
-                            <img src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'></a>
+                            <a class="heroicon" href="/hero/{{ player.cli_name }}/" data-toggle="tooltip" title="{{ player.disp_name }}" data-placement="left"><img src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'></a>
                             <a href="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/player/{{ player.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/ptip/{{ player.player_id }}/">
                                 {{ player.nickname }}
                             </a>
@@ -110,8 +109,7 @@
                 {% for player in team2 %}
                     <tr class="player-{{ player.position }}-row">
                         <td>
-                            <a class="heroicon" href="/hero/{{ player.cli_name }}/" data-toggle="tooltip" title="{{ player.disp_name }}" data-placement="left">
-                            <img src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'></a>
+                            <a class="heroicon" href="/hero/{{ player.cli_name }}/" data-toggle="tooltip" title="{{ player.disp_name }}" data-placement="left"><img src='/static/img/heroes/{{ player.hero }}/icon_30.jpg'></a>
                             <a href="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/player/{{ player.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/ptip/{{ player.player_id }}/">
                                 {{ player.nickname }}
                             </a>

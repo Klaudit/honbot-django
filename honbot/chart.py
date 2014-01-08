@@ -38,7 +38,7 @@ def pmoselect(mode):
     elif mode == "cs":
         return PlayerMatchesCasual
     elif mode == "acc":
-        return PlayerStatsPublic
+        return PlayerMatchesPublic
 
 
 def chart_view(request, name, mode, stats):

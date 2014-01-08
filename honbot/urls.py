@@ -54,7 +54,6 @@ urlpatterns = patterns(
     url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat_view'),
     # Recent Matches
     url(r'^match/$', 'honbot.match.recent'),
-    (r'^recent/$', RedirectView.as_view(url='/match/')), # remove this eventually
     # High scores
     url(r'^top/$', 'honbot.top.seven'),
     # Site stats

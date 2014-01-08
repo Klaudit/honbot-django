@@ -25,7 +25,12 @@ def match_view(request, match_id):
         match = match[0]
         team1, team2 = [], []
         # get players and setup for view
-        PMObj = pmoselect(match.mode)
+        if mode == "rnk":
+            PMObj = PlayerMatches
+        elif mode == "cs":
+            PMObj = PlayerMatchesCasual
+        elif mode == "acc":
+            PMObj = PlayerStatsPublic
         players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
         heronames = HeroData.objects.filter(hero_id__in=[p['hero'] for p in players]).values('cli_name', 'hero_id', 'disp_name')
         for player in players:
@@ -64,15 +69,6 @@ def match_view(request, match_id):
             return match_view(request, match_id)
         else:
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
-
-
-def pmoselect(mode):
-    if mode == "rnk":
-        return PlayerMatches
-    elif mode == "cs":
-        return PlayerMatchesCasual
-    elif mode == "acc":
-        return PlayerStatsPublic
 
 
 def update_check(player, mode):

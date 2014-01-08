@@ -32,7 +32,7 @@ def public_view(request, name):
 
 
 def chart_view(request, name, mode, stats):
-    matches = PlayerMatches.objects.filter(player_id=stats['player_id'], mode=mode).order_by('match')[:9999]
+    matches = PlayerMatches.objects.filter(player_id=stats['player_id'], mode=mode).order_by('match')[:25]
     count = matches.count()
     if count == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")

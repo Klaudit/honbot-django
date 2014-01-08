@@ -1,4 +1,4 @@
-from .models import PlayerMatches, PlayerHistory, Matches
+from .models import PlayerMatches, PlayerMatchesPublic, PlayerMatchesCasual, PlayerHistory, Matches
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from api_call import get_json
@@ -10,17 +10,20 @@ return_size = 25
 
 def history_ranked(request, account_id, page):
     url = "/match_history/ranked/accountid/" + account_id
-    return history(request, account_id, "rnk", url, page)
+    pmobject = PlayerMatches
+    return history(request, account_id, "rnk", url, page, pmobject)
 
 def history_casual(request, account_id, page):
     url = '/match_history/casual/accountid/' + account_id
-    return history(request, account_id, "cs", url, page)
+    pmobject = PlayerMatchesCasual
+    return history(request, account_id, "cs", url, page, pmobject)
 
 def history_public(request, account_id, page):
     url = '/match_history/public/accountid/' + account_id
-    return history(request, account_id, "acc", url, page)
+    pmobject = PlayerMatchesPublic
+    return history(request, account_id, "acc", url, page, pmobject)
 
-def history(request, account_id, mode, url, page):
+def history(request, account_id, mode, url, page, pmobject):
     """
     this is the main function of player history
     """
@@ -40,7 +43,7 @@ def history(request, account_id, mode, url, page):
     else:
         data = update_history(url, account_id, mode, False)
     verify_matches(data[(count-return_size):count], mode)
-    matches = PlayerMatches.objects.filter(match_id__in=data[(count-return_size):count], player_id=account_id).order_by('-date').values()
+    matches = pmobject.objects.filter(match_id__in=data[(count-return_size):count], player_id=account_id).order_by('-date').values()
     if len(matches) != 0:
         return render_to_response('player_history.html', {'matches': matches})
     else:

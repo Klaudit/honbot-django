@@ -5,7 +5,11 @@ from api_call import get_json
 from avatar import avatar
 from datetime import timedelta, datetime, date
 from error import error
-from .models import Matches, PlayerMatches, MatchCount, PlayerMatchCount, PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData
+from .models import (
+    Matches, PlayerMatches, MatchCount, PlayerMatchCount,
+    PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData,
+    PlayerMatchesPublic, PlayerMatchesCasual
+    )
 from json import loads, dumps
 from player import player_math, player_save
 from thread import start_new_thread
@@ -21,11 +25,11 @@ def match_view(request, match_id):
         match = match[0]
         team1, team2 = [], []
         # get players and setup for view
-        players = PlayerMatches.objects.filter(
-            match_id=match_id).order_by('position').values()
+        PMObj = pmoselect(match.mode)
+        players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
         heronames = HeroData.objects.filter(
             hero_id__in=[p['hero'] for p in players]).values('cli_name')
-        print heronames
+        print(heronames)
         for player in players:
             player['items'] = loads(player['items'])
             if player['kdr'] == 999:
@@ -61,6 +65,15 @@ def match_view(request, match_id):
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
 
 
+def pmoselect(mode):
+    if mode == "rnk":
+        return PlayerMatches
+    elif mode == "cs":
+        return PlayerMatchesCasual
+    elif mode == "acc":
+        return PlayerStatsPublic
+
+
 def update_check(player, mode):
     if mode == 'rnk':
         result = PlayerStats.objects.filter(player_id=player)
@@ -93,14 +106,14 @@ def update_player(pid, mode):
 
 
 def match_save(data, match_id, mode):
-    print match_id
+    print(match_id)
     try:
         data['realtime']
     except KeyError:
         data['realtime'] = 0
     try:
         data['date']
-    except KeyError:
+    except:
         data['date'] = "2000-01-01 11:11:11"
     try:
         data['replay_url']
@@ -109,25 +122,32 @@ def match_save(data, match_id, mode):
     try:
         data['major']
     except KeyError:
-        data['major'], data['minor'], data['revision'], data[
-            'build'], data['map'] = 999, 999, 999, 999, 'caldavar'
+        data['major'], data['minor'], data['revision'], data['build'], data['map'] = 999, 999, 999, 999, 'caldavar'
     m = Matches(
-        match_id=match_id, date=data['date'], replay_url=data['replay_url'],
-        realtime=data['realtime'], mode=mode, major=data['major'],
-        minor=data['minor'], revision=data[
-            'revision'], build=data['build'],
-        map_used=data['map'])
+        match_id=match_id,
+        date=data['date'],
+        replay_url=data['replay_url'],
+        realtime=data['realtime'],
+        mode=mode,
+        major=data['major'],
+        minor=data['minor'],
+        revision=data['revision'],
+        build=data['build'],
+        map_used=data['map']
+    )
     m.save()
     update_match_count()
     update_players_in_matches(len(data['players']))
     bulk = []
+    # set correct model class for players in match
+    PMObj = pmoselect(mode)
     for p in data['players']:
         if data['players'][p]['kdr'] == "Inf.":
             data['players'][p]['kdr'] = 999
         if data['players'][p]['nickname'] is None:
             data['players'][p]['nickname'] = p
         bulk.append(
-            PlayerMatches(
+            PMObj(
                 player_id=int(p),
                 match=m,
                 deaths=data['players'][p]['deaths'],
@@ -169,7 +189,7 @@ def match_save(data, match_id, mode):
             )
         )
     if len(bulk) > 0:
-        PlayerMatches.objects.bulk_create(bulk)
+        PMObj.objects.bulk_create(bulk)
 
 
 def update_match_count():
@@ -207,12 +227,10 @@ def recent(request):
         (pag.start_index() - 1):pag.end_index()]
     # get heroes
     for m in matches:
-        players = PlayerMatches.objects.filter(match=m['match_id']).values(
-            "hero", "team", "win").order_by('position')
+        players = PlayerMatches.objects.filter(match=m['match_id']).values("hero", "team", "win").order_by('position')
         m['legion'] = []
         m['hellbourne'] = []
-        m['date'] = datetime.strptime(
-            str(m['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
+        m['date'] = datetime.strptime(str(m['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
         for p in players:
             if p['team'] == 1:
                 m['legion'].append(p['hero'])

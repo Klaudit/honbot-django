@@ -30,7 +30,7 @@ def match_view(request, match_id):
         elif match.mode == "cs":
             PMObj = PlayerMatchesCasual
         elif match.mode == "acc":
-            PMObj = PlayerStatsPublic
+            PMObj = PlayerMatchesPublic
         players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
         heronames = HeroData.objects.filter(hero_id__in=[p['hero'] for p in players]).values('cli_name', 'hero_id', 'disp_name')
         for player in players:
@@ -142,7 +142,7 @@ def match_save(data, match_id, mode):
     elif mode == "cs":
         PMObj = PlayerMatchesCasual
     elif mode == "acc":
-        PMObj = PlayerStatsPublic
+        PMObj = PlayerMatchesPublic
     for p in data['players']:
         if data['players'][p]['kdr'] == "Inf.":
             data['players'][p]['kdr'] = 999

@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from .models import (
-    PlayerMatches, PlayerStats, PlayerStatsCasual, PlayerStatsPublic
+    PlayerMatches, PlayerStats, PlayerStatsCasual, PlayerStatsPublic,
+    PlayerMatchesCasual, PlayerMatchesPublic
 )
 from error import error
 from collections import Counter
@@ -31,8 +32,18 @@ def public_view(request, name):
     return chart_view(request, name, "acc", stats)
 
 
+def pmoselect(mode):
+    if mode == "rnk":
+        return PlayerMatches
+    elif mode == "cs":
+        return PlayerMatchesCasual
+    elif mode == "acc":
+        return PlayerStatsPublic
+
+
 def chart_view(request, name, mode, stats):
-    matches = PlayerMatches.objects.filter(player_id=stats['player_id'], mode=mode).order_by('match')[:25]
+    PMObj = pmoselect(mode)
+    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match')[:25]
     count = matches.count()
     if count == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")

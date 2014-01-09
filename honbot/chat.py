@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response, redirect
 from datetime import datetime, timedelta
 from error import error
-from .models import Chat, Matches, PlayerMatches
+from .models import Chat, Matches, PlayerMatches, PlayerMatchesPublic, PlayerMatchesCasual
 from json import loads
 from logparse import download, parse
 
@@ -14,7 +14,8 @@ def chat_view(request, match_id):
             match = match[0]
             match['date'] = datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
             chat['json'] = loads(chat['json'])
-            players = PlayerMatches.objects.filter(match=match_id).order_by('position')
+            PMObj = pmoselect(match['mode'])
+            players = PMObj.objects.filter(match=match_id).order_by('position')
             return render_to_response('chat.html', {'chat': chat['json'], 'match':match, 'players':players})
         else:
             if download(match_id, match[0]['replay_url']):
@@ -26,3 +27,12 @@ def chat_view(request, match_id):
                 return error(request, "Downloading the chat log failed.<br> It could be too old (28 days) or too new. Try again soon.")
     else:
         return redirect('/match/' + match_id + '/')
+
+
+def pmoselect(mode):
+    if mode == "rnk":
+        return PlayerMatches
+    elif mode == "cs":
+        return PlayerMatchesCasual
+    elif mode == "acc":
+        return PlayerMatchesPublic

@@ -43,7 +43,7 @@ def pmoselect(mode):
 
 def chart_view(request, name, mode, stats):
     PMObj = pmoselect(mode)
-    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match')[:25]
+    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match')[:50]
     count = matches.count()
     if count == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")

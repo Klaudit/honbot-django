@@ -9,9 +9,10 @@
         </div>
     </div>
     <div class="row text-center">
-        <div class="col-lg-12">
-            <h3 class="text-honbot">API</h3>
+        <div class="col-lg-4">
+            <h4 class="text-honbot">API Calls</h4>
             <div id="apicount" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
+            <p class="text-center">Average: {{ apiavg }}</p>
         </div>
         <div class="col-lg-4">
             <h4 class="text-honbot">Players</h4>
@@ -20,10 +21,6 @@
         <div class="col-lg-4">
             <h4 class="text-honbot">Matches</h4>
             <div id="matches" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
-        </div>
-        <div class="col-lg-4">
-            <h4 class="text-honbot">Players in Matches</h4>
-            <div id="playermatches" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
         </div>
     </div>
     <hr>
@@ -130,50 +127,6 @@ $(function () {
             showInLegend: false,
             name: 'Matches',
             data: [{% for m in matches %}{{ m.count }},{% endfor %}],
-        }]
-    });
-});
-</script>
-<script>
-$(function () {
-    $('#playermatches').highcharts({
-        chart:{
-            backgroundColor: null,
-        },
-        title: {
-            text: '',
-        },
-        xAxis: {
-            categories: [{% for m in playermatches %}"{{ m.date }}",{% endfor %}],
-            labels: {
-                enabled: false
-            },
-            lineColor: '#4f4c50',
-            tickColor: '#4f4c50'
-        },
-        yAxis: [{
-            title: {
-                text: ''
-            },
-            min: 0,
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }],
-            gridLineColor: '#4f4c50'
-        }],
-        credits: {enabled: false},
-        colors: ['#1974FF'],
-        plotOptions: {
-                series: {
-                    animation: false,
-                }
-            },
-        series: [{
-            showInLegend: false,
-            name: 'Players in matches',
-            data: [{% for m in playermatches %}{{ m.count }},{% endfor %}],
         }]
     });
 });

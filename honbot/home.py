@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, Template
 from django.views.decorators.cache import cache_page
-from .models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatchCount, PlayerMatches, APICount
+from .models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatches, APICount
 from api_call import pure
 from datetime import date
 from random import randint
@@ -50,23 +50,6 @@ def player_count(request):
     else:
         count = PlayerStats.objects.count()
         PlayerCount(count=count).save()
-    t = Template('{% load humanize %}{{ count|intcomma }}')
-    c = Context({'count': count})
-    return HttpResponse(t.render(c))
-
-
-@cache_page(60)
-def player_match_count(request):
-    """
-    Returns the current number of players in the database
-    """
-    today = date.today().strftime("%Y-%m-%d")
-    current_count = PlayerMatchCount.objects.filter(date=today)
-    if current_count.exists():
-        count = current_count[0].count
-    else:
-        count = PlayerMatches.objects.count()
-        PlayerMatchCount(count=count).save()
     t = Template('{% load humanize %}{{ count|intcomma }}')
     c = Context({'count': count})
     return HttpResponse(t.render(c))

@@ -6,7 +6,7 @@ from avatar import avatar
 from datetime import timedelta, datetime, date
 from error import error
 from .models import (
-    Matches, PlayerMatches, MatchCount, PlayerMatchCount,
+    Matches, PlayerMatches, MatchCount,
     PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData,
     PlayerMatchesPublic, PlayerMatchesCasual
     )

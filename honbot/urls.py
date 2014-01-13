@@ -12,7 +12,6 @@ urlpatterns = patterns(
     url(r'^match_count/$', 'honbot.home.match_count'),
     url(r'^player_count/$', 'honbot.home.player_count'),
     url(r'^api_count/$', 'honbot.home.api_count'),
-    url(r'^player_match_count/$', 'honbot.home.player_match_count'),
     # Player Browser
     url(r'^pdata/$', PlayerList.as_view()),
     url(r'^player/$', 'honbot.player_browse.browse'),

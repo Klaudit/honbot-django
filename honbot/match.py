@@ -107,23 +107,16 @@ def update_player(pid, mode):
 
 
 def match_save(data, match_id, mode):
-    print(match_id)
-    try:
-        data['realtime']
-    except KeyError:
-        data['realtime'] = 0
-    try:
-        data['date']
-    except:
-        data['date'] = "2000-01-01 11:11:11"
-    try:
-        data['replay_url']
-    except KeyError:
-        data['replay_url'] = ""
-    try:
-        data['major']
-    except KeyError:
-        data['major'], data['minor'], data['revision'], data['build'], data['map'] = 999, 999, 999, 999, 'caldavar'
+    # these are a few values that the api for some reason forgets to send
+    data.setdefault('realtime', 0)
+    data.setdefault('date', "2000-01-01 11:11:11")
+    data.setdefault('replay_url', "2000-01-01 11:11:11")
+    data.setdefault('replay_url', "")
+    data.setdefault('major', 9999)
+    data.setdefault('minor', 9999)
+    data.setdefault('revision', 9999)
+    data.setdefault('build', 9999)
+    data.setdefault('map', 'caldavar')
     m = Matches(
         match_id=match_id,
         date=data['date'],
@@ -138,7 +131,6 @@ def match_save(data, match_id, mode):
     )
     m.save()
     update_match_count()
-    update_players_in_matches(len(data['players']))
     bulk = []
     # set correct model class for players in match
     PMObj = pmoselect(mode)
@@ -201,16 +193,6 @@ def update_match_count():
     else:
         count = Matches.objects.count()
         MatchCount(count=count).save()
-
-
-def update_players_in_matches(count):
-    today = date.today().strftime("%Y-%m-%d")
-    current_count = PlayerMatchCount.objects.filter(date=today)
-    if current_count.exists():
-        current_count.update(count=F('count') + count)
-    else:
-        count = PlayerMatches.objects.count()
-        PlayerMatchCount(count=count).save()
 
 
 def recent(request):

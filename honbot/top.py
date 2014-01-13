@@ -10,7 +10,7 @@ from django.views.decorators.cache import cache_page
 def seven(request):
     enddate = datetime.today()
     startdate = enddate - timedelta(days=5)
-    inrange = PlayerMatches.objects.filter(date__range=[startdate, enddate], mode='rnk')
+    inrange = PlayerMatches.objects.filter(date__range=[startdate, enddate])
     kills = inrange.order_by('-kills')[:10]
     for p in kills:
         p.items = loads(p.items)

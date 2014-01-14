@@ -145,6 +145,51 @@
         <div class="col-lg-6 col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading"><h4 class="text-center panel-title">Friends</h4></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="text-right">Win</th>
+                            <th class="text-right">Loss</th>
+                            <th class="text-right">MMR +/-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for friend in friends %}
+                        <tr>
+                            <td><strong>{{ friend.nickname }}</strong></th>
+                            <td class="text-right">{{ friend.wins }}</th>
+                            <td class="text-right">{{ friend.losses }}</th>
+                            <td class="text-right {%if friend.mmr_change < 0%}text-danger{%else%}text-success{%endif%}">{{ friend.mmr_change }}</th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="text-center panel-title">Opponents</h4></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th class="text-right">Win</th>
+                            <th class="text-right">Loss</th>
+                            <th class="text-right">MMR +/-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for friend in enemies %}
+                        <tr>
+                            <td><strong>{{ friend.nickname }}</strong></th>
+                            <td class="text-right">{{ friend.wins }}</th>
+                            <td class="text-right">{{ friend.losses }}</th>
+                            <td class="text-right {%if friend.mmr_change < 0%}text-danger{%else%}text-success{%endif%}">{{ friend.mmr_change }}</th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

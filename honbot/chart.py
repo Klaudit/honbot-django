@@ -44,7 +44,7 @@ def pmoselect(mode):
 def chart_view(request, name, mode, stats):
     # set player in match object before calling
     PMObj = pmoselect(mode)
-    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match')[:50]
+    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match')[:100]
     count = matches.count()
     if count == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")
@@ -109,9 +109,44 @@ def chart_view(request, name, mode, stats):
         new['gpm'] = int(new['gpm'] / new['used'])
         new['cs'] = int(new['cs'] / new['used'])
         heroes.append(new)
+    # find possible friends / non-friends
+    allplayers = PMObj.objects.filter(match_id__in=match_list).values('mmr_change', 'player_id', 'nickname', 'team', 'match_id')
+    friends, enemies = {}, {}
+    for m in match_list:
+        for ps in filter(lambda x: x['match_id'] == m, allplayers):
+            curteam = filter(lambda x: x.match_id == ps['match_id'], matches)[0].team
+            sameteam = (ps['team'] == curteam)
+            if sameteam:
+                friendsetup(friends, ps, sameteam)
+            else:
+                friendsetup(enemies, ps, sameteam)
+    del friends[str(matches[0].player_id)]
+    friends = [friends[x] for x in friends]
+    friends = filter(lambda x: x['matches'] > 1, friends)
+    friends = sorted(friends, key=lambda friends: friends['matches'], reverse=True)[:5]
+    enemies = [enemies[x] for x in enemies]
+    enemies = filter(lambda x: x['matches'] > 1, enemies)
+    enemies = sorted(enemies, key=lambda enemies: enemies['matches'], reverse=True)[:5]
     return render_to_response('chart.html', {
                               'mmr': mmr, 'count': count, 'apm': apm, 'aapm': aapm, 'agpm': agpm, 'gpm': gpm, 'kills': kills, 'akills': akills,
                               'assists': assists, 'aassists': aassists, 'wards': wards, 'awards': awards, 'razed': razed, 'arazed': arazed, 'mmr_change': mmr_change,
                               'ammr_change': ammr_change, 'sdead': sdead, 'asdead': asdead, 'cs': cs, 'acs': acs,
                               'match_list': match_list, 'stats': stats, 'heroes': heroes, 'deaths': deaths, 'adeaths': adeaths, 'view': "chart", 'mode': mode,
-                              'mmrhigh': mmrhigh, 'mmrlow': mmrlow, 'mmravg': mmravg})
+                              'mmrhigh': mmrhigh, 'mmrlow': mmrlow, 'mmravg': mmravg, 'allplayers': allplayers, 'friends': friends, 'enemies': enemies})
+
+
+def friendsetup(grp, ps, sameteam):
+    grp.setdefault(str(ps['player_id']), {})
+    grp[str(ps['player_id'])].setdefault('mmr_change', 0)
+    grp[str(ps['player_id'])].setdefault('matches', 0)
+    grp[str(ps['player_id'])].setdefault('wins', 0)
+    grp[str(ps['player_id'])].setdefault('losses', 0)
+    grp[str(ps['player_id'])]['nickname'] = ps['nickname']
+    grp[str(ps['player_id'])]['player_id'] = ps['player_id']
+    grp[str(ps['player_id'])]['mmr_change'] += round(ps['mmr_change'], 2)
+    grp[str(ps['player_id'])]['matches'] += 1
+    if ps['mmr_change'] > 0:
+        grp[str(ps['player_id'])]['wins'] += 1
+    else:
+        grp[str(ps['player_id'])]['losses'] += 1
+

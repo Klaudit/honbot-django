@@ -42,20 +42,26 @@ def pmoselect(mode):
 
 
 def chart_view(request, name, mode, stats):
+    # set player in match object before calling
     PMObj = pmoselect(mode)
     matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match')[:50]
     count = matches.count()
     if count == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")
-    mmr = [0] * (count + 1)
-    mmr[-1] = stats['mmr']
-    i = count - 1
-    for match in matches:
-        mmr[i] = mmr[i + 1] + (match.mmr_change * -1)
-        i = i - 1
-    mmr = mmr[1:]
+    # calculate mmr backwards
+    mmr = [0]
+    mmr[0] = stats['mmr']
+    for idx, m in enumerate(matches):
+        mmr.append(mmr[idx] + (m.mmr_change * -1))
+    # mmr - min max avg
+    mmrhigh = int(max(mmr))
+    mmrlow = int(min(mmr))
+    mmravg = int(sum(mmr) / float(len(mmr)))
+    # mmr flip so the oldest is first trim off extra match
+    mmr = mmr[::-1][1:]
     match_list, apm, gpm = [], [], []
     assists, wards, kills, deaths, razed, mmr_change, sdead, cs = (0,) * 8
+    # create total for columns and then divide by total. Averages yo
     for m in reversed(matches):
         match_list.append(m.match_id)
         apm.append(m.apm)
@@ -68,7 +74,7 @@ def chart_view(request, name, mode, stats):
         mmr_change += m.mmr_change
         sdead += m.secsdead
         cs += m.cs
-    aapm = round(np.mean(apm), 2)
+    aapm = round(np.average(apm))
     agpm = round(np.average(gpm))
     akills = round(float(kills) / count, 2)
     adeaths = round(float(deaths) / count, 2)
@@ -84,18 +90,16 @@ def chart_view(request, name, mode, stats):
     for h in top_heroes:
         new = {}
         new['hero'], new['used'] = h
-        new['kills'], new['assists'], new['deaths'], new['wins'], new[
-            'losses'], new['mmr'], new['apm'], new['gpm'], new['cs'] = (0,) * 9
-        for m in matches:
-            if m.hero == new['hero']:
-                new['kills'] += m.kills
-                new['assists'] += m.assists
-                new['deaths'] += m.deaths
-                new['wins'] += m.win
-                new['mmr'] += m.mmr_change
-                new['apm'] += m.apm
-                new['gpm'] += m.gpm
-                new['cs'] += m.cs
+        new['kills'], new['assists'], new['deaths'], new['wins'], new['losses'], new['mmr'], new['apm'], new['gpm'], new['cs'] = (0,) * 9
+        for m in filter(lambda x: x.hero == new['hero'], matches):
+            new['kills'] += m.kills
+            new['assists'] += m.assists
+            new['deaths'] += m.deaths
+            new['wins'] += m.win
+            new['mmr'] += m.mmr_change
+            new['apm'] += m.apm
+            new['gpm'] += m.gpm
+            new['cs'] += m.cs
         new['win_percent'] = int(float(new['wins']) / new['used'] * 100)
         new['losses'] = new['used'] - new['wins']
         new['kills'] = new['kills'] / new['used']
@@ -109,4 +113,5 @@ def chart_view(request, name, mode, stats):
                               'mmr': mmr, 'count': count, 'apm': apm, 'aapm': aapm, 'agpm': agpm, 'gpm': gpm, 'kills': kills, 'akills': akills,
                               'assists': assists, 'aassists': aassists, 'wards': wards, 'awards': awards, 'razed': razed, 'arazed': arazed, 'mmr_change': mmr_change,
                               'ammr_change': ammr_change, 'sdead': sdead, 'asdead': asdead, 'cs': cs, 'acs': acs,
-                              'match_list': match_list, 'stats': stats, 'heroes': heroes, 'deaths': deaths, 'adeaths': adeaths, 'view': "chart", 'mode': mode})
+                              'match_list': match_list, 'stats': stats, 'heroes': heroes, 'deaths': deaths, 'adeaths': adeaths, 'view': "chart", 'mode': mode,
+                              'mmrhigh': mmrhigh, 'mmrlow': mmrlow, 'mmravg': mmravg})

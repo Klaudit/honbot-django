@@ -9,7 +9,6 @@
 
 <!-- Player Navigation-->
 {% include 'player_navigation.html' %}
-
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -20,21 +19,40 @@
                 {%if count < 50%}<p>If fewer than 50 matches are being shown, try going back to the <a href="/player/{{ stats.nickname }}/">player stats page</a> and clicking "load more".</p>{%endif%}
                 <p>This is currently being developed in my free time. Please be patient and as always <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">feedback is encouraged</a>.</p>
             </div>
-            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <div style="padding-right:0" class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div id="mmr" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
+                <ul class="list-inline text-center text-muted">
+                  <li><strong>Highest:</strong> {{ mmrhigh }}</li>
+                  <li><strong>Lowest:</strong> {{ mmrlow }}</li>
+                  <li><strong>Average:</strong> {{ mmravg }}</li>
+                </ul>
             </div>
+        </div>
+    </div>
+</div>
+<div class="container adsbygoogle">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 text-center hidden-xs hidden-sm">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- dark - bottom banner! -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:970px;height:90px"
+                 data-ad-client="ca-pub-7640562161899788"
+                 data-ad-slot="7614685358"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h4 class="text-center">Most Played Hero Averages</h4>
             <div class="row">
                 {%for hero in heroes%}
                 <div class="col-lg-2 col-sm-4 col-xs-6">
                     <div class="panel panel-default">
-                        <div style="margin-bottom: 18px;" class="panel-heading text-center panel-hero"><img style="width:50px" src='/static/img/heroes/{{hero.hero}}/icon_128.jpg'></div>
+                        <div style="margin-bottom: 18px;" class="panel-heading text-center panel-hero"><img class="dropshadow" style="width:60px" src='/static/img/heroes/{{hero.hero}}/icon_128.jpg'></div>
                         <ul style="margin-top: -16px;" class="list-group">
                             <li class="list-group-item panel-hero">Times Played: <p class="pull-right">{{hero.used}}</p></li>
                             <li class="list-group-item panel-hero">Win - Loss: <p class="pull-right">{{ hero.wins }} - {{ hero.losses }}</span></p></li>
@@ -55,14 +73,17 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6">
-            <div id="apm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+            <div class="well well-small">
+                <div id="apm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+            </div>
         </div>
         <div class="col-lg-6 col-md-6">
-            <div id="gpm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+            <div class="well well-small">
+                <div id="gpm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+            </div>
         </div>
     </div>
 </div>
-<br>
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6">
@@ -113,21 +134,30 @@
                             <td class="text-right">{{ammr_change}}</th>
                         </tr>
                         <tr>
-                            <td><strong>Sec Dead</strong></th>
+                            <td><strong>Time Dead</strong></th>
                             <td class="text-right">{{sdead}} min</th>
-                            <td class="text-right">{{asdead}}</th>
+                            <td class="text-right">{{asdead}} sec</th>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6 text-center adsbygoogle hidden-xs hidden-sm">
+        <div class="col-lg-6 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4 class="text-center panel-title">Friends</h4></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container adsbygoogle">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 text-center hidden-xs hidden-sm">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- dark square -->
+            <!-- dark - bottom banner! -->
             <ins class="adsbygoogle"
-                 style="display:inline-block;width:336px;height:280px"
+                 style="display:inline-block;width:970px;height:90px"
                  data-ad-client="ca-pub-7640562161899788"
-                 data-ad-slot="3963214959"></ins>
+                 data-ad-slot="7614685358"></ins>
             <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
@@ -143,7 +173,8 @@ $(function () {
     $('#mmr').highcharts({
         chart:{
             backgroundColor: null,
-            spacingLeft: 0
+            spacingLeft: 0,
+            spacingRight: 0
         },
         title: {
             text: '',
@@ -158,7 +189,7 @@ $(function () {
             title: {
                 text: 'MMR',
                 style:{
-                    color: '#aedf16',
+                    color: '#dddddd',
                     fontSize: '16px'
                 }
             },
@@ -169,7 +200,7 @@ $(function () {
             gridLineColor: '#4f4c50'
         }],
         credits: {enabled: false},
-        colors: ['#aedf16'],
+        colors: ['#ded204'],
         tooltip: {
             shared: true,
             useHTML: true,
@@ -209,7 +240,8 @@ $(function () {
     $('#apm').highcharts({
         chart:{
             backgroundColor: null,
-            spacingLeft: 0
+            spacingLeft: 0,
+            spacingRight: 0
         },
         title: {
             text: '',
@@ -224,14 +256,14 @@ $(function () {
             title: {
                 text: 'APM',
                 style:{
-                    color: '#aedf16',
+                    color: '#dddddd',
                     fontSize: '16px'
                 }
             },
             plotLines: [{
-                color: '#cc0000',
+                color: '#ced3c4',
                 width: 2,
-                value: {{aapm}}
+                value: {{ aapm }}
             }],
             gridLineColor: '#4f4c50'
         },
@@ -276,7 +308,8 @@ $(function () {
     $('#gpm').highcharts({
         chart:{
             backgroundColor: null,
-            spacingLeft: 0
+            spacingLeft: 0,
+            spacingRight: 0
         },
         title: {
             text: '',
@@ -291,14 +324,14 @@ $(function () {
             title: {
                 text: 'GPM',
                 style:{
-                    color: '#aedf16',
+                    color: '#dddddd',
                     fontSize: '16px'
                 }
             },
             plotLines: [{
-                color: 'red',
+                color: '#ced3c4',
                 width: 2,
-                value: {{agpm}}
+                value: {{ agpm }}
             }],
             gridLineColor: '#4f4c50'
         },

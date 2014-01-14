@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from .models import (
     PlayerMatches, PlayerStats, PlayerStatsCasual, PlayerStatsPublic,
-    PlayerMatchesCasual, PlayerMatchesPublic
+    PlayerMatchesCasual, PlayerMatchesPublic, HeroData
 )
 from error import error
 from collections import Counter
@@ -44,7 +44,7 @@ def pmoselect(mode):
 def chart_view(request, name, mode, stats):
     # set player in match object before calling
     PMObj = pmoselect(mode)
-    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match')[:100]
+    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match')[:50]
     count = matches.count()
     if count == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")
@@ -86,10 +86,15 @@ def chart_view(request, name, mode, stats):
     sdead = int(float(sdead) / 60)
     acs = round(float(cs) / count, 2)
     top_heroes = Counter([m.hero for m in matches]).most_common(6)
+    print top_heroes
+    heronames = HeroData.objects.filter(hero_id__in=[x[0] for x in top_heroes]).values('cli_name', 'hero_id', 'disp_name')
     heroes = []
     for h in top_heroes:
         new = {}
         new['hero'], new['used'] = h
+        herod = filter(lambda x: x['hero_id'] == new['hero'], heronames)[0]
+        new['cli_name'] = herod['cli_name']
+        new['disp_name'] = herod['disp_name']
         new['kills'], new['assists'], new['deaths'], new['wins'], new['losses'], new['mmr'], new['apm'], new['gpm'], new['cs'] = (0,) * 9
         for m in filter(lambda x: x.hero == new['hero'], matches):
             new['kills'] += m.kills

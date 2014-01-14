@@ -52,7 +52,11 @@
                 {%for hero in heroes%}
                 <div class="col-lg-2 col-sm-4 col-xs-6">
                     <div class="panel panel-default">
-                        <div style="margin-bottom: 18px;" class="panel-heading text-center panel-hero"><img class="dropshadow" style="width:60px" src='/static/img/heroes/{{hero.hero}}/icon_128.jpg'></div>
+                        <div style="margin-bottom: 18px;" class="panel-heading text-center panel-hero">
+                            <a class="heroicon" href="/hero/{{ hero.cli_name }}/" data-toggle="tooltip" title="{{ hero.disp_name }}">
+                                <img class="dropshadow" style="width:65px" src='/static/img/heroes/{{hero.hero}}/icon_128.jpg'>
+                            </a>
+                        </div>
                         <ul style="margin-top: -16px;" class="list-group">
                             <li class="list-group-item panel-hero">Times Played: <p class="pull-right">{{hero.used}}</p></li>
                             <li class="list-group-item panel-hero">Win - Loss: <p class="pull-right">{{ hero.wins }} - {{ hero.losses }}</span></p></li>
@@ -88,7 +92,9 @@
     <div class="row">
         <div class="col-lg-6 col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4 class="text-center panel-title">Stats</h4></div>
+                <div class="panel-heading">
+                    <h4 class="text-center panel-title">Stats</h4>
+                </div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -160,9 +166,9 @@
                         <tr>
                             <td>
                                 <strong>
-                                <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player/{{ friend.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/ptip/{{ friend.player_id }}/">
-                                    {{ friend.nickname }}
-                                </a>
+                                    <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player/{{ friend.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/ptip/{{ friend.player_id }}/">
+                                        {{ friend.nickname }}
+                                    </a>
                                 </strong>
                             </th>
                             <td class="text-right">{{ friend.matches }}</th>
@@ -193,9 +199,9 @@
                         <tr>
                             <td>
                                 <strong>
-                                <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player/{{ friend.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/ptip/{{ friend.player_id }}/">
-                                    {{ friend.nickname }}
-                                </a>
+                                    <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player/{{ friend.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/ptip/{{ friend.player_id }}/">
+                                        {{ friend.nickname }}
+                                    </a>
                                 </strong>
                             </th>
                             <td class="text-right">{{ friend.matches }}</th>
@@ -240,6 +246,9 @@ $(document).ready(function() {
         });
     }, 800);
 });
+</script>
+<script>
+$('.heroicon').tooltip()
 </script>
 <script>
 $(function () {

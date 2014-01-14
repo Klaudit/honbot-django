@@ -149,6 +149,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th class="text-right">Games</th>
                             <th class="text-right">Win</th>
                             <th class="text-right">Loss</th>
                             <th class="text-right">MMR +/-</th>
@@ -157,7 +158,14 @@
                     <tbody>
                         {% for friend in friends %}
                         <tr>
-                            <td><strong>{{ friend.nickname }}</strong></th>
+                            <td>
+                                <strong>
+                                <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player/{{ friend.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/ptip/{{ friend.player_id }}/">
+                                    {{ friend.nickname }}
+                                </a>
+                                </strong>
+                            </th>
+                            <td class="text-right">{{ friend.matches }}</th>
                             <td class="text-right">{{ friend.wins }}</th>
                             <td class="text-right">{{ friend.losses }}</th>
                             <td class="text-right {%if friend.mmr_change < 0%}text-danger{%else%}text-success{%endif%}">{{ friend.mmr_change }}</th>
@@ -174,6 +182,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th class="text-right">Games</th>
                             <th class="text-right">Win</th>
                             <th class="text-right">Loss</th>
                             <th class="text-right">MMR +/-</th>
@@ -182,7 +191,14 @@
                     <tbody>
                         {% for friend in enemies %}
                         <tr>
-                            <td><strong>{{ friend.nickname }}</strong></th>
+                            <td>
+                                <strong>
+                                <a href="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player/{{ friend.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/ptip/{{ friend.player_id }}/">
+                                    {{ friend.nickname }}
+                                </a>
+                                </strong>
+                            </th>
+                            <td class="text-right">{{ friend.matches }}</th>
                             <td class="text-right">{{ friend.wins }}</th>
                             <td class="text-right">{{ friend.losses }}</th>
                             <td class="text-right {%if friend.mmr_change < 0%}text-danger{%else%}text-success{%endif%}">{{ friend.mmr_change }}</th>
@@ -213,6 +229,18 @@
 {% endblock main_content %}
 {%block js%}
 <script src="/static/js/highcharts.js"></script>
+<script>
+$(document).ready(function() {
+    setTimeout(function(){
+        $('.player-hover').each(function() {
+            var e=$(this);
+            $.get(e.data('pid'),function(d) {
+                e.popover({content: d, html: true, delay: { show: 100, hide: 0 }});
+            });
+        });
+    }, 800);
+});
+</script>
 <script>
 $(function () {
     $('#mmr').highcharts({

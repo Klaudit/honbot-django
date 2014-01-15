@@ -40,6 +40,9 @@ def player_view(request, name, mode, url, p):
             update_player_count()
     data = get_json(url)
     if data is not None:
+        # if account id is 0 send fancy error page.
+        if int(data['account_id']) is 0:
+            return render_to_response('player_error.html', {'name': name})
         p = player_math(data, mode)
         player_save(p, mode)
         return render_to_response('player.html', {'stats': p, 'mode': mode, 'view': "player"})

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block page_title %}404 | HonBot - HoN player stats, matches, chat logs {% endblock %}
+
+{% block main_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 text-center well">
+            <img src="/static/img/heroes/7/icon_128.jpg">
+            <h2>{{ name }} not found</h2>
+            <ul class="list-unstyled">
+                <li><strong>Possible reasons:</strong></li>
+                <li>Spelling error</li>
+                <li>Player Banned</li>
+                <li>S2 API is down</li>
+            </ul>
+            <br>
+            <a class="btn btn-large btn-danger" href="javascript:history.go(-1)"> Go Back </a>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

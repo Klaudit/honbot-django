@@ -44,7 +44,7 @@ def pmoselect(mode):
 def chart_view(request, name, mode, stats):
     # set player in match object before calling
     PMObj = pmoselect(mode)
-    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match')[:50]
+    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match').values('hero_id', 'gpm', 'team', 'mmr_change', 'win', 'match_id', 'apm', 'wards', 'kills', 'player_id', 'cs', 'deaths', 'razed', 'secsdead', 'assists')[:50]
     count = matches.count()
     if count == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")
@@ -52,7 +52,7 @@ def chart_view(request, name, mode, stats):
     mmr = [0]
     mmr[0] = stats['mmr']
     for idx, m in enumerate(matches):
-        mmr.append(mmr[idx] + (m.mmr_change * -1))
+        mmr.append(mmr[idx] + (m['mmr_change'] * -1))
     # mmr - min max avg
     mmrhigh = int(max(mmr))
     mmrlow = int(min(mmr))
@@ -63,17 +63,17 @@ def chart_view(request, name, mode, stats):
     assists, wards, kills, deaths, razed, mmr_change, sdead, cs = (0,) * 8
     # create total for columns and then divide by total. Averages yo
     for m in reversed(matches):
-        match_list.append(m.match_id)
-        apm.append(m.apm)
-        gpm.append(m.gpm)
-        assists += m.assists
-        wards += m.wards
-        kills += m.kills
-        deaths += m.deaths
-        razed += m.razed
-        mmr_change += m.mmr_change
-        sdead += m.secsdead
-        cs += m.cs
+        match_list.append(m['match_id'])
+        apm.append(m['apm'])
+        gpm.append(m['gpm'])
+        assists += m['assists']
+        wards += m['wards']
+        kills += m['kills']
+        deaths += m['deaths']
+        razed += m['razed']
+        mmr_change += m['mmr_change']
+        sdead += m['secsdead']
+        cs += m['cs']
     aapm = round(np.average(apm))
     agpm = round(np.average(gpm))
     akills = round(float(kills) / count, 2)
@@ -85,9 +85,9 @@ def chart_view(request, name, mode, stats):
     asdead = round(float(sdead) / count, 2)
     sdead = int(float(sdead) / 60)
     acs = round(float(cs) / count, 2)
-    top_heroes = Counter([m.hero for m in matches]).most_common(6)
-    print top_heroes
+    top_heroes = Counter([m['hero_id'] for m in matches]).most_common(6)
     heronames = HeroData.objects.filter(hero_id__in=[x[0] for x in top_heroes]).values('cli_name', 'hero_id', 'disp_name')
+    # get hero names and assign later
     heroes = []
     for h in top_heroes:
         new = {}
@@ -96,15 +96,15 @@ def chart_view(request, name, mode, stats):
         new['cli_name'] = herod['cli_name']
         new['disp_name'] = herod['disp_name']
         new['kills'], new['assists'], new['deaths'], new['wins'], new['losses'], new['mmr'], new['apm'], new['gpm'], new['cs'] = (0,) * 9
-        for m in filter(lambda x: x.hero == new['hero'], matches):
-            new['kills'] += m.kills
-            new['assists'] += m.assists
-            new['deaths'] += m.deaths
-            new['wins'] += m.win
-            new['mmr'] += m.mmr_change
-            new['apm'] += m.apm
-            new['gpm'] += m.gpm
-            new['cs'] += m.cs
+        for m in filter(lambda x: x['hero_id'] == new['hero'], matches):
+            new['kills'] += m['kills']
+            new['assists'] += m['assists']
+            new['deaths'] += m['deaths']
+            new['wins'] += m['win']
+            new['mmr'] += m['mmr_change']
+            new['apm'] += m['apm']
+            new['gpm'] += m['gpm']
+            new['cs'] += m['cs']
         new['win_percent'] = int(float(new['wins']) / new['used'] * 100)
         new['losses'] = new['used'] - new['wins']
         new['kills'] = new['kills'] / new['used']
@@ -119,13 +119,15 @@ def chart_view(request, name, mode, stats):
     friends, enemies = {}, {}
     for m in match_list:
         for ps in filter(lambda x: x['match_id'] == m, allplayers):
-            curteam = filter(lambda x: x.match_id == ps['match_id'], matches)[0].team
+            curteam = filter(lambda x: x['match_id'] == ps['match_id'], matches)[0]['team']
             sameteam = (ps['team'] == curteam)
             if sameteam:
                 friendsetup(friends, ps, sameteam)
             else:
                 friendsetup(enemies, ps, sameteam)
-    del friends[str(matches[0].player_id)]
+    # delete self.
+    del friends[str(matches[0]['player_id'])]
+    # setup arrays for display
     friends = [friends[x] for x in friends]
     friends = filter(lambda x: x['matches'] > 1, friends)
     friends = sorted(friends, key=lambda friends: friends['matches'], reverse=True)[:5]

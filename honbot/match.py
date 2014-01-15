@@ -26,16 +26,10 @@ def match_view(request, match_id):
         team1, team2 = [], []
         # get players and setup for view
         PMObj = pmoselect(match.mode)
-        players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
-        heronames = HeroData.objects.filter(hero_id__in=[p['hero'] for p in players]).values('cli_name', 'hero_id', 'disp_name')
+        players = PMObj.objects.filter(match_id=match_id).order_by('position')
         for player in players:
-            player['items'] = loads(player['items'])
-            h = filter(lambda x: x['hero_id'] == player['hero'], heronames)[0]
-            player['cli_name'] = h['cli_name']
-            player['disp_name'] = h['disp_name']
-            if player['kdr'] == 999:
-                player['kdr'] = "Inf"
-            if player['team'] == 1:
+            player.items = loads(player.items)
+            if player.team == 1:
                 team1.append(player)
             else:
                 team2.append(player)
@@ -47,7 +41,7 @@ def match_view(request, match_id):
                 t2exist = True
             else:
                 t2exist = False
-            start_new_thread(update_check, (player['player_id'], match.mode))
+            start_new_thread(update_check, (player.player_id, match.mode))
         return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players': players, 'team1': team1, 'team2': team2, 't1exist': t1exist, 't2exist': t2exist})
     else:
         # grab solo match for fucks sake
@@ -157,7 +151,7 @@ def match_save(data, match_id, mode):
                 kdr=float(data['players'][p]['kdr']),
                 goldlost2death=data['players'][p]['goldlost2death'],
                 denies=data['players'][p]['denies'],
-                hero=data['players'][p]['hero'],
+                hero=HeroData.objects.get(hero_id=data['players'][p]['hero']),
                 consumables=data['players'][p]['consumables'],
                 assists=data['players'][p]['assists'],
                 bloodlust=data['players'][p]['bloodlust'],

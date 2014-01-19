@@ -151,7 +151,7 @@ def match_save(data, match_id, mode):
                 kdr=float(data['players'][p]['kdr']),
                 goldlost2death=data['players'][p]['goldlost2death'],
                 denies=data['players'][p]['denies'],
-                hero=HeroData.objects.get(hero_id=data['players'][p]['hero']),
+                hero=['players'][p]['hero'],
                 consumables=data['players'][p]['consumables'],
                 assists=data['players'][p]['assists'],
                 bloodlust=data['players'][p]['bloodlust'],

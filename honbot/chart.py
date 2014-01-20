@@ -44,7 +44,7 @@ def pmoselect(mode):
 def chart_view(request, name, mode, stats):
     # set player in match object before calling
     PMObj = pmoselect(mode)
-    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match').values('hero_id', 'gpm', 'team', 'mmr_change', 'win', 'match_id', 'apm', 'wards', 'kills', 'player_id', 'cs', 'deaths', 'razed', 'secsdead', 'assists')[:50]
+    matches = PMObj.objects.filter(player_id=stats['player_id']).order_by('match').values('hero', 'gpm', 'team', 'mmr_change', 'win', 'match_id', 'apm', 'wards', 'kills', 'player_id', 'cs', 'deaths', 'razed', 'secsdead', 'assists')[:50]
     count = matches.count()
     if count == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")
@@ -85,7 +85,7 @@ def chart_view(request, name, mode, stats):
     asdead = round(float(sdead) / count, 2)
     sdead = int(float(sdead) / 60)
     acs = round(float(cs) / count, 2)
-    top_heroes = Counter([m['hero_id'] for m in matches]).most_common(6)
+    top_heroes = Counter([m['hero'] for m in matches]).most_common(6)
     heronames = HeroData.objects.filter(hero_id__in=[x[0] for x in top_heroes]).values('cli_name', 'hero_id', 'disp_name')
     # get hero names and assign later
     heroes = []
@@ -96,7 +96,7 @@ def chart_view(request, name, mode, stats):
         new['cli_name'] = herod['cli_name']
         new['disp_name'] = herod['disp_name']
         new['kills'], new['assists'], new['deaths'], new['wins'], new['losses'], new['mmr'], new['apm'], new['gpm'], new['cs'] = (0,) * 9
-        for m in filter(lambda x: x['hero_id'] == new['hero'], matches):
+        for m in filter(lambda x: x['hero'] == new['hero'], matches):
             new['kills'] += m['kills']
             new['assists'] += m['assists']
             new['deaths'] += m['deaths']

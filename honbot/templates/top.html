@@ -52,7 +52,7 @@
                 <tbody>
                     {%for m in kills%}
                     <tr>
-                        <td><img style="width: 30px;" src="/static/img/heroes/{{ m.hero_id }}/icon_128.jpg"> <a class="player-hover" data-ptip="/ptip/{{ m.player_id }}/" data-trigger="hover" href="/player/{{ m.nickname }}/">{{ m.nickname }}</a></td>
+                        <td><img style="width: 30px;" src="/static/img/heroes/{{ m.hero }}/icon_128.jpg"> <a class="player-hover" data-ptip="/ptip/{{ m.player_id }}/" data-trigger="hover" href="/player/{{ m.nickname }}/">{{ m.nickname }}</a></td>
                         <td>
                             {% for item in m.items %}
                                 {% if item != None  %}

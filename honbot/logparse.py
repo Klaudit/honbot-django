@@ -75,8 +75,17 @@ class honlog:
         self.INFO_DATE(self.logfile.pop(0))
 
     # returns data from the player model copied earlier into an array
+    # starts to get funky with spectators
     def getinfo(self, chat_pos, req):
-        return self.playerinfo[str(self.posfind[str(chat_pos)])][req]
+        if str(chat_pos) in self.posfind:
+            return self.playerinfo[str(self.posfind[str(chat_pos)])][req]
+        else:
+            if req is "position":
+                return 9999
+            elif req is "nickname":
+                return self.spectators[str(chat_pos)]
+            elif req is "hero":
+                return 9999
 
     # converts time from some sort of milisecond into nice formatting
     # uses hours only if longer than an hour
@@ -127,7 +136,7 @@ class honlog:
                 name = l[3].split(':')[1][1:-1]  # get name
                 name = name.split(']')[-1]  # remove clan tag
                 player = int(l[2].split(':')[1])
-            self.spectators[player] = name
+            self.spectators[str(player)] = name
 
     def HERO_DEATH(self, line):
         """
@@ -160,6 +169,7 @@ class honlog:
         PLAYER_CHAT player:0 target:"team" msg:"hey team"
         PLAYER_CHAT time:55000 player:8 target:"team" msg:"in the game."
         """
+        print line
         chat = {}
         chat['msg'] = ''
         l = line.split()

@@ -885,7 +885,8 @@ a.list-group-item:focus {
 .player-6 a,
 .player-7 a,
 .player-8 a,
-.player-9 a {
+.player-9 a,
+.player-9999 a{
     color: #c4c4c4;
     padding-left: 1px;
 }

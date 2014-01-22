@@ -47,8 +47,6 @@ urlpatterns = patterns(
     url(r'^p/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_public'),
     # Match View
     url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
-    # Match Build
-    url(r'^builds/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
     # Match Chat
     url(r'^chat/(?P<match_id>[0-9]+)/$', 'honbot.chat.chat_view'),
     # Recent Matches

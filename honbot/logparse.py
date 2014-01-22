@@ -169,7 +169,6 @@ class honlog:
         PLAYER_CHAT player:0 target:"team" msg:"hey team"
         PLAYER_CHAT time:55000 player:8 target:"team" msg:"in the game."
         """
-        print line
         chat = {}
         chat['msg'] = ''
         l = line.split()

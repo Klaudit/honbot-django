@@ -26,6 +26,8 @@ def parse(match_id, players):
 
 # downloads match, returns false if unable to download
 def download(match_id, url):
+    if url is None:
+        return False
     url = url[:-9] + 'zip'
     # download file
     r = get(url)

@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from datetime import date
 from django.conf import settings
 from django.db.models import F
@@ -16,7 +14,6 @@ def get_json(endpoint):
     apicount()
     url = ''.join([baseurl, endpoint, token])
     raw = ''
-    print(url)
     while True:
         count = 0
         try:
@@ -41,7 +38,6 @@ def pure(endpoint):
     apicount()
     url = ''.join([baseurl, endpoint, token])
     raw = ''
-    print(url)
     while True:
         count = 0
         try:

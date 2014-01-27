@@ -1453,67 +1453,15 @@ span.ColVis_radio {
     width: 20px;
 }
 
-.dataTables_wrapper .ColVis {
-    margin: 10px 10px 10px 0;
-}
-
-.dataTables_wrapper .ColVis .ColVis_Button {
-    background: #eee;
-    padding: 3px 8px;
-    border: 0;
-}
-
-.dataTables_wrapper .ColVis .ColVis_Button i {
-    margin-left: 5px;
-}
-
-.dataTables_wrapper .ColVis .ColVis_Button:hover {
-    background: #ddd;
-}
-
 .dataTables_wrapper .dataTables_length {
     float: left;
     min-width: 200px;
     margin: 10px 10px 5px 10px;
 }
 
-.dataTables_wrapper .dataTables_length .input-mini {
-    float: left;
-}
-
-.dataTables_wrapper .dataTables_length label > span {
-    float: left;
-    margin: 4px 5px;
-}
-
-.dataTables_wrapper .DTTT_container {
-    margin: 10px 5px 10px 0;
-}
-
-.dataTables_wrapper .DTTT_container .DTTT_button {
-    background: #eee;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
-    border: 0;
-    margin-right: 5px;
-    color: #333;
-}
-
-.dataTables_wrapper .DTTT_container .DTTT_button:hover {
-    background: #ddd;
-}
-
 .dataTables_wrapper .dataTables_filter {
     float: right;
     margin: 10px 10px 5px 5px;
-}
-
-.dataTables_wrapper .dataTables_filter input {
-    margin-bottom: 0;
 }
 
 .dataTables_wrapper .dataTables_info {
@@ -1543,19 +1491,6 @@ span.ColVis_radio {
     cursor: pointer;
 }
 
-.dataTables_wrapper .dataTables_paginate > a.paginate_button_disabled {
-    color: #999;
-}
-
-.dataTables_wrapper .dataTables_paginate > a.paginate_button_disabled:hover {
-    background: #eee;
-    cursor: default;
-}
-
-.dataTables_wrapper .dataTables_paginate > a:hover {
-    background: #ddd;
-}
-
 .dataTables_wrapper .dataTables_paginate > span > a {
     padding: 3px 8px;
     margin-right: 5px;
@@ -1563,15 +1498,6 @@ span.ColVis_radio {
     color: #333;
     text-decoration: none;
     cursor: pointer;
-}
-
-.dataTables_wrapper .dataTables_paginate > span > a.paginate_active {
-    background: #368ee0;
-    color: #fff;
-}
-
-.dataTables_scroll {
-    clear: both;
 }
 
 .dataTables_scrollBody {

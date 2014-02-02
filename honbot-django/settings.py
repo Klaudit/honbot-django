@@ -119,8 +119,7 @@ INSTALLED_APPS = (
     'honbot',
     'pretty_times',
     'south',
-    'django_cron',
-    'debug_toolbar',
+    'django_cron'
 )
 
 TEMPLATE_DIRS = (

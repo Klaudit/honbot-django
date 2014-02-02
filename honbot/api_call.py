@@ -8,12 +8,15 @@ from time import sleep
 
 baseurl = 'http://api.heroesofnewerth.com'
 token = '/?token=%s' % settings.TOKEN
+debug = settings.DEBUG
 
 
 def get_json(endpoint):
     apicount()
     url = ''.join([baseurl, endpoint, token])
     raw = ''
+    if debug:
+        print url
     while True:
         count = 0
         try:

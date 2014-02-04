@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'south',
     'pretty_times',
     'django_cron',
+    'gunicorn'
 )
 
 TEMPLATE_DIRS = (

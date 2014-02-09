@@ -13,7 +13,7 @@ def ranked_view(request, name):
         stats = PlayerStats.objects.filter(nickname=name).values()[0]
     except IndexError:
         return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    return chart_view(request, name, "rnk", stats)
+    return chart_view(request, name, "rnk", stats, 50)
 
 
 def casual_view(request, name):
@@ -21,7 +21,7 @@ def casual_view(request, name):
         stats = PlayerStatsCasual.objects.filter(nickname=name).values()[0]
     except IndexError:
         return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    return chart_view(request, name, "cs", stats)
+    return chart_view(request, name, "cs", stats, 50)
 
 
 def public_view(request, name):
@@ -29,7 +29,33 @@ def public_view(request, name):
         stats = PlayerStatsPublic.objects.filter(nickname=name).values()[0]
     except IndexError:
         return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    return chart_view(request, name, "acc", stats)
+    return chart_view(request, name, "acc", stats, 50)
+
+def ranked_view_limit(request, name, limit):
+    try:
+        stats = PlayerStats.objects.filter(nickname=name).values()[0]
+        limit = int(limit)
+    except IndexError:
+        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
+    return chart_view(request, name, "rnk", stats, limit)
+
+
+def casual_view_limit(request, name, limit):
+    try:
+        stats = PlayerStatsCasual.objects.filter(nickname=name).values()[0]
+        limit = int(limit)
+    except IndexError:
+        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
+    return chart_view(request, name, "cs", stats, limit)
+
+
+def public_view_limit(request, name, limit):
+    try:
+        stats = PlayerStatsPublic.objects.filter(nickname=name).values()[0]
+        limit = int(limit)
+    except IndexError:
+        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
+    return chart_view(request, name, "acc", stats, limit)
 
 
 def pmoselect(mode):
@@ -41,13 +67,16 @@ def pmoselect(mode):
         return PlayerMatchesPublic
 
 
-def chart_view(request, name, mode, stats):
+def chart_view(request, name, mode, stats, limit):
     # set player in match object before calling
     PMObj = pmoselect(mode)
-    matches = PMObj.objects.filter(player_id=stats['player_id']).exclude(hero=0).order_by('match').values('hero', 'gpm', 'team', 'mmr_change', 'win', 'match_id', 'apm', 'wards', 'kills', 'player_id', 'cs', 'deaths', 'razed', 'secsdead', 'assists')[:50]
-    count = matches.count()
-    if count == 0:
+    matches = PMObj.objects.filter(player_id=stats['player_id']).exclude(hero=0).order_by('match').values('hero', 'gpm', 'team', 'mmr_change', 'win', 'match_id', 'apm', 'wards', 'kills', 'player_id', 'cs', 'deaths', 'razed', 'secsdead', 'assists')
+    available = matches.count()
+    if available == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")
+    matches = matches[:limit]
+    if limit > available:
+        limit = available
     # calculate mmr backwards
     mmr = [0]
     mmr[0] = stats['mmr']
@@ -76,15 +105,15 @@ def chart_view(request, name, mode, stats):
         cs += m['cs']
     aapm = round(np.average(apm))
     agpm = round(np.average(gpm))
-    akills = round(float(kills) / count, 2)
-    adeaths = round(float(deaths) / count, 2)
-    aassists = round(float(assists) / count, 2)
-    awards = round(float(wards) / count, 2)
-    arazed = round(float(razed) / count, 2)
-    ammr_change = round(float(mmr_change) / count, 2)
-    asdead = round(float(sdead) / count, 2)
+    akills = round(float(kills) / limit, 2)
+    adeaths = round(float(deaths) / limit, 2)
+    aassists = round(float(assists) / limit, 2)
+    awards = round(float(wards) / limit, 2)
+    arazed = round(float(razed) / limit, 2)
+    ammr_change = round(float(mmr_change) / limit, 2)
+    asdead = round(float(sdead) / limit, 2)
     sdead = int(float(sdead) / 60)
-    acs = round(float(cs) / count, 2)
+    acs = round(float(cs) / limit, 2)
     top_heroes = Counter([m['hero'] for m in matches]).most_common(6)
     heronames = HeroData.objects.filter(hero_id__in=[x[0] for x in top_heroes]).values('cli_name', 'hero_id', 'disp_name')
     # get hero names and assign later
@@ -135,11 +164,12 @@ def chart_view(request, name, mode, stats):
     enemies = filter(lambda x: x['matches'] > 1, enemies)
     enemies = sorted(enemies, key=lambda enemies: enemies['matches'], reverse=True)[:5]
     return render_to_response('chart.html', {
-                              'mmr': mmr, 'count': count, 'apm': apm, 'aapm': aapm, 'agpm': agpm, 'gpm': gpm, 'kills': kills, 'akills': akills,
+                              'mmr': mmr, 'available': available, 'apm': apm, 'aapm': aapm, 'agpm': agpm, 'gpm': gpm, 'kills': kills, 'akills': akills,
                               'assists': assists, 'aassists': aassists, 'wards': wards, 'awards': awards, 'razed': razed, 'arazed': arazed, 'mmr_change': mmr_change,
                               'ammr_change': ammr_change, 'sdead': sdead, 'asdead': asdead, 'cs': cs, 'acs': acs,
                               'match_list': match_list, 'stats': stats, 'heroes': heroes, 'deaths': deaths, 'adeaths': adeaths, 'view': "chart", 'mode': mode,
-                              'mmrhigh': mmrhigh, 'mmrlow': mmrlow, 'mmravg': mmravg, 'allplayers': allplayers, 'friends': friends, 'enemies': enemies})
+                              'mmrhigh': mmrhigh, 'mmrlow': mmrlow, 'mmravg': mmravg, 'allplayers': allplayers, 'friends': friends, 'enemies': enemies,
+                              'limit': limit})
 
 
 def friendsetup(grp, ps, sameteam):

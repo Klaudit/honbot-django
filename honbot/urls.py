@@ -25,14 +25,19 @@ urlpatterns = patterns(
     url(r'^ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip_ranked'),
     url(r'^p/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip_public'),
     url(r'^c/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip_casual'),
+    ## CHARTS (needs to be renamed)
     # Player Charts
-    url(r'^chart/(?P<name>.*)/$', 'honbot.chart.ranked_view', name="chart"),
-    url(r'^p/chart/(?P<name>.*)/$', 'honbot.chart.public_view'),
-    url(r'^c/chart/(?P<name>.*)/$', 'honbot.chart.casual_view'),
+    url(r'^chart/(?P<name>[^/]+)/$', 'honbot.chart.ranked_view'),
+    url(r'^p/chart/(?P<name>[^/]+)/$', 'honbot.chart.public_view'),
+    url(r'^c/chart/(?P<name>[^/]+)/$', 'honbot.chart.casual_view'),
+    # player charts with limits
+    url(r'^chart/(?P<name>[^/]+)/(?P<limit>\d+)/$', 'honbot.chart.ranked_view_limit'),
+    url(r'^p/chart/(?P<name>[^/]+)/(?P<limit>\d+)/$', 'honbot.chart.public_view_limit'),
+    url(r'^c/chart/(?P<name>[^/]+)/(?P<limit>\d+)/$', 'honbot.chart.casual_view_limit'),
     # Player Avatar
     url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
     # Player History
-    url(r'^player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history_ranked'),
+    url(r'^player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])$', 'honbot.player_history.history_ranked'),
     url(r'^c/player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history_casual'),
     url(r'^p/player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history_public'),
     # Player Banner

@@ -13,11 +13,19 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 well">
-                <p>Hello! Stats were analyzed from your last <strong>{{count}}</strong> matches.</p>
-                {% load prettytimes_tags %}
-                <p>Stats last updated: <strong>{{stats.updated|relative_time}}</strong></p>
-                {%if count < 50%}<p>If fewer than 50 matches are being shown, try going back to the <a href="/player/{{ stats.nickname }}/">player stats page</a> and clicking "load more".</p>{%endif%}
-                <p>This is currently being developed in my free time. Please be patient and as always <a href="https://forums.heroesofnewerth.com/showthread.php?489330-HonBot-com-Stats-Chat-Logs-Graphs">feedback is encouraged</a>.</p>
+                <ul class="list-unstyled">
+                    <li><strong>Matches Analyzed</strong>: {{ limit }}</li>
+                    <li><strong>Matches in Database</strong>: {{ available }}</li>
+                    <li><strong>Player Updated</strong>: {% load prettytimes_tags %}{{stats.updated|relative_time}}</li>
+                </ul>
+                <h6 class="text-center">- Filter Matches -</h6>
+                <form id="limitform" class="form-inline text-center" role="form">
+                  <div class="form-group">
+                    <label class="sr-only" for="matchselect">Number of Matches</label>
+                    <input type="number" class="form-control" id="limitinput" placeholder="# of Matches">
+                  </div>
+                  <button id="limitsubmit" class="btn btn-default">Go</button>
+                </form>
             </div>
             <div style="padding-right:0" class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div id="mmr" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
@@ -246,6 +254,22 @@ $(document).ready(function() {
         });
     }, 800);
 });
+</script>
+<script type="text/javascript">
+  $("#limitform").submit(function () {
+    var limit = $('#limitinput').val();
+    var address = "/chart/" + "{{ stats.nickname }}" + "/" + limit + "/";
+    window.location.href = address;
+    return false;
+  });
+</script>
+<script type="text/javascript">
+  $("#limitsubmit").click(function () {
+    var limit = $('#limitinput').val();
+    var address = "/chart/" + "{{ stats.nickname }}" + "/" + limit + "/";
+    window.location.href = address;
+    return false;
+  });
 </script>
 <script>
 $('.heroicon').tooltip()

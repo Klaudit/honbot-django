@@ -13,6 +13,8 @@ fonts = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'fonts
 
 
 def banner_view(request, name):
+    if '/' in name:
+        name = name.split('/')[1]
     location = directory + str(name) + ".png"
     # check file exists
     if path.isfile(location):

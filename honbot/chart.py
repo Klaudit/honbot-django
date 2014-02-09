@@ -69,6 +69,8 @@ def pmoselect(mode):
 
 def chart_view(request, name, mode, stats, limit):
     # set player in match object before calling
+    if limit < 1:
+        limit = 1
     PMObj = pmoselect(mode)
     matches = PMObj.objects.filter(player_id=stats['player_id']).exclude(hero=0).order_by('match').values('hero', 'gpm', 'team', 'mmr_change', 'win', 'match_id', 'apm', 'wards', 'kills', 'player_id', 'cs', 'deaths', 'razed', 'secsdead', 'assists')
     available = matches.count()
@@ -186,4 +188,3 @@ def friendsetup(grp, ps, sameteam):
         grp[str(ps['player_id'])]['wins'] += 1
     else:
         grp[str(ps['player_id'])]['losses'] += 1
-

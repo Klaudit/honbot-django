@@ -1,5 +1,5 @@
 ![honbot-django](http://i.imgur.com/eniKwWN.jpg)
-honbot-django
+HonBot-Django
 =============
 HonBot is a [Heroes of Newerth](http://www.heroesofnewerth.com/) (HoN) Statistics website written in [django](https://www.djangoproject.com/) for the [HoN API](http://api.heroesofnewerth.com/).
 

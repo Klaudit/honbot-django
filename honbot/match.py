@@ -29,7 +29,12 @@ def match_view(request, match_id):
         players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
         heroes = HeroData.objects.filter(hero_id__in=[x['hero'] for x in players]).values('cli_name', 'hero_id', 'disp_name')
         for player in players:
-            fhero = filter(lambda x: x['hero_id'] == player['hero'], heroes)[0]
+            try:
+                fhero = filter(lambda x: x['hero_id'] == player['hero'], heroes)[0]
+            except IndexError:
+                fhero = {}
+                fhero['cli_name'] = "Unknown"
+                fhero['disp_name'] = "Unknown"
             player['cli_name'] = fhero['cli_name']
             player['disp_name'] = fhero['disp_name']
             player['items'] = loads(player['items'])

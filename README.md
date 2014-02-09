@@ -28,8 +28,7 @@ Apply Changes
 Stop / start the fastcgi server. The third option is if using new relic's monitoring service
 
     pkill -f "runfcgi"
-    python manage.py runfcgi host=127.0.0.1 port=8081 --settings=settings
-    NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-python manage.py runfcgi host=127.0.0.1 port=8081 --settings=settings
+    NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-python manage.py run_gunicorn --workers=10 -b 127.0.0.1:8000 --timeout 30
 
 ####cron job
 Using django_cron involves calling it every 5 minutes

@@ -6,11 +6,9 @@ HonBot is a [Heroes of Newerth](http://www.heroesofnewerth.com/) (HoN) Statistic
 ####Run a local copy of HonBot
 Settings file requires a localsettings.py file with the following functions. It is required in main folder for production and honbot-django/ for dev.
 
-* def is_debug(): returns true/false for production/dev
+* def is_debug(): returns true/false for prod/dev
 * def get_token(): returns string of private [hon api token](http://api.heroesofnewerth.com/)
 * get_avatar_session() returns string of session for HoN forums to pull avatars
-
-__make sure you install everything in requirements.txt__ no known version specific requirements
 
 ####honbot db
 Handled by [South](http://south.aeracode.org/)

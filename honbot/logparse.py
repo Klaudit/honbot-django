@@ -30,6 +30,7 @@ def download(match_id, url):
         return False
     url = url[:-9] + 'zip'
     # download file
+    print url
     r = get(url)
     if r.status_code == 404:
         return False

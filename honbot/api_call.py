@@ -45,14 +45,15 @@ def pure(endpoint):
         count = 0
         try:
             raw = get(url, timeout=0.5)
+            if raw.status_code == 429:
+                count += 1
+                sleep(0.2)
+            elif raw.status_code == 200:
+                break
         except exceptions.Timeout:
             count += 1
-        if raw.status_code == 429 and count < 2:
-            count += 1
             sleep(0.2)
-        elif raw.status_code == 200:
-            break
-        else:
+        if count > 2:
             return None
     return raw
 

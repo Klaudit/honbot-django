@@ -6,6 +6,7 @@ from .models import Matches, PlayerCount, PlayerStats, MatchCount, PlayerMatches
 from api_call import pure
 from datetime import date
 from random import randint
+from json import dumps
 
 
 @cache_page(60 * 10)
@@ -21,52 +22,29 @@ def server_status(request):
         return HttpResponse('<span class="text-danger">Down, Honbot will have trouble working</span>')
 
 
-@cache_page(60)
-def match_count(request):
-    """
-    Returns the current number of matches stored in the database
-    """
-    today = date.today().strftime("%Y-%m-%d")
-    current_count = MatchCount.objects.filter(date=today)
+def new_count(countobj, dataobj):
+    count = dataobj.objects.count()
+    countobj(count=count).save()
+    return count
+
+
+def current_count(countobj, dataobj, today):
+    current_count = countobj.objects.filter(date=today)
     if current_count.exists():
-        count = current_count[0].count
+        return current_count[0].count
     else:
-        count = Matches.objects.count()
-        MatchCount(count=count).save()
-    t = Template('{% load humanize %}{{ count|intcomma }}')
-    c = Context({'count': count})
-    return HttpResponse(t.render(c))
+        return new_count(countobj, dataobj)
 
 
 @cache_page(60)
-def player_count(request):
-    """
-    Returns the current number of players in the database
-    """
+def database_count(request):
     today = date.today().strftime("%Y-%m-%d")
-    current_count = PlayerCount.objects.filter(date=today)
-    if current_count.exists():
-        count = current_count[0].count
-    else:
-        count = PlayerStats.objects.count()
-        PlayerCount(count=count).save()
-    t = Template('{% load humanize %}{{ count|intcomma }}')
-    c = Context({'count': count})
-    return HttpResponse(t.render(c))
-
-
-@cache_page(60)
-def api_count(request):
-    """
-    Returns the current number of players in the database
-    """
-    today = date.today().strftime("%Y-%m-%d")
-    current_count = APICount.objects.filter(date=today)
-    if current_count.exists():
-        count = current_count[0].count
-    else:
-        count = 1
-        APICount(count=count).save()
-    t = Template('{% load humanize %}{{ count|intcomma }}')
-    c = Context({'count': count})
-    return HttpResponse(t.render(c))
+    counts = {}
+    counts['matches'] = current_count(MatchCount, Matches, today)
+    counts['players'] = current_count(PlayerCount, PlayerStats, today)
+    try:
+        counts['apicount'] = APICount.objects.filter(date=today)[0].count
+    except:
+        APICount(count=1).save()
+        counts['api'] = 1
+    return HttpResponse(dumps(counts), content_type="application/json")

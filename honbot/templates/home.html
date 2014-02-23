@@ -56,27 +56,12 @@
             <div class="panel panel-default">
               <div class="panel-heading"><h3 class="panel-title">Recent Changes</h3></div>
               <div class="panel-body">
-                <strong>February 10th</strong>
+                <div class="alert alert-danger"><strong>Chat logs</strong> will not work until S2 makes game logs available again.</div>
+                <strong>February 22nd</strong>
                 <ul>
-                  <li>Added two missing item icons.</li>
-                </ul>
-                <strong>February 8th</strong>
-                <ul>
-                  <li>Fixed an error with public matches that report a <a href="/match/126502557/">hero id of zero</a> for some reason. If anyone knows why...</li>
-                  <li>Fixed an annoying error from some jerk that linked to his banner incorrectly. He's not really a jerk.</li>
-                  <li>On Player charts page you can now limit the number of matches analyzed to be greater or smaller.</li>
-                </ul>
-                <strong>January 23rd</strong>
-                <ul>
-                  <li>Fixed bug on chat pages for matches that have no chat content.</li>
-                </ul>
-                <strong>January 22nd</strong>
-                <ul>
-                  <li>Fixed a bug that casued certain chat logs not to load. Most of these logs were public matches where players moved around in the lobby.</li>
-                  <li>Completely removed hero builds as the logs have not been fixed for a few months now.</li>
-                  <li>Removed unnecessary database querrires on chat log load/create.</li>
-                  <li>Fixed clicking/hovering hero icons on match view.</li>
-                  <li>Fixed a bug for public match chats with many spectators.</li>
+                  <li>Fixed css issue on <a href="/hero/">hero filter page</a></li>
+                  <li>Server stats are now a <a href="/database_count/">single json request</a></li>
+                  <li>Updated all CSS and JS dependancies</li>
                 </ul>
               </div>
               <div class="panel-footer no-bpadding">
@@ -153,6 +138,16 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="/static/js/bootstrap.min.js"></script>
   <!-- Search Jquery -->
+  <script type="text/javascript">
+
+  </script>
+  <script type="text/javascript">
+  $.getJSON( "/database_count/", function( json ) {
+    $( "#players" ).append(json.players.toLocaleString('en'));
+    $( "#matches" ).append(json.matches.toLocaleString('en'));
+    $( "#apicount" ).append(json.apicount.toLocaleString('en'));
+   });
+  </script>
   <script>
     $("#searchbutton").click(function () {
         var player = $('#player').val();
@@ -168,10 +163,7 @@
     });
   </script>
   <script>
-    $("#matches").load("/match_count/");
-    $("#players").load("/player_count/");
     $("#serverstatus").load("/server_status/");
-    $("#apicount").load("/api_count/");
   </script>
   <script type="text/javascript">
     var clicky_site_ids = clicky_site_ids || [];

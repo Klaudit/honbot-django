@@ -51,7 +51,7 @@
         <div class="col-lg-12">
             <ul id="Grid">
                 {% for hero in heroes %}
-                <li class="mix {{ hero.team }} {{ hero.primaryattribute }} {{ hero.attacktype }}" data-popularity="{{ hero.popularity }}" data-toggle="popover" data-content="{{ hero.disp_name }}" data-container="body" data-placement="bottom" data-trigger="hover">
+                <li class="mix dropshadow {{ hero.team }} {{ hero.primaryattribute }} {{ hero.attacktype }}" data-popularity="{{ hero.popularity }}" data-toggle="popover" data-content="{{ hero.disp_name }}" data-container="body" data-placement="bottom" data-trigger="hover">
                     <a href="/hero/{{ hero.cli_name }}/"><img style="width: 60px;" src="/static/img/heroes/{{ hero.hero_id }}/icon_128.jpg"></a>
                 </li>
                 {% endfor %}

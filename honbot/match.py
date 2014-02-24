@@ -28,6 +28,7 @@ def match_view(request, match_id):
         PMObj = pmoselect(match.mode)
         players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
         heroes = HeroData.objects.filter(hero_id__in=[x['hero'] for x in players]).values('cli_name', 'hero_id', 'disp_name')
+        match.date = datetime.strptime(str(match.date), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
         for player in players:
             try:
                 fhero = filter(lambda x: x['hero_id'] == player['hero'], heroes)[0]
@@ -87,8 +88,7 @@ def update_check(player, mode):
         result = PlayerStatsPublic.objects.filter(player_id=player)
     if result.exists():
         result = result.values('updated')[0]
-        tdelta = datetime.now() - datetime.strptime(
-            str(result['updated']), "%Y-%m-%d %H:%M:%S")
+        tdelta = datetime.now() - datetime.strptime(str(result['updated']), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) > 12000:
             avatar(None, player, 10)
             update_player(player, mode)
@@ -253,8 +253,7 @@ def multimatch(data, history, mode):
     for m in data[2]:
         matchlength = round(float(m['secs']) / 60, 1)
         allmatches[m['match_id']]['matchlength'] = matchlength
-        allmatches[m['match_id']]['realtime'] = strftime(
-            '%H:%M:%S', gmtime(int(m['secs'])))
+        allmatches[m['match_id']]['realtime'] = strftime('%H:%M:%S', gmtime(int(m['secs'])))
         if int(allmatches[m['match_id']]['realtime'].split(':')[0]) == 0:
             allmatches[m['match_id']]['realtime'] = allmatches[
                 m['match_id']]['realtime'][3:]

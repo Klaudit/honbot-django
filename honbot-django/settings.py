@@ -21,7 +21,7 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'honbot',
         'USER': 'root',
         'PASSWORD': 'cooper',
@@ -93,9 +93,9 @@ SECRET_KEY = 'sa7!a1cm3dc9vcmnty&amp;&amp;a=ibudkpk17r(^i5wk^y@u+v-fn&amp;9c'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',

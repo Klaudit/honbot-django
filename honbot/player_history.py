@@ -2,7 +2,7 @@ from .models import PlayerMatches, PlayerMatchesPublic, PlayerMatchesCasual, Pla
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from api_call import get_json
-from datetime import datetime
+from datetime import datetime, timedelta
 from json import dumps, loads
 from match import multimatch
 
@@ -44,6 +44,8 @@ def history(request, account_id, mode, url, page, pmobject):
         data = update_history(url, account_id, mode, False)
     verify_matches(data[(count-return_size):count], mode)
     matches = pmobject.objects.filter(match_id__in=data[(count-return_size):count], player_id=account_id).order_by('-date').values()
+    for match in matches:
+        match['date'] = datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
     if len(matches) != 0:
         return render_to_response('player_history.html', {'matches': matches})
     else:

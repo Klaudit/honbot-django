@@ -193,7 +193,7 @@
                       <div style="padding: 5px 15px 5px 15px;" class="panel-heading"><h4>{{ a.name }}</h4></div>
                       <div style="padding-bottom: 2px;" class="panel-body">
                         <img class="dropshadow pull-left" style="width: 85px; margin-right:10px; margin-top: -5px;" src="/static/img/heroes/{{ hero.hero_id }}/ability{{ forloop.counter }}_128.jpg">
-                        <p style="margin-top: 10px;">{{ a.description }}</p>
+                        <p>{{ a.description }}</p>
                         <h6>
                           <span class="text-warning">Action</span> <i class="fa fa-caret-right"></i> {{ a.actiontype }}
                           <span style="padding-left: 20px;" class="text-warning">Target</span> <i class="fa fa-caret-right"></i> {{ a.targetscheme }}
@@ -229,7 +229,6 @@
                       </div>
                       <div class="panel-body">
                         {% if a.impacteffect %}
-                          <hr>
                           <h5>Impact Effect:</h5>
                           <p>{{ a.impacteffect|safe }}</p>
                         {% endif %}

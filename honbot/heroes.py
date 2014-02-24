@@ -28,6 +28,7 @@ def iterable_attribute(name, supername, a, ability):
     except KeyError:
         a[name] = None
 
+
 def isDigit(c):
     return c in ['0','1','2','3','4','5','6','7','8','9']
 
@@ -79,7 +80,10 @@ def main(request):
     data = HeroData.objects.all().order_by('hero_id').values('cli_name')
     use = list(HeroUse.objects.filter(date=today).order_by('hero_id').values())
     for index, hero in enumerate(heroes):
-        hero['popularity'] = use[index]['popularity']
+        try:
+            hero['popularity'] = use[index]['popularity']
+        except:
+            hero['popularity'] = 0
         hero['cli_name'] = data[index]['cli_name']
     return render_to_response('heroes.html', {'heroes': heroes})
 

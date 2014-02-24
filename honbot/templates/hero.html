@@ -192,45 +192,48 @@
                   <div class="panel panel-default">
                       <div style="padding: 5px 15px 5px 15px;" class="panel-heading"><h4>{{ a.name }}</h4></div>
                       <div style="padding-bottom: 2px;" class="panel-body">
-                        <img class="dropshadow pull-left" style="width: 85px; margin-right:10px;" src="/static/img/heroes/{{ hero.hero_id }}/ability{{ forloop.counter }}_128.jpg">
-                        <p>{{ a.description }}</p>
+                        <img class="dropshadow pull-left" style="width: 85px; margin-right:10px; margin-top: -5px;" src="/static/img/heroes/{{ hero.hero_id }}/ability{{ forloop.counter }}_128.jpg">
+                        <p style="margin-top: 10px;">{{ a.description }}</p>
                         <h6>
                           <span class="text-warning">Action</span> <i class="fa fa-caret-right"></i> {{ a.actiontype }}
                           <span style="padding-left: 20px;" class="text-warning">Target</span> <i class="fa fa-caret-right"></i> {{ a.targetscheme }}
                         </h6>
                       </div>
-                      <ul class="list-group list-group-flush">
+                      <ul class="list-group list-group-flush col-lg-6">
                         {% if a.casteffecttype %}
-                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item">Type: {{ a.casteffecttype }}</li>
+                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item"><strong>Type</strong>: {{ a.casteffecttype }}</li>
                         {% endif %}
                         {% if a.range %}
-                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item">Range: {{ a.range }}</li>
+                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item"><strong>Range</strong>: {{ a.range }}</li>
                         {% endif %}
                         {% if a.casttime %}
-                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item">Cast Time: {{ a.casttime }} Seconds</li>
+                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item"><strong>Cast Time</strong>: {{ a.casttime }} Seconds</li>
                         {% endif %}
                         {% if a.manacost %}
-                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item">Mana Cost: {{ a.manacost }}</li>
+                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item">
+                            <span class="text-info"><strong>Mana Cost</strong>:</span> {{ a.manacost }}
+                          </li>
                         {% endif %}
                         {% if a.cooldown %}
-                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item">Cooldown: {{ a.cooldown }}</li>
+                          <li style="padding: 2px 15px 2px 15px;" class="list-group-item"><strong>Cooldown</strong>: {{ a.cooldown }}</li>
                         {% endif %}
                         {% if a.requiredlevel %}
                           <li style="padding: 2px 15px 2px 15px;" class="list-group-item">
-                            <span class="text-danger">Required Level</span>: {{ a.requiredlevel }}
+                            <span class="text-danger"><strong>Required Level</strong>:</span> {{ a.requiredlevel }}
                           </li>
                         {% endif %}
                       </ul>
-                      <div class="panel-body">
+                      <div style="padding: 0" class="panel-body col-lg-6">
                         <h5>Effect:</h5>
                         <p>{{ a.effect|safe }}</p>
+                      </div>
+                      <div class="panel-body">
                         {% if a.impacteffect %}
                           <hr>
                           <h5>Impact Effect:</h5>
                           <p>{{ a.impacteffect|safe }}</p>
                         {% endif %}
                         {% if a.sotmeffect %}
-                          <hr>
                           <h5>Staff of the Master Effect:</h5>
                           <p>{{ a.sotmeffect|safe }}</p>
                         {% endif %}

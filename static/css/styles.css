@@ -1664,7 +1664,13 @@ span.ColVis_radio {
 
 /* GRID for HEROES */
 .mix {
-    margin: 4px 4px 4px 4px;
+    display: none;
+    opacity: 0;
+    vertical-align: top;
+    color: #fff;
+    font-size: 30px;
+    background: #1e1e1e;
+    margin: 3px 3px 3px 3px;
 }
 
 .button {

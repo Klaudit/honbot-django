@@ -117,6 +117,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'honbot',
+    'diff',
     'south',
     'pretty_times',
     'django_cron',

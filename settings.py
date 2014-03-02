@@ -1,13 +1,24 @@
 # Django settings for honbot-django
 from os.path import abspath, dirname, join
-from localsettings import is_debug, get_token, get_avatar_session
+
+# doing some 2scoops
+from django.core.exceptions import ImproperlyConfigured
 
 
-DEBUG = is_debug()
-TEMPLATE_DEBUG = is_debug()
+def get_env_setting(setting):
+    """ Get the environment setting or return exception """
+    try:
+        return environ[setting]
+    except KeyError:
+        error_msg = "Set the %s env variable" % setting
+        raise ImproperlyConfigured(error_msg)
+
+
+DEBUG = get_env_setting("DEBUG")
+TEMPLATE_DEBUG = DEBUG
 ADMIN_ENABLED = False
-TOKEN = get_token()
-PHP = get_avatar_session()
+TOKEN = get_env_setting("API_TOKEN")
+PHP = get_env_setting("PHPSESSID")
 
 ADMINS = (
     ('Scott', 'scttcper@gmail.com'),

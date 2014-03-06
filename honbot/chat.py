@@ -27,7 +27,7 @@ def chat_view(request, match_id):
             #         return error(request, "The chat logs had trouble somewhere.<br> We all have bad days sometimes. Sorry")
             # else:
             #    return error(request, "Downloading the chat log failed.<br> It could be too old (28 days) or too new. Try again soon.")
-            return error("Chat logs have been disabled by S2. Old logs will continue to load.")
+            return error(request, "Chat logs have been disabled by S2. Old logs will continue to load.")
     else:
         return redirect('/match/' + match_id + '/')
 

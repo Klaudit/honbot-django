@@ -12,8 +12,10 @@ def get_env_variable(var_name):
         error_msg = "Set the %s environment variable" % var_name
         raise ImproperlyConfigured(error_msg)
 
-
-DEBUG = True
+if get_env_variable("DEBUG") == "true":
+    DEBUG = True
+else:
+    DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 ADMIN_ENABLED = False
 TOKEN = get_env_variable("API_TOKEN")

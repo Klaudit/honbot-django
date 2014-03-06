@@ -18,15 +18,16 @@ def chat_view(request, match_id):
             players = PMObj.objects.filter(match=match_id).order_by('position')[:1]
             return render_to_response('chat.html', {'chat': chat['json'], 'match': match, 'players': players})
         else:
-            PMObj = pmoselect(match[0]['mode'])
-            players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
-            if download(match_id, match[0]['replay_url']):
-                if parse(match_id, players):
-                    return chat_view(request, match_id)
-                else:
-                    return error(request, "The chat logs had trouble somewhere.<br> We all have bad days sometimes. Sorry")
-            else:
-                return error(request, "Downloading the chat log failed.<br> It could be too old (28 days) or too new. Try again soon.")
+            # PMObj = pmoselect(match[0]['mode'])
+            # players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
+            # if download(match_id, match[0]['replay_url']):
+            #     if parse(match_id, players):
+            #         return chat_view(request, match_id)
+            #     else:
+            #         return error(request, "The chat logs had trouble somewhere.<br> We all have bad days sometimes. Sorry")
+            # else:
+            #    return error(request, "Downloading the chat log failed.<br> It could be too old (28 days) or too new. Try again soon.")
+            return error("Chat logs have been disabled by S2. Old logs will continue to load.")
     else:
         return redirect('/match/' + match_id + '/')
 

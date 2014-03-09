@@ -33,6 +33,23 @@ class Heroes(models.Model):
         return "/hero/%s/" % self.disp_name
 
 
+class Items(models.Model):
+    item_id = models.PositiveSmallIntegerField(primary_key=True, unique=True)
+    name = models.TextField(default="")
+    cli_name = models.TextField(default="")
+    icon = models.TextField(default="")
+    cost = models.PositiveIntegerField(default=0)
+    ispassive = models.BooleanField(default=False)
+    recipecost = models.PositiveIntegerField(default=0)
+    usedin = models.TextField(default="", null=True)
+    description_simple = models.TextField(default="", null=True)
+    effect_header = models.TextField(default="", null=True)
+    search_terms = models.TextField(default="", null=True)
+    shop_categories = models.TextField(default="", null=True)
+    shop_flavor = models.TextField(default="", null=True)
+    updated = models.DateTimeField(auto_now=True, default=datetime.now)
+
+
 class HeroUse(models.Model):
     date = models.DateField(db_index=True)
     hero_id = models.PositiveSmallIntegerField(default=0, db_index=True)

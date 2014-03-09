@@ -44,7 +44,10 @@ def match_view(request, match_id):
                     if item is not None:
                         new = []
                         new.append(item)
-                        new.append(Items.objects.filter(item_id=item).values('name')[0]['name'])
+                        try:
+                            new.append(Items.objects.filter(item_id=item).values('name')[0]['name'])
+                        except:
+                            new.append("Item")
                         player['items'][x] = new
             if player['team'] == 1:
                 team1.append(player)

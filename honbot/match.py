@@ -8,7 +8,7 @@ from error import error
 from .models import (
     Matches, PlayerMatches, MatchCount,
     PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData,
-    PlayerMatchesPublic, PlayerMatchesCasual
+    PlayerMatchesPublic, PlayerMatchesCasual, Items
     )
 from json import loads, dumps
 from player import player_math, player_save
@@ -39,6 +39,12 @@ def match_view(request, match_id):
             player['cli_name'] = fhero['cli_name']
             player['disp_name'] = fhero['disp_name']
             player['items'] = loads(player['items'])
+            for x, item in enumerate(player['items']):
+                if item is not None:
+                    new = []
+                    new.append(item)
+                    new.append(Items.objects.filter(item_id=item).values('name')[0]['name'])
+                    player['items'][x] = new
             if player['team'] == 1:
                 team1.append(player)
             else:

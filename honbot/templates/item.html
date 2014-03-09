@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Item: {{ item.name }} | HoN hero stats and useage | honbot.com {% endblock %}
+
+{% block main_content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+      <div class="well">
+        <p class="text-center"><img class="dropshadow" style="width: 80px;" src="/static/img/items/{{ item.item_id }}.jpg"></p>
+        <h3 class="text-center">{{ item.name }}</h3>
+        <h5 class="text-center">Price: {{ item.cost }}</h5>
+        <p class="text-center">{{ item.description_simple|safe }}</p>
+        <hr>
+        {% if item.shop_flavor != None  %}
+          <small class="text-center text-muted">{{ item.shop_flavor|safe }}</small>
+        {% endif %}
+        <div class="form-actions text-center">
+          </br>
+          <a href="http://www.heroesofnewerth.com/items/view/{{ item.id }}" class="btn btn-success">Offical HoN Page</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

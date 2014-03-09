@@ -3,14 +3,10 @@ from .models import Items
 
 
 def main(request):
-    heroes = Heroes.objects.all().values()
-    today = date.today().strftime("%Y-%m-%d")
-    data = HeroData.objects.all().order_by('hero_id').values('cli_name')
-    use = list(HeroUse.objects.filter(date=today).order_by('hero_id').values())
-    for index, hero in enumerate(heroes):
-        try:
-            hero['popularity'] = use[index]['popularity']
-        except:
-            hero['popularity'] = 0
-        hero['cli_name'] = data[index]['cli_name']
-    return render_to_response('heroes.html', {'heroes': heroes})
+    items = Items.objects.all().values()
+    return render_to_response('items.html', {'items': items})
+
+
+def item(request, item_id):
+    item = Items.objects.filter(item_id=item_id)[0]
+    return render_to_response('item.html', {'item': item})

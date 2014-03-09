@@ -87,7 +87,7 @@
                         <td>
                             {% for item in player.items %}
                                 {% if item != None  %}
-                                    <img style="width:30px;" src='/static/img/items/{{ item }}.jpg'>
+                                    <a class="itemicon" href="/item/{{ item.0 }}/" data-toggle="tooltip" title="{{ item.1 }}"><img style="width:30px;" src='/static/img/items/{{ item.0 }}.jpg'></a>
                                 {% endif %}
                             {% endfor %}
                         </td>
@@ -115,7 +115,7 @@
                             </a>
                         </td>
                         <td>
-                            {% for item in player.items %}{% if item != None  %}<img style="width:30px;" src='/static/img/items/{{ item }}.jpg'>{% endif %}{% endfor %}
+                            {% for item in player.items %}{% if item != None  %}<a class="itemicon" href="/item/{{ item.0 }}/" data-toggle="tooltip" title="{{ item.1 }}"><img style="width:30px;" src='/static/img/items/{{ item.0 }}.jpg'></a>{% endif %}{% endfor %}
                         </td>
                         <td>{{ player.level }}</td>
                         <td>{{ player.kills }}</td>
@@ -212,6 +212,7 @@
 <script>
 $('#date').tooltip()
 $('.heroicon').tooltip()
+$('.itemicon').tooltip()
 </script>
 <script>
 $(document).ready(function() {

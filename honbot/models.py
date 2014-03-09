@@ -43,6 +43,8 @@ class Items(models.Model):
     recipecost = models.PositiveIntegerField(default=0)
     usedin = models.TextField(default="", null=True)
     description_simple = models.TextField(default="", null=True)
+    description = models.TextField(default="", null=True)
+    impact_effect = models.TextField(default="", null=True)
     effect_header = models.TextField(default="", null=True)
     search_terms = models.TextField(default="", null=True)
     shop_categories = models.TextField(default="", null=True)

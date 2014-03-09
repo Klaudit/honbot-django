@@ -63,5 +63,8 @@ urlpatterns = patterns(
     # heroes main page
     url(r'^hero/$', 'honbot.heroes.main'),
     url(r'^hero/(?P<name>.*)/$', 'honbot.heroes.hero'),
+    # items pages
+    url(r'^item/$', 'honbot.items.main'),
+    url(r'^item/(?P<item_id>[0-9]+)/$', 'honbot.items.item'),
     (r'^brackets/$', ListView.as_view(model=PlayerBrackets, template_name='brackets.html')),
 )

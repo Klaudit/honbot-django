@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from error import error
 from .models import Chat, Matches, PlayerMatches, PlayerMatchesPublic, PlayerMatchesCasual
 from json import loads
-from logparse import download, parse
+# from logparse import download, parse
 
 
 def chat_view(request, match_id):

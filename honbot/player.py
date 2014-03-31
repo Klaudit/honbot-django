@@ -2,11 +2,14 @@ from django.db.models import F
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
-from api_call import get_json
-from datetime import date, datetime
-from error import error
+
 from .models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
+from api_call import get_json
+from avatar import avatar
+from error import error
+
 from numpy import histogram
+from datetime import date, datetime
 
 
 def player_ranked(request, name):
@@ -163,6 +166,36 @@ def player_save(stats, mode):
         wins=stats['wins'],
         losses=stats['losses'],
         aassists=stats['aassists']).save()
+
+
+def update_check(player, mode):
+    """
+    checks if a player needs an update
+    """
+    result = PlayerStats.objects.filter(player_id=player).first()
+    if result is not None:
+        tdelta = datetime.now() - datetime.strptime(str(result.updated), "%Y-%m-%d %H:%M:%S")
+        if tdelta.seconds + (tdelta.days * 86400) > 12000:
+            avatar(None, player, 10)
+            update_player(player, mode)
+    else:
+        avatar(None, player, 10)
+        update_player(player, mode)
+
+
+def update_player(pid, mode):
+    """
+    updates players without rendering
+    """
+    if mode == 'rnk':
+        url = "/player_statistics/ranked/accountid/" + str(pid)
+    elif mode == 'cs':
+        url = '/player_statistics/casual/accountid/' + str(pid)
+    elif mode == 'acc':
+        url = '/player_statistics/public/accountid/' + str(pid)
+    data = get_json(url)
+    p = player_math(data, mode)
+    player_save(p, mode)
 
 
 def update_player_count():

@@ -1,17 +1,15 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F
 from django.shortcuts import render_to_response
+
+from .models import Matches, MatchCount, HeroData, Items
 from api_call import get_json
-from avatar import avatar
-from datetime import timedelta, datetime, date
 from error import error
-from .models import (
-    Matches, PlayerMatches, MatchCount,
-    PlayerIcon, PlayerStats, PlayerStatsCasual, PlayerStatsPublic, HeroData,
-    PlayerMatchesPublic, PlayerMatchesCasual, Items
-    )
+from player import update_check
+from utils import pmoselect
+
+from datetime import timedelta, datetime, date
 from json import loads, dumps
-from player import player_math, player_save
 from thread import start_new_thread
 from time import gmtime, strftime
 
@@ -27,7 +25,8 @@ def match_view(request, match_id):
         # get players and setup for view
         PMObj = pmoselect(match.mode)
         players = PMObj.objects.filter(match_id=match_id).order_by('position').values()
-        heroes = HeroData.objects.filter(hero_id__in=[x['hero'] for x in players]).values('cli_name', 'hero_id', 'disp_name')
+        heroes = HeroData.objects.filter(
+            hero_id__in=[x['hero'] for x in players]).values('cli_name', 'hero_id', 'disp_name')
         match.date = datetime.strptime(str(match.date), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
         for player in players:
             try:
@@ -64,7 +63,7 @@ def match_view(request, match_id):
             start_new_thread(update_check, (player['player_id'], match.mode))
         return render_to_response('match.html', {'match_id': match_id, 'match': match, 'players': players, 'team1': team1, 'team2': team2, 't1exist': t1exist, 't2exist': t2exist})
     else:
-        # grab solo match for fucks sake
+        # grab solo match
         url = '/multi_match/all/matchids/' + str(match_id)
         data = get_json(url)
         h = [str(match_id)]
@@ -78,45 +77,6 @@ def match_view(request, match_id):
             return match_view(request, match_id)
         else:
             return error(request, "S2 Servers down or match id is incorrect. Try another match or gently refreshing the page.")
-
-
-def pmoselect(mode):
-    if mode == "rnk":
-        return PlayerMatches
-    elif mode == "cs":
-        return PlayerMatchesCasual
-    elif mode == "acc":
-        return PlayerMatchesPublic
-
-
-def update_check(player, mode):
-    if mode == 'rnk':
-        result = PlayerStats.objects.filter(player_id=player)
-    elif mode == 'cs':
-        result = PlayerStatsCasual.objects.filter(player_id=player)
-    elif mode == 'acc':
-        result = PlayerStatsPublic.objects.filter(player_id=player)
-    if result.exists():
-        result = result.values('updated')[0]
-        tdelta = datetime.now() - datetime.strptime(str(result['updated']), "%Y-%m-%d %H:%M:%S")
-        if tdelta.seconds + (tdelta.days * 86400) > 12000:
-            avatar(None, player, 10)
-            update_player(player, mode)
-    else:
-        avatar(None, player, 10)
-        update_player(player, mode)
-
-
-def update_player(pid, mode):
-    if mode == 'rnk':
-        url = "/player_statistics/ranked/accountid/" + str(pid)
-    elif mode == 'cs':
-        url = '/player_statistics/casual/accountid/' + str(pid)
-    elif mode == 'acc':
-        url = '/player_statistics/public/accountid/' + str(pid)
-    data = get_json(url)
-    p = player_math(data, mode)
-    player_save(p, mode)
 
 
 def match_save(data, match_id, mode):

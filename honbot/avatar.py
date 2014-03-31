@@ -1,9 +1,9 @@
-from bs4 import BeautifulSoup
-from urllib2 import build_opener
+from django.conf import settings
 from django.http import HttpResponse
 from .models import PlayerIcon
+from bs4 import BeautifulSoup
 from datetime import datetime
-from django.conf import settings
+from urllib2 import build_opener
 
 
 def avatar(request, number, width):

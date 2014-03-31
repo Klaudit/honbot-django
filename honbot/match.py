@@ -319,6 +319,5 @@ def multimatch(data, history, mode):
             allmatches[m['match_id']]['build'] = 0
         allmatches[m['match_id']]['date'] = m['mdt']
         allmatches[m['match_id']]['map'] = m['map']
-    # Save to file ###
     for m in history:
         match_save(allmatches[str(m)], m, s2mode)

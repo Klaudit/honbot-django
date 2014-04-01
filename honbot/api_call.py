@@ -4,6 +4,7 @@ from django.db.models import F
 from .models import APICount
 from requests import get, exceptions
 from time import sleep
+from thread import start_new_thread
 
 
 baseurl = 'http://api.heroesofnewerth.com'
@@ -12,7 +13,7 @@ debug = settings.DEBUG
 
 
 def get_json(endpoint):
-    apicount()
+    start_new_thread(apicount, ())
     url = ''.join([baseurl, endpoint, token])
     raw = ''
     if debug:
@@ -38,7 +39,7 @@ def get_json(endpoint):
 
 
 def pure(endpoint):
-    apicount()
+    start_new_thread(apicount, ())
     url = ''.join([baseurl, endpoint, token])
     raw = ''
     while True:

@@ -18,9 +18,8 @@ def match_view(request, match_id):
     """
     /match/####/ url leads here
     """
-    match = Matches.objects.filter(match_id=match_id)[:1]
-    if match.exists():
-        match = match[0]
+    match = Matches.objects.filter(match_id=match_id).first()
+    if match is not None:
         team1, team2 = [], []
         # get players and setup for view
         PMObj = pmoselect(match.mode)
@@ -28,6 +27,20 @@ def match_view(request, match_id):
         heroes = HeroData.objects.filter(
             hero_id__in=[x['hero'] for x in players]).values('cli_name', 'hero_id', 'disp_name')
         match.date = datetime.strptime(str(match.date), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
+        # load json object items and create a set of all items to querry
+        allitems = set()
+        for player in players:
+            player['items'] = loads(player['items'])
+            if player['items'] is not None:
+                for x, item in enumerate(player['items']):
+                    if item is not None:
+                        allitems.add(item)
+        itemquery = Items.objects.filter(item_id__in=allitems).values('name', 'item_id')
+        itemnames = {}
+        # set item names
+        for item in itemquery:
+            itemnames[item['item_id']] = item['name']
+        # iterate through players and add hero and item info
         for player in players:
             try:
                 fhero = filter(lambda x: x['hero_id'] == player['hero'], heroes)[0]
@@ -37,16 +50,15 @@ def match_view(request, match_id):
                 fhero['disp_name'] = "Unknown"
             player['cli_name'] = fhero['cli_name']
             player['disp_name'] = fhero['disp_name']
-            player['items'] = loads(player['items'])
+            # if kdr is not applicable
+            if player['kdr'] == 999.0:
+                player['kdr'] = "-"
             if player['items'] is not None:
                 for x, item in enumerate(player['items']):
                     if item is not None:
                         new = []
                         new.append(item)
-                        try:
-                            new.append(Items.objects.filter(item_id=item).values('name')[0]['name'])
-                        except:
-                            new.append("Item")
+                        new.append(itemnames[int(item)])
                         player['items'][x] = new
             if player['team'] == 1:
                 team1.append(player)

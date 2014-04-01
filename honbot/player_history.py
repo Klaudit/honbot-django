@@ -8,20 +8,24 @@ from match import multimatch
 
 return_size = 25
 
+
 def history_ranked(request, account_id, page):
     url = "/match_history/ranked/accountid/" + account_id
     pmobject = PlayerMatches
     return history(request, account_id, "rnk", url, page, pmobject)
+
 
 def history_casual(request, account_id, page):
     url = '/match_history/casual/accountid/' + account_id
     pmobject = PlayerMatchesCasual
     return history(request, account_id, "cs", url, page, pmobject)
 
+
 def history_public(request, account_id, page):
     url = '/match_history/public/accountid/' + account_id
     pmobject = PlayerMatchesPublic
     return history(request, account_id, "acc", url, page, pmobject)
+
 
 def history(request, account_id, mode, url, page, pmobject):
     """
@@ -39,17 +43,22 @@ def history(request, account_id, mode, url, page, pmobject):
             data = loads(existing['history'])
         else:
             data = update_history(url, account_id, mode, True)
-            delete = PlayerHistory.objects.get(id=old).delete()
+            try:
+                PlayerHistory.objects.get(id=old).delete()
+            except:
+                pass
     else:
         data = update_history(url, account_id, mode, False)
     verify_matches(data[(count-return_size):count], mode)
-    matches = pmobject.objects.filter(match_id__in=data[(count-return_size):count], player_id=account_id).order_by('-date').values()
+    matches = pmobject.objects.filter(
+        match_id__in=data[(count-return_size):count], player_id=account_id).order_by('-date').values()
     for match in matches:
         match['date'] = datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
     if len(matches) != 0:
         return render_to_response('player_history.html', {'matches': matches})
     else:
         return HttpResponse('stop')
+
 
 def update_history(url, account_id, mode, exists):
     """
@@ -70,10 +79,11 @@ def update_history(url, account_id, mode, exists):
             return []
     data = []
     for match in raw.split(','):
-        if len(match) > 20: # this fixes an error on broken player histories
+        if len(match) > 20:   # this fixes an error on broken player histories
             data.append(int(match.split('|')[0]))
     PlayerHistory(player_id=account_id, history=dumps(data[::-1]), mode=mode).save()
     return data[::-1]
+
 
 def verify_matches(data, mode):
     """
@@ -91,5 +101,5 @@ def verify_matches(data, mode):
                 strmatches += '+'
         url = '/multi_match/all/matchids/' + strmatches
         raw = get_json(url)
-        if raw != None:
+        if raw is not None:
             multimatch(raw, missing, mode)

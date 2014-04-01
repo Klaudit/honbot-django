@@ -14,28 +14,27 @@ from datetime import date, datetime
 
 def player_ranked(request, name):
     url = "/player_statistics/ranked/nickname/" + name
-    p = PlayerStats.objects.filter(nickname=name).values()
+    p = PlayerStats.objects.filter(nickname=name).first()
     return player_view(request, name, "rnk", url, p)
 
 
 def player_casual(request, name):
     url = '/player_statistics/casual/nickname/' + name
-    p = PlayerStatsCasual.objects.filter(nickname=name).values()
+    p = PlayerStatsCasual.objects.filter(nickname=name).first()
     return player_view(request, name, "cs", url, p)
 
 
 def player_public(request, name):
     url = '/player_statistics/public/nickname/' + name
-    p = PlayerStatsPublic.objects.filter(nickname=name).values()
+    p = PlayerStatsPublic.objects.filter(nickname=name).first()
     return player_view(request, name, "acc", url, p)
 
 
 def player_view(request, name, mode, url, p):
     exists = False
-    if p.exists():
-        p = p.values()[0]
+    if p is not None:
         exists = True
-        tdelta = datetime.now() - datetime.strptime(str(p['updated']), "%Y-%m-%d %H:%M:%S")
+        tdelta = datetime.now() - datetime.strptime(str(p.updated), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 900:
             return render_to_response('player.html', {'stats': p, 'mode': mode, 'view': "player"})
     else:
@@ -83,11 +82,11 @@ def tooltip_public(request, account_id):
 
 def tooltip(request, account_id, player):
     try:
-        avatar = PlayerIcon.objects.get(player_id=account_id)
+        icon = PlayerIcon.objects.get(player_id=account_id)
     except:
-        avatar = {}
-        avatar['avatar'] = "/static/img/default_avatar.png"
-    return render_to_response('player_tooltip.html', {'player': player, 'avatar': avatar})
+        icon = {}
+        icon['avatar'] = "/static/img/default_avatar.png"
+    return render_to_response('player_tooltip.html', {'player': player, 'avatar': icon})
 
 
 @cache_page(10000)
@@ -172,7 +171,12 @@ def update_check(player, mode):
     """
     checks if a player needs an update
     """
-    result = PlayerStats.objects.filter(player_id=player).first()
+    if mode == 'rnk':
+        result = PlayerStats.objects.filter(player_id=player).first()
+    elif mode == 'cs':
+        result = PlayerStatsCasual.objects.filter(player_id=player).first()
+    elif mode == 'acc':
+        result = PlayerStatsPublic.objects.filter(player_id=player).first()
     if result is not None:
         tdelta = datetime.now() - datetime.strptime(str(result.updated), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) > 12000:

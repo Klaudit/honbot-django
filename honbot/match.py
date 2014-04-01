@@ -115,7 +115,7 @@ def match_save(data, match_id, mode):
         map_used=data['map']
     )
     m.save()
-    update_match_count()
+    start_new_thread(update_match_count, ())
     bulk = []
     # set correct model class for players in match
     PMObj = pmoselect(mode)

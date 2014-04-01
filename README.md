@@ -4,11 +4,25 @@ HonBot-Django
 HonBot is a [Heroes of Newerth](http://www.heroesofnewerth.com/) (HoN) Statistics website written in [django](https://www.djangoproject.com/) for the [HoN API](http://api.heroesofnewerth.com/).
 
 ####Run a local copy of HonBot
-Settings file requires a localsettings.py file with the following functions. It is required in main folder for production and honbot-django/ for dev.
+Honbot uses enviromental variables. At the end of your virtualenv's activate script add the following. Below is what i'm using. I have 2 different IP's that I use for development so i have it load the correct API token to use.
+# honbot ENV settings
 
-* def is_debug(): returns true/false for prod/dev
-* def get_token(): returns string of private [hon api token](http://api.heroesofnewerth.com/)
-* get_avatar_session() returns string of session for HoN forums to pull avatars
+    ADDRESS=$(dig +short myip.opendns.com @resolver1.opendns.com)
+    if [ $ADDRESS = 'my address here' ]
+    then
+      echo "vpn"
+      API_TOKEN="APITOKENHERE"
+    fi
+    if [ $ADDRESS = 'my other address here' ]
+    then
+      echo "work"
+      API_TOKEN="APITOKENHERE"
+    fi
+    DEBUG="true"
+    PHPSESSID='cookies on forums.heroesofnewerth.com for authentication'
+    export DEBUG
+    export PHPSESSID
+    export API_TOKEN
 
 ####honbot db
 Handled by [South](http://south.aeracode.org/)

@@ -4,9 +4,9 @@ HonBot-Django
 HonBot is a [Heroes of Newerth](http://www.heroesofnewerth.com/) (HoN) Statistics website written in [django](https://www.djangoproject.com/) for the [HoN API](http://api.heroesofnewerth.com/).
 
 ####Run a local copy of HonBot
-Create a virtualenv
-Install the requirements with pip
-Add the following to the bottom of your virtualenv's script. This setup is for two different IP addresses or tokens.
+Create a virtualenv  
+Install the requirements with pip  
+Add the following to the bottom of your virtualenv's script. This setup is for two different IP addresses and tokens.
 ``` bash
 ADDRESS=$(dig +short myip.opendns.com @resolver1.opendns.com)
 if [ $ADDRESS = 'my address here' ]

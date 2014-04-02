@@ -7,24 +7,24 @@ HonBot is a [Heroes of Newerth](http://www.heroesofnewerth.com/) (HoN) Statistic
 Create a virtualenv
 Install the requirements with pip
 Add the following to the bottom of your virtualenv's script. This setup is for two different IP addresses or tokens.
-
-    ADDRESS=$(dig +short myip.opendns.com @resolver1.opendns.com)
-    if [ $ADDRESS = 'my address here' ]
-    then
-      echo "vpn"
-      API_TOKEN="APITOKENHERE"
-    fi
-    if [ $ADDRESS = 'my other address here' ]
-    then
-      echo "work"
-      API_TOKEN="APITOKENHERE"
-    fi
-    DEBUG="true"
-    PHPSESSID='cookies on forums.heroesofnewerth.com for authentication'
-    export DEBUG
-    export PHPSESSID
-    export API_TOKEN
-
+``` bash
+ADDRESS=$(dig +short myip.opendns.com @resolver1.opendns.com)
+if [ $ADDRESS = 'my address here' ]
+then
+  echo "vpn"
+  API_TOKEN="APITOKENHERE"
+fi
+if [ $ADDRESS = 'my other address here' ]
+then
+  echo "work"
+  API_TOKEN="APITOKENHERE"
+fi
+DEBUG="true"
+PHPSESSID='cookies on forums.heroesofnewerth.com for authentication'
+export DEBUG
+export PHPSESSID
+export API_TOKEN
+```
 ####honbot db
 Handled by [South](http://south.aeracode.org/)
 Initial Setup + use of django_cron

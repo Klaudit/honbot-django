@@ -117,13 +117,21 @@
             </div>
 
             <!-- square add below status -->
-            <div class="hidden-md hidden-sm hidden-xs adsbygoogle text-center">
-              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="hidden-sm hidden-xs adsbygoogle text-center">
               <!-- dark - large rectangle -->
               <ins class="adsbygoogle"
                    style="display:inline-block;width:336px;height:280px"
                    data-ad-client="ca-pub-7640562161899788"
                    data-ad-slot="7981285351"></ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            <div class="hidden-lg hidden-md hidden-sm adsbygoogle text-center">
+              <!-- mobile -->
+              <ins class="adsbygoogle"
+                   style="display:inline-block;width:320px;height:50px"
+                   data-ad-client="ca-pub-7640562161899788"
+                   data-ad-slot="5126292158"></ins>
               <script>
               (adsbygoogle = window.adsbygoogle || []).push({});
               </script>
@@ -164,15 +172,15 @@
   <script>
     $("#searchbutton").click(function () {
         var player = $('#player').val();
-        window.location.href = "/player/" + player + "/"
-        return false
+        window.location.href = "/player/" + player + "/";
+        return false;
     });
   </script>
   <script>
     $("#searchform").submit(function () {
         var player = $('#player').val();
-        window.location.href = "/player/" + player + "/"
-        return false
+        window.location.href = "/player/" + player + "/";
+        return false;
     });
   </script>
   <script>

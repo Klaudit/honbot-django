@@ -57,30 +57,18 @@
             <div class="panel panel-default">
               <div class="panel-heading"><h3 class="panel-title">Recent Changes</h3></div>
               <div class="panel-body">
-                <div class="alert alert-info"><strong>Chat logs</strong> will not load until S2 makes game logs available again.</div>
+                <strong>April 15th</strong>
+                <ul>
+                  <li>More alt avatar backgrounds on the homepage.</li>
+                  <li>I decided there wasn't enough colors.</li>
+                  <li>Removing chat logs as it doesn't look like they'll be back soon.</li>
+                  <li></li>
+                </ul>
                 <strong>April 9th</strong>
                 <ul>
                   <li>Fixed bug on new players first visit</li>
                   <li>Added new hero assets</li>
                   <li>Optimizations on counting. Now spawns new threads.</li>
-                </ul>
-                <strong>March 9th</strong>
-                <ul>
-                  <li>Fixed match bug.</li>
-                </ul>
-                <strong>March 8th</strong>
-                <ul>
-                  <li>Created <a href="/item/31/">individual items pages</a>. Links to the nice S2 pages.</li>
-                  <li>Created <a href="/item/">item browse page</a> with only one sorting option. It's boring.</li>
-                  <li>You can now hover over and click items on match results pages.</li>
-                </ul>
-                <strong>February 25th</strong>
-                <ul>
-                  <li>Fixed display issue on <a href="/hero/">hero filter page</a></li>
-                  <li>Server stats are now a single json request</li>
-                  <li>Updated all CSS and JS dependancies</li>
-                  <li>Match times are now correct. They were an hour off in certain views.</li>
-                  <li>Some changes to settings.</li>
                 </ul>
               </div>
               <div class="panel-footer no-bpadding">
@@ -165,32 +153,17 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="/static/js/bootstrap.min.js"></script>
   <!-- Search Jquery -->
-  <script type="text/javascript">
-
-  </script>
-  <script type="text/javascript">
-  $.getJSON( "/database_count/", function( json ) {
-    $( "#players" ).append(json.players.toLocaleString('en'));
-    $( "#matches" ).append(json.matches.toLocaleString('en'));
-    $( "#apicount" ).append(json.apicount.toLocaleString('en'));
-   });
-  </script>
   <script>
     $("#searchbutton").click(function () {
         var player = $('#player').val();
         window.location.href = "/player/" + player + "/";
         return false;
     });
-  </script>
-  <script>
     $("#searchform").submit(function () {
         var player = $('#player').val();
         window.location.href = "/player/" + player + "/";
         return false;
     });
-  </script>
-  <script>
-    $("#serverstatus").load("/server_status/");
   </script>
   <script type="text/javascript">
     var clicky_site_ids = clicky_site_ids || [];
@@ -203,10 +176,23 @@
       ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
     })();
   </script>
-  <script>
-    var number = 1 + Math.floor(Math.random() * 83);
-    var background = 'url(/static/img/home_hero/hero_' + String(number) + '.png)';
-    $("#hero-container").css('background-image',background);
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var number = 1 + Math.floor(Math.random() * 484);
+      var img = new Image();
+      image_url = '/static/img/home_hero/hero_' + String(number) + '.png';
+      img.onload = function(){
+        // image  has been loaded
+        $("#hero-container").css("background-image",'url(' + image_url +')');
+      };
+      img.src = image_url;
+      $("#serverstatus").load("/server_status/");
+      $.getJSON( "/database_count/", function( json ) {
+        $( "#players" ).append(json.players.toLocaleString('en'));
+        $( "#matches" ).append(json.matches.toLocaleString('en'));
+        $( "#apicount" ).append(json.apicount.toLocaleString('en'));
+      });
+    });
   </script>
   <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100593343ns.gif" /></p></noscript>
   </body>

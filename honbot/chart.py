@@ -31,6 +31,7 @@ def public_view(request, name):
         return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
     return chart_view(request, name, "acc", stats, 50)
 
+
 def ranked_view_limit(request, name, limit):
     try:
         stats = PlayerStats.objects.filter(nickname=name).values()[0]

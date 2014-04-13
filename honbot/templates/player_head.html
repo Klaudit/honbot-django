@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <div class="btn-group-vertical">
-                    <a class="btn btn-xs btn-{% if mode == 'rnk' %}success active{% else %}default{% endif %}" href="/{{ view }}/{{ stats.nickname }}/">Ranked</a>
-                    <a class="btn btn-xs btn-{% if mode == 'cs' %}success active{% else %}default{% endif %}" href="/c/{{ view }}/{{ stats.nickname }}/">Casual</a>
-                    <a class="btn btn-xs btn-{% if mode == 'acc' %}success active{% else %}default{% endif %}" href="/p/{{ view }}/{{ stats.nickname }}/">Public</a>
+                    <a class="btn btn-xs btn-{% if mode == 'rnk' %}warning active{% else %}default{% endif %}" href="/{{ view }}/{{ stats.nickname }}/">Ranked</a>
+                    <a class="btn btn-xs btn-{% if mode == 'cs' %}warning active{% else %}default{% endif %}" href="/c/{{ view }}/{{ stats.nickname }}/">Casual</a>
+                    <a class="btn btn-xs btn-{% if mode == 'acc' %}warning active{% else %}default{% endif %}" href="/p/{{ view }}/{{ stats.nickname }}/">Public</a>
                 </div>
                 <h1><div id="avatar" class="pull-left"></div> {{ stats.nickname }}</h1>
             </div>

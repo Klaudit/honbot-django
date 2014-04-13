@@ -87,6 +87,11 @@
         <div class="col-lg-6 col-md-6">
             <div class="well well-small">
                 <div id="apm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+                <ul class="list-inline text-center text-muted">
+                  <li><strong>Highest:</strong> {{ mmrhigh }}</li>
+                  <li><strong>Lowest:</strong> {{ mmrlow }}</li>
+                  <li><strong>Average:</strong> {{ aapm }}</li>
+                </ul>
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
@@ -272,7 +277,7 @@ $(document).ready(function() {
   });
 </script>
 <script>
-$('.heroicon').tooltip()
+$('.heroicon').tooltip();
 </script>
 <script>
 $(function () {
@@ -360,7 +365,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'APM',
+                text: '',
                 style:{
                     color: '#dddddd',
                     fontSize: '16px'
@@ -428,7 +433,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'GPM',
+                text: '',
                 style:{
                     color: '#dddddd',
                     fontSize: '16px'

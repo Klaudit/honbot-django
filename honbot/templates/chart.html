@@ -85,20 +85,30 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6">
-            <div id="apm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
-            <ul class="list-inline text-center text-muted">
-              <li><strong>Highest:</strong> {{ mmrhigh }}</li>
-              <li><strong>Lowest:</strong> {{ mmrlow }}</li>
-              <li><strong>Average:</strong> {{ aapm }}</li>
-            </ul>
+            <div class="well well-sm">
+                <div id="apm" style="min-width: 310px; height: 180px; margin: 0 auto"></div>
+                <ul class="list-inline text-center">
+                  <li><strong>Lowest:</strong> {{ apm.min }}</li>
+                  <li><strong>Lower Quartile:</strong> {{ apm.lower }}</li>
+                  <li><strong>Median:</strong> {{ apm.median }}</li>
+                  <li><strong>Upper Quartile:</strong> {{ apm.upper }}</li>
+                  <li><strong>Highest:</strong> {{ apm.max }}</li>
+                  <li><strong>Average:</strong> {{ apm.mean }}</li>
+                </ul>
+            </div>
         </div>
         <div class="col-lg-6 col-md-6">
-            <div id="gpm" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
-            <ul class="list-inline text-center text-muted">
-              <li><strong>Highest:</strong> {{ mmrhigh }}</li>
-              <li><strong>Lowest:</strong> {{ mmrlow }}</li>
-              <li><strong>Average:</strong> {{ agpm }}</li>
-            </ul>
+            <div class="well well-sm">
+                <div id="gpm" style="min-width: 310px; height: 180px; margin: 0 auto"></div>
+                <ul class="list-inline text-center">
+                  <li><strong>Lowest:</strong> {{ gpm.min }}</li>
+                  <li><strong>Lower Quartile:</strong> {{ gpm.lower }}</li>
+                  <li><strong>Median:</strong> {{ gpm.median }}</li>
+                  <li><strong>Upper Quartile:</strong> {{ gpm.upper }}</li>
+                  <li><strong>Highest:</strong> {{ gpm.max }}</li>
+                  <li><strong>Average:</strong> {{ gpm.mean }}</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -249,6 +259,7 @@
 {% endblock main_content %}
 {%block js%}
 <script src="/static/js/highcharts.js"></script>
+<script src="/static/js/highcharts-more.js"></script>
 <script>
 $(document).ready(function() {
     setTimeout(function(){
@@ -350,136 +361,138 @@ $(function () {
 <script>
 $(function () {
     $('#apm').highcharts({
-        chart:{
+
+        chart: {
+            type: 'boxplot',
+            inverted: true,
             backgroundColor: null,
-            spacingLeft: 0,
-            spacingRight: 0
+            spacingTop: 0
         },
         title: {
-            text: '',
+            text: 'APM',
+            style:
+                {
+                    color: '#dddddd',
+                    fontSize: '16px'
+                }
+        },
+        legend: {
+            enabled: false
         },
         xAxis: {
-            categories: [{%for m in match_list%}{{m}},{%endfor%}],
             labels:{enabled: false},
             lineColor: '#4f4c50',
             tickColor: 'transparent'
         },
+        credits: {enabled: false},
+        tooltip: {enabled: false},
         yAxis: {
             title: {
-                text: 'APM',
-                style:{
-                    color: '#dddddd',
-                    fontSize: '16px'
-                }
+                text: ''
             },
+            min: 0,
             plotLines: [{
-                color: '#ced3c4',
-                width: 2,
-                value: {{ aapm }}
+                value: {{apm.mean}},
+                color: '#eee',
+                width: 1,
+                label: {
+                    text: 'Avg',
+                    align: 'center',
+                    style: {
+                        color: 'white'
+                    }
+                }
             }],
             gridLineColor: '#4f4c50'
         },
-        credits: {enabled: false},
         colors: ['#1974FF'],
-        tooltip: {
-            shared: true,
-            useHTML: true,
-            formatter: function() {
-                return this.x + '<br><strong>APM</strong>: ' + Math.round(this.y*10)/10 + "<br><strong>Average</strong>: " + {{aapm}};
-            },
-        },
         plotOptions: {
-                series: {
-                    cursor: 'pointer',
-                    animation: false,
-                    point: {
-                        events: {
-                            click: function() {
-                                window.location.href = "/match/" + this.category + '/';
-                            }
-                        }
-                    },
-                }
-            },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
+            boxplot: {
+                fillColor: 'transparent',
+                lineWidth: 3,
+                medianColor: '#1974FF',
+                stemColor: '#1974FF',
+                whiskerColor: '#1974FF',
+            }
+
         },
         series: [{
-            showInLegend: false,
             name: 'APM',
-            data: [{%for m in apm%}{{m}},{%endfor%}],
+            animation: false,
+            data: [
+                [{{apm.min}}, {{apm.lower}}, {{apm.median}}, {{apm.upper}}, {{apm.max}}]
+            ],
         }]
+
     });
 });
 </script>
 <script>
 $(function () {
     $('#gpm').highcharts({
-        chart:{
+
+        chart: {
+            type: 'boxplot',
+            inverted: true,
             backgroundColor: null,
-            spacingLeft: 0,
-            spacingRight: 0
+            spacingTop: 0
         },
         title: {
-            text: '',
+            text: 'GPM',
+            style:
+                {
+                    color: '#dddddd',
+                    fontSize: '16px'
+                }
+        },
+        legend: {
+            enabled: false
         },
         xAxis: {
-            categories: [{%for m in match_list%}{{m}},{%endfor%}],
             labels:{enabled: false},
             lineColor: '#4f4c50',
             tickColor: 'transparent'
         },
+        credits: {enabled: false},
+        tooltip: {enabled: false},
         yAxis: {
             title: {
-                text: 'GPM',
-                style:{
-                    color: '#dddddd',
-                    fontSize: '16px'
-                }
+                text: ''
             },
+            min: 0,
             plotLines: [{
-                color: '#ced3c4',
-                width: 2,
-                value: {{ agpm }}
+                value: {{gpm.mean}},
+                color: '#eee',
+                width: 1,
+                label: {
+                    text: 'Avg',
+                    align: 'center',
+                    style: {
+                        color: 'white'
+                    }
+                }
             }],
             gridLineColor: '#4f4c50'
         },
-        credits: {enabled: false},
         colors: ['#e800ff'],
-        tooltip: {
-            shared: true,
-            useHTML: true,
-            formatter: function() {
-                return '<strong>' + this.x + '</strong><br>' + Math.round(this.y*10)/10 + "<br>Average: " + {{agpm}};
-            },
-        },
         plotOptions: {
-                series: {
-                    cursor: 'pointer',
-                    animation: false,
-                    point: {
-                        events: {
-                            click: function() {
-                                window.location.href = "/match/" + this.category + '/';
-                            }
-                        }
-                    },
-                }
-            },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
+            boxplot: {
+                fillColor: 'transparent',
+                lineWidth: 3,
+                medianColor: '#e800ff',
+                stemColor: '#e800ff',
+                whiskerColor: '#e800ff',
+            }
+
         },
         series: [{
-            showInLegend: false,
-            name: 'GPM',
-            data: [{%for m in gpm%}{{m}},{%endfor%}],
+            name: 'APM',
+            animation: false,
+            data: [
+                [{{gpm.min}}, {{gpm.lower}}, {{gpm.median}}, {{gpm.upper}}, {{gpm.max}}]
+            ],
         }]
+
     });
 });
 </script>

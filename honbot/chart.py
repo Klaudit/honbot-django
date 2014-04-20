@@ -91,13 +91,13 @@ def chart_view(request, name, mode, stats, limit):
     mmravg = int(sum(mmr) / float(len(mmr)))
     # mmr flip so the oldest is first trim off extra match
     mmr = mmr[::-1][1:]
-    match_list, apm, gpm = [], [], []
+    match_list, apmtemp, gpmtemp = [], [], []
     assists, wards, kills, deaths, razed, mmr_change, sdead, cs = (0,) * 8
     # create total for columns and then divide by total. Averages yo
     for m in reversed(matches):
         match_list.append(m['match_id'])
-        apm.append(m['apm'])
-        gpm.append(m['gpm'])
+        apmtemp.append(m['apm'])
+        gpmtemp.append(m['gpm'])
         assists += m['assists']
         wards += m['wards']
         kills += m['kills']
@@ -106,8 +106,22 @@ def chart_view(request, name, mode, stats, limit):
         mmr_change += m['mmr_change']
         sdead += m['secsdead']
         cs += m['cs']
-    aapm = round(np.average(apm))
-    agpm = round(np.average(gpm))
+    apm = {}
+    apmtemp = np.array(apmtemp)
+    apm['min'] = np.amin(apmtemp)
+    apm['lower'] = np.percentile(apmtemp, 25)
+    apm['median'] = np.percentile(apmtemp, 50)
+    apm['upper'] = np.percentile(apmtemp, 75)
+    apm['max'] = np.amax(apmtemp)
+    apm['mean'] = round(np.average(apmtemp))
+    gpm = {}
+    gpmtemp = np.array(gpmtemp)
+    gpm['min'] = np.amin(gpmtemp)
+    gpm['lower'] = np.percentile(gpmtemp, 25)
+    gpm['median'] = np.percentile(gpmtemp, 50)
+    gpm['upper'] = np.percentile(gpmtemp, 75)
+    gpm['max'] = np.amax(gpmtemp)
+    gpm['mean'] = round(np.average(gpmtemp))
     akills = round(float(kills) / limit, 2)
     adeaths = round(float(deaths) / limit, 2)
     aassists = round(float(assists) / limit, 2)
@@ -167,7 +181,7 @@ def chart_view(request, name, mode, stats, limit):
     enemies = filter(lambda x: x['matches'] > 1, enemies)
     enemies = sorted(enemies, key=lambda enemies: enemies['matches'], reverse=True)[:5]
     return render_to_response('chart.html', {
-                              'mmr': mmr, 'available': available, 'apm': apm, 'aapm': aapm, 'agpm': agpm, 'gpm': gpm, 'kills': kills, 'akills': akills,
+                              'mmr': mmr, 'available': available, 'apm': apm, 'gpm': gpm, 'kills': kills, 'akills': akills,
                               'assists': assists, 'aassists': aassists, 'wards': wards, 'awards': awards, 'razed': razed, 'arazed': arazed, 'mmr_change': mmr_change,
                               'ammr_change': ammr_change, 'sdead': sdead, 'asdead': asdead, 'cs': cs, 'acs': acs,
                               'match_list': match_list, 'stats': stats, 'heroes': heroes, 'deaths': deaths, 'adeaths': adeaths, 'view': "chart", 'mode': mode,

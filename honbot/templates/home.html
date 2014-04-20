@@ -187,16 +187,16 @@
   </script>
   <script type="text/javascript">
     $(document).ready(function(){
-      var number = 1 + Math.floor(Math.random() * 484);
-      var img = new Image();
-      image_url = '/static/img/home_hero/hero_' + String(number) + '.png';
-      $("#hero-container").css("background-image",'url(' + image_url +')');
-      $("#serverstatus").load("/server_status/");
       $.getJSON( "/database_count/", function( json ) {
         $( "#players" ).append(json.players.toLocaleString('en'));
         $( "#matches" ).append(json.matches.toLocaleString('en'));
         $( "#apicount" ).append(json.apicount.toLocaleString('en'));
       });
+      var number = 1 + Math.floor(Math.random() * 484);
+      var img = new Image();
+      image_url = '/static/img/home_hero/hero_' + String(number) + '.png';
+      $("#hero-container").css("background-image",'url(' + image_url +')');
+      $("#serverstatus").load("/server_status/");
     });
   </script>
   <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100593343ns.gif" /></p></noscript>

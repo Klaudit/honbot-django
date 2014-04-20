@@ -86,7 +86,8 @@
     <div class="row">
         <div class="col-lg-6 col-md-6">
             <div class="well well-sm">
-                <div id="apm" style="min-width: 310px; height: 120px; margin: 0 auto"></div>
+                <h4 class="text-center">APM</h4>
+                <div id="apm" style="min-width: 310px; height: 100px; margin: 0 auto"></div>
                 <ul class="list-inline text-center text-muted">
                   <li><strong>Lowest:</strong> {{ apm.min }}</li>
                   <li><strong>Highest:</strong> {{ apm.max }}</li>
@@ -100,7 +101,8 @@
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="well well-sm">
-                <div id="gpm" style="min-width: 310px; height: 120px; margin: 0 auto"></div>
+                <h4 class="text-center">GPM</h4>
+                <div id="gpm" style="min-width: 310px; height: 100px; margin: 0 auto"></div>
                 <ul class="list-inline text-center text-muted">
                   <li><strong>Lowest:</strong> {{ gpm.min }}</li>
                   <li><strong>Highest:</strong> {{ gpm.max }}</li>
@@ -141,6 +143,11 @@
                             <td class="text-right">{{adeaths}}</th>
                         </tr>
                         <tr>
+                            <td><strong>KDR</strong></td>
+                            <td class="text-right">-</td>
+                            <td class="text-right"><script>document.write(Math.round({{kills}} / {{deaths}} * 100) / 100);</script></td>
+                        </tr>
+                        <tr>
                             <td><strong>Assists</strong></th>
                             <td class="text-right">{{assists}}</th>
                             <td class="text-right">{{aassists}}</th>
@@ -166,7 +173,7 @@
                             <td class="text-right">{{ammr_change}}</th>
                         </tr>
                         <tr>
-                            <td><strong>Time Dead</strong></th>
+                            <td><strong>Time Dead</strong> <span class="text-muted">(minutes)</span></th>
                             <td class="text-right">{{sdead}} min</th>
                             <td class="text-right">{{asdead}} sec</th>
                         </tr>
@@ -371,7 +378,7 @@ $(function () {
             spacingTop: 0
         },
         title: {
-            text: 'APM',
+            text: '',
             style:
                 {
                     color: '#dddddd',
@@ -428,7 +435,7 @@ $(function () {
             spacingTop: 0
         },
         title: {
-            text: 'GPM',
+            text: '',
             style:
                 {
                     color: '#dddddd',

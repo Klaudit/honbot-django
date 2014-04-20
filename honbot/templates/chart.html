@@ -30,8 +30,8 @@
             <div style="padding-right:0" class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div id="mmr" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
                 <ul class="list-inline text-center text-muted">
-                  <li><strong>Highest:</strong> {{ mmrhigh }}</li>
                   <li><strong>Lowest:</strong> {{ mmrlow }}</li>
+                  <li><strong>Highest:</strong> {{ mmrhigh }}</li>
                   <li><strong>Average:</strong> {{ mmravg }}</li>
                 </ul>
             </div>
@@ -86,27 +86,29 @@
     <div class="row">
         <div class="col-lg-6 col-md-6">
             <div class="well well-sm">
-                <div id="apm" style="min-width: 310px; height: 180px; margin: 0 auto"></div>
-                <ul class="list-inline text-center">
+                <div id="apm" style="min-width: 310px; height: 120px; margin: 0 auto"></div>
+                <ul class="list-inline text-center text-muted">
                   <li><strong>Lowest:</strong> {{ apm.min }}</li>
+                  <li><strong>Highest:</strong> {{ apm.max }}</li>
+                  <li><strong>Average:</strong> {{ apm.mean }}</li>
+                  <br>
                   <li><strong>Lower Quartile:</strong> {{ apm.lower }}</li>
                   <li><strong>Median:</strong> {{ apm.median }}</li>
                   <li><strong>Upper Quartile:</strong> {{ apm.upper }}</li>
-                  <li><strong>Highest:</strong> {{ apm.max }}</li>
-                  <li><strong>Average:</strong> {{ apm.mean }}</li>
                 </ul>
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="well well-sm">
-                <div id="gpm" style="min-width: 310px; height: 180px; margin: 0 auto"></div>
-                <ul class="list-inline text-center">
+                <div id="gpm" style="min-width: 310px; height: 120px; margin: 0 auto"></div>
+                <ul class="list-inline text-center text-muted">
                   <li><strong>Lowest:</strong> {{ gpm.min }}</li>
+                  <li><strong>Highest:</strong> {{ gpm.max }}</li>
+                  <li><strong>Average:</strong> {{ gpm.mean }}</li>
+                  <br>
                   <li><strong>Lower Quartile:</strong> {{ gpm.lower }}</li>
                   <li><strong>Median:</strong> {{ gpm.median }}</li>
                   <li><strong>Upper Quartile:</strong> {{ gpm.upper }}</li>
-                  <li><strong>Highest:</strong> {{ gpm.max }}</li>
-                  <li><strong>Average:</strong> {{ gpm.mean }}</li>
                 </ul>
             </div>
         </div>
@@ -391,28 +393,16 @@ $(function () {
                 text: ''
             },
             min: 0,
-            plotLines: [{
-                value: {{apm.mean}},
-                color: '#eee',
-                width: 1,
-                label: {
-                    text: 'Avg',
-                    align: 'center',
-                    style: {
-                        color: 'white'
-                    }
-                }
-            }],
             gridLineColor: '#4f4c50'
         },
-        colors: ['#1974FF'],
+        colors: ['#995DB3'],
         plotOptions: {
             boxplot: {
                 fillColor: 'transparent',
-                lineWidth: 3,
-                medianColor: '#1974FF',
-                stemColor: '#1974FF',
-                whiskerColor: '#1974FF',
+                lineWidth: 2,
+                medianColor: '#995DB3',
+                stemColor: '#995DB3',
+                whiskerColor: '#995DB3'
             }
 
         },
@@ -460,28 +450,16 @@ $(function () {
                 text: ''
             },
             min: 0,
-            plotLines: [{
-                value: {{gpm.mean}},
-                color: '#eee',
-                width: 1,
-                label: {
-                    text: 'Avg',
-                    align: 'center',
-                    style: {
-                        color: 'white'
-                    }
-                }
-            }],
             gridLineColor: '#4f4c50'
         },
-        colors: ['#e800ff'],
+        colors: ['#2C9BDB'],
         plotOptions: {
             boxplot: {
                 fillColor: 'transparent',
-                lineWidth: 3,
-                medianColor: '#e800ff',
-                stemColor: '#e800ff',
-                whiskerColor: '#e800ff',
+                lineWidth: 2,
+                medianColor: '#2C9BDB',
+                stemColor: '#2C9BDB',
+                whiskerColor: '#2C9BDB',
             }
 
         },

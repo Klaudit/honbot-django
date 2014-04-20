@@ -106,6 +106,7 @@ def chart_view(request, name, mode, stats, limit):
         mmr_change += m['mmr_change']
         sdead += m['secsdead']
         cs += m['cs']
+    # calc for APM box plot
     apm = {}
     apmtemp = np.array(apmtemp)
     apm['min'] = np.amin(apmtemp)
@@ -114,6 +115,7 @@ def chart_view(request, name, mode, stats, limit):
     apm['upper'] = np.percentile(apmtemp, 75)
     apm['max'] = np.amax(apmtemp)
     apm['mean'] = round(np.average(apmtemp))
+    # calc for GPM box plot
     gpm = {}
     gpmtemp = np.array(gpmtemp)
     gpm['min'] = np.amin(gpmtemp)

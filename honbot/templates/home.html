@@ -190,11 +190,7 @@
       var number = 1 + Math.floor(Math.random() * 484);
       var img = new Image();
       image_url = '/static/img/home_hero/hero_' + String(number) + '.png';
-      img.onload = function(){
-        // image  has been loaded
-        $("#hero-container").css("background-image",'url(' + image_url +')');
-      };
-      img.src = image_url;
+      $("#hero-container").css("background-image",'url(' + image_url +')');
       $("#serverstatus").load("/server_status/");
       $.getJSON( "/database_count/", function( json ) {
         $( "#players" ).append(json.players.toLocaleString('en'));

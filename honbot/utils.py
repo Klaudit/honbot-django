@@ -1,6 +1,6 @@
 from .models import (
     PlayerMatches, PlayerStats, PlayerStatsCasual, PlayerStatsPublic,
-    PlayerMatchesCasual, PlayerMatchesPublic, HeroData
+    PlayerMatchesCasual, PlayerMatchesPublic
 )
 
 

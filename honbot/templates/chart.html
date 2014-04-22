@@ -134,48 +134,48 @@
                     <tbody>
                         <tr>
                             <td><strong>Kills</strong></th>
-                            <td class="text-right">{{kills}}</th>
-                            <td class="text-right">{{akills}}</th>
+                            <td class="text-right">{{ s.kills }}</th>
+                            <td class="text-right">{{ s.akills }}</th>
                         </tr>
                         <tr>
                             <td><strong>Deaths</strong></th>
-                            <td class="text-right">{{deaths}}</th>
-                            <td class="text-right">{{adeaths}}</th>
+                            <td class="text-right">{{ s.deaths }}</th>
+                            <td class="text-right">{{ s.adeaths }}</th>
                         </tr>
                         <tr>
                             <td><strong>KDR</strong></td>
                             <td class="text-right">-</td>
-                            <td class="text-right"><script>document.write(Math.round({{kills}} / {{deaths}} * 100) / 100);</script></td>
+                            <td class="text-right">{{ s.kdr }}</td>
                         </tr>
                         <tr>
                             <td><strong>Assists</strong></th>
-                            <td class="text-right">{{assists}}</th>
-                            <td class="text-right">{{aassists}}</th>
+                            <td class="text-right">{{ s.assists }}</th>
+                            <td class="text-right">{{ s.aassists }}</th>
                         </tr>
                         <tr>
                             <td><strong>Creep Kills</strong></th>
-                            <td class="text-right">{{cs}}</th>
-                            <td class="text-right">{{acs}}</th>
+                            <td class="text-right">{{ s.cs }}</th>
+                            <td class="text-right">{{ s.acs }}</th>
                         </tr>
                         <tr>
                             <td><strong>Wards</strong></th>
-                            <td class="text-right">{{wards}}</th>
-                            <td class="text-right">{{awards}}</th>
+                            <td class="text-right">{{ s.wards }}</th>
+                            <td class="text-right">{{ s.awards }}</th>
                         </tr>
                         <tr>
-                            <td><strong>Buildings</strong></th>
-                            <td class="text-right">{{razed}}</th>
-                            <td class="text-right">{{arazed}}</th>
+                            <td><strong>Buildings Destroyed</strong></th>
+                            <td class="text-right">{{ s.razed }}</th>
+                            <td class="text-right">{{ s.arazed }}</th>
                         </tr>
                         <tr>
                             <td><strong>MMR Change</strong></th>
-                            <td class="text-right">{{mmr_change}}</th>
-                            <td class="text-right">{{ammr_change}}</th>
+                            <td class="text-right">{{ s.mmr_change }}</th>
+                            <td class="text-right">{{ s.ammr_change }}</th>
                         </tr>
                         <tr>
                             <td><strong>Time Dead</strong> <span class="text-muted">(minutes)</span></th>
-                            <td class="text-right">{{sdead}} min</th>
-                            <td class="text-right">{{asdead}} sec</th>
+                            <td class="text-right">{{ s.sdead }}</th>
+                            <td class="text-right">{{ s.asdead }}</th>
                         </tr>
                     </tbody>
                 </table>

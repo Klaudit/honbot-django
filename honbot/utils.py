@@ -1,4 +1,7 @@
-from .models import PlayerMatches, PlayerMatchesCasual, PlayerMatchesPublic
+from .models import (
+    PlayerMatches, PlayerStats, PlayerStatsCasual, PlayerStatsPublic,
+    PlayerMatchesCasual, PlayerMatchesPublic, HeroData
+)
 
 
 def pmoselect(mode):
@@ -11,3 +14,15 @@ def pmoselect(mode):
         return PlayerMatchesCasual
     elif mode == "acc":
         return PlayerMatchesPublic
+
+
+def psoselect(mode):
+    """
+    returns the correct player stat table based on mode
+    """
+    if mode == "rnk":
+        return PlayerStats
+    elif mode == "cs":
+        return PlayerStatsCasual
+    elif mode == "acc":
+        return PlayerStatsPublic

@@ -1,71 +1,20 @@
 from django.shortcuts import render_to_response
-from .models import (
-    PlayerMatches, PlayerStats, PlayerStatsCasual, PlayerStatsPublic,
-    PlayerMatchesCasual, PlayerMatchesPublic, HeroData
-)
+from .models import HeroData
 from error import error
 from collections import Counter
 import numpy as np
+from utils import pmoselect, psoselect
+
+error_missing = "You may have spelled the player's name incorrectly. Player stats missing."
 
 
-def ranked_view(request, name):
-    try:
-        stats = PlayerStats.objects.filter(nickname=name).values()[0]
-    except IndexError:
-        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    return chart_view(request, name, "rnk", stats, 50)
-
-
-def casual_view(request, name):
-    try:
-        stats = PlayerStatsCasual.objects.filter(nickname=name).values()[0]
-    except IndexError:
-        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    return chart_view(request, name, "cs", stats, 50)
-
-
-def public_view(request, name):
-    try:
-        stats = PlayerStatsPublic.objects.filter(nickname=name).values()[0]
-    except IndexError:
-        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    return chart_view(request, name, "acc", stats, 50)
-
-
-def ranked_view_limit(request, name, limit):
-    try:
-        stats = PlayerStats.objects.filter(nickname=name).values()[0]
-        limit = int(limit)
-    except IndexError:
-        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    return chart_view(request, name, "rnk", stats, limit)
-
-
-def casual_view_limit(request, name, limit):
-    try:
-        stats = PlayerStatsCasual.objects.filter(nickname=name).values()[0]
-        limit = int(limit)
-    except IndexError:
-        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    return chart_view(request, name, "cs", stats, limit)
-
-
-def public_view_limit(request, name, limit):
-    try:
-        stats = PlayerStatsPublic.objects.filter(nickname=name).values()[0]
-        limit = int(limit)
-    except IndexError:
-        return error(request, "You may have spelled the player's name incorrectly. Player stats missing.")
-    return chart_view(request, name, "acc", stats, limit)
-
-
-def pmoselect(mode):
-    if mode == "rnk":
-        return PlayerMatches
-    elif mode == "cs":
-        return PlayerMatchesCasual
-    elif mode == "acc":
-        return PlayerMatchesPublic
+def chart_default(request, name, limit, mode):
+    PSObj = psoselect(mode)
+    stats = PSObj.objects.filter(nickname=name).first()
+    if stats is not None:
+        return chart_view(request, name, mode, stats, limit)
+    else:
+        return error(request, error_missing)
 
 
 def chart_view(request, name, mode, stats, limit):
@@ -73,16 +22,18 @@ def chart_view(request, name, mode, stats, limit):
     if limit < 1:
         limit = 1
     PMObj = pmoselect(mode)
-    matches = PMObj.objects.filter(player_id=stats['player_id']).exclude(hero=0).order_by('match').values('hero', 'gpm', 'team', 'mmr_change', 'win', 'match_id', 'apm', 'wards', 'kills', 'player_id', 'cs', 'deaths', 'razed', 'secsdead', 'assists')
+    matches = PMObj.objects.filter(player_id=stats.player_id).exclude(hero=0).order_by('match').values('hero', 'gpm', 'team', 'mmr_change', 'win', 'match_id', 'apm', 'wards', 'kills', 'player_id', 'cs', 'deaths', 'razed', 'secsdead', 'assists')
     available = matches.count()
+    # return error if no matches available
     if available == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")
     matches = matches[:limit]
     if limit > available:
         limit = available
     # calculate mmr backwards
+    # set first point to current mmr from stats
     mmr = [0]
-    mmr[0] = stats['mmr']
+    mmr[0] = stats.mmr
     for idx, m in enumerate(matches):
         mmr.append(mmr[idx] + (m['mmr_change'] * -1))
     # mmr - min max avg
@@ -94,18 +45,19 @@ def chart_view(request, name, mode, stats, limit):
     match_list, apmtemp, gpmtemp = [], [], []
     assists, wards, kills, deaths, razed, mmr_change, sdead, cs = (0,) * 8
     # create total for columns and then divide by total. Averages yo
+    s = {'assists': 0, 'wards': 0, 'kills': 0, 'deaths': 0, 'razed': 0, 'mmr_change': 0, 'sdead': 0, 'cs': 0}
     for m in reversed(matches):
         match_list.append(m['match_id'])
         apmtemp.append(m['apm'])
         gpmtemp.append(m['gpm'])
-        assists += m['assists']
-        wards += m['wards']
-        kills += m['kills']
-        deaths += m['deaths']
-        razed += m['razed']
-        mmr_change += m['mmr_change']
-        sdead += m['secsdead']
-        cs += m['cs']
+        s['assists'] += m['assists']
+        s['wards'] += m['wards']
+        s['kills'] += m['kills']
+        s['deaths'] += m['deaths']
+        s['razed'] += m['razed']
+        s['mmr_change'] += m['mmr_change']
+        s['sdead'] += m['secsdead']
+        s['cs'] += m['cs']
     # calc for APM box plot
     apm = {}
     apmtemp = np.array(apmtemp)
@@ -124,15 +76,17 @@ def chart_view(request, name, mode, stats, limit):
     gpm['upper'] = np.percentile(gpmtemp, 75)
     gpm['max'] = np.amax(gpmtemp)
     gpm['mean'] = round(np.average(gpmtemp))
-    akills = round(float(kills) / limit, 2)
-    adeaths = round(float(deaths) / limit, 2)
-    aassists = round(float(assists) / limit, 2)
-    awards = round(float(wards) / limit, 2)
-    arazed = round(float(razed) / limit, 2)
-    ammr_change = round(float(mmr_change) / limit, 2)
-    asdead = round(float(sdead) / limit, 2)
-    sdead = int(float(sdead) / 60)
-    acs = round(float(cs) / limit, 2)
+    # calculate averages
+    s['akills'] = round(float(s['kills']) / limit, 2)
+    s['adeaths'] = round(float(s['deaths']) / limit, 2)
+    s['aassists'] = round(float(s['assists']) / limit, 2)
+    s['awards'] = round(float(s['wards']) / limit, 2)
+    s['arazed'] = round(float(s['razed']) / limit, 2)
+    s['kdr'] = round(float(s['kills']) / s['deaths'], 2)
+    s['ammr_change'] = round(float(s['mmr_change']) / limit, 2)
+    s['sdead'] = round(float(s['sdead']) / 60)
+    s['asdead'] = round((float(s['sdead']) / 60) / limit, 2)
+    s['acs'] = round(float(s['cs']) / limit, 2)
     top_heroes = Counter([m['hero'] for m in matches]).most_common(6)
     heronames = HeroData.objects.filter(hero_id__in=[x[0] for x in top_heroes]).values('cli_name', 'hero_id', 'disp_name')
     # get hero names and assign later
@@ -183,12 +137,10 @@ def chart_view(request, name, mode, stats, limit):
     enemies = filter(lambda x: x['matches'] > 1, enemies)
     enemies = sorted(enemies, key=lambda enemies: enemies['matches'], reverse=True)[:5]
     return render_to_response('chart.html', {
-                              'mmr': mmr, 'available': available, 'apm': apm, 'gpm': gpm, 'kills': kills, 'akills': akills,
-                              'assists': assists, 'aassists': aassists, 'wards': wards, 'awards': awards, 'razed': razed, 'arazed': arazed, 'mmr_change': mmr_change,
-                              'ammr_change': ammr_change, 'sdead': sdead, 'asdead': asdead, 'cs': cs, 'acs': acs,
-                              'match_list': match_list, 'stats': stats, 'heroes': heroes, 'deaths': deaths, 'adeaths': adeaths, 'view': "chart", 'mode': mode,
-                              'mmrhigh': mmrhigh, 'mmrlow': mmrlow, 'mmravg': mmravg, 'allplayers': allplayers, 'friends': friends, 'enemies': enemies,
-                              'limit': limit})
+                              'mmr': mmr, 'available': available, 'apm': apm, 'gpm': gpm, 's': s,
+                              'match_list': match_list, 'stats': stats, 'heroes': heroes, 'view': "chart", 'mode': mode,
+                              'mmrhigh': mmrhigh, 'mmrlow': mmrlow, 'mmravg': mmravg, 'allplayers': allplayers,
+                              'limit': limit, 'mmr_change': mmr_change, 'enemies': enemies, 'friends': friends})
 
 
 def friendsetup(grp, ps, sameteam):

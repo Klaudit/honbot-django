@@ -25,13 +25,13 @@ urlpatterns = patterns(
     url(r'^c/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip_casual'),
     ## CHARTS (needs to be renamed)
     # Player Charts
-    url(r'^chart/(?P<name>[^/]+)/$', 'honbot.chart.ranked_view'),
-    url(r'^p/chart/(?P<name>[^/]+)/$', 'honbot.chart.public_view'),
-    url(r'^c/chart/(?P<name>[^/]+)/$', 'honbot.chart.casual_view'),
+    url(r'^chart/(?P<name>[^/]+)/$', 'honbot.chart.chart_default', {'limit': 50, 'mode': "rnk"}),
+    url(r'^c/chart/(?P<name>[^/]+)/$', 'honbot.chart.chart_default', {'limit': 50, 'mode': "cs"}),
+    url(r'^p/chart/(?P<name>[^/]+)/$', 'honbot.chart.chart_default', {'limit': 50, 'mode': "acc"}),
     # player charts with limits
-    url(r'^chart/(?P<name>[^/]+)/(?P<limit>\d+)/$', 'honbot.chart.ranked_view_limit'),
-    url(r'^p/chart/(?P<name>[^/]+)/(?P<limit>\d+)/$', 'honbot.chart.public_view_limit'),
-    url(r'^c/chart/(?P<name>[^/]+)/(?P<limit>\d+)/$', 'honbot.chart.casual_view_limit'),
+    url(r'^chart/(?P<name>[^/]+)/(?P<limit>\d+)/$', 'honbot.chart.chart_default', {'mode': "rnk"}),
+    url(r'^c/chart/(?P<name>[^/]+)/(?P<limit>\d+)/$', 'honbot.chart.chart_default', {'mode': "cs"}),
+    url(r'^p/chart/(?P<name>[^/]+)/(?P<limit>\d+)/$', 'honbot.chart.chart_default', {'mode': "acc"}),
     # Player Avatar
     url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
     # Player History

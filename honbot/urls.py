@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from django.views.generic import TemplateView, RedirectView, ListView
+from django.views.generic import TemplateView, ListView
 from .player_browse import PlayerList
 from .models import PlayerBrackets
 
@@ -41,13 +41,13 @@ urlpatterns = patterns(
     # Player Banner
     url(r'^banner/(?P<name>.*)/$', 'honbot.banner.banner_view'),
     # Player Hero page
-    url(r'^player_hero/(?P<name>.*)/$', 'honbot.player_hero.ranked_view'),
-    url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.public_view'),
-    url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.casual_view'),
+    url(r'^player_hero/(?P<name>.*)/$', 'honbot.player_hero.base_view', {'mode': "rnk"}),
+    url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.base_view', {'mode': "cs"}),
+    url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.base_view', {'mode': "acc"}),
     # Player hero data
-    url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_ranked'),
-    url(r'^c/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_casual'),
-    url(r'^p/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.ph_public'),
+    url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "rnk", "modename": "ranked"}),
+    url(r'^c/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "cs", "modename": "casual"}),
+    url(r'^p/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "acc", "modename": "public"}),
     # Match View
     url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
     # Match Chat

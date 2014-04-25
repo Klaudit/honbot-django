@@ -1,4 +1,4 @@
-<div class="row well well-small">
+<div class="row">
     <div class="col-lg-12 text-center">
         <img style="width: 80px;" src="/static/img/heroes/{{hero.id}}/icon_128.jpg">
     </div>
@@ -6,46 +6,46 @@
         <h3><span class="text-success">{{hero.wins}}</span> - <span class="text-error">{{hero.losses}}</span> - {{hero.percent}}%</h3>
     </div>
     <div class="col-lg-12">
-        <table class="table table-stats table-condensed">
+        <table class="table table-striped table-condensed">
             <tr>
                 <td>Kills</td>
-                <td>{{ hero.kills }}</td>
+                <td><span class="pull-right">{{ hero.kills }}</span></td>
             </tr>
             <tr>
                 <td>Deaths</td>
-                <td>{{ hero.deaths }}</td>
+                <td><span class="pull-right">{{ hero.deaths }}</span></td>
             </tr>
             <tr>
                 <td>Kill Death Ratio</td>
-                <td>{{ hero.kdr }}</td>
+                <td><span class="pull-right">{{ hero.kdr }}</span></td>
             </tr>
             <tr>
                 <td>Actions Per Minute</td>
-                <td>{{ hero.apm }}</td>
+                <td><span class="pull-right">{{ hero.apm }}</span></td>
             </tr>
             <tr>
                 <td>Gold Per Minute</td>
-                <td>{{ hero.gpm }}</td>
+                <td><span class="pull-right">{{ hero.gpm }}</span></td>
             </tr>
             <tr>
                 <td>EXP Per Minute</td>
-                <td>{{ hero.exp }}</td>
+                <td><span class="pull-right">{{ hero.exp }}</span></td>
             </tr>
             <tr>
                 <td>Creep Kills</td>
-                <td>{{ hero.cs }}</td>
+                <td><span class="pull-right">{{ hero.cs }}</span></td>
             </tr>
             <tr>
                 <td>Creep Denies</td>
-                <td>{{ hero.cd }}</td>
+                <td><span class="pull-right">{{ hero.cd }}</span></td>
             </tr>
             <tr>
                 <td>Consumables</td>
-                <td>{{ hero.consume }}</td>
+                <td><span class="pull-right">{{ hero.consume }}</span></td>
             </tr>
             <tr>
                 <td>Wards</td>
-                <td>{{ hero.wards }}</td>
+                <td><span class="pull-right">{{ hero.wards }}</span></td>
             </tr>
         </table>
     </div>

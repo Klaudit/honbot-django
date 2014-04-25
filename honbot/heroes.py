@@ -1,8 +1,7 @@
 # some functions borrowed from https://github.com/theli-ua/hondiff
 
 from django.shortcuts import render_to_response
-from django.views.decorators.cache import cache_page
-from django.db.models import Avg, Max, Min
+from django.db.models import Max, Min
 from .models import Heroes, HeroUse, HeroData
 from datetime import date
 from math import floor
@@ -11,10 +10,10 @@ from json import loads
 
 def dmgreduction(armor):
     if armor >= 0:
-        r = (0.06 * armor) / ( 1 + 0.06 * armor )
+        r = (0.06 * armor) / (1 + 0.06 * armor)
     else:
-        r = 0.94**abs(armor) - 1
-    return '{0}%'.format(round(r,4) * 100)
+        r = 0.94 ** abs(armor) - 1
+    return '{0}%'.format(round(r, 4) * 100)
 
 
 def iterable_attribute(name, supername, a, ability):
@@ -30,12 +29,12 @@ def iterable_attribute(name, supername, a, ability):
 
 
 def isDigit(c):
-    return c in ['0','1','2','3','4','5','6','7','8','9']
+    return c in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 
 def hon2html(msg):
-    hon_colors = ["00","1C","38","54","70","8C","A8","C4","E0","FF"]
-    msg = msg.replace('\\n','<br>')
+    hon_colors = ["00", "1C", "38", "54", "70", "8C", "A8", "C4", "E0", "FF"]
+    msg = msg.replace('\\n', '<br>')
     parts = msg.split('^')
     base = '<span>'
     #msg = '<span style="color: white;">' + parts[0]
@@ -64,10 +63,11 @@ def hon2html(msg):
         elif part[0] == 'm' or part[0] == 'M':
             msg += '</span><span style="color: #FF00FF;">' + part[1:]
         elif len(part) >= 3 and isDigit(part[0]) and isDigit(part[1]) and isDigit(part[2]):
-            msg += '</span><span style="color: #%s%s%s;">' % (hon_colors[int(part[0])],hon_colors[int(part[1])],hon_colors[int(part[2])]) + part[3:]
+            msg += '</span><span style="color: #%s%s%s;">' % (
+                hon_colors[int(part[0])], hon_colors[int(part[1])], hon_colors[int(part[2])]) + part[3:]
         elif part[0] == '*':
             msg += '</span>' + base + part[1:]
-        elif part[0] in [';',':']:
+        elif part[0] in [';', ':']:
             msg += part[1:]
         else:
             msg += part
@@ -96,15 +96,16 @@ def hero(request, name):
         popularity = HeroUse.objects.get(hero_id=h['hero_id'], date=date.today().strftime("%Y-%m-%d"))
     except:
         popularity = "error"
-    minmax = HeroData.objects.aggregate(Max('movespeed'),Min('movespeed'),
-        Max('turnrate'),Min('turnrate'),
-        Max('strengthperlevel'),Min('strengthperlevel'),
-        Max('agilityperlevel'),Min('agilityperlevel'),
-        Max('intelligenceperlevel'),Min('intelligenceperlevel'),
-        Max('attackcooldown'),Min('attackcooldown'),
-        Max('attackduration'),Min('attackduration'),
-        Max('attackactiontime'),Min('attackactiontime'),
-        )
+    minmax = HeroData.objects.aggregate(
+        Max('movespeed'), Min('movespeed'),
+        Max('turnrate'), Min('turnrate'),
+        Max('strengthperlevel'), Min('strengthperlevel'),
+        Max('agilityperlevel'), Min('agilityperlevel'),
+        Max('intelligenceperlevel'), Min('intelligenceperlevel'),
+        Max('attackcooldown'), Min('attackcooldown'),
+        Max('attackduration'), Min('attackduration'),
+        Max('attackactiontime'), Min('attackactiontime'),
+    )
     lvl1 = {}
     lvl25 = {}
     lvl1['armor'] = h['armor'] + (0.14 * h['agility'])
@@ -115,7 +116,7 @@ def hero(request, name):
     lvl25['healthpoints'] = h['maxhealth'] + (19 * (h['strength'] + 20 + floor(h['strengthperlevel'] * 24)))
     lvl1['manapoints'] = h['maxmana'] + (13 * h['intelligence'])
     lvl25['manapoints'] = h['maxmana'] + (13 * (h['intelligence'] + 20 + floor(h['intelligenceperlevel'] * 24)))
-    lvl1['hpregeneration'] = h['healthregen']  + (0.03 * h['strength'])
+    lvl1['hpregeneration'] = h['healthregen'] + (0.03 * h['strength'])
     lvl25['hpregeneration'] = h['healthregen'] + (0.03 * (h['strength'] + 20 + floor(h['strengthperlevel'] * 24)))
     lvl1['mpregeneration'] = h['manaregen'] + (0.04 * h['intelligence'])
     lvl25['mpregeneration'] = h['manaregen'] + (0.04 * (h['intelligence'] + 20 + floor(h['intelligenceperlevel'] * 24)))
@@ -131,7 +132,7 @@ def hero(request, name):
             a['description'] = ability['STRINGTABLE'][name + '_description']
         except KeyError:
             a['description'] = ability['STRINGTABLE'][name + '_description_simple']
-        if ability['attributes'] != False:
+        if ability['attributes'] is not False:
             a['actiontype'] = ability['attributes']['ACTIONTYPE'].replace('_', ' ').title()
             try:
                 a['targetscheme'] = ability['attributes']['TARGETSCHEME'].replace('_', ' ').title()
@@ -157,4 +158,4 @@ def hero(request, name):
             a['sotmeffect'] = None
         abilities[int(ability['ab_slot'])] = a
     return render_to_response('hero.html',
-        {'hero': h, 'use': use, 'popularity': popularity, 'minmax': minmax, 'lvl1': lvl1, 'lvl25': lvl25, 'abilities': abilities})
+                              {'hero': h, 'use': use, 'popularity': popularity, 'minmax': minmax, 'lvl1': lvl1, 'lvl25': lvl25, 'abilities': abilities})

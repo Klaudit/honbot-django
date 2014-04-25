@@ -10,7 +10,7 @@ def avatar(request, number, width):
     p = PlayerIcon.objects.filter(player_id=number).first()
     if p is not None:
         tdelta = datetime.now() - datetime.strptime(str(p.updated), "%Y-%m-%d %H:%M:%S")
-        if tdelta.days < 25:
+        if tdelta.days < 20:
             return HttpResponse('<img style="width:' + str(width) + 'px;" src="' + p.avatar + '">')
     opener = build_opener()
     curl = settings.PHP

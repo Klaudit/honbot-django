@@ -282,18 +282,21 @@ def player_math(data, mode):
         stats['acs'] = round(
             int(data[mode + '_teamcreepkills']) / float(stats['matches']), 1)
         if stats['deaths'] > 0 and stats['kills'] > 0:
+            print "CALC KDR"
+            print stats['deaths']
+            print stats['kills']
             # k+A : d
-            stats['kadr'] = round(
-                (float(stats['kills']) + float(stats['assists'])) / float(stats['deaths']), 2)
+            stats['kadr'] = round((float(stats['kills']) + float(stats['assists'])) / float(stats['deaths']), 2)
             # kill death ratio
-            stats['kdr'] = round(
-                float(stats['kills']) / float(stats['deaths']), 2)
+            stats['kdr'] = round(float(stats['kills']) / float(stats['deaths']), 2)
+            print stats['kdr']
         else:
             stats['kadr'] = 0
             stats['kdr'] = 0
         # win percent
         if int(stats['losses']) != 0:
-            stats['winpercent'] = str(int(round(float(stats['wins']) / float(stats['wins'] + stats['losses']) * 100))) + '%'
+            stats['winpercent'] = str(
+                int(round(float(stats['wins']) / float(stats['wins'] + stats['losses']) * 100))) + '%'
         else:
             stats['winpercent'] = "100%"
         # average time
@@ -330,7 +333,6 @@ def player_math(data, mode):
                 stats['TSR'] = 10
         else:
             stats['TSR'] = 0
-            stats['kdr'] = 0
     else:
         # no matches on account
         stats['TSR'], stats['kdr'], stats['kadr'], stats['winpercent'], stats['atime'], stats['akills'], stats['adeaths'], stats['aassists'], stats['aconsumables'], stats[

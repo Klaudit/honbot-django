@@ -7,6 +7,7 @@ from .models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCou
 from api_call import get_json
 from avatar import avatar
 from error import error
+from utils import psoselect
 
 from numpy import histogram
 from datetime import date, datetime
@@ -80,13 +81,16 @@ def tooltip_public(request, account_id):
         return HttpResponse(status=202)
 
 
-def tooltip(request, account_id, player):
-    try:
-        icon = PlayerIcon.objects.get(player_id=account_id)
-    except:
-        icon = {}
-        icon['avatar'] = "/static/img/default_avatar.png"
-    return render_to_response('player_tooltip.html', {'player': player, 'avatar': icon})
+def tooltip(request, account_id, mode):
+    PSObj = psoselect(mode)
+    player = PSObj.objects.filter(player_id=account_id).first()
+    if player is not None:
+        icon = PlayerIcon.objects.filter(player_id=account_id).first()
+        if icon is None:
+            icon = {'avatar': "/static/img/default_avatar.png"}
+        return render_to_response('player_tooltip.html', {'player': player, 'avatar': icon})
+    else:
+        return HttpResponse(status=202)
 
 
 @cache_page(10000)
@@ -282,9 +286,6 @@ def player_math(data, mode):
         stats['acs'] = round(
             int(data[mode + '_teamcreepkills']) / float(stats['matches']), 1)
         if stats['deaths'] > 0 and stats['kills'] > 0:
-            print "CALC KDR"
-            print stats['deaths']
-            print stats['kills']
             # k+A : d
             stats['kadr'] = round((float(stats['kills']) + float(stats['assists'])) / float(stats['deaths']), 2)
             # kill death ratio

@@ -20,9 +20,9 @@ urlpatterns = patterns(
     url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),
     url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),
     # player tooltip
-    url(r'^ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip_ranked'),
-    url(r'^p/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip_public'),
-    url(r'^c/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip_casual'),
+    url(r'^ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip', {'mode': "rnk"}),
+    url(r'^c/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip', {'mode': "cs"}),
+    url(r'^p/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip', {'mode': "acc"}),
     ## CHARTS (needs to be renamed)
     # Player Charts
     url(r'^chart/(?P<name>[^/]+)/$', 'honbot.chart.chart_default', {'limit': 50, 'mode': "rnk"}),

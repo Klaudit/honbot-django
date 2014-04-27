@@ -71,13 +71,7 @@ def distribution(requst):
 
 
 def player_save(stats, mode):
-    global p
-    if mode == "rnk":
-        p = PlayerStats
-    elif mode == "acc":
-        p = PlayerStatsPublic
-    elif mode == "cs":
-        p = PlayerStatsCasual
+    p = psoselect(mode)
     p(player_id=stats['player_id'],
         nickname=stats['nickname'],
         cccalls=stats['cccalls'],
@@ -152,6 +146,7 @@ def update_player(pid, mode):
     """
     updates players without rendering
     """
+    url = "/player_statistics/"+fullmode(mode)+"/accountid/" + str(pid)
     if mode == 'rnk':
         url = "/player_statistics/ranked/accountid/" + str(pid)
     elif mode == 'cs':

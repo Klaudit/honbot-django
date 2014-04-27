@@ -39,7 +39,7 @@ def player_view(request, name, mode):
         if exists:
             return render_to_response('player.html', {'stats': p, 'mode': mode, 'view': "player", 'fallback': True})
         else:
-            return error(request, "S2 server down or name is incorrect. Try another name or gently refreshing the page.")
+            return error(request, "S2 server down or name is incorrect. Try another name or gently refreshing page.")
 
 
 def tooltip(request, account_id, mode):
@@ -247,7 +247,6 @@ def player_math(data, mode):
             stats['kadr'] = round((float(stats['kills']) + float(stats['assists'])) / float(stats['deaths']), 2)
             # kill death ratio
             stats['kdr'] = round(float(stats['kills']) / float(stats['deaths']), 2)
-            print stats['kdr']
         else:
             stats['kadr'] = 0
             stats['kdr'] = 0

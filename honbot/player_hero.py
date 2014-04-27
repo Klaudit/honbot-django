@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 
 from .models import Heroes, PlayerHeroStats
-from utils import psoselect
+from utils import psoselect, fullmode
 from api_call import get_json
 
 from datetime import datetime
@@ -23,19 +23,19 @@ def base_view(request, name, mode):
     return render_to_response('player_hero.html', {'player': name, 'stats': stats, 'mode': mode, 'view': "player_hero", 'heroes': heroes})
 
 
-def player_hero_stats(request, name, hero, mode, modename):
-    search = PlayerHeroStats.objects.filter(nickname=name, hero_id=hero, mode=mode)
-    if search.exists():
-        tdelta = datetime.now() - datetime.strptime(str(search.values('updated')[0]['updated']), "%Y-%m-%d %H:%M:%S")
+def player_hero_stats(request, name, hero, mode):
+    search = PlayerHeroStats.objects.filter(nickname=name, hero_id=hero, mode=mode).first()
+    if search is not None:
+        tdelta = datetime.now() - datetime.strptime(str(search.updated), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 1000:
-            data = loads(search.values('data')[0]['data'])
+            data = loads(search.data)
         else:
-            url = "/hero_statistics/" + modename + "/nickname/" + name + "/heroid/" + hero
+            url = "/hero_statistics/" + fullmode(mode) + "/nickname/" + name + "/heroid/" + hero
             data = get_json(url)
             search.delete()
             PlayerHeroStats(nickname=name, hero_id=hero, data=dumps(data), mode=mode).save()
     else:
-        url = "/hero_statistics/" + modename + "/nickname/" + name + "/heroid/" + hero
+        url = "/hero_statistics/" + fullmode(mode) + "/nickname/" + name + "/heroid/" + hero
         data = get_json(url)
         PlayerHeroStats(nickname=name, hero_id=hero, data=dumps(data), mode=mode).save()
     if data is not None:

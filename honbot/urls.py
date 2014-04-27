@@ -16,9 +16,9 @@ urlpatterns = patterns(
     # Player Distribution
     url(r'^distribution/$', 'honbot.player.distribution'),
     # Player
-    url(r'^player/(?P<name>.*)/$', 'honbot.player.player_ranked'),
-    url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_casual'),
-    url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_public'),
+    url(r'^player/(?P<name>.*)/$', 'honbot.player.player_view', {'mode': "rnk"}),
+    url(r'^c/player/(?P<name>.*)/$', 'honbot.player.player_view', {'mode': "cs"}),
+    url(r'^p/player/(?P<name>.*)/$', 'honbot.player.player_view', {'mode': "acc"}),
     # player tooltip
     url(r'^ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip', {'mode': "rnk"}),
     url(r'^c/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip', {'mode': "cs"}),
@@ -45,9 +45,9 @@ urlpatterns = patterns(
     url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.base_view', {'mode': "cs"}),
     url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.base_view', {'mode': "acc"}),
     # Player hero data
-    url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "rnk", "modename": "ranked"}),
-    url(r'^c/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "cs", "modename": "casual"}),
-    url(r'^p/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "acc", "modename": "public"}),
+    url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "rnk"}),
+    url(r'^c/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "cs"}),
+    url(r'^p/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "acc"}),
     # Match View
     url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
     # Match Chat

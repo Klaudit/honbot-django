@@ -82,7 +82,10 @@ def chart_view(request, name, mode, stats, limit):
     s['aassists'] = round(float(s['assists']) / limit, 2)
     s['awards'] = round(float(s['wards']) / limit, 2)
     s['arazed'] = round(float(s['razed']) / limit, 2)
-    s['kdr'] = round(float(s['kills']) / s['deaths'], 2)
+    try:
+        s['kdr'] = round(float(s['kills']) / s['deaths'], 2)
+    except:
+        s['kdr'] = "-"
     s['ammr_change'] = round(float(s['mmr_change']) / limit, 2)
     s['sdead'] = round(float(s['sdead']) / 60)
     s['asdead'] = round((float(s['sdead']) / 60) / limit, 2)

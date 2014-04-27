@@ -26,3 +26,12 @@ def psoselect(mode):
         return PlayerStatsCasual
     elif mode == "acc":
         return PlayerStatsPublic
+
+
+def fullmode(mode):
+    if mode == "rnk":
+        return "ranked"
+    elif mode == "cs":
+        return "casual"
+    elif mode == "acc":
+        return "public"

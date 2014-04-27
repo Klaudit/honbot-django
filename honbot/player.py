@@ -7,31 +7,16 @@ from .models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCou
 from api_call import get_json
 from avatar import avatar
 from error import error
-from utils import psoselect
+from utils import psoselect, fullmode
 
 from numpy import histogram
 from datetime import date, datetime
 
 
-def player_ranked(request, name):
-    url = "/player_statistics/ranked/nickname/" + name
-    p = PlayerStats.objects.filter(nickname=name).first()
-    return player_view(request, name, "rnk", url, p)
-
-
-def player_casual(request, name):
-    url = '/player_statistics/casual/nickname/' + name
-    p = PlayerStatsCasual.objects.filter(nickname=name).first()
-    return player_view(request, name, "cs", url, p)
-
-
-def player_public(request, name):
-    url = '/player_statistics/public/nickname/' + name
-    p = PlayerStatsPublic.objects.filter(nickname=name).first()
-    return player_view(request, name, "acc", url, p)
-
-
-def player_view(request, name, mode, url, p):
+def player_view(request, name, mode):
+    url = '/player_statistics/' + fullmode(mode) + '/nickname/' + name
+    PSObj = psoselect(mode)
+    p = PSObj.objects.filter(nickname=name).first()
     exists = False
     if p is not None:
         exists = True
@@ -71,7 +56,7 @@ def tooltip(request, account_id, mode):
 
 @cache_page(10000)
 def distribution(requst):
-    players = PlayerStats.objects.filter(matches__gte=1).values_list('mmr', 'TSR')
+    players = PlayerStats.objects.filter(matches__gte=10).values_list('mmr', 'TSR')
     tsr, mmr, bins = [], [], []
     for player in players:
         mmr.append(player[0])

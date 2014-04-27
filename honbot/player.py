@@ -57,30 +57,6 @@ def player_view(request, name, mode, url, p):
             return error(request, "S2 server down or name is incorrect. Try another name or gently refreshing the page.")
 
 
-def tooltip_ranked(request, account_id):
-    try:
-        player = PlayerStats.objects.get(player_id=account_id)
-        return tooltip(request, account_id, player)
-    except:
-        return HttpResponse(status=202)
-
-
-def tooltip_casual(request, account_id):
-    try:
-        player = PlayerStatsCasual.objects.get(player_id=account_id)
-        return tooltip(request, account_id, player)
-    except:
-        return HttpResponse(status=202)
-
-
-def tooltip_public(request, account_id):
-    try:
-        player = PlayerStatsPublic.objects.get(player_id=account_id)
-        return tooltip(request, account_id, player)
-    except:
-        return HttpResponse(status=202)
-
-
 def tooltip(request, account_id, mode):
     PSObj = psoselect(mode)
     player = PSObj.objects.filter(player_id=account_id).first()

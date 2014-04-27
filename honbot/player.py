@@ -146,13 +146,7 @@ def update_player(pid, mode):
     """
     updates players without rendering
     """
-    url = "/player_statistics/"+fullmode(mode)+"/accountid/" + str(pid)
-    if mode == 'rnk':
-        url = "/player_statistics/ranked/accountid/" + str(pid)
-    elif mode == 'cs':
-        url = '/player_statistics/casual/accountid/' + str(pid)
-    elif mode == 'acc':
-        url = '/player_statistics/public/accountid/' + str(pid)
+    url = "/player_statistics/" + fullmode(mode) + "/accountid/" + str(pid)
     data = get_json(url)
     p = player_math(data, mode)
     player_save(p, mode)

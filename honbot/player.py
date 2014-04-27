@@ -151,12 +151,8 @@ def update_check(player, mode):
     """
     checks if a player needs an update
     """
-    if mode == 'rnk':
-        result = PlayerStats.objects.filter(player_id=player).first()
-    elif mode == 'cs':
-        result = PlayerStatsCasual.objects.filter(player_id=player).first()
-    elif mode == 'acc':
-        result = PlayerStatsPublic.objects.filter(player_id=player).first()
+    PSObj = psoselect(mode)
+    result = PSObj.objects.filter(player_id=player).first()
     if result is not None:
         tdelta = datetime.now() - datetime.strptime(str(result.updated), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) > 12000:

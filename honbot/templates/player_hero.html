@@ -68,7 +68,7 @@ $(document).ready(function() {
         if(one!="None")
         {
             $('#match-load1').append('<i class="fa fa-spinner fa-2x fa-spin"></i>');
-            $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + one + "/",
+            $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ stats.player_id }}/" + one + "/",
             function (data) {
                 $('#display1').append(data);
                 $('#rows tr').click(function(){
@@ -80,7 +80,7 @@ $(document).ready(function() {
         }
         if(two!="None"&&two!=="")
         {
-            $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + two + "/",
+            $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ stats.player_id }}/" + two + "/",
             function (data) {
                 $('#display2').append(data);
                 $('#rows tr').click(function(){
@@ -100,7 +100,7 @@ $("#hero1").change(function(){
     window.location.hash = $("#hero1").select2("val") + '&' + split;
     $('#match-load1').append('<i class="fa fa-spinner fa-2x fa-spin"></i>');
     $("#display1").empty();
-    $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + String($("#hero1").select2("val")) + "/",
+    $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ stats.player_id }}/" + String($("#hero1").select2("val")) + "/",
         function (data) {
             $('#display1').append(data);
             $('#rows tr').click(function(){
@@ -116,7 +116,7 @@ $("#hero2").change(function(){
     window.location.hash = split + '&' + $("#hero2").select2("val");
     $('#match-load2').append('<i class="fa fa-spinner fa-2x fa-spin"></i>');
     $("#display2").empty();
-    $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ player }}/" + String($("#hero2").select2("val")) + "/",
+    $.get("{% if mode == 'cs' %}/c{% elif mode == 'acc' %}/p{% endif %}/player_hero_stats/{{ stats.player_id }}/" + String($("#hero2").select2("val")) + "/",
         function (data) {
             $('#display2').append(data);
             $('#rows tr').click(function(){

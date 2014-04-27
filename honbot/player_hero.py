@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 
 from .models import Heroes, PlayerHeroStats
-from utils import psoselect, fullmode
+from utils import psoselect, fullmode, pmoselect
 from api_call import get_json
 
 from datetime import datetime
@@ -17,28 +17,31 @@ def divided(num1, num2):
 
 
 def base_view(request, name, mode):
+    """
+    loads the page where heroes are chosen from
+    """
     PSObj = psoselect(mode)
     stats = PSObj.objects.filter(nickname=name).first()
     heroes = Heroes.objects.all().order_by('disp_name')
-    return render_to_response('player_hero.html', {'player': name, 'stats': stats, 'mode': mode, 'view': "player_hero", 'heroes': heroes})
+    return render_to_response('player_hero.html', {'stats': stats, 'mode': mode, 'view': "player_hero", 'heroes': heroes})
 
 
-def player_hero_stats(request, name, hero, mode):
-    search = PlayerHeroStats.objects.filter(nickname=name, hero_id=hero, mode=mode).first()
+def player_hero_stats(request, account_id, hero, mode):
+    search = PlayerHeroStats.objects.filter(player_id=account_id, hero_id=hero, mode=mode).first()
+    url = "/hero_statistics/" + fullmode(mode) + "/accountid/" + account_id + "/heroid/" + hero
     if search is not None:
         tdelta = datetime.now() - datetime.strptime(str(search.updated), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 1000:
             data = loads(search.data)
         else:
-            url = "/hero_statistics/" + fullmode(mode) + "/nickname/" + name + "/heroid/" + hero
             data = get_json(url)
             search.delete()
-            PlayerHeroStats(nickname=name, hero_id=hero, data=dumps(data), mode=mode).save()
+            PlayerHeroStats(player_id=account_id, hero_id=hero, data=dumps(data), mode=mode).save()
     else:
-        url = "/hero_statistics/" + fullmode(mode) + "/nickname/" + name + "/heroid/" + hero
         data = get_json(url)
-        PlayerHeroStats(nickname=name, hero_id=hero, data=dumps(data), mode=mode).save()
+        PlayerHeroStats(player_id=account_id, hero_id=hero, data=dumps(data), mode=mode).save()
     if data is not None:
+        PMObj = pmoselect(mode)
         if mode is "acc":
             mode = ""
         else:
@@ -58,6 +61,7 @@ def player_hero_stats(request, name, hero, mode):
         hero['cs'] = round(divided(data[0][mode + 'ph_teamcreepkills'], data[0][mode + 'ph_used']), 1)
         hero['cd'] = round(divided(data[0][mode + 'ph_denies'], data[0][mode + 'ph_used']), 1)
         hero['wards'] = round(divided(data[0][mode + 'ph_wards'], data[0][mode + 'ph_used']), 1)
-        return render_to_response('player_hero_stats.html', {'hero': hero})
+        recent = PMObj.objects.filter(player_id=account_id, hero=hero['id'])
+        return render_to_response('player_hero_stats.html', {'hero': hero, 'recent': recent})
     else:
         return HttpResponse('Error! Returned no stats with this hero.')

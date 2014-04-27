@@ -45,9 +45,9 @@ urlpatterns = patterns(
     url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.base_view', {'mode': "cs"}),
     url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.base_view', {'mode': "acc"}),
     # Player hero data
-    url(r'^player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "rnk"}),
-    url(r'^c/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "cs"}),
-    url(r'^p/player_hero_stats/(?P<name>.*)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "acc"}),
+    url(r'^player_hero_stats/(?P<account_id>[0-9]+)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "rnk"}),
+    url(r'^c/player_hero_stats/(?P<account_id>[0-9]+)(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "cs"}),
+    url(r'^p/player_hero_stats/(?P<account_id>[0-9]+)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "acc"}),
     # Match View
     url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
     # Match Chat

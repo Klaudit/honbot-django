@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
 
-from .models import PlayerStats, PlayerStatsCasual, PlayerStatsPublic, PlayerCount, PlayerIcon
+from .models import PlayerCount, PlayerIcon, PlayerStats
 from api_call import get_json
 from avatar import avatar
 from error import error

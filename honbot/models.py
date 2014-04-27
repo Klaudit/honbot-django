@@ -423,11 +423,11 @@ class PlayerStatsPublic(models.Model):
 
 
 class PlayerHeroStats(models.Model):
-    nickname = models.CharField(max_length=30, default="")
-    data = models.TextField(default="")
+    player_id = models.PositiveIntegerField(null=False, default=0)
     hero_id = models.SmallIntegerField(default=0)
-    updated = models.DateTimeField(auto_now=True, default=0)
     mode = models.CharField(max_length=10, default="rnk")
+    data = models.TextField(default="")
+    updated = models.DateTimeField(auto_now=True, default=0)
 
 
 class Chat(models.Model):

@@ -48,5 +48,29 @@
                 <td><span class="pull-right">{{ hero.wards }}</span></td>
             </tr>
         </table>
+        {%for r in recent%}
+        {% if forloop.first %}
+        <h4 class="text-center">Cached Matches</h4>
+        <table id="history" class="table center-headers table-condensed recent-match">
+            <thead>
+                <tr>
+                    <th>K / D / A</th>
+                    <th>Match</th>
+                </tr>
+            </thead>
+            <tbody id="rows">
+
+        {% endif %}
+            {% if r.win %}
+            <tr class="match-win" href="/match/{{ r.match_id }}/">
+            {% else %}
+            <tr class="match-loss" href="/match/{{ r.match_id }}/">
+            {% endif %}
+                <td>{{ r.kills }} / {{ r.deaths }} / {{ r.assists }}</td>
+                <td><a href="/match/{{ r.match_id }}/">{{ r.match_id }}</a></td>
+            </tr>
+        {%endfor%}
+        </tbody>
+        </table>
     </div>
 </div>

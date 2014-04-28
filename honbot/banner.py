@@ -32,24 +32,23 @@ def banner_view(request, name):
             img.save(response, 'png')
             return response
     else:
-        p = PlayerStats.objects.filter(nickname=name)
+        p = PlayerStats.objects.filter(nickname=name).first()
         url = '/player_statistics/ranked/nickname/' + name
-        if p.exists():
-            tdelta = datetime.now() - datetime.strptime(str(p.values()[0]['updated']), "%Y-%m-%d %H:%M:%S")
+        if p is not None:
+            tdelta = datetime.now() - datetime.strptime(str(p.updated), "%Y-%m-%d %H:%M:%S")
             if tdelta.seconds + (tdelta.days * 86400) < 1000:
-                s = p.values()[0]
                 response = HttpResponse(mimetype="image/png")
-                img = banner(s)
+                img = banner(p)
                 img.save(response, 'png')
                 img.save(directory + str(name) + ".png")
                 return response
         data = get_json(url)
         if data is not None:
             statsdict = data
-            s = player_math(statsdict, "rnk")
-            player_save(s, "rnk")
+            p = player_math(statsdict, "rnk")
+            player_save(p, "rnk")
             response = HttpResponse(mimetype="image/png")
-            img = banner(s)
+            img = banner(p)
             img.save(response, 'png')
             img.save(directory + str(name) + ".png")
             return response
@@ -65,16 +64,16 @@ def banner(data):
     honbot_font = ImageFont.truetype(fonts + "Prototype.ttf", 10)
     img = Image.new("RGBA", (400, 60), (25, 25, 25))
     draw = ImageDraw.Draw(img)
-    draw.text((2, -2), data['nickname'], (255, 255, 255), font=name_font)
+    draw.text((2, -2), data.nickname, (255, 255, 255), font=name_font)
     draw.text((335, 0), "honbot.com", (200, 200, 200), font=honbot_font)
-    draw.text((1, 38), "MMR: " + str(data['mmr']), (0, 128, 255), font=mmr_font)
+    draw.text((1, 38), "MMR: " + str(data.mmr), (0, 128, 255), font=mmr_font)
     draw.text((98, 38), "|", (140, 140, 140), font=mmr_font)
-    draw.text((110, 38), "TSR: " + str(data['TSR']), (220, 220, 220), font=mmr_font)
+    draw.text((110, 38), "TSR: " + str(data.TSR), (220, 220, 220), font=mmr_font)
     draw.text((185, 38), "|", (140, 140, 140), font=mmr_font)
-    draw.text((194, 38), " W: " + str(data['wins']), (0, 153, 0), font=mmr_font)
-    next = 245 + (8 * len(str(data['wins'])))
+    draw.text((194, 38), " W: " + str(data.wins), (0, 153, 0), font=mmr_font)
+    next = 245 + (8 * len(str(data.wins)))
     draw.text((next, 38), "|", (140, 140, 140), font=mmr_font)
     next += 15
-    draw.text((next, 38), "L: " + str(data['losses']), (153, 0, 0), font=mmr_font)
+    draw.text((next, 38), "L: " + str(data.losses), (153, 0, 0), font=mmr_font)
     draw = ImageDraw.Draw(img)
     return img

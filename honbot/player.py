@@ -126,7 +126,7 @@ def player_save(stats, mode):
         aassists=stats['aassists']).save()
 
 
-def update_check(player, mode, time):
+def update_check(player, mode):
     """
     checks if a player needs an update
     returns true or false depending on success

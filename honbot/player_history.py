@@ -38,7 +38,8 @@ def history(request, account_id, page, mode):
                 pass
     else:
         data = update_history(account_id, mode, phistory)
-    verify_matches(data[(count - return_size):count], mode)
+    if data != []:
+        verify_matches(data[(count - return_size):count], mode)
     PMObj = pmoselect(mode)
     matches = PMObj.objects.filter(
         match_id__in=data[(count - return_size):count], player_id=account_id).order_by('-date').values()

@@ -38,11 +38,11 @@ def history(request, account_id, page, mode):
                 pass
     else:
         data = update_history(account_id, mode, phistory)
-    if data != []:
-        verify_matches(data[(count - return_size):count], mode)
+    data = data[(count - return_size):count]
+    if len(data) != 0:
+        verify_matches(data, mode)
     PMObj = pmoselect(mode)
-    matches = PMObj.objects.filter(
-        match_id__in=data[(count - return_size):count], player_id=account_id).order_by('-date').values()
+    matches = PMObj.objects.filter(match_id__in=data, player_id=account_id).order_by('-date').values()
     for match in matches:
         match['date'] = datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
     if len(matches) != 0:

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView, ListView
-from .player_browse import PlayerList
 from .models import PlayerBrackets
+from .player_browse import PlayerList
 
 urlpatterns = patterns(
     '',
@@ -23,7 +23,6 @@ urlpatterns = patterns(
     url(r'^ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip', {'mode': "rnk"}),
     url(r'^c/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip', {'mode': "cs"}),
     url(r'^p/ptip/(?P<account_id>[0-9]+)/$', 'honbot.player.tooltip', {'mode': "acc"}),
-    ## CHARTS (needs to be renamed)
     # Player Charts
     url(r'^chart/(?P<name>[^/]+)/$', 'honbot.chart.chart_default', {'limit': 50, 'mode': "rnk"}),
     url(r'^c/chart/(?P<name>[^/]+)/$', 'honbot.chart.chart_default', {'limit': 50, 'mode': "cs"}),
@@ -35,9 +34,9 @@ urlpatterns = patterns(
     # Player Avatar
     url(r'^avatar/(?P<number>[0-9]+)/(?P<width>[0-9]+)/$', 'honbot.avatar.avatar'),
     # Player History
-    url(r'^player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history_ranked'),
-    url(r'^c/player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history_casual'),
-    url(r'^p/player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history_public'),
+    url(r'^player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history', {'mode': "rnk"}),
+    url(r'^c/player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history', {'mode': "cs"}),
+    url(r'^p/player_history/(?P<account_id>[0-9]+)/(?P<page>[0-9])/$', 'honbot.player_history.history', {'mode': "acc"}),
     # Player Banner
     url(r'^banner/(?P<name>.*)/$', 'honbot.banner.banner_view'),
     # Player Hero page
@@ -45,9 +44,12 @@ urlpatterns = patterns(
     url(r'^c/player_hero/(?P<name>.*)/$', 'honbot.player_hero.base_view', {'mode': "cs"}),
     url(r'^p/player_hero/(?P<name>.*)/$', 'honbot.player_hero.base_view', {'mode': "acc"}),
     # Player hero data
-    url(r'^player_hero_stats/(?P<account_id>[0-9]+)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "rnk"}),
-    url(r'^c/player_hero_stats/(?P<account_id>[0-9]+)(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "cs"}),
-    url(r'^p/player_hero_stats/(?P<account_id>[0-9]+)/(?P<hero>[0-9]+)/$', 'honbot.player_hero.player_hero_stats', {'mode': "acc"}),
+    url(r'^player_hero_stats/(?P<account_id>[0-9]+)/(?P<hero>[0-9]+)/$',
+        'honbot.player_hero.player_hero_stats', {'mode': "rnk"}),
+    url(r'^c/player_hero_stats/(?P<account_id>[0-9]+)(?P<hero>[0-9]+)/$',
+        'honbot.player_hero.player_hero_stats', {'mode': "cs"}),
+    url(r'^p/player_hero_stats/(?P<account_id>[0-9]+)/(?P<hero>[0-9]+)/$',
+        'honbot.player_hero.player_hero_stats', {'mode': "acc"}),
     # Match View
     url(r'^match/(?P<match_id>[0-9]+)/$', 'honbot.match.match_view'),
     # Match Chat

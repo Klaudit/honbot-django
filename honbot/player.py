@@ -126,9 +126,10 @@ def player_save(stats, mode):
         aassists=stats['aassists']).save()
 
 
-def update_check(player, mode):
+def update_check(player, mode, time):
     """
     checks if a player needs an update
+    returns true or false depending on success
     """
     PSObj = psoselect(mode)
     result = PSObj.objects.filter(player_id=player).first()
@@ -136,20 +137,25 @@ def update_check(player, mode):
         tdelta = datetime.now() - datetime.strptime(str(result.updated), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) > 12000:
             avatar(None, player, 10)
-            update_player(player, mode)
+            return update_player(player, mode)
     else:
         avatar(None, player, 10)
-        update_player(player, mode)
+        return update_player(player, mode)
 
 
 def update_player(pid, mode):
     """
     updates players without rendering
+    returns t/f for success
     """
     url = "/player_statistics/" + fullmode(mode) + "/accountid/" + str(pid)
     data = get_json(url)
-    p = player_math(data, mode)
-    player_save(p, mode)
+    if data is not None:
+        p = player_math(data, mode)
+        player_save(p, mode)
+        return True
+    else:
+        return False
 
 
 def update_player_count():

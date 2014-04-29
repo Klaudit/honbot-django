@@ -1,57 +1,47 @@
-from .models import PlayerMatches, PlayerMatchesPublic, PlayerMatchesCasual, PlayerHistory, Matches
+# needs to be re-written
+# deletes before checking if a new call can be secured
+# poorly written
+# must try to get a new one before removing old one and fucking oneself
+
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
+
+from .models import PlayerHistory, Matches
 from api_call import get_json
+from match import multimatch
+from utils import pmoselect, fullmode
+
 from datetime import datetime, timedelta
 from json import dumps, loads
-from match import multimatch
 
 return_size = 25
 
 
-def history_ranked(request, account_id, page):
-    url = "/match_history/ranked/accountid/" + account_id
-    pmobject = PlayerMatches
-    return history(request, account_id, "rnk", url, page, pmobject)
-
-
-def history_casual(request, account_id, page):
-    url = '/match_history/casual/accountid/' + account_id
-    pmobject = PlayerMatchesCasual
-    return history(request, account_id, "cs", url, page, pmobject)
-
-
-def history_public(request, account_id, page):
-    url = '/match_history/public/accountid/' + account_id
-    pmobject = PlayerMatchesPublic
-    return history(request, account_id, "acc", url, page, pmobject)
-
-
-def history(request, account_id, mode, url, page, pmobject):
+def history(request, account_id, page, mode):
     """
     this is the main function of player history
     """
-    phistory = PlayerHistory.objects.filter(player_id=account_id, mode=mode)
+    phistory = PlayerHistory.objects.filter(player_id=account_id, mode=mode).first()
     count = int(page) * return_size
     # if history exists check the age
-    if phistory.exists():
+    if phistory is not None:
         # find age
-        existing = phistory.values()[0]
-        old = existing['id']
-        tdelta = datetime.now() - datetime.strptime(str(existing['updated']), "%Y-%m-%d %H:%M:%S")
+        old = phistory.id
+        tdelta = datetime.now() - datetime.strptime(str(phistory.updated), "%Y-%m-%d %H:%M:%S")
         if tdelta.seconds + (tdelta.days * 86400) < 1080:
-            data = loads(existing['history'])
+            data = loads(phistory.history)
         else:
-            data = update_history(url, account_id, mode, True)
+            data = update_history(account_id, mode, phistory)
             try:
                 PlayerHistory.objects.get(id=old).delete()
             except:
                 pass
     else:
-        data = update_history(url, account_id, mode, False)
-    verify_matches(data[(count-return_size):count], mode)
-    matches = pmobject.objects.filter(
-        match_id__in=data[(count-return_size):count], player_id=account_id).order_by('-date').values()
+        data = update_history(account_id, mode, phistory)
+    verify_matches(data[(count - return_size):count], mode)
+    PMObj = pmoselect(mode)
+    matches = PMObj.objects.filter(
+        match_id__in=data[(count - return_size):count], player_id=account_id).order_by('-date').values()
     for match in matches:
         match['date'] = datetime.strptime(str(match['date']), '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
     if len(matches) != 0:
@@ -60,20 +50,19 @@ def history(request, account_id, mode, url, page, pmobject):
         return HttpResponse('stop')
 
 
-def update_history(url, account_id, mode, exists):
+def update_history(account_id, mode, phistory):
     """
     Updates a player's history and saves it to db. [] is saved if no result
     """
+    url = '/match_history/' + fullmode(mode) + '/accountid/' + account_id
     raw = get_json(url)
     # if no recent matches just save an empty array
     try:
         raw = raw[0]['history']
     except:
         # try to fallback if api down
-        if exists:
-            data = loads(PlayerHistory.objects.filter(player_id=account_id, mode=mode).values()[0]['history'])
-            PlayerHistory(player_id=account_id, history=dumps(data), mode=mode).save()
-            return data
+        if phistory is not None:
+            return phistory
         else:
             PlayerHistory(player_id=account_id, history=dumps([]), mode=mode).save()
             return []

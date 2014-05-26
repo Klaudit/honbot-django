@@ -41,7 +41,7 @@ def history(request, account_id, page, mode):
     try:
         data = data[(count - return_size):count]
     except:
-        pass
+        data = []
     if len(data) != 0:
         verify_matches(data, mode)
     PMObj = pmoselect(mode)

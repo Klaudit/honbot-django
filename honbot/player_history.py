@@ -38,7 +38,10 @@ def history(request, account_id, page, mode):
                 pass
     else:
         data = update_history(account_id, mode, phistory)
-    data = data[(count - return_size):count]
+    try:
+        data = data[(count - return_size):count]
+    except:
+        pass
     if len(data) != 0:
         verify_matches(data, mode)
     PMObj = pmoselect(mode)

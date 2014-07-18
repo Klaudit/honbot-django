@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <ul class="nav nav-pills nav-justified">
+            <!-- TODO: set correct active class -->
+                <li class="active">
+                    <a href="{{ url }}/player/{{ s.nickname }}/">
+                        {{ modefull }} Stats
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url }}/chart/{{ s.nickname }}/">Charts</a>
+                </li>
+                <li>
+                    <a href="{{ url }}/player_hero/{{ s.nickname }}/">Heroes</a>
+                </li>
+                <li>
+                    <a href="#banner" type="button" data-toggle="modal">Stats Banner</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

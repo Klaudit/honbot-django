@@ -1,0 +1,18 @@
+{
+	"folders":
+	[
+        {
+            "path": "honbot-www",
+            "folder_exclude_patterns": [".tmp", ".sass-cache", "dist", "node_modules"],
+            "name": "www",
+            "follow_symlinks": true
+        },
+        {
+            "path": "honbot-api",
+            "folder_exclude_patterns": ["backup"],
+            "name": "api",
+            "follow_symlinks": true
+        },
+
+	]
+}

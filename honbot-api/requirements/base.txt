@@ -1,0 +1,21 @@
+# Bleeding edge Django
+Django==1.7c1
+
+# database
+psycopg2==2.5.3
+
+# DRF
+djangorestframework==2.3.14
+Markdown==2.4.1
+django-filter==0.7
+django-cors-headers==0.12
+
+# http
+requests==2.3.0
+
+# scraping
+beautifulsoup4==4.3.2
+urllib3==1.8.3
+
+# personal preference
+pip-tools==0.3.4

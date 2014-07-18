@@ -11,3 +11,10 @@ scripts/names.txt
 
 scripts/names.csv
 
+honbot-www/node_modules
+node_modules
+honbot-www/dist
+.tmp
+.sass-cache
+*/app/bower_components
+

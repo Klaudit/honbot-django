@@ -1,0 +1,111 @@
+<!-- Main Hero -->
+<div id="hero-container" class="hero-container">
+    <div class="container">
+        <div class="row">
+            <!-- search -->
+            <form ng-submit="search()">
+                <div class="input-group input-group-lg col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-sm-12">
+                    <input type="text" ng-model="nickname" placeholder="Username" class="form-control input-lg" spellcheck="false" autofocus>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-lg" type="button"><i class="fa fa-search"></i> Go</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <ul class="list-inline text-muted text-center home-inline">
+                <li><a href="/player/">Players</a>
+                </li>
+                <li><a href="/match/">Matches</a>
+                </li>
+                <li><a href="/hero/">Heroes</a>
+                </li>
+                <li><a href="/item/">Items</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Recent Changes</h3>
+                </div>
+                <div class="panel-body">
+                    <strong>June 1st</strong>
+                    <ul>
+                        <li>APM and gpm were switched on player heroes page.</li>
+                    </ul>
+                    <strong>April 27th</strong>
+                    <ul>
+                        <li>More bugs.</li>
+                    </ul>
+                    <strong>April 26th</strong>
+                    <ul>
+                        <li>Player Heroes page now shows <a href="/player_hero/stridex/#12&102">cached matches.</a>
+                        </li>
+                        <li>Bug fixes.</li>
+                    </ul>
+                    <strong>April 19th</strong>
+                    <ul>
+                        <li>More alt avatar backgrounds on the homepage.</li>
+                        <li>I decided there wasn't enough colors.</li>
+                        <li>Removed chat logs as it doesn't look like they'll be back soon.</li>
+                        <li>Player Charts page now uses box plots. They're real nice.</li>
+                    </ul>
+                    <strong>April 9th</strong>
+                    <ul>
+                        <li>Fixed bug on new players first visit</li>
+                        <li>Added new hero assets</li>
+                        <li>Optimizations on counting. Now spawns new threads.</li>
+                    </ul>
+                </div>
+                <div class="panel-footer no-bpadding">
+                    <ul class="list-inline home-inline">
+                        <li><a href="https://github.com/scttcper/honbot-django">Source Code</a>
+                        </li>
+                        <li><a href="/static/web/changelog.html">Change History</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row text-center adsbygoogle hidden-md hidden-sm hidden-xs">
+            </div>
+        </div>
+
+        <!-- status pannel -->
+        <div class="col-lg-4 col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Server Stats</h3>
+                </div>
+                <div class="panel-body">
+                    <strong>Database:</strong>
+                    <ul class="list-unstyled list-push">
+                        <li>Players:
+                            <span id="players"></span>
+                        </li>
+                        <li>Matches:
+                            <span id="matches"></span>
+                        </li>
+                    </ul>
+                    <strong>S2 API:</strong>
+                    <ul class="list-unstyled list-push">
+                        <li>Status:
+                            <span id="serverstatus"></span>
+                        </li>
+                        <li>API calls today:
+                            <span id="apicount"></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer"><a href="/sitestats/">Site Statistics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

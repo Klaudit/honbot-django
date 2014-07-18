@@ -13,13 +13,13 @@ def get_json(endpoint):
     count = 0
     while True:
         try:
-            raw = get(url)
+            raw = get(url, timeout=2)
             if debug:
                 print(raw.url)
         except exceptions.Timeout:
             print('timeout')
             count += 1
-        if raw.status_code == 429 and count < 5:
+        if raw.status_code == 429 and count < 8:
             count += 1
             sleep(0.4)
         elif raw.status_code == 200:

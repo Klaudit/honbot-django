@@ -11,12 +11,38 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Match',
+            fields=[
+                ('match_id', models.PositiveIntegerField(primary_key=True, serialize=False, unique=True)),
+                ('mode', models.CharField(db_index=True, max_length=10)),
+                ('date', models.DateTimeField(blank=True)),
+                ('replay_url', models.URLField(null=True, default='', max_length=120)),
+                ('length', models.CharField(default='', max_length=10)),
+                ('map_used', models.CharField(default='', max_length=30)),
+                ('major', models.PositiveSmallIntegerField(default=0)),
+                ('minor', models.PositiveSmallIntegerField(default=0)),
+                ('revision', models.PositiveSmallIntegerField(default=0)),
+                ('build', models.PositiveSmallIntegerField(default=0)),
+                ('added', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+                'ordering': ['-match_id'],
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Player',
             fields=[
-                ('player_id', models.PositiveIntegerField(serialize=False, primary_key=True, db_index=True, unique=True)),
-                ('nickname', models.CharField(max_length=16, null=True, db_index=True)),
+                ('player_id', models.PositiveIntegerField(db_index=True, primary_key=True, serialize=False, unique=True)),
+                ('nickname', models.CharField(null=True, db_index=True, max_length=16)),
                 ('updated', models.DateTimeField(auto_now=True)),
-                ('added', models.DateTimeField(auto_now_add=True)),
+                ('added', models.DateTimeField(null=True, auto_now_add=True)),
+                ('avatar', models.URLField(default='', max_length=100)),
+                ('avatar_updated', models.DateTimeField(null=True)),
+                ('rnk_history', models.TextField(default='')),
+                ('cs_history', models.TextField(default='')),
+                ('acc_history', models.TextField(default='')),
+                ('history_updated', models.DateTimeField(null=True, blank=True)),
                 ('rnk_games_played', models.PositiveIntegerField(null=True)),
                 ('rnk_wins', models.PositiveIntegerField(null=True)),
                 ('rnk_losses', models.PositiveIntegerField(null=True)),
@@ -245,27 +271,30 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='PlayerAvatar',
+            name='PlayerMatchACC',
             fields=[
-                ('avatar', models.URLField(max_length=100, default='')),
-                ('avatar_updated', models.DateTimeField(null=True)),
-                ('player_ptr', models.OneToOneField(primary_key=True, serialize=False, to='hb.Player', auto_created=True)),
+                ('match_ptr', models.OneToOneField(to='hb.Match', primary_key=True, auto_created=True, serialize=False)),
             ],
             options={
             },
-            bases=('hb.player',),
+            bases=('hb.match',),
         ),
         migrations.CreateModel(
-            name='PlayerHistory',
+            name='PlayerMatchCS',
             fields=[
-                ('rnk_history', models.TextField(default='')),
-                ('cs_history', models.TextField(default='')),
-                ('acc_history', models.TextField(default='')),
-                ('history_updated', models.DateTimeField(null=True)),
-                ('player_ptr', models.OneToOneField(primary_key=True, serialize=False, to='hb.Player', auto_created=True)),
+                ('match_ptr', models.OneToOneField(to='hb.Match', primary_key=True, auto_created=True, serialize=False)),
             ],
             options={
             },
-            bases=('hb.player',),
+            bases=('hb.match',),
+        ),
+        migrations.CreateModel(
+            name='PlayerMatchRNK',
+            fields=[
+                ('match_ptr', models.OneToOneField(to='hb.Match', primary_key=True, auto_created=True, serialize=False)),
+            ],
+            options={
+            },
+            bases=('hb.match',),
         ),
     ]

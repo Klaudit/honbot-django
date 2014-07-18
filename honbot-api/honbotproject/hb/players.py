@@ -22,23 +22,21 @@ class PlayerViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk):
-        queryset = get_or_update_palyer(pk)
+        queryset, fallback = get_or_update_palyer(pk)
         serializer = PlayerSerializer(queryset)
-        print('player retreive success')
+        serializer.data['fallback'] = fallback
         return Response(serializer.data)
 
 
 def get_or_update_palyer(nickname):
-    print(nickname)
-    player = Player.objects.filter(nickname=nickname).first()
+    player = Player.objects.filter(nickname=nickname.lower()).first()
     if player is None:
-        p = Player(nickname=nickname)
-        new = get_player(p)
+        new = get_player(Player(nickname=nickname))
         # TODO add error for none
         if new:
             print('new player')
             enqueue(avatar, new)
-            return new
+            return (new, False)
         else:
             raise Http404
     now = datetime.utcnow().replace(tzinfo=utc)
@@ -50,12 +48,12 @@ def get_or_update_palyer(nickname):
             adelta = now - player.avatar_updated
             if adelta.seconds + (adelta.days * 86400) > 604800:
                 enqueue(avatar, updated)
-            return updated
+            return (updated, False)
         else:
             print('fallback')
             player.fallback = True
-            return player
-    return player
+            return (player, True)
+    return (player, False)
 
 
 def div(x, y):
@@ -71,7 +69,7 @@ def get_player(p):
         # player is banned or something
         if int(raw['account_id']) is 0:
             return None
-        p.nickname = raw['nickname']
+        p.nickname = raw['nickname'].lower()
         p.player_id = int(raw['account_id'])
         p.rnk_games_played = int(raw['rnk_games_played'])
         p.rnk_wins = int(raw['rnk_wins'])

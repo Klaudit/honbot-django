@@ -10,25 +10,22 @@ debug = settings.DEBUG
 
 def get_json(endpoint):
     url = ''.join([baseurl, endpoint, token])
-    raw = ''
-    if debug:
-        print(url)
+    count = 0
     while True:
-        count = 0
         try:
-            raw = get(url, timeout=0.8)
+            raw = get(url)
+            if debug:
+                print(raw.url)
         except exceptions.Timeout:
+            print('timeout')
             count += 1
-            try:
-                raw = get(url, timeout=2)
-            except exceptions.Timeout:
-                return None
         if raw.status_code == 429 and count < 5:
             count += 1
-            sleep(0.2)
+            sleep(0.4)
         elif raw.status_code == 200:
+            return raw.json()
             break
         else:
             return None
-    return raw.json()
+
 

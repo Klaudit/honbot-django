@@ -1,6 +1,6 @@
 from django.utils.timezone import utc
 from django.http import Http404
-from .models import PlayerHistory
+from .models import Player
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from datetime import datetime, timedelta
@@ -15,20 +15,21 @@ return_size = 25
 def player_history(request, pid, page, mode):
     """
     this is the main function of player history
+    returns 404 if user doesn't already exist in db
     """
     count = page * return_size
     p = get_or_update_history(pid)
-    return Response(PlayerHistory.objects.filter(player_id=p.player_id).first())
+    return Response(Player.objects.filter(player_id=p.player_id).values('rnk_history', 'cs_history', 'acc_history', 'history_updated'))
 
 def get_or_update_history(pid):
-    p = PlayerHistory.objects.filter(player_id=pid).first()
+    p = Player.objects.filter(player_id=pid).first()
     if p is None:
+        raise Http404
+    if p.history_updated is None:
         raw = get_json('/match_history/all/accountid/' + pid)
         if raw:
-            p = PlayerHistory(player_id=pid)
             return update_history(p, raw)
         else:
-            # never had history, still don't
             raise Http404
     now = datetime.utcnow().replace(tzinfo=utc)
     tdelta = now - p.history_updated

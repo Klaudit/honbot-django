@@ -5,9 +5,13 @@ class Player(models.Model):
     player_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True, db_index=True)
     nickname = models.CharField(max_length=16, null=True, db_index=True)
     updated = models.DateTimeField(auto_now=True)
-    added = models.DateTimeField(auto_now_add=True)
+    added = models.DateTimeField(auto_now_add=True, null=True)
     avatar = models.URLField(max_length=100, default="")
     avatar_updated = models.DateTimeField(null=True)
+    rnk_history = models.TextField(default="")
+    cs_history = models.TextField(default="")
+    acc_history = models.TextField(default="")
+    history_updated = models.DateTimeField(null=True, blank=True)
     rnk_games_played = models.PositiveIntegerField(null=True)
     rnk_wins = models.PositiveIntegerField(null=True)
     rnk_losses = models.PositiveIntegerField(null=True)
@@ -236,9 +240,3 @@ class Player(models.Model):
         get_latest_by = "updated"
         ordering = ['updated']
 
-
-class PlayerHistory(Player):
-    rnk_history = models.TextField(default="")
-    cs_history = models.TextField(default="")
-    acc_history = models.TextField(default="")
-    history_updated = models.DateTimeField(null=True, blank=True)

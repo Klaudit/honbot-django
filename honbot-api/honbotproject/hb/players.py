@@ -24,16 +24,19 @@ class PlayerViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk):
         queryset = get_or_update_palyer(pk)
         serializer = PlayerSerializer(queryset)
+        print('player retreive success')
         return Response(serializer.data)
 
 
 def get_or_update_palyer(nickname):
+    print(nickname)
     player = Player.objects.filter(nickname=nickname).first()
     if player is None:
         p = Player(nickname=nickname)
         new = get_player(p)
         # TODO add error for none
         if new:
+            print('new player')
             enqueue(avatar, new)
             return new
         else:
@@ -43,11 +46,13 @@ def get_or_update_palyer(nickname):
     if tdelta.seconds + (tdelta.days * 86400) > 800:
         updated = get_player(player)
         if updated:
+            print('updated')
             adelta = now - player.avatar_updated
             if adelta.seconds + (adelta.days * 86400) > 604800:
                 enqueue(avatar, updated)
             return updated
         else:
+            print('fallback')
             player.fallback = True
             return player
     return player
@@ -66,6 +71,7 @@ def get_player(p):
         # player is banned or something
         if int(raw['account_id']) is 0:
             return None
+        p.nickname = raw['nickname']
         p.player_id = int(raw['account_id'])
         p.rnk_games_played = int(raw['rnk_games_played'])
         p.rnk_wins = int(raw['rnk_wins'])

@@ -1,15 +1,19 @@
-from django.utils.timezone import utc
+from django.conf import settings
 from django.http import Http404
+from django.utils.timezone import utc
 
-from .models import Player
-from .serializers import PlayerSerializer
 from .api import get_json
 from .avatar import avatar
+from .models import Player
+from .serializers import PlayerSerializer
+from .utils import div
 
 from datetime import datetime
+from django_rq import enqueue
 from rest_framework import viewsets
 from rest_framework.response import Response
-from django_rq import enqueue
+
+debug = settings.DEBUG
 
 
 class PlayerViewSet(viewsets.ViewSet):
@@ -34,7 +38,8 @@ def get_or_update_palyer(nickname):
         new = get_player(Player(nickname=nickname))
         # TODO add error for none
         if new:
-            print('new player')
+            if debug:
+                print('new player')
             enqueue(avatar, new)
             return (new, False)
         else:
@@ -44,23 +49,20 @@ def get_or_update_palyer(nickname):
     if tdelta.seconds + (tdelta.days * 86400) > 800:
         updated = get_player(player)
         if updated:
-            print('updated')
-            adelta = now - player.avatar_updated
-            if adelta.seconds + (adelta.days * 86400) > 604800:
+            try:
+                adelta = now - player.avatar_updated
+                if adelta.seconds + (adelta.days * 86400) > 604800:
+                    enqueue(avatar, updated)
+            except:
                 enqueue(avatar, updated)
             return (updated, False)
         else:
-            print('fallback')
+            if debug:
+                print('fallback')
             player.fallback = True
             return (player, True)
     return (player, False)
 
-
-def div(x, y):
-    try:
-        return x / y
-    except ZeroDivisionError:
-        return 0
 
 
 def get_player(p):

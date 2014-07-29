@@ -243,15 +243,14 @@ class Player(models.Model):
 
 class Match(models.Model):
     match_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
-    mode = models.CharField(max_length=10, db_index=True, null=False)
-    date = models.DateTimeField(blank=True)
-    replay_url = models.URLField(max_length=120, default="", null=True)
-    length = models.CharField(max_length=10, default="")
-    map_used = models.CharField(max_length=30, default="")
-    major = models.PositiveSmallIntegerField(default=0)
-    minor = models.PositiveSmallIntegerField(default=0)
-    revision = models.PositiveSmallIntegerField(default=0)
-    build = models.PositiveSmallIntegerField(default=0)
+    mode = models.CharField(max_length=3, db_index=True, null=False)
+    date = models.DateTimeField(null=True)
+    length = models.PositiveIntegerField(default=0, null=True)
+    map_used = models.CharField(max_length=18, default="", null=True)
+    major = models.PositiveSmallIntegerField(default=0, null=True)
+    minor = models.PositiveSmallIntegerField(default=0, null=True)
+    revision = models.PositiveSmallIntegerField(default=0, null=True)
+    build = models.PositiveSmallIntegerField(default=0, null=True)
     added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -261,51 +260,45 @@ class Match(models.Model):
 class PlayerMatch(models.Model):
     player_id = models.PositiveIntegerField(default=0, db_index=True)
     match = models.ForeignKey(Match, null=False, db_index=True)
-    deaths = models.PositiveSmallIntegerField(default=0)
+    nickname = models.CharField(max_length=16)
+    clan_id = models.PositiveIntegerField(default=0, null=True)
+    hero_id = models.PositiveSmallIntegerField(default=0, null=True)
+    position = models.PositiveSmallIntegerField(default=0, null=True)
+    team = models.PositiveSmallIntegerField(default=0, null=True)
+    level = models.PositiveSmallIntegerField(default=0, null=True)
     win = models.BooleanField(default=False)
-    apm = models.FloatField(default=0)
-    cs = models.PositiveSmallIntegerField(default=0)
-    buybacks = models.PositiveSmallIntegerField(default=0)
-    bloodlust = models.PositiveSmallIntegerField(default=0)
-    razed = models.PositiveSmallIntegerField(default=0)
-    triplekill = models.PositiveSmallIntegerField(default=0)
-    doublekill = models.PositiveSmallIntegerField(default=0)
-    quadkill = models.PositiveSmallIntegerField(default=0)
-    annihilation = models.PositiveSmallIntegerField(default=0)
-    smackdown = models.PositiveIntegerField(default=0)
-    gold_spent = models.PositiveIntegerField(default=0)
-    exp_denied = models.PositiveIntegerField(default=0)
-    bgold = models.PositiveIntegerField(default=0)
-    secsdead = models.PositiveIntegerField(default=0)
-    gpm = models.FloatField(default=0)
-    bdmg = models.PositiveSmallIntegerField(default=0)
-    herodmg = models.PositiveIntegerField(default=0)
-    xpm = models.FloatField(default=0)
-    kdr = models.FloatField(default=0)
-    mmr_change = models.FloatField(default=0)
-    goldlost2death = models.PositiveSmallIntegerField(default=0)
-    denies = models.PositiveSmallIntegerField(default=0)
-    hero = models.PositiveSmallIntegerField(default=0)
-    kills = models.PositiveSmallIntegerField(default=0)
-    consumables = models.PositiveSmallIntegerField(default=0)
-    assists = models.PositiveSmallIntegerField(default=0)
-    nickname = models.TextField(max_length=25, default="")
-    level = models.PositiveSmallIntegerField(default=0)
-    wards = models.PositiveSmallIntegerField(default=0)
-    team = models.PositiveSmallIntegerField(default=0)
-    position = models.PositiveSmallIntegerField(default=0)
+    losses = models.PositiveSmallIntegerField(default=0, null=True)
+    concedes = models.PositiveSmallIntegerField(default=0, null=True)
+    concedevotes = models.PositiveSmallIntegerField(default=0, null=True)
+    buybacks = models.PositiveSmallIntegerField(default=0, null=True)
+    discos = models.PositiveSmallIntegerField(default=0, null=True)
+    kicked = models.PositiveSmallIntegerField(default=0, null=True)
+    mmr_change = models.FloatField(default=0, null=True)
+    herodmg = models.PositiveIntegerField(default=0, null=True)
+    kills = models.PositiveSmallIntegerField(default=0, null=True)
+    assists = models.PositiveSmallIntegerField(default=0, null=True)
+    deaths = models.PositiveSmallIntegerField(default=0, null=True)
+    kdr = models.FloatField(default=0, null=True)
+    goldlost2death = models.PositiveIntegerField(default=0, null=True)
+    secs_dead = models.PositiveIntegerField(default=0, null=True)
+    cs = models.PositiveSmallIntegerField(default=0, null=True)
+    bdmg = models.PositiveIntegerField(default=0, null=True)
+    denies = models.PositiveSmallIntegerField(default=0, null=True)
+    gpm = models.FloatField(default=0, null=True)
+    xpm = models.FloatField(default=0, null=True)
+    apm = models.FloatField(default=0, null=True)
+    consumables = models.PositiveSmallIntegerField(default=0, null=True)
+    wards = models.PositiveSmallIntegerField(default=0, null=True)
     items = models.CharField(max_length=50, default="")
-    mode = models.CharField(max_length=10, default="")
-    date = models.DateTimeField(blank=True)
 
     class Meta:
         abstract = True
 
-class PlayerMatchRNK(Match):
+class PlayerMatchRNK(PlayerMatch):
     pass
 
-class PlayerMatchCS(Match):
+class PlayerMatchCS(PlayerMatch):
     pass
 
-class PlayerMatchACC(Match):
+class PlayerMatchACC(PlayerMatch):
     pass

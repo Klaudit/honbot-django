@@ -15,7 +15,7 @@
         },
         {
             "path": ".",
-            "folder_exclude_patterns": ["*"],
+            "folder_include_patterns": ["nginx"],
             "name": "root",
         },
 	]

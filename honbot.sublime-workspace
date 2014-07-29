@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"Play",
+				"PlayerMatch	class"
+			],
+			[
+				"get",
+				"get_json	function"
+			],
+			[
+				"history",
+				"history_updated"
+			],
+			[
 				"up",
 				"upload_instagram"
 			],
@@ -31,13 +43,81 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "honbot-api/honbotproject/hb/serializers.py",
+			"settings":
+			{
+				"buffer_size": 380,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "honbot-api/honbotproject/hb/players.py",
+			"settings":
+			{
+				"buffer_size": 15881,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "honbot-api/honbotproject/hb/match.py",
+			"settings":
+			{
+				"buffer_size": 1004,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "honbot-api/honbotproject/hb/utils.py",
+			"settings":
+			{
+				"buffer_size": 321,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "honbot-api/honbotproject/hb/urls.py",
+			"settings":
+			{
+				"buffer_size": 431,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "honbot-api/honbotproject/hb/api.py",
+			"settings":
+			{
+				"buffer_size": 752,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "honbot-api/honbotproject/hb/models.py",
+			"settings":
+			{
+				"buffer_size": 16011,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 137.0,
+		"height": 375.0,
 		"selected_items":
 		[
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"pretty",
+				"HTMLPrettify"
+			],
+			[
+				"html",
+				"HTMLPrettify"
+			],
 			[
 				"report",
 				"SublimeLinter: Report (Open Files)"
@@ -65,10 +145,6 @@
 			[
 				"sass",
 				"Set Syntax: Sass"
-			],
-			[
-				"html",
-				"Set Syntax: HTML"
 			],
 			[
 				"css",
@@ -120,6 +196,48 @@
 	},
 	"file_history":
 	[
+		"/Users/scott/Documents/honbot-django/honbot-api/requirements/local.txt",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/honbotproject/__init__.py",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/hb/api.py",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/index.html",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/manage.py",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/hb/players.py",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/scripts/controllers/PlayerController.js",
+		"/Users/scott/Documents/honbot-django/honbot-www/Gruntfile.js",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/hb/models.py",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/hb/serializers.py",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/hb/urls.py",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/hb/history.py",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/hb/match.py",
+		"/Users/scott/Documents/honbot-django/honbot.sublime-project",
+		"/Users/scott/Documents/honbot-django/web.js",
+		"/Users/scott/Documents/honbot-django/nginx/api",
+		"/Users/scott/Documents/honbot-django/nginx/www",
+		"/Users/scott/Documents/honbot-django/Procfile",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/views/player.html",
+		"/Users/scott/Documents/honbot-django/honbot-api/honbotproject/honbotproject/settings.py",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/styles/main.scss",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/scripts/controllers/NavController.js",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/views/nav.html",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/scripts/controllers/HomeController.js",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/scripts/app.js",
+		"/Users/scott/Documents/honbot-django/honbot-api/requirements/test.txt",
+		"/Users/scott/Documents/honbot-django/.gitignore",
+		"/Users/scott/Documents/honbot-django/honbot-www/.jshintrc",
+		"/Users/scott/Documents/honbot-django/honbot-www/.bowerrc",
+		"/Users/scott/Documents/honbot-django/honbot-www/.editorconfig",
+		"/Users/scott/Documents/honbot-django/honbot-www/.gitattributes",
+		"/Users/scott/Documents/honbot-django/honbot-www/package.json",
+		"/Users/scott/Documents/honbot-django/honbot.sublime-workspace",
+		"/Users/scott/Documents/honbot-django/honbot-www/Procfile",
+		"/Users/scott/Documents/honbot-django/honbot-www/web.js",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/views/home.html",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/bower_components/jquery/src/var/hasOwn.js",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/bower_components/es5-shim/CONTRIBUTORS.md",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/bower_components/bootstrap-sass-official/CONTRIBUTING.md",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/bower_components/bootstrap-sass-official/composer.json",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/bower_components/es5-shim/CHANGES",
+		"/Users/scott/Documents/honbot-django/honbot-www/app/bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap/mixins/_nav-vertical-align.scss",
 		"/etc/hosts",
 		"/Users/scott/ptrepo/PunchTab/web/punchtab/api/urls.py",
 		"/Users/scott/ptrepo/PunchTab/web/punchtab/core/optin/views/api.py",
@@ -205,53 +323,11 @@
 		"/Users/scott/ptrepo/PunchTab/web/punchtab/campaign2/templates/skinnycow/footer.html",
 		"/Users/scott/ptrepo/PunchTab/web/punchtab/campaign2/templates/skinnycow/running_connected.html",
 		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/bundles/all.packed.e7220743.js",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/settings/test.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/js/pt/widget/loyaltyStream.js",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/js/pt/option.js",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/customers/skinnycow/reports/engagement.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/customers/skinnycow/reports/acquisition.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/customers/skinnycow/reports/participation.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/reports/management/commands/report_campaign_activity.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/reports/css/reports.css",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/reports/.gitignore",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/customers/kroger/reports/survey.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/reports/tasks.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/reports/js/content-sharing/networks-pie.js",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/campaign2/templates/skinnycow/template/reset.html",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/settings/__init__.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/wibiya/templates/settings.xml",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/puncher/templatetags/pt_tags.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/param.json",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/campaign2/harlequin/js/route.js",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/router.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/pos/impl/retail_online_import.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/js/pt/util.js",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/providers/bigdata/models.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/providers/bigdata/managers/campaign.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/customers/skinnycow/reports/reach.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/customers/edge/reports/reach.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/settings/prod.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/campaign2/vikings/css/campaign (Chris Basey's conflicted copy 2014-01-27).css",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/config/fixtures/initial_data.json",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/abtesting/fixtures/initial_data.json",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/puncher/management/commands/instagram_import.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/nd/js/iframe_giveaway_not_found.js",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/lib/i18n.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/providers/bigdata/managers/__init__.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/providers/bigdata/management/__init__.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/providers/bigdata/bityota/models.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/badge/templates/badge_index2.html",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/lib/backends.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/puncher/templates/activity_stream.html",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/api/tests/activity.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/static/js/pt/action.js",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/api/fixtures/api-category.json",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/platforms/coupons_dot_com/lib.py",
-		"/Users/scott/ptrepo/PunchTab/web/punchtab/puncher/mail.py"
+		"/Users/scott/ptrepo/PunchTab/web/punchtab/settings/test.py"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 37.0
 	},
 	"find_in_files":
 	{
@@ -268,6 +344,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"=",
+			":",
+			"=",
+			"Matches",
+			"db_index",
+			"html5mode",
+			"baseurl",
 			"getoptin",
 			"console.log(i)",
 			"console.log",
@@ -388,14 +471,7 @@
 			"HomeController",
 			"home",
 			" angular.forEach(activeEpisodes",
-			"HomeController",
-			"wants to share",
-			"survey_1",
-			"key=",
-			"25px",
-			"personal email",
-			"pt-modal-email-content",
-			"toolbar"
+			"HomeController"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -413,8 +489,213 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "honbot-api/honbotproject/hb/serializers.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 380,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								72,
+								72
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "honbot-api/honbotproject/hb/players.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15881,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								367,
+								367
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 462.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "honbot-api/honbotproject/hb/match.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1004,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1004,
+								1004
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "honbot-api/honbotproject/hb/utils.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 321,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								210,
+								210
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "honbot-api/honbotproject/hb/urls.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 431,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								389,
+								389
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "honbot-api/honbotproject/hb/api.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 752,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								32,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "honbot-api/honbotproject/hb/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16011,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15898,
+								15884
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4284.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -469,6 +750,94 @@
 		"selected_items":
 		[
 			[
+				"util",
+				"api/honbotproject/hb/utils.py"
+			],
+			[
+				"url",
+				"api/honbotproject/hb/urls.py"
+			],
+			[
+				"api",
+				"api/honbotproject/hb/api.py"
+			],
+			[
+				"mat",
+				"api/honbotproject/hb/match.py"
+			],
+			[
+				"players",
+				"api/honbotproject/hb/players.py"
+			],
+			[
+				"player",
+				"api/honbotproject/hb/players.py"
+			],
+			[
+				"mode",
+				"api/honbotproject/hb/models.py"
+			],
+			[
+				"seri",
+				"api/honbotproject/hb/serializers.py"
+			],
+			[
+				"play",
+				"api/honbotproject/hb/players.py"
+			],
+			[
+				"serai",
+				"api/honbotproject/hb/serializers.py"
+			],
+			[
+				"sser",
+				"www/app/scripts/controllers/PlayerController.js"
+			],
+			[
+				"navcon",
+				"www/app/scripts/controllers/NavController.js"
+			],
+			[
+				"home",
+				"www/app/scripts/controllers/HomeController.js"
+			],
+			[
+				"grutn",
+				"www/Gruntfile.js"
+			],
+			[
+				"playercon",
+				"www/app/scripts/controllers/PlayerController.js"
+			],
+			[
+				".gi",
+				"www/.gitattributes"
+			],
+			[
+				".git",
+				"root/.gitignore"
+			],
+			[
+				"homecon",
+				"www/app/scripts/controllers/HomeController.js"
+			],
+			[
+				"history",
+				"api/honbotproject/hb/history.py"
+			],
+			[
+				"player.p",
+				"api/honbotproject/hb/players.py"
+			],
+			[
+				"model",
+				"api/honbotproject/hb/models.py"
+			],
+			[
+				"na",
+				"www/app/scripts/controllers/NavController.js"
+			],
+			[
 				"welcome.js",
 				"static/campaign2/skinnycow/data/survey/welcome.js"
 			],
@@ -499,10 +868,6 @@
 			[
 				"authori",
 				"api/authorization.py"
-			],
-			[
-				"home",
-				"campaign2/templates/vikings/home.html"
 			],
 			[
 				"skinnycow/cam",
@@ -751,10 +1116,6 @@
 			[
 				"mana",
 				"honbot-rest/honbotproject/manage.py"
-			],
-			[
-				"url",
-				"honbot-rest/honbotproject/honbotproject/urls.py"
 			],
 			[
 				"setting",

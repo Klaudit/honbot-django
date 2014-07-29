@@ -1,11 +1,13 @@
-from django.utils.timezone import utc
 from django.http import Http404
+from django.utils.timezone import utc
+
+from .api import get_json
 from .models import Player
+
+from datetime import datetime
+from json import dumps, loads
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from datetime import datetime, timedelta
-from json import dumps, loads
-from .api import get_json
 
 
 return_size = 25
@@ -19,10 +21,10 @@ def player_history(request, pid, page, mode):
     """
     count = page * return_size
     p = get_or_update_history(pid)
-    h = p[mode + '_history']
-    if len(h) > 0:
-        verify_matches(h, mode)
-    return Response(Player.objects.filter(player_id=p.player_id).values('rnk_history', 'cs_history', 'acc_history', 'history_updated'))
+    h = loads(p[mode + '_history'])
+    # if len(h) > 0:
+    #     verify_matches(h, mode)
+    return Response(h)
 
 def get_or_update_history(pid):
     p = Player.objects.filter(player_id=pid).first()
@@ -58,21 +60,21 @@ def update_history(p, raw):
     p.save()
     return p
 
-# def verify_matches(hist, mode):
-#     """
-#     this checks for matches to exist in the database. If they do not exist they are then downloaded.
-#     """
-#     findexisting = Matches.objects.filter(match_id__in=hist).values('match_id')
-#     existing = set([int(match['match_id']) for match in findexisting])
-#     missing = [x for x in hist if x not in existing]
-#     # if any are missing FIND THEM
-#     if len(missing) != 0:
-#         strmatches = ''
-#         for match in missing:
-#             strmatches += str(match)
-#             if match != missing[-1]:
-#                 strmatches += '+'
-#         url = '/multi_match/all/matchids/' + strmatches
-#         raw = get_json(url)
-#         if raw is not None:
-#             multimatch(raw, missing, mode)
+def verify_matches(hist, mode):
+    """
+    this checks for matches to exist in the database. If they do not exist they are then downloaded.
+    """
+    findexisting = Matches.objects.filter(match_id__in=hist).values('match_id')
+    existing = set([int(match['match_id']) for match in findexisting])
+    missing = [x for x in hist if x not in existing]
+    # if any are missing FIND THEM
+    if len(missing) != 0:
+        strmatches = ''
+        for match in missing:
+            strmatches += str(match)
+            if match != missing[-1]:
+                strmatches += '+'
+        url = '/multi_match/all/matchids/' + strmatches
+        raw = get_json(url)
+        if raw is not None:
+            multimatch(raw, missing, mode)

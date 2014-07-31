@@ -64,7 +64,6 @@ def get_or_update_palyer(nickname):
     return (player, False)
 
 
-
 def get_player(p):
     raw = get_json('/player_statistics/all/nickname/' + p.nickname)
     if raw:

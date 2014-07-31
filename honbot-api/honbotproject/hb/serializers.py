@@ -13,5 +13,7 @@ class PlayerSerializer(serializers.ModelSerializer):
 class MatchSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Player
+        model = Match
         depth = 1
+
+

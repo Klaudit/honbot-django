@@ -1,6 +1,7 @@
 from .api import get_json
 from .models import Match
 from .utils import pmoselect, divmin, div
+from .serializers import MatchSerializer
 from django.http import Http404
 from json import dumps, loads
 
@@ -13,21 +14,19 @@ def match(request, mid):
     """
     match view
     """
-    m = Match.objects.filter(match_id=mid)
-    if len(m) != 1:
+    m = Match.objects.filter(match_id=mid).first()
+    if m is None:
         raw = get_json('/match/all/matchid/' + mid)
         if raw:
             m = single_match(raw, mid)
-            m['players'] = pmoselect(m.mode).objects.filter(match_id=mid)
-            return Response(m)
         else:
             raise Http404
-    m = m.values()[0]
-    PMObj = pmoselect(m['mode'])
-    m['players'] = PMObj.objects.filter(match_id=mid).order_by('position').values()
-    for p in m['players']:
+    serializer = MatchSerializer(m)
+    PMObj = pmoselect(m.mode)
+    serializer.data['players'] = PMObj.objects.filter(match_id=mid).order_by('position').values()
+    for p in serializer.data['players']:
         p['items'] = loads(p['items'])
-    return Response(m)
+    return Response(serializer.data)
 
 
 def single_match(raw, mid):

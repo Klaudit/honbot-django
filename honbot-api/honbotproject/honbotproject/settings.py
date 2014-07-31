@@ -52,7 +52,8 @@ INSTALLED_APPS = (
     'corsheaders',
     'hb',
     'django_rq',
-    'django_extensions'
+    'django_extensions',
+    'debug_toolbar'
 )
 
 MIDDLEWARE_CLASSES = (

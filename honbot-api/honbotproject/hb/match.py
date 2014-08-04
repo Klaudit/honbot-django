@@ -29,14 +29,29 @@ def match(request, mid):
     return Response(serializer.data)
 
 
+def multimatch(matches):
+    raw = get_json('/multi_match/all/matchids/' + '+'.join(str(x) for x in matches))
+    if raw is None:
+        raise Http404
+    for m in raw[0]:
+        temp = []
+        temp.append([m])
+        c = m['match_id']
+        temp.append([x for x in raw[1] if x['match_id'] == c])
+        temp.append([x for x in raw[2] if x['match_id'] == c])
+        temp.append([x for x in raw[3] if x['match_id'] == c])
+        single_match(temp, c)
+
+
 def single_match(raw, mid):
     m = Match(match_id=mid)
-    if raw[0][0]['officl'] and raw[0][0]['cas']:
+    if raw[0][0]['officl'] == "1" and raw[0][0]['cas'] == "1":
         m.mode = 'cs'
-    elif raw[0][0]['officl'] and not raw[0][0]['cas']:
+    elif raw[0][0]['officl'] == "1" and raw[0][0]['cas'] == "0":
         m.mode = "rnk"
     else:
         m.mode = "acc"
+    print(m.mode)
     v = raw[3][0]['version'].split('.')
     if len(v) > 1:
         m.major = int(v[0])
@@ -51,8 +66,9 @@ def single_match(raw, mid):
     m.save()
     PMObj = pmoselect(m.mode)
     pdict = {}
-    for p in raw[1]:
+    for p in raw[2]:
         pdict[p['account_id']] = PMObj(player_id=p['account_id'], match_id=mid)
+    for p in raw[1]:
         items = []
         for item in range(1, 7):
             if p['slot_' + str(item)] is not None:

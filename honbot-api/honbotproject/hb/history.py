@@ -2,7 +2,9 @@ from django.http import Http404
 from django.utils.timezone import utc
 
 from .api import get_json
-from .models import Player
+from .models import Player, Match
+from .match import multimatch
+from .utils import pmoselect
 
 from datetime import datetime
 from json import dumps, loads
@@ -19,12 +21,15 @@ def player_history(request, pid, page, mode):
     this is the main function of player history
     returns 404 if user doesn't already exist in db
     """
-    count = page * return_size
-    p = get_or_update_history(pid)
-    h = loads(p[mode + '_history'])
-    # if len(h) > 0:
-    #     verify_matches(h, mode)
-    return Response(h)
+    count = int(page) * return_size
+    pl = get_or_update_history(pid)
+    his = loads(pl.__history__()[mode])[(count - return_size):count]
+    if len(his) > 0:
+        verify_matches(his, mode)
+    ph = pmoselect(mode).objects.filter(match_id__in=his, player_id=pid).values()
+    for p in ph:
+        p['items'] = loads(p['items'])
+    return Response(ph)
 
 def get_or_update_history(pid):
     p = Player.objects.filter(player_id=pid).first()
@@ -64,17 +69,10 @@ def verify_matches(hist, mode):
     """
     this checks for matches to exist in the database. If they do not exist they are then downloaded.
     """
-    findexisting = Matches.objects.filter(match_id__in=hist).values('match_id')
+    print('verify')
+    findexisting = Match.objects.filter(match_id__in=hist).values('match_id')
     existing = set([int(match['match_id']) for match in findexisting])
     missing = [x for x in hist if x not in existing]
     # if any are missing FIND THEM
     if len(missing) != 0:
-        strmatches = ''
-        for match in missing:
-            strmatches += str(match)
-            if match != missing[-1]:
-                strmatches += '+'
-        url = '/multi_match/all/matchids/' + strmatches
-        raw = get_json(url)
-        if raw is not None:
-            multimatch(raw, missing, mode)
+        multimatch(missing)

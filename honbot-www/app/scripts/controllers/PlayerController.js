@@ -3,21 +3,19 @@
 angular.module('hb-www-app')
     .controller('PlayerController', function($scope, $routeParams, $http, BaseUrl, $location) {
         $scope.view = 'player';
+        $scope.pview = 'stats';
         $scope.s = {};
         $scope.s.avatar = 'images/default_avatar.png';
         $scope.nickname = $routeParams.player;
-        $scope.url = '';
         if ($routeParams.mode === undefined) {
             $scope.m = 'rnk';
             $scope.modefull = 'Ranked';
         } else if ($routeParams.mode === 'c') {
             $scope.m = 'cs';
             $scope.modefull = 'Casual';
-            $scope.url = '/c';
         } else if ($routeParams.mode === 'p') {
             $scope.m = 'acc';
             $scope.modefull = 'Public';
-            $scope.url = '/p';
         }
         $scope.player = $routeParams.player;
         var url = BaseUrl + '/player/' + $routeParams.player + '/';
@@ -45,7 +43,6 @@ angular.module('hb-www-app')
             } else {
                 $location.path('/player/' + $scope.nickname + '/', false);
             }
-
         };
 
     });

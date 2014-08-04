@@ -240,6 +240,9 @@ class Player(models.Model):
         get_latest_by = "updated"
         ordering = ['updated']
 
+    def __history__(self):
+        return {'rnk': self.rnk_history, 'cs': self.cs_history, 'acc': self.acc_history}
+
 
 class Match(models.Model):
     match_id = models.PositiveIntegerField(primary_key=True, null=False, unique=True)
@@ -293,6 +296,7 @@ class PlayerMatch(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ['-match_id']
 
 class PlayerMatchRNK(PlayerMatch):
     pass

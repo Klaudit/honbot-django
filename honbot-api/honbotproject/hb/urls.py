@@ -1,6 +1,6 @@
 from rest_framework.routers import SimpleRouter
 from django.conf.urls import patterns, url
-from .players import PlayerViewSet
+from .player import PlayerViewSet
 
 router = SimpleRouter()
 router.register(r'player', PlayerViewSet, base_name="Player")

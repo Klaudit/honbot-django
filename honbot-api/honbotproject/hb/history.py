@@ -1,5 +1,4 @@
 from django.http import Http404
-from django.utils.timezone import utc
 
 from .api import get_json
 from .models import Player, Match
@@ -28,7 +27,10 @@ def player_history(request, pid, page, mode):
         verify_matches(his, mode)
     ph = pmoselect(mode).objects.filter(match_id__in=his, player_id=pid).values()
     for p in ph:
-        p['items'] = loads(p['items'])
+        try:
+            p['items'] = loads(p['items'])
+        except:
+            p['items'] = None
     return Response(ph)
 
 def get_or_update_history(pid):
@@ -41,7 +43,7 @@ def get_or_update_history(pid):
             return update_history(p, raw)
         else:
             raise Http404
-    now = datetime.utcnow().replace(tzinfo=utc)
+    now = datetime.now()
     tdelta = now - p.history_updated
     if tdelta.seconds + (tdelta.days * 86400) > 800:
         raw = get_json('/match_history/all/accountid/' + pid)
@@ -61,7 +63,7 @@ def update_history(p, raw):
     p.rnk_history = dumps(parsed[0][::-1])
     p.cs_history = dumps(parsed[1][::-1])
     p.acc_history = dumps(parsed[2][::-1])
-    p.history_updated = datetime.utcnow().replace(tzinfo=utc)
+    p.history_updated = datetime.now()
     p.save()
     return p
 
@@ -69,7 +71,6 @@ def verify_matches(hist, mode):
     """
     this checks for matches to exist in the database. If they do not exist they are then downloaded.
     """
-    print('verify')
     findexisting = Match.objects.filter(match_id__in=hist).values('match_id')
     existing = set([int(match['match_id']) for match in findexisting])
     missing = [x for x in hist if x not in existing]

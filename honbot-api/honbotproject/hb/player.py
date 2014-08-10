@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.http import Http404
-from django.utils.timezone import utc
 
 from .api import get_json
 from .avatar import avatar
@@ -44,7 +43,7 @@ def get_or_update_palyer(nickname):
             return (new, False)
         else:
             raise Http404
-    now = datetime.utcnow().replace(tzinfo=utc)
+    now = datetime.now()
     tdelta = now - player.updated
     if tdelta.seconds + (tdelta.days * 86400) > 800:
         updated = get_player(player)

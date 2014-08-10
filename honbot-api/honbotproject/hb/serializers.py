@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Player, Match
+from .models import Player, Match, PlayerMatchRNK
 
 
 class PlayerSerializer(serializers.ModelSerializer):
@@ -15,5 +15,3 @@ class MatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
         depth = 1
-
-

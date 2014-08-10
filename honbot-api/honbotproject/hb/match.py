@@ -1,8 +1,9 @@
+from django.http import Http404
+
 from .api import get_json
 from .models import Match
 from .utils import pmoselect, divmin, div
 from .serializers import MatchSerializer
-from django.http import Http404
 from json import dumps, loads
 
 from rest_framework.decorators import api_view
@@ -25,7 +26,10 @@ def match(request, mid):
     PMObj = pmoselect(m.mode)
     serializer.data['players'] = PMObj.objects.filter(match_id=mid).order_by('position').values()
     for p in serializer.data['players']:
-        p['items'] = loads(p['items'])
+        if p['items'] != '':
+            p['items'] = loads(p['items'])
+        else:
+            p['items'] = []
     return Response(serializer.data)
 
 
@@ -51,7 +55,6 @@ def single_match(raw, mid):
         m.mode = "rnk"
     else:
         m.mode = "acc"
-    print(m.mode)
     v = raw[3][0]['version'].split('.')
     if len(v) > 1:
         m.major = int(v[0])
@@ -68,14 +71,7 @@ def single_match(raw, mid):
     pdict = {}
     for p in raw[2]:
         pdict[p['account_id']] = PMObj(player_id=p['account_id'], match_id=mid)
-    for p in raw[1]:
-        items = []
-        for item in range(1, 7):
-            if p['slot_' + str(item)] is not None:
-                items.append(p['slot_' + str(item)])
-        pdict[p['account_id']].items = dumps(items)
         pdict[p['account_id']].nickname = p['nickname']
-    for p in raw[2]:
         pdict[p['account_id']].clan_id = p['clan_id']
         pdict[p['account_id']].hero_id = p['hero_id']
         pdict[p['account_id']].position = p['position']
@@ -104,6 +100,15 @@ def single_match(raw, mid):
         pdict[p['account_id']].apm = divmin(p['actions'], m.length)
         pdict[p['account_id']].consumables = p['consumables']
         pdict[p['account_id']].wards = p['wards']
+    for p in raw[1]:
+        items = []
+        for item in range(1, 7):
+            if p['slot_' + str(item)] is not None:
+                items.append(p['slot_' + str(item)])
+        if len(items) > 0:
+            pdict[p['account_id']].items = dumps(items)
+        else:
+            pdict[p['account_id']].items = None
     bulk = list(pdict.values())
     PMObj.objects.bulk_create(bulk)
     return m

@@ -681,7 +681,7 @@ a.list-group-item:focus {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
 }
-.match-loss {
+.matchloss {
     border-collapse: separate;
     border-left: 2px solid #CC0000;
     background-color: rgba(255, 92, 92, .1);
@@ -693,14 +693,14 @@ a.list-group-item:focus {
     line-height: 25px;
 }
 
-.match-win {
+.matchwin {
     border-collapse: separate;
     border-left: 2px solid #006600;
     padding-bottom: 0;
     background-color: rgba(0, 193, 158, .1);
 }
 
-.match-win img, .match-loss img {
+.matchwin img, .matchloss img {
     width: 30px;
     margin-top: -2px;
     margin-bottom: -2px;

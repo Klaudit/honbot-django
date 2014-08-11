@@ -293,6 +293,7 @@ class PlayerMatch(models.Model):
     consumables = models.PositiveSmallIntegerField(default=0, null=True)
     wards = models.PositiveSmallIntegerField(default=0, null=True)
     items = models.CharField(max_length=50, default="")
+    date = models.DateTimeField(null=True)
 
     class Meta:
         abstract = True

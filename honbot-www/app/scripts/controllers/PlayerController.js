@@ -19,18 +19,18 @@ angular.module('hb-www-app')
         }
         $scope.player = $routeParams.player;
         var url = BaseUrl + '/player/' + $routeParams.player + '/';
-        console.log(url);
         $http({
             method: 'GET',
             url: url
-        }).
-        success(function(res) {
+        })
+        .success(function(res) {
             $scope.s = res;
             $scope.s.rnk_mmr = Math.floor($scope.s.rnk_mmr);
             $scope.s.cs_mmr = Math.floor($scope.s.cs_mmr);
             $scope.s.acc_mmr = Math.floor($scope.s.acc_mmr);
-        }).
-        error(function(res) {
+            $scope.$broadcast('playerLoaded', res.player_id);
+        })
+        .error(function(res) {
             console.log(res);
             console.log('ERORROROROR');
         });

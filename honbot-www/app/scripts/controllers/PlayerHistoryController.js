@@ -1,21 +1,18 @@
 'use strict';
 
 angular.module('hb-www-app')
-    .controller('PlayerHistoryController', function($scope, $http, BaseUrl) {
+    .controller('PlayerHistoryController', function($scope, $http, BaseUrl, $location) {
         $scope.currentcount = 1;
         $scope.more = function(){
             if($scope.s){
-                $scope.currentcount += 1;
-                $scope.url = BaseUrl + '/player_history/' + $scope.s.player_id + '/' + $scope.currentcount + '/' + $scope.m;
+                $scope.url = BaseUrl + '/player_history/' + $scope.s.player_id + '/' + $scope.currentcount + '/' + $scope.m + '/';
                 $http({
                     method: 'GET',
                     url: $scope.url
                 }).
                 success(function(res) {
-                    $scope.s = res;
-                    $scope.s.rnk_mmr = Math.floor($scope.s.rnk_mmr);
-                    $scope.s.cs_mmr = Math.floor($scope.s.cs_mmr);
-                    $scope.s.acc_mmr = Math.floor($scope.s.acc_mmr);
+                    $scope.history = res;
+                    console.log(res);
                 }).
                 error(function(res) {
                     console.log(res);
@@ -23,6 +20,22 @@ angular.module('hb-www-app')
                 });
             }
         };
+        $scope.next = function(){
+            $scope.currentcount += 1;
+            $scope.more();
+        };
+        $scope.previous = function(){
+            if($scope.currentcount > 1){
+                $scope.currentcount = $scope.currentcount - 1;
+            }
+            $scope.more();
+        };
+        $scope.goMatch = function(match_id){
+            $location.path('/match/' + match_id + '/');
+        };
+        $scope.$on('playerLoaded', function(event, data){
+            $scope.more(data);
+        });
         
         
 

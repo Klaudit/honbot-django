@@ -7,6 +7,7 @@ angular
         'ngSanitize',
         'ngRoute',
         'percentage',
+        'ui.bootstrap',
         'angular-loading-bar'
     ])
     .config(function($routeProvider, $locationProvider) {
@@ -24,6 +25,10 @@ angular
             .when('/:mode/player/:player/', {
                 templateUrl: '/views/player.html',
                 controller: 'PlayerController'
+            })
+            .when('/match/:match/', {
+                templateUrl: '/views/match.html',
+                controller: 'MatchController'
             })
             .otherwise({
                 redirectTo: '/'

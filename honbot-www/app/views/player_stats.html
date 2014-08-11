@@ -223,7 +223,6 @@
             </div>
         </div>
         <div style="padding-left:0;" class="col-lg-7 col-md-7 col-sm-9 col-xs-12 text-center" ng-controller="PlayerHistoryController">
-            {{ currentcount }}
             <table id="history" class="table table-header table-condensed recent-match">
                 <thead>
                     <tr>
@@ -237,15 +236,21 @@
                     </tr>
                 </thead>
 
-                <tbody id="recent-matches">
+                <tbody>
+                    <tr ng-repeat="(key, match) in history" ng-click="goMatch(match.match_id)" ng-class="{matchloss: !match.win, matchwin: match.win}">
+                        <td><img ng-src="/images/heroes/{{match.hero_id}}/icon_30.jpg">{{ match.level }}</td>
+                        <td>{{ match.kills }} / {{ match.deaths }} / {{ match.assists }}</td>
+                        <td>{{ match.apm | number:0 }}</td>
+                        <td>{{ match.gpm | number:0 }}</td>
+                        <td>{{ match.mmr_change | number:0 }}</td>
+                        <td>{{ match.date | date:'MMM d h:mm a' }}</td>
+                        <td>{{ match.match_id }}</td>
+                    </tr>
                 </tbody>
             </table>
-            <p><i id="match-load" class="fa fa-spinner fa-2x fa-spin"></i>
             </p>
-            <a ng-click="more()" class="btn btn-default btn-small">Load More</a>
-
-            <div id="no-more"></div>
-            <br>
+            <a ng-click="previous()" ng-show="currentcount > 1" class="btn btn-default btn-small"><i class="fa fa-arrow-circle-left"></i> Previous</a>
+            <a ng-click="next()" class="btn btn-default btn-small">Next <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>

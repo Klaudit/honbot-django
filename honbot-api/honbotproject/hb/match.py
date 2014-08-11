@@ -74,10 +74,11 @@ def single_match(raw, mid):
         pdict[p['account_id']].nickname = p['nickname']
         pdict[p['account_id']].clan_id = p['clan_id']
         pdict[p['account_id']].hero_id = p['hero_id']
+        pdict[p['account_id']].date = m.date
         pdict[p['account_id']].position = p['position']
         pdict[p['account_id']].team = p['team']
         pdict[p['account_id']].level = p['level']
-        pdict[p['account_id']].win = p['wins']
+        pdict[p['account_id']].win = bool(int(p['wins']))
         pdict[p['account_id']].losses = p['losses']
         pdict[p['account_id']].concedes = p['concedes']
         pdict[p['account_id']].concedevotes = p['concedevotes']

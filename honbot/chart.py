@@ -27,9 +27,11 @@ def chart_view(request, name, mode, stats, limit):
     # return error if no matches available
     if available == 0:
         return error(request, "You don't seem to have enough matches for us to display this.")
-    matches = matches[:limit]
     if limit > available:
         limit = available
+    else:
+        matches = matches[:limit]
+    limit = len(matches)
     # calculate mmr backwards
     # set first point to current mmr from stats
     mmr = [0]

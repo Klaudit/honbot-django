@@ -4,7 +4,7 @@ from .api import get_json
 from .models import Match
 from .utils import pmoselect, divmin, div
 from .serializers import MatchSerializer
-from json import dumps, loads
+from json import dumps
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -13,7 +13,8 @@ from rest_framework.response import Response
 @api_view(['GET'])
 def match(request, mid):
     """
-    match view
+    Returns a single match from ID  
+    Players are returned in an array and their items are a json array dumped into a string
     """
     m = Match.objects.filter(match_id=mid).first()
     if m is None:
@@ -25,18 +26,13 @@ def match(request, mid):
     serializer = MatchSerializer(m)
     PMObj = pmoselect(m.mode)
     serializer.data['players'] = PMObj.objects.filter(match_id=mid).order_by('position').values()
-    for p in serializer.data['players']:
-        if p['items'] != '':
-            p['items'] = loads(p['items'])
-        else:
-            p['items'] = []
     return Response(serializer.data)
 
 
 def multimatch(matches):
     raw = get_json('/multi_match/all/matchids/' + '+'.join(str(x) for x in matches))
     if raw is None:
-        raise Http404
+        return None
     for m in raw[0]:
         temp = []
         temp.append([m])

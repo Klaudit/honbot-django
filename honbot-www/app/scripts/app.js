@@ -39,10 +39,11 @@ angular
         } else {
             return 'http://api.honbot.com';
         }
-    }).run(['$route', '$rootScope', '$location',
-        function($route, $rootScope, $location) {
+    }).run(['$route', '$rootScope', '$location', '$http',
+        function($route, $rootScope, $location, $http) {
             // this lets the path change without reloading route
             var original = $location.path;
+            $rootScope.pos_colors = ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29', '#ff44ab', '#727272', '#00a0da', '#006448', '#562507'];
             $location.path = function(path, reload) {
                 if (reload === false) {
                     var lastRoute = $route.current;
@@ -53,5 +54,13 @@ angular
                 }
                 return original.apply($location, [path]);
             };
+            $http({method: 'GET', url: 'scripts/data/items.json'})
+            .success(function(res){
+                $rootScope.item_names = res;
+            });
+            $http({method: 'GET', url: 'scripts/data/heroes.json'})
+            .success(function(res){
+                $rootScope.hero_names = res;
+            });
         }
     ]);

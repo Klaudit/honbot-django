@@ -238,7 +238,7 @@
 
                 <tbody>
                     <tr ng-repeat="(key, match) in history" ng-click="goMatch(match.match_id)" ng-class="{matchloss: !match.win, matchwin: match.win}">
-                        <td><img ng-src="/images/heroes/{{match.hero_id}}/icon_30.jpg">{{ match.level }}</td>
+                        <td><img ng-src="/images/heroes/{{match.hero_id}}/icon_128.jpg">{{ match.level }}</td>
                         <td>{{ match.kills }} / {{ match.deaths }} / {{ match.assists }}</td>
                         <td>{{ match.apm | number:0 }}</td>
                         <td>{{ match.gpm | number:0 }}</td>

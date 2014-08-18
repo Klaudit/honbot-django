@@ -54,14 +54,14 @@
                     <tr ng-repeat="(key, player) in match.players | filter:{team: t}" class="player-{{ player.position }}-row">
                         <td>
                             <a class="heroicon" href="/hero/{{ player.cli_name }}/" tooltip="{{ hero_names[player.hero_id] }}" tooltip-placement="left">
-                                <img src='images/heroes/{{ player.hero_id }}/icon_30.jpg'>
+                                <img src='images/heroes/{{ player.hero_id }}/icon_128.jpg' width="30">
                             </a>
-                            <a href="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/player/{{ player.nickname }}/" class="player-hover" data-trigger="hover" data-pid="{% if match.mode == 'cs' %}/c{% elif match.mode == 'acc' %}/p{% endif %}/ptip/{{ player.player_id }}/">
+                            <a href="/player/{{ player.nickname }}/" class="player-hover">
                                 {{ player.nickname }}
                             </a>
                         </td>
                         <td>
-                            <a ng-repeat="(key, i) in player.items" class="itemicon" href="/item/{{ i }}/" tooltip="{{ item_names[i] }}">
+                            <a ng-repeat="(key, i) in player.items track by $index" class="itemicon" href="/item/{{ i }}/" tooltip="{{ item_names[i] }}">
                                 <img style="width:30px;" src='images/items/{{ i }}.jpg'>
                             </a>
                         </td>

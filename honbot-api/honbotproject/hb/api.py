@@ -18,7 +18,8 @@ def get_json(endpoint):
                 print(raw.url)
                 print(raw.status_code)
         except exceptions.Timeout:
-            print('timeout')
+            if debug:
+                print('timeout')
             count += 1
         if raw.status_code == 429 and count < 10:
             count += 1

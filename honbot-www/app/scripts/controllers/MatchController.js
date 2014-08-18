@@ -30,45 +30,40 @@ angular.module('hb-www-app')
         .success(function(res) {
             $scope.match = res;
             var t1 = 0,
-                t2 = 0;
+                t2 = 0,
+            d = {
+                l: [],
+                h: [],
+                hcolor: [],
+                lcolor: [],
+                lkills: 0,
+                hkills: 0,
+                lassists: 0,
+                hassists: 0,
+                lxpm: 0,
+                hxpm: 0,
+                lcreeps: 0,
+                hcreeps: 0,
+                lgpm: 0,
+                hgpm: 0,
+                lapm: 0,
+                hapm: 0
+            },
+            tgpm = [];
             angular.forEach($scope.match.players, function(p) {
-                p.items = angular.fromJson(p.items);
-                if(p.team === 1){
-                    t1 += p.win;
-                } else {
-                    t2 += p.win;
+                // load item arrays
+                if(p.items !== ''){
+                    p.items = angular.fromJson(p.items);
                 }
-            });
-            $scope.len = secondsToTime($scope.match.length);
-            if(t1 > t2){
-                $scope.winner = 'Legion';
-            } else {
-                $scope.winner = 'Hellbourne';
-            }
-
-
-            var d = {
-                    l: [],
-                    h: [],
-                    hcolor: [],
-                    lcolor: [],
-                    lkills: 0,
-                    hkills: 0,
-                    lassists: 0,
-                    hassists: 0,
-                    lxpm: 0,
-                    hxpm: 0,
-                    lcreeps: 0,
-                    hcreeps: 0,
-                    lgpm: 0,
-                    hgpm: 0,
-                    lapm: 0,
-                    hapm: 0
-                };
-            var tgpm = [];
-
-            // get data from players into proper arrays
-            angular.forEach($scope.match.players, function(p) {
+                // calculate winning team
+                if(p.discos !== 1){
+                    if(p.team === 1){
+                        t1 += p.win;
+                    } else {
+                        t2 += p.win;
+                    }
+                }
+                // setup data for the silly graphs
                 if(p.team === 1){
                     d.l.push([p.nickname, p.herodmg]);
                     d.lcolor.push($rootScope.pos_colors[p.position]);
@@ -91,6 +86,14 @@ angular.module('hb-www-app')
                 }
                 tgpm.push({name: p.nickname, data: [p.gpm], color: $rootScope.pos_colors[p.position]});
             });
+
+            // set winning team
+            $scope.len = secondsToTime($scope.match.length);
+            if(t1 > t2){
+                $scope.winner = 'Legion';
+            } else {
+                $scope.winner = 'Hellbourne';
+            }
 
             // damage graph render
             angular.forEach(['l', 'h'], function(c){
@@ -186,8 +189,6 @@ angular.module('hb-www-app')
                 },
                 series: tgpm
             });
-
-
 
             // donut charts
             angular.forEach(['kills', 'assists', 'xpm', 'creeps', 'gpm', 'apm'], function(c){

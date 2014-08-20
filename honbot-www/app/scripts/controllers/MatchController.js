@@ -84,7 +84,7 @@ angular.module('hb-www-app')
                     d.hgpm += p.gpm;
                     d.hapm += p.apm;
                 }
-                tgpm.push({name: p.nickname, data: [p.gpm], color: $rootScope.pos_colors[p.position]});
+                tgpm.push({name: p.nickname, data: [Math.floor(p.gpm)], color: $rootScope.pos_colors[p.position]});
             });
 
             // set winning team
@@ -230,8 +230,8 @@ angular.module('hb-www-app')
                     series: [{
                         name: c,
                         data: [
-                            ['Hellbourne', d['h' + c]],
-                            ['Legion', d['l' + c]]
+                            ['Hellbourne', Math.floor(d['h' + c])],
+                            ['Legion', Math.floor(d['l' + c])]
                         ]
                     }]
                 });

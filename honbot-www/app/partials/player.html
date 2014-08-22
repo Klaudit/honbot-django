@@ -1,0 +1,16 @@
+<div ng-include="'partials/nav.html'"></div>
+<div ng-include="'partials/player_head.html'"></div>
+<div ng-include="'partials/player_navigation.html'"></div>
+
+
+<ng-switch on="pview">
+  <div ng-switch-when="stats">
+      <div ng-include="'partials/player_stats.html'"></div>
+  </div>
+  <div ng-switch-when="charts">
+      <div></div>
+  </div>
+  <div ng-switch-when="heroes">
+      <div></div>
+  </div>
+</ng-switch>

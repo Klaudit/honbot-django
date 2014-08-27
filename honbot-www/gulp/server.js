@@ -32,7 +32,7 @@ function browserSyncInit(baseDir, files, browser) {
       middleware: [
         proxyMiddleware,
         modRewrite([
-          '!\\.\\w+$ /index.html [L]'
+          '!\\.html|\\.js|\\.css|\\.png$ /index.html [L]'
         ])
       ]
     },

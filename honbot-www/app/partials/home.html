@@ -5,7 +5,7 @@
             <!-- search -->
             <form ng-submit="search()">
                 <div class="input-group input-group-lg col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-sm-12">
-                    <input type="text" ng-model="nickname" placeholder="Username" class="form-control input-lg" spellcheck="false" autofocus>
+                    <input type="text" ng-model="nickname" placeholder="Username" class="form-control input-lg" spellcheck="false" autocorrect="off" autocapitalize="off" autofocus>
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-lg" type="button"><i class="fa fa-search"></i> Go</button>
                     </span>
@@ -14,14 +14,10 @@
         </div>
         <div class="row">
             <ul class="list-inline text-muted text-center home-inline">
-                <li><a href="/player/">Players</a>
-                </li>
-                <li><a href="/match/">Matches</a>
-                </li>
-                <li><a href="/hero/">Heroes</a>
-                </li>
-                <li><a href="/item/">Items</a>
-                </li>
+                <li><a href="/player/">Players</a></li>
+                <li><a href="/match/">Matches</a></li>
+                <li><a href="/hero/">Heroes</a></li>
+                <li><a href="/item/">Items</a></li>
             </ul>
         </div>
     </div>

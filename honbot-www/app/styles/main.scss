@@ -78,3 +78,118 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .noradius{
     border-radius: 0 !important;
 }
+.align-right td, .align-right th {
+    text-align: right;
+}
+.align-right td:first-child, .align-right th:first-child {
+    text-align: left;
+}
+.align-right td:first-child, .align-right th:first-child {
+    text-align: left;
+}
+.align-right td:nth-child(2), .align-right th:nth-child(2){
+    text-align: left;
+}
+.recent-match td {
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+}
+.recent-match tbody tr:hover {
+    background-color: #222;
+}
+.recent-match td:nth-child(1) {
+    text-align: left;
+}
+
+.recent-match th:nth-child(1) {
+    text-align: left;
+}
+.recent-match thead {
+    margin-left: 5px;
+    border-radius: 4px;
+    border-bottom: 0;
+}
+.recent-match a{
+    color: #dddddd;
+}
+.matchwin {
+    border-collapse: separate;
+    border-left: 2px solid #006600;
+    padding-bottom: 0;
+    background-color: rgba(0, 193, 158, .1);
+}
+.matchwin img, .matchloss img {
+    width: 30px;
+    margin-top: -2px;
+    margin-bottom: -2px;
+}
+#history{
+    margin-top: 2px;
+    background-color: #333;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.matchloss {
+    border-collapse: separate;
+    border-left: 2px solid #CC0000;
+    background-color: rgba(255, 92, 92, .1);
+}
+@for $i from 0 through 9{
+.player-#{$i}-row
+    {
+        border-collapse: separate;
+        border-left: 1px solid;
+        background-color: #fff;
+    }
+}
+.player-0-row {
+    border-left-color: #002c9f;
+    background-color: rgba(0, 44, 159, .1);
+}
+
+.player-1-row {
+    border-left-color: #00c19e;
+    background-color: rgba(0, 193, 158, .1);
+}
+
+.player-2-row {
+    border-left-color: #770092;
+    background-color: rgba(119, 0, 146, .1);
+}
+
+.player-3-row {
+    border-left-color: #f2d500;
+    background-color: rgba(242, 213, 0, .1);
+}
+
+.player-4-row {
+    border-left-color: #ff7d29;
+    background-color: rgba(255, 125, 41, .1);
+}
+
+.player-5-row {
+    border-left-color: #ff44ab;
+    background-color: rgba(255, 68, 171, .1);
+}
+
+.player-6-row {
+    border-left-color: #727272;
+    background-color: rgba(114, 114, 114, .1);
+}
+
+.player-7-row {
+    border-left-color: #00a0da;
+    background-color: rgba(0, 160, 218, .1);
+}
+
+.player-8-row {
+    border-left-color: #006448;
+    background-color: rgba(0, 100, 72, .1);
+}
+
+.player-9-row {
+    border-left-color: #562507;
+    background-color: rgba(86, 37, 7, .1);
+}
+  

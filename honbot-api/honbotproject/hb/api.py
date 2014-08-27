@@ -13,7 +13,7 @@ def get_json(endpoint):
     count = 0
     while True:
         try:
-            raw = get(url, timeout=5)
+            raw = get(url)
             if debug:
                 print(raw.url)
                 print(raw.status_code)

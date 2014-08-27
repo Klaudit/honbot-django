@@ -38,7 +38,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <table class="table table-condensed table-match table-responsive">
+            <table class="table table-condensed table-match table-responsive align-right">
                 <thead>
                     <tr>
                         <th title="Player">Player</th>
@@ -62,7 +62,7 @@
                             <a class="heroicon" href="/hero/{{ player.cli_name }}/" tooltip="{{ hero_names[player.hero_id] }}" tooltip-placement="left">
                                 <img ng-src='images/heroes/{{ player.hero_id }}/icon_128.jpg' width="30">
                             </a>
-                            <a href="/player/{{ player.nickname }}/" class="player-hover">
+                            <a ng-href="/player/{{ player.nickname }}/" class="player-hover">
                                 {{ player.nickname }}
                             </a>
                         </td>

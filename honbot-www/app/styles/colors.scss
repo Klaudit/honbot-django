@@ -1,18 +1,13 @@
-// Darkly 3.2.0
-// Variables
-// --------------------------------------------------
-
-
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
 
 $darkest-dark:			 #222;
-$gray-darker:            lighten(#000, 13.5%); // #222
-$gray-dark:              #303030;   // #333
+$gray-darker:            lighten(#000, 13.5%);
+$gray-dark:              #303030;
 $gray:                   #464545;
-$gray-light:             #999;   // #999
-$gray-lighter:           #EBEBEB; // #eee
+$gray-light:             #999;
+$gray-lighter:           #EBEBEB;
 
 $brand-primary:         #aedf16;
 $brand-success:         #00bc8c;
@@ -46,7 +41,7 @@ $font-family-serif:       Georgia, "Times New Roman", Times, serif;
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-family-base:        $font-family-sans-serif;
 
-$font-size-base:          15px;
+$font-size-base:          13px;
 $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 
@@ -85,14 +80,14 @@ $icon-font-svg-id:        "glyphicons_halflingsregular";
 //
 //## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
 
-$padding-base-vertical:     10px;
-$padding-base-horizontal:   15px;
+$padding-base-vertical:     8px;
+$padding-base-horizontal:   12px;
 
-$padding-large-vertical:    18px;
-$padding-large-horizontal:  27px;
+$padding-large-vertical:    14px;
+$padding-large-horizontal:  16px;
 
-$padding-small-vertical:    6px;
-$padding-small-horizontal:  9px;
+$padding-small-vertical:    5px;
+$padding-small-horizontal:  10px;
 
 $padding-xs-vertical:       1px;
 $padding-xs-horizontal:     5px;
@@ -107,7 +102,7 @@ $border-radius-small:       3px;
 //** Global color for active items (e.g., navs or dropdowns).
 $component-active-color:    #fff;
 //** Global background color for active items (e.g., navs or dropdowns).
-$component-active-bg:       $brand-success;
+$component-active-bg:       $brand-primary;
 
 //** Width of the `border` for generating carets that indicator dropdowns.
 $caret-width-base:          4px;
@@ -301,7 +296,7 @@ $container-lg:                 $container-large-desktop;
 //##
 
 // Basics of a navbar
-$navbar-height:                    60px;
+$navbar-height:                    40px;
 $navbar-margin-bottom:             $line-height-computed;
 $navbar-border-radius:             $border-radius-base;
 $navbar-padding-horizontal:        floor(($grid-gutter-width / 2));
@@ -430,8 +425,8 @@ $tooltip-max-width:           200px;
 //** Tooltip text color
 $tooltip-color:               #fff;
 //** Tooltip background color
-$tooltip-bg:                  rgba(0,0,0,.9);
-$tooltip-opacity:             .9;
+$tooltip-bg:                  rgba(0,0,0,1);
+$tooltip-opacity:             .8;
 
 //** Tooltip arrow width
 $tooltip-arrow-width:         5px;

@@ -12,11 +12,9 @@ angular.module('hbwww')
                 }).
                 success(function(res) {
                     $scope.history = res;
-                    console.log(res);
-                }).
-                error(function(res) {
-                    console.log(res);
-                    console.log('ERORROROROR');
+                    if($scope.history.length < 25){
+                        $scope.nomore = true;
+                    }
                 });
             }
         };
@@ -37,6 +35,4 @@ angular.module('hbwww')
             $scope.more(data);
         });
         
-        
-
     });

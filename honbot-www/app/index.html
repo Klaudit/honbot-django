@@ -25,6 +25,33 @@
 
     <div ng-view></div>
 
+    <!-- Facebook -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <footer id="footer">
+        <div class="container footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Created by <a href="https://twitter.com/scttcper">@scttcper</a></p>
+                    <p></p>
+                    <ul class="list-inline home-inline">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="https://github.com/scttcper/honbot-django">GitHub</a></li>
+                    </ul>
+                    <div class="fb-like" data-href="https://www.facebook.com/honbott" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <!-- Google Analytics -->
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -32,7 +59,7 @@
       e=o.createElement(i);r=o.getElementsByTagName(i)[0];
       e.src='//www.google-analytics.com/analytics.js';
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-38573142-1');ga('send','pageview');
+      ga('create','UA-38573142-1');ga('require', 'displayfeatures');ga('send','pageview');
     </script>
 
     <!-- build:js scripts/vendor.js -->

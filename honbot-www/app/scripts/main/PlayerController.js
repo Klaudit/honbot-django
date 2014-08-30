@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hbwww')
-    .controller('PlayerController', function($scope, $routeParams, $http, BaseUrl, $location) {
+    .controller('PlayerController', function($scope, $routeParams, $http, BaseUrl, $location, $modal) {
         $scope.view = 'player';
         $scope.pview = 'stats';
         $scope.s = {};
@@ -45,7 +45,13 @@ angular.module('hbwww')
             }
         };
         $scope.banner = function() {
-            
+            $scope.modalInstance = $modal.open({
+                templateUrl: '/partials/banner_modal.html',
+                scope: $scope
+            });
+        };
+        $scope.close = function(){
+            $scope.modelInstance.dismiss('cancel');
         };
 
     });

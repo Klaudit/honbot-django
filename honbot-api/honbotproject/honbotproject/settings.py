@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'honbotproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.mysql",
         "NAME": "hb",
-        "USER": "",
+        "USER": "root",
         "PASSWORD": "",
         "HOST": "localhost",
         "PORT": "",
@@ -97,7 +97,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

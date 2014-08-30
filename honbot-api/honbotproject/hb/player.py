@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.http import Http404
+from django.utils.timezone import now
 
 from .api import get_json
 from .avatar import avatar
@@ -7,7 +8,6 @@ from .models import Player
 from .serializers import PlayerSerializer
 from .utils import div
 
-from datetime import datetime
 from django_rq import enqueue
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -25,13 +25,13 @@ class PlayerViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk):
-        queryset, fallback = get_or_update_palyer(pk)
+        queryset, fallback = get_or_update_player(pk, 800)
         serializer = PlayerSerializer(queryset)
         serializer.data['fallback'] = fallback
         return Response(serializer.data)
 
 
-def get_or_update_palyer(nickname):
+def get_or_update_player(nickname, age):
     player = Player.objects.filter(nickname=nickname.lower()).first()
     if player is None:
         new = get_player(Player(nickname=nickname))
@@ -43,13 +43,13 @@ def get_or_update_palyer(nickname):
             return (new, False)
         else:
             raise Http404
-    now = datetime.now()
-    tdelta = now - player.updated
-    if tdelta.seconds + (tdelta.days * 86400) > 800:
+    nowutc = now()
+    tdelta = nowutc - player.updated
+    if tdelta.seconds + (tdelta.days * 86400) > age:
         updated = get_player(player)
         if updated:
             try:
-                adelta = now - player.avatar_updated
+                adelta = nowutc - player.avatar_updated
                 if adelta.seconds + (adelta.days * 86400) > 604800:
                     enqueue(avatar, updated)
             except:

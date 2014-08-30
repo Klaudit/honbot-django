@@ -1,11 +1,11 @@
 from django.http import Http404
+from django.utils.timezone import now
 
 from .api import get_json
 from .models import Player, Match
 from .match import multimatch
 from .utils import pmoselect
 
-from datetime import datetime
 from json import dumps, loads
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -33,6 +33,7 @@ def player_history(request, pid, page, mode):
             p['items'] = None
     return Response(ph)
 
+
 def get_or_update_history(pid):
     p = Player.objects.filter(player_id=pid).first()
     if p is None:
@@ -43,8 +44,8 @@ def get_or_update_history(pid):
             return update_history(p, raw)
         else:
             raise Http404
-    now = datetime.now()
-    tdelta = now - p.history_updated
+    nowutc = now()
+    tdelta = nowutc - p.history_updated
     if tdelta.seconds + (tdelta.days * 86400) > 800:
         raw = get_json('/match_history/all/accountid/' + pid)
         if raw:
@@ -56,6 +57,7 @@ def get_or_update_history(pid):
         # not old
         return p
 
+
 def update_history(p, raw):
     parsed = [[], [], []]
     for idx, history in enumerate(raw):
@@ -63,9 +65,10 @@ def update_history(p, raw):
     p.rnk_history = dumps(parsed[0][::-1])
     p.cs_history = dumps(parsed[1][::-1])
     p.acc_history = dumps(parsed[2][::-1])
-    p.history_updated = datetime.now()
-    p.save()
+    p.history_updated = now()
+    p.save(update_fields=['history_updated', 'cs_history', 'acc_history', 'rnk_history'])
     return p
+
 
 def verify_matches(hist, mode):
     """

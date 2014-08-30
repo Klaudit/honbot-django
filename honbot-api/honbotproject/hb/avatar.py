@@ -1,7 +1,6 @@
 from django.conf import settings
-from django.utils.timezone import utc
+from django.utils.timezone import now
 from bs4 import BeautifulSoup
-from datetime import datetime
 from urllib.request import build_opener
 
 
@@ -22,5 +21,5 @@ def avatar(p):
     else:
         img = "images/default_avatar.png"
     p.avatar = img
-    p.avatar_updated = datetime.utcnow().replace(tzinfo=utc)
-    p.save()
+    p.avatar_updated = now()
+    p.save(update_fields=['img', 'avatar_updated'])

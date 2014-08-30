@@ -8,7 +8,8 @@ angular.module('hbwww', [
     'ngRoute',
     'percentage',
     'angular-loading-bar',
-    'ui.bootstrap'])
+    'ui.bootstrap',
+    'angularMoment'])
     .config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true).hashPrefix('!');
         $routeProvider

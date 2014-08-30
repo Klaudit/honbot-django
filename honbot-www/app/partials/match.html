@@ -26,9 +26,8 @@
                     <span ng-show="len.h > 0">{{ len.h }}:</span>{{ len.m }}:{{ len.s }}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
-                    <span id="date" data-toggle="tooltip" title="{{ match.date }}" data-placement="bottom">
-                        <br>
-                        {{ match.date | date:'MMM d, y h:mm a' }}
+                    <br>
+                    <span am-time-ago="match.date" tooltip="{{ match.date | date:'MMM d, y h:mm a' }}" tooltip-placement="bottom">
                     </span>
                 </div>
             </div>
@@ -38,7 +37,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <table class="table table-condensed table-match table-responsive align-right">
+            <table class="table table-match align-right align-left-items">
                 <thead>
                     <tr>
                         <th title="Player">Player</th>
@@ -59,7 +58,7 @@
                 <tbody ng-repeat="(key, t) in [1, 2]">
                     <tr ng-repeat="(key, player) in match.players | filter:{team: t}" class="player-{{ player.position }}-row">
                         <td>
-                            <a class="heroicon" href="/hero/{{ player.cli_name }}/" tooltip="{{ hero_names[player.hero_id] }}" tooltip-placement="left">
+                            <a class="heroicon" href="/hero/{{ player.cli_name }}/" tooltip="{{ hero_names[player.hero_id] }}">
                                 <img ng-src='images/heroes/{{ player.hero_id }}/icon_128.jpg' width="30">
                             </a>
                             <a ng-href="/player/{{ player.nickname }}/" class="player-hover">

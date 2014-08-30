@@ -44,5 +44,8 @@ angular.module('hbwww')
                 $location.path('/player/' + $scope.nickname + '/', false);
             }
         };
+        $scope.banner = function() {
+            
+        };
 
     });

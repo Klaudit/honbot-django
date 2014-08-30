@@ -109,7 +109,7 @@ angular.module('hbwww')
                             allowPointSelect: true,
                             cursor: 'pointer',
                             animation: false,
-                            borderColor: '#222222',
+                            borderColor: '#303030',
                             dataLabels: {
                                 enabled: true,
                                 style: {color: '#eeeeee'},
@@ -240,8 +240,4 @@ angular.module('hbwww')
                 $scope.$apply();
             });
         });
-
-        
-        
-
     });

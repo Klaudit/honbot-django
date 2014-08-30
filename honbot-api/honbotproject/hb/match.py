@@ -4,10 +4,13 @@ from .api import get_json
 from .models import Match
 from .utils import pmoselect, divmin, div
 from .serializers import MatchSerializer
+
+from datetime import datetime
 from json import dumps
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from pytz import utc, timezone
 
 
 @api_view(['GET'])
@@ -61,7 +64,10 @@ def single_match(raw, mid):
                 m.build = int(v[3])
     m.map_used = raw[3][0]['map']
     m.length = raw[3][0]['time_played']
-    m.date = raw[3][0]['mdt']
+    # '2014-07-27 01:31:18'
+    unaware_date = datetime.strptime(raw[3][0]['mdt'], '%Y-%m-%d %H:%M:%S')
+    aware_date = timezone('US/Eastern').localize(unaware_date, is_dst=True)
+    m.date = aware_date.astimezone(utc)
     m.save()
     PMObj = pmoselect(m.mode)
     pdict = {}
@@ -109,4 +115,3 @@ def single_match(raw, mid):
     bulk = list(pdict.values())
     PMObj.objects.bulk_create(bulk)
     return m
-

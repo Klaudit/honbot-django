@@ -15,6 +15,11 @@ server {
     }
 
     # Re-route nested routes through index
+
+    # banner must redirect through api
+    location /banner {
+
+    }
     location / {
         try_files $uri $uri/ /index.html =404;
     }

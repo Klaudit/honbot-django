@@ -299,11 +299,19 @@ class PlayerMatch(models.Model):
         abstract = True
         ordering = ['-match_id']
 
+
 class PlayerMatchRNK(PlayerMatch):
     pass
+
 
 class PlayerMatchCS(PlayerMatch):
     pass
 
+
 class PlayerMatchACC(PlayerMatch):
     pass
+
+
+class APICount(models.Model):
+    date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
+    count = models.PositiveIntegerField(default=0)

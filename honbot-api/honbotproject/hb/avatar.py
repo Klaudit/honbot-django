@@ -22,4 +22,4 @@ def avatar(p):
         img = "images/default_avatar.png"
     p.avatar = img
     p.avatar_updated = now()
-    p.save(update_fields=['img', 'avatar_updated'])
+    p.save(update_fields=['avatar', 'avatar_updated'])

@@ -251,7 +251,7 @@
                         <td>{{ match.apm | number:0 }}</td>
                         <td>{{ match.gpm | number:0 }}</td>
                         <td>{{ match.mmr_change | number:0 }}</td>
-                        <td>{{ match.date | date:'MMM d h:mm a' }}</td>
+                        <td am-time-ago="match.date"></td>
                         <td>{{ match.match_id }}</td>
                     </tr>
                 </tbody>

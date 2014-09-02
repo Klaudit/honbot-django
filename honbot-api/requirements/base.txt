@@ -4,6 +4,7 @@ Django==1.7c3
 # database
 # psycopg2==2.5.3 for postgres
 PyMySQL==0.6.2
+django-redis==3.7.1
 
 # DRF
 djangorestframework==2.3.14

@@ -315,3 +315,12 @@ class PlayerMatchACC(PlayerMatch):
 class APICount(models.Model):
     date = models.DateField(primary_key=True, auto_now=True, unique=True, db_index=True)
     count = models.PositiveIntegerField(default=0)
+
+
+class Item(models.Model):
+    id = models.PositiveSmallIntegerField(primary_key=True, unique=True, db_index=True)
+    name = models.TextField(default="", null=True)
+    cli_name = models.TextField(default="", null=True)
+    cost = models.PositiveIntegerField(default=0)
+    description = models.TextField(default="", null=True)
+    updated = models.DateTimeField(auto_now=True)

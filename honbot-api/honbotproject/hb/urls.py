@@ -1,9 +1,11 @@
 from rest_framework.routers import SimpleRouter
 from django.conf.urls import patterns, url
 from .player import PlayerViewSet
+from .item import ItemsViewSet
 
 router = SimpleRouter()
 router.register(r'player', PlayerViewSet, base_name="Player")
+router.register(r'item', ItemsViewSet, base_name="Item")
 urlpatterns = router.urls
 
 urlpatterns += patterns('',

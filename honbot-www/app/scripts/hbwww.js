@@ -29,6 +29,10 @@ angular.module('hbwww', [
                 templateUrl: 'partials/match.html',
                 controller: 'MatchController'
             })
+            .when('/items/', {
+                templateUrl: 'partials/items.html',
+                controller: 'ItemsController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -40,8 +44,8 @@ angular.module('hbwww', [
             return 'http://api.honbot.com';
         }
     })
-    .run(['$route', '$rootScope', '$location', '$http',
-        function($route, $rootScope, $location, $http) {
+    .run(['$route', '$rootScope', '$location', '$http', 'BaseUrl',
+        function($route, $rootScope, $location, $http, BaseUrl) {
             // this lets the path change without reloading route
             var original = $location.path;
             $location.path = function(path, reload) {
@@ -59,10 +63,19 @@ angular.module('hbwww', [
             $rootScope.pos_colors = ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29', '#ff44ab', '#727272', '#00a0da', '#006448', '#562507'];
             $http({
                 method: 'GET',
-                url: 'scripts/data/items.json'
+                url: BaseUrl + '/item/',
+                cache: true
             })
             .success(function(res) {
-                $rootScope.item_names = res;
+                $rootScope.item_names = {};
+                angular.forEach(res, function(value) {
+                    $rootScope.item_names[value.item_id] = {
+                        'name': value.name,
+                        'cli_name': value.cli_name,
+                        'cost': value.cost,
+                        'description': value.description
+                    };
+                });
             });
             $http({
                 method: 'GET',

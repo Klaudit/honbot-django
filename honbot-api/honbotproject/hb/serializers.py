@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Player, Match
+from .models import Player, Match, Item
 
 
 class PlayerSerializer(serializers.ModelSerializer):
@@ -15,3 +15,10 @@ class MatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
         depth = 1
+
+
+class ItemSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Item
+        fields = ('id', 'name', 'cli_name', 'cost', 'description')

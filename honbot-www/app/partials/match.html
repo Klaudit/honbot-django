@@ -27,8 +27,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
                     <br>
-                    <span am-time-ago="match.date" tooltip="{{ match.date | date:'MMM d, y h:mm a' }}" tooltip-placement="bottom">
-                    </span>
+                    <span am-time-ago="match.date" data-title="{{ match.date | date:'MMM d, y h:mm a' }}" data-placement="bottom" bs-tooltip></span>
                 </div>
             </div>
         </div>
@@ -58,15 +57,25 @@
                 <tbody ng-repeat="(key, t) in [1, 2]">
                     <tr ng-repeat="(key, player) in match.players | filter:{team: t}" class="player-{{ player.position }}-row">
                         <td>
-                            <a class="heroicon" href="/hero/{{ player.hero_id }}/" tooltip="{{ hero_names[player.hero_id] }}">
-                                <img ng-src='images/heroes/{{ player.hero_id }}/icon_128.jpg' width="30">
+                            <a class="heroicon"
+                               href="/hero/{{ player.hero_id }}/"
+                               data-title="{{ hero_names[player.hero_id] }}"
+                               bs-tooltip>
+                                <img ng-src='images/heroes/{{ player.hero_id }}/icon_128.jpg'width="30">
                             </a>
                             <a ng-href="/player/{{ player.nickname }}/" class="player-hover">
                                 {{ player.nickname }}
                             </a>
                         </td>
                         <td>
-                            <a ng-repeat="(key, i) in player.items track by $index" class="itemicon" href="/item/{{ i }}/" tooltip="{{ item_names[i].name }}">
+                            <a ng-repeat="(key, i) in player.items track by $index" 
+                               class="itemicon"
+                               href="/item/{{ i }}/"
+                               data-title="<strong>{{ item_names[i].name }}</strong> <span style='color: gold'>{{ item_names[i].cost }}</span>"
+                               data-content="{{ item_names[i].description }}"
+                               data-html="true"
+                               data-trigger="hover"
+                               bs-popover>
                                 <img style="width:30px;" ng-src='images/items/{{ i }}.jpg'>
                             </a>
                         </td>
@@ -113,7 +122,6 @@
                     <div id="tgpm" style="min-width: 50px; height: 360px; margin: 0 auto"></div>
                 </div>
             </div>
-            <span class="text-muted list-push">version: {{match.major}}.{{match.minor}}.{{match.revision}}.{{match.build}}</span>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="panel panel-default">
@@ -141,6 +149,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-12">
+            <ul class="list-inline home-inline">
+                <li class="text-muted">HoN Version: {{match.major}}.{{match.minor}}.{{match.revision}}.{{match.build}}</li>
+                <li class="text-muted"><a href="{{ BaseUrl }}/match/{{ match_id }}/">Raw Data</a></li>
+            </ul>
         </div>
     </div>
 </div>

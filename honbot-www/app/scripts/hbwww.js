@@ -8,7 +8,7 @@ angular.module('hbwww', [
     'ngRoute',
     'percentage',
     'angular-loading-bar',
-    'ui.bootstrap',
+    'mgcrea.ngStrap',
     'angularMoment'])
     .config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true).hashPrefix('!');
@@ -37,14 +37,16 @@ angular.module('hbwww', [
                 redirectTo: '/'
             });
     })
-    .factory('BaseUrl', function($location) {
+    .factory('BaseUrl', function($location, $rootScope) {
         if ($location.host().split(':')[0] === 'localhost') {
+            $rootScope.BaseUrl = 'http://localhost:8000';
             return 'http://localhost:8000';
         } else {
+            $rootScope.BaseUrl = 'http://api.honbot.com';
             return 'http://api.honbot.com';
         }
     })
-    .run(['$route', '$rootScope', '$location', '$http', 'BaseUrl',
+    .run(['$route', '$rootScope', '$location', '$http', 'BaseUrl', '$sce',
         function($route, $rootScope, $location, $http, BaseUrl) {
             // this lets the path change without reloading route
             var original = $location.path;
@@ -69,7 +71,7 @@ angular.module('hbwww', [
             .success(function(res) {
                 $rootScope.item_names = {};
                 angular.forEach(res, function(value) {
-                    $rootScope.item_names[value.item_id] = {
+                    $rootScope.item_names[value.id] = {
                         'name': value.name,
                         'cli_name': value.cli_name,
                         'cost': value.cost,
@@ -86,3 +88,5 @@ angular.module('hbwww', [
             });
         }
     ]);
+
+

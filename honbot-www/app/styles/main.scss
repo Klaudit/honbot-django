@@ -32,7 +32,6 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: $footer-size;
 }
-
 #footer {
     position: absolute;
     bottom: 0;
@@ -69,13 +68,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .home-inline > li {
     padding-right: 0;
 }
-
 .home-inline > li + li::before {
     content: "- ";
     margin-right: 5px;
     margin-left: 0;
     padding-right: 0;
     padding-left: 0;
+}
+.list-push {
+    padding-left: 20px;
 }
 .player-head {
     color: #FFF;

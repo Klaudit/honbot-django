@@ -42,8 +42,7 @@
                     </ul>
                     <strong>April 26th</strong>
                     <ul>
-                        <li>Player Heroes page now shows <a href="/player_hero/stridex/#12&102">cached matches.</a>
-                        </li>
+                        <li>Player Heroes page now shows <a href="/player_hero/stridex/#12&102">cached matches.</a></li>
                         <li>Bug fixes.</li>
                     </ul>
                     <strong>April 19th</strong>
@@ -62,10 +61,8 @@
                 </div>
                 <div class="panel-footer no-bpadding">
                     <ul class="list-inline home-inline">
-                        <li><a href="https://github.com/scttcper/honbot-django">Source Code</a>
-                        </li>
-                        <li><a href="/static/web/changelog.html">Change History</a>
-                        </li>
+                        <li><a href="https://github.com/scttcper/honbot-django">Source Code</a></li>
+                        <li><a href="/static/web/changelog.html">Change History</a></li>
                     </ul>
                 </div>
             </div>
@@ -83,21 +80,13 @@
                 <div class="panel-body">
                     <strong>Database:</strong>
                     <ul class="list-unstyled list-push">
-                        <li>Players:
-                            <span id="players"></span>
-                        </li>
-                        <li>Matches:
-                            <span id="matches"></span>
-                        </li>
+                        <li>Players: {{ status.players }}</li>
+                        <li>Matches: {{ status.matches }}</li>
                     </ul>
                     <strong>S2 API:</strong>
                     <ul class="list-unstyled list-push">
-                        <li>Status:
-                            <span id="serverstatus"></span>
-                        </li>
-                        <li>API calls today:
-                            <span id="apicount"></span>
-                        </li>
+                        <li>Status: {{ status.status }}</li>
+                        <li>API calls today: {{ status.calls }}</li>
                     </ul>
                 </div>
                 <div class="panel-footer"><a href="/sitestats/">Site Statistics</a>

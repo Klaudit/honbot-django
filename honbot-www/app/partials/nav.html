@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="NavController">
+<nav class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="NavController" bs-navbar>
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="container">
         <div class="navbar-header">
@@ -17,8 +17,10 @@
                 <input type="text" ng-model="nick" class="form-control col-lg-8" placeholder="Username" autocorrect="off" autocapitalize="off" spellcheck="false">
             </form>
             <ul class="nav navbar-nav">
+                <li data-match-route="/player*"><a href="/items/">Players</a></li>
+                <li data-match-route="/match*"><a href="/match/">Matches</a></li>
                 <li><a href="/items/">Items</a></li>
-                <li><a href="#">Link</a></li>
+                <li><a href="/items/">Heroes</a></li>
             </ul>
         </div>
     </div>

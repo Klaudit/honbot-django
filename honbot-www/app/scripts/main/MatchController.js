@@ -210,7 +210,7 @@ angular.module('hbwww')
                     plotOptions: {
                         pie: {
                             borderColor: '#303030',
-                            innerSize: '60%',
+                            innerSize: '99%',
                             animation: false,
                             dataLabels: {
                                 enabled: false

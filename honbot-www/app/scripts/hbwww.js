@@ -33,6 +33,14 @@ angular.module('hbwww', [
                 templateUrl: 'partials/items.html',
                 controller: 'ItemsController'
             })
+            .when('/player/:player/:view/', {
+                templateUrl: 'partials/player.html',
+                controller: 'PlayerController'
+            })
+            .when('/:mode/player/:player/:view/', {
+                templateUrl: 'partials/player.html',
+                controller: 'PlayerController'
+            })
             .otherwise({
                 redirectTo: '/'
             });

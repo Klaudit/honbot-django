@@ -122,13 +122,13 @@ $table-condensed-cell-padding:  5px;
 //** Default background color used for all tables.
 $table-bg:                      #282828;
 //** Background color used for `.table-striped`.
-$table-bg-accent:               $gray-dark;
+$table-bg-accent:               #222;
 //** Background color used for `.table-hover`.
 $table-bg-hover:                $gray;
 $table-bg-active:               $table-bg-hover;
 
 //** Border color for table and cell borders.
-$table-border-color:            $gray;
+$table-border-color:            $gray-dark;
 
 
 //== Buttons
@@ -309,7 +309,7 @@ $navbar-default-border:            transparent;
 
 // Navbar links
 $navbar-default-link-color:                #fff;
-$navbar-default-link-hover-color:          $brand-success;
+$navbar-default-link-hover-color:          $brand-primary;
 $navbar-default-link-hover-bg:             transparent;
 $navbar-default-link-active-color:         #fff;
 $navbar-default-link-active-bg:            darken($navbar-default-bg, 10%);
@@ -603,7 +603,7 @@ $list-group-link-heading-color: darken($link-color, 5%);
 //
 //##
 
-$panel-bg:                    $gray-dark;
+$panel-bg:                    #222;
 $panel-body-padding:          15px;
 $panel-heading-padding:       10px 15px;
 $panel-footer-padding:        $panel-heading-padding;
@@ -614,7 +614,7 @@ $panel-inner-border:          $gray;
 $panel-footer-bg:             $gray;
 
 $panel-default-text:          $text-color;
-$panel-default-border:        $gray;
+$panel-default-border:        #222;
 $panel-default-heading-bg:    $gray-dark;
 
 $panel-primary-text:          #fff;

@@ -26,16 +26,11 @@ def player_history(request, pid, page, mode):
     if len(his) > 0:
         verify_matches(his, mode)
     ph = pmoselect(mode).objects.filter(match_id__in=his, player_id=pid).values()
-    for p in ph:
-        try:
-            p['items'] = loads(p['items'])
-        except:
-            p['items'] = None
     return Response(ph)
 
 
 def get_or_update_history(pid):
-    p = Player.objects.filter(player_id=pid).first()
+    p = Player.objects.filter(pk=pid).first()
     if p is None:
         raise Http404
     if p.history_updated is None:
@@ -80,3 +75,9 @@ def verify_matches(hist, mode):
     # if any are missing FIND THEM
     if len(missing) != 0:
         multimatch(missing)
+
+
+@api_view(['GET'])
+def get_cached(request, pid, mode):
+    matches = pmoselect(mode).objects.filter(player_id=pid).values()
+    return Response(matches)

@@ -1,21 +1,26 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-12">
-            <ul class="nav nav-pills nav-justified">
-            <!-- TODO: set correct active class -->
-                <li class="active">
-                    <a href="{{ url }}/player/{{ s.nickname }}/">
+            <ul class="nav nav-pills nav-justified" bs-navbar>
+                <li ng-class="{active: view == 'stats'}">
+                    <a ng-click="player()">
                         {{ modefull }} Stats
                     </a>
                 </li>
-                <li>
-                    <a ng-href="{{ url }}/chart/{{ s.nickname }}/">Charts</a>
+                <li ng-class="{active: view == 'chart'}">
+                    <a ng-click="chart()">
+                        Charts
+                    </a>
+                </li>
+                <li ng-class="{active: view == 'hero'}">
+                    <a ng-click="hero()">
+                        Heroes
+                    </a>
                 </li>
                 <li>
-                    <a ng-href="{{ url }}/player_hero/{{ s.nickname }}/">Heroes</a>
-                </li>
-                <li>
-                    <a href="" ng-click="banner()">Stats Banner</a>
+                    <a ng-click="banner()">
+                        Stats Banner
+                    </a>
                 </li>
             </ul>
         </div>

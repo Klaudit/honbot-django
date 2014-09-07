@@ -11,7 +11,7 @@
             </div>
             <div class="col-lg-5 col-md-5 col-sm-12">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-lg-offset-2 col-md-offset-2 text-center">
-                    <h4>mmr</h4>{{ s[m + '_mmr'] | number:0 }}
+                    <h4>mmr</h4>{{ Math.floor(s[m + '_mmr']) }}
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
                     <h4>tsr</h4>{{ s[m + '_tsr'] | number:2 }}

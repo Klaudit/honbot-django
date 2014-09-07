@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hbwww')
-    .controller('PlayerController', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout) {
+    .controller('PlayerController', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window) {
         if ($routeParams.view === undefined) {
             $scope.view = 'stats';
         } else if ($routeParams.view === 'chart'){
@@ -34,6 +34,7 @@ angular.module('hbwww')
         .success(function(res) {
             $scope.s = res;
             $scope.$broadcast('playerLoaded', $scope.s.player_id);
+            $scope.Math = $window.Math;
         })
         .error(function(res) {
             console.log(res);
@@ -52,18 +53,18 @@ angular.module('hbwww')
                 $location.path('/player/' + $scope.nickname + '/', false);
             }
         };
-        $scope.player = function(){
+        $scope.goplayer = function(){
             $scope.view = 'stats';
             $location.path($scope.mode_url + '/player/' + $scope.nickname + '/', false);
-            $timeout(function() {
+            $timeout(function(){
                 $scope.$broadcast('playerLoaded', $scope.s.player_id);
             });
         };
-        $scope.chart = function(){
+        $scope.gochart = function(){
             $scope.view = 'chart';
             $location.path($scope.mode_url + '/player/' + $scope.nickname + '/chart/', false);
         };
-        $scope.hero = function(){
+        $scope.gohero = function(){
             $scope.view = 'hero';
             $location.path($scope.mode_url + '/player/' + $scope.nickname + '/hero/', false);
         };

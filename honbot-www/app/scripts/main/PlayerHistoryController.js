@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hbwww')
-    .controller('PlayerHistoryController', function($scope, $http, BaseUrl, $location) {
+    .controller('PlayerHistoryController', function($scope, $http, BaseUrl, $location, $timeout) {
         $scope.currentcount = 1;
         $scope.more = function(){
             if($scope.s){
@@ -15,6 +15,9 @@ angular.module('hbwww')
                     if($scope.history.length < 25){
                         $scope.nomore = true;
                     }
+                    $timeout(function(){
+                        $scope.apply();
+                    });
                 });
             }
         };

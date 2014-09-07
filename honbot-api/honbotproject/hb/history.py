@@ -22,6 +22,7 @@ def player_history(request, pid, page, mode):
     """
     count = int(page) * return_size
     pl = get_or_update_history(pid)
+    # loads up history and trims it to size
     his = loads(pl.__history__()[mode])[(count - return_size):count]
     if len(his) > 0:
         verify_matches(his, mode)

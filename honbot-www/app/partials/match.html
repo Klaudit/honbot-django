@@ -61,9 +61,12 @@
                                href="/hero/{{ player.hero_id }}/"
                                data-title="{{ hero_names[player.hero_id] }}"
                                bs-tooltip>
-                                <img ng-src='images/heroes/{{ player.hero_id }}/icon_128.jpg'width="30">
+                                <img ng-src="images/heroes/{{ player.hero_id }}/icon_128.jpg" width="30">
                             </a>
-                            <a ng-href="/player/{{ player.nickname }}/" class="player-hover">
+                            <a ng-href="/player/{{ player.nickname }}/"
+                               data-trigger="hover"
+                               bs-popover="ptips[player.player_id]"
+                               data-html="true">
                                 {{ player.nickname }}
                             </a>
                         </td>

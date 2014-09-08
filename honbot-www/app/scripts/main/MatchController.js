@@ -29,6 +29,10 @@ angular.module('hbwww')
         })
         .success(function(res) {
             $scope.match = res;
+            url = BaseUrl + '/ptip/';
+            angular.forEach($scope.match.players, function(value) {
+                url += value.player_id + '/';
+            });
             var t1 = 0,
                 t2 = 0,
             d = {
@@ -238,6 +242,19 @@ angular.module('hbwww')
             });
             $timeout(function() {
                 $scope.$apply();
+            });
+            $http({
+                method: 'GET',
+                url: url
+            })
+            .success(function(res){
+                $scope.ptips = {};
+                angular.forEach(res, function(v){
+                    $scope.ptips[v.player_id] = {
+                        'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + '</h4>',
+                        'content': 'MMR: ' + Math.floor(v.rnk_mmr) + '<br>'
+                    };
+                });
             });
         });
     });

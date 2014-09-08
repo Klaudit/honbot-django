@@ -10,6 +10,7 @@ from .utils import div
 
 from django_rq import enqueue
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 debug = settings.DEBUG
@@ -29,6 +30,13 @@ class PlayerViewSet(viewsets.ViewSet):
         serializer = PlayerSerializer(queryset)
         serializer.data['fallback'] = fallback
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def tooltip(request, *pid):
+    players = Player.objects.filter(pk__in=list(pid))
+    serializer = PlayerSerializer(players, many=True)
+    return Response(serializer.data)
 
 
 def get_or_update_player(nickname, age):

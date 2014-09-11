@@ -42,6 +42,7 @@ angular.module('hbwww')
         });
         $scope.mode = function(mode) {
             $scope.m = mode;
+            $scope.$broadcast('playerLoaded', $scope.s.player_id);
             if (mode === 'cs') {
                 $scope.modefull = 'Casual';
                 $location.path('/c/player/' + $scope.nickname + '/', false);
@@ -57,7 +58,7 @@ angular.module('hbwww')
             $scope.view = 'stats';
             $location.path($scope.mode_url + '/player/' + $scope.nickname + '/', false);
             $timeout(function(){
-                $scope.$broadcast('playerLoaded', $scope.s.player_id);
+                $scope.$broadcast('playerLoaded');
             });
         };
         $scope.gochart = function(){

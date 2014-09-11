@@ -3,7 +3,6 @@ from django.core.management.base import BaseCommand
 from hb.api import get_json
 from hb.models import Item
 
-from json import dumps
 from time import sleep
 
 
@@ -39,6 +38,7 @@ class Command(BaseCommand):
 
 def isDigit(c):
     return c in ['0','1','2','3','4','5','6','7','8','9']
+
 
 def hon2html(msg):
     if msg is not None:

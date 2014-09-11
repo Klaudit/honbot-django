@@ -71,8 +71,9 @@ def get_or_update_player(nickname, age):
     return (player, False)
 
 
-def get_player(p):
-    raw = get_json('/player_statistics/all/nickname/' + p.nickname)
+def get_player(p, raw=None):
+    if raw is None:
+        raw = get_json('/player_statistics/all/nickname/' + p.nickname)
     if raw:
         # player is banned or something
         if int(raw['account_id']) is 0:

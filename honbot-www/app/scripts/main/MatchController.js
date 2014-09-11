@@ -29,10 +29,6 @@ angular.module('hbwww')
         })
         .success(function(res) {
             $scope.match = res;
-            url = BaseUrl + '/ptip/';
-            angular.forEach($scope.match.players, function(value) {
-                url += value.player_id + '/';
-            });
             var t1 = 0,
                 t2 = 0,
             d = {
@@ -243,16 +239,26 @@ angular.module('hbwww')
             $timeout(function() {
                 $scope.$apply();
             });
+            url = BaseUrl + '/ptip/';
+            $scope.ptips = {};
+            angular.forEach($scope.match.players, function(v) {
+                url += v.player_id + '/';
+                $scope.ptips[v.player_id] = {
+                    'title': '<h4 class="ptiphead">' + v.nickname + '</h4>',
+                    'content': '<span class="ptip-warning">Stats not loaded</span><br>'
+                };
+            });
             $http({
                 method: 'GET',
                 url: url
             })
             .success(function(res){
-                $scope.ptips = {};
                 angular.forEach(res, function(v){
                     $scope.ptips[v.player_id] = {
-                        'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + '</h4>',
-                        'content': 'MMR: ' + Math.floor(v.rnk_mmr) + '<br>'
+                        'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + ' <span class="ptip-blue">' + Math.floor(v[$scope.match.mode + '_mmr']) + '</span>' + '</h4>',
+                        'content': '<h4 class="ptiphead"><span class="ptip-success">' + v[$scope.match.mode + '_wins'] + ' </span> - <span class="ptip-warning"> ' + v[$scope.match.mode + '_losses'] + '</span></h4>' +
+                                   '<strong>KDR</strong>: ' + Math.round(v[$scope.match.mode + '_kdr'] * 100) / 100 + '</span><br>' +
+                                   '<strong>APM</strong>: ' + Math.floor(v[$scope.match.mode + '_avg_apm'])
                     };
                 });
             });

@@ -14,7 +14,6 @@ class ItemsViewSet(viewsets.ViewSet):
     def list(self, request):
         data = cache.get('items')
         if not data:
-            print('new')
             queryset = Item.objects.all()
             data = ItemSerializer(queryset, many=True).data
             cache.set('items', data, 3600)

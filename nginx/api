@@ -2,17 +2,17 @@ server {
     listen   80;
 
     server_name api.honbot.com;
-    access_log /opt/honbot/access.log;
-    error_log /opt/honbot/error.log; 
-    root /opt/honbot/honbot-django/;
+    access_log /home/hb/honbot/access.log;
+    error_log /home/hb/honbot/error.log; 
+    root /home/hb/honbot/honbot-django/honbot-api/honbotproject;
     location /static/
     {
-    autoindex on;
-        root /opt/honbot/honbot-django/;
-    expires 2d;
-    gzip on;
-    gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml;
-    access_log off;
+        autoindex on;
+        root /home/hb/honbot/honbot-django/honbot-api/honbotproject/;
+        expires 2d;
+        gzip on;
+        gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml;
+        access_log off;
     }
 
     location /

@@ -20,7 +20,7 @@ class Command(BaseCommand):
                 items.append(temp_item)
                 items[-1]['item_id'] = itemid
         for item in items:
-            i = Item(item_id=item['item_id'])
+            i = Item(id=item['item_id'])
             i.cost = item['attributes']['cost']
             i.cli_name = item['cli_name']
             try:

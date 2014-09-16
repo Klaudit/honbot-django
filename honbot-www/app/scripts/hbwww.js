@@ -89,7 +89,8 @@ angular.module('hbwww', [
             });
             $http({
                 method: 'GET',
-                url: 'scripts/data/heroes.json'
+                url: 'scripts/data/heroes.json',
+                cache: true
             })
             .success(function(res) {
                 $rootScope.hero_names = res;

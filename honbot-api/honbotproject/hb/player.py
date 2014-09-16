@@ -45,8 +45,6 @@ def get_or_update_player(nickname, age):
         new = get_player(Player(nickname=nickname))
         # TODO add error for none
         if new:
-            if debug:
-                print('new player')
             enqueue(avatar, new)
             return (new, False)
         else:
@@ -64,8 +62,6 @@ def get_or_update_player(nickname, age):
                 enqueue(avatar, updated)
             return (updated, False)
         else:
-            if debug:
-                print('fallback')
             player.fallback = True
             return (player, True)
     return (player, False)

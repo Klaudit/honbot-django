@@ -16,4 +16,7 @@ angular.module('hbwww').controller('ChartController', function($scope, BaseUrl, 
     $scope.$on('playerLoaded', function(event){
         $scope.chart();
     });
+    if($scope.s !== undefined){
+        $scope.chart();
+    }
 });

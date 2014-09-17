@@ -19,7 +19,34 @@ function secondsToTime(secs)
 }
 
 angular.module('hbwww')
-    .controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope) {
+    .controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope, $cacheFactory) {
+        // tooltip information
+        $http({
+            method: 'GET',
+            url: BaseUrl + '/item/',
+            cache: true
+        })
+        .success(function(res) {
+            $rootScope.item_names = {};
+            angular.forEach(res, function(value) {
+                $rootScope.item_names[value.id] = {
+                    'name': value.name,
+                    'cli_name': value.cli_name,
+                    'cost': value.cost,
+                    'description': value.description
+                };
+            });
+        });
+        $http({
+            method: 'GET',
+            url: 'scripts/data/heroes.json',
+            cache: true
+        })
+        .success(function(res) {
+            $rootScope.hero_names = res;
+        });
+        console.log($cacheFactory.get('$http').info());
+        // end tooltip information
         $scope.match_id = $routeParams.match;
         $scope.match = null;
         var url = BaseUrl + '/match/' + $scope.match_id + '/';

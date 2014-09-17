@@ -54,8 +54,8 @@ angular.module('hbwww', [
             return 'http://api.honbot.com';
         }
     })
-    .run(['$route', '$rootScope', '$location', '$http', 'BaseUrl', '$sce',
-        function($route, $rootScope, $location, $http, BaseUrl) {
+    .run(['$route', '$rootScope', '$location', '$http', 'BaseUrl', '$cacheFactory',
+        function($route, $rootScope, $location, $http, BaseUrl, $cacheFactory) {
             // this lets the path change without reloading route
             var original = $location.path;
             $location.path = function(path, reload) {
@@ -71,30 +71,6 @@ angular.module('hbwww', [
 
             // load in some default hon stuff
             $rootScope.pos_colors = ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29', '#ff44ab', '#727272', '#00a0da', '#006448', '#562507'];
-            $http({
-                method: 'GET',
-                url: BaseUrl + '/item/',
-                cache: true
-            })
-            .success(function(res) {
-                $rootScope.item_names = {};
-                angular.forEach(res, function(value) {
-                    $rootScope.item_names[value.id] = {
-                        'name': value.name,
-                        'cli_name': value.cli_name,
-                        'cost': value.cost,
-                        'description': value.description
-                    };
-                });
-            });
-            $http({
-                method: 'GET',
-                url: 'scripts/data/heroes.json',
-                cache: true
-            })
-            .success(function(res) {
-                $rootScope.hero_names = res;
-            });
         }
     ]);
 

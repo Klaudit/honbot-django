@@ -8,7 +8,8 @@ angular.module('hbwww')
                 $scope.url = BaseUrl + '/player_history/' + $scope.s.player_id + '/' + $scope.currentcount + '/' + $scope.m + '/';
                 $http({
                     method: 'GET',
-                    url: $scope.url
+                    url: $scope.url,
+                    cache: true
                 }).
                 success(function(res) {
                     $scope.history = res;

@@ -2,10 +2,8 @@
 
 angular.module('hbwww', [
     'ngAnimate',
-    'ngCookies',
-    'ngTouch',
-    'ngSanitize',
     'ngRoute',
+    'ngSanitize',
     'percentage',
     'angular-loading-bar',
     'mgcrea.ngStrap',
@@ -54,8 +52,8 @@ angular.module('hbwww', [
             return 'http://api.honbot.com';
         }
     })
-    .run(['$route', '$rootScope', '$location', '$http', 'BaseUrl', '$cacheFactory',
-        function($route, $rootScope, $location, $http, BaseUrl, $cacheFactory) {
+    .run(['$route', '$rootScope', '$location',
+        function($route, $rootScope, $location) {
             // this lets the path change without reloading route
             var original = $location.path;
             $location.path = function(path, reload) {

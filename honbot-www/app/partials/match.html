@@ -66,6 +66,7 @@
                             <a ng-href="/player/{{ player.nickname }}/"
                                data-trigger="hover"
                                bs-popover="ptips[player.player_id]"
+                               data-animation="am-flip-x"
                                data-html="true">
                                 {{ player.nickname }}
                             </a>
@@ -78,6 +79,7 @@
                                data-content="{{ item_names[i].description }}"
                                data-html="true"
                                data-trigger="hover"
+                               data-animation="am-flip-x"
                                bs-popover>
                                 <img style="width:30px;" ng-src='images/items/{{ i }}.jpg'>
                             </a>

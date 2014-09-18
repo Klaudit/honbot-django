@@ -35,7 +35,7 @@ angular.module('hbwww')
         $scope.goMatch = function(match_id){
             $location.path('/match/' + match_id + '/');
         };
-        $scope.$on('playerLoaded', function(event){
+        $scope.$on('playerLoaded', function(){
             $scope.currentcount = 1;
             $scope.nomore = undefined;
             $scope.more();

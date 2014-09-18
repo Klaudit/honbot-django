@@ -19,7 +19,7 @@ function secondsToTime(secs)
 }
 
 angular.module('hbwww')
-    .controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope, $cacheFactory) {
+    .controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope, $sce) {
         // tooltip information
         $http({
             method: 'GET',
@@ -45,7 +45,6 @@ angular.module('hbwww')
         .success(function(res) {
             $rootScope.hero_names = res;
         });
-        console.log($cacheFactory.get('$http').info());
         // end tooltip information
         $scope.match_id = $routeParams.match;
         $scope.match = null;
@@ -282,8 +281,9 @@ angular.module('hbwww')
             .success(function(res){
                 angular.forEach(res, function(v){
                     $scope.ptips[v.player_id] = {
-                        'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + ' <span class="ptip-blue">' + Math.floor(v[$scope.match.mode + '_mmr']) + '</span>' + '</h4>',
+                        'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + '</h4>',
                         'content': '<h4 class="ptiphead"><span class="ptip-success">' + v[$scope.match.mode + '_wins'] + ' </span> - <span class="ptip-warning"> ' + v[$scope.match.mode + '_losses'] + '</span></h4>' +
+                                   'MMR: <span class="ptip-blue">' + Math.floor(v[$scope.match.mode + '_mmr']) + '</span><br>' +
                                    '<strong>KDR</strong>: ' + Math.round(v[$scope.match.mode + '_kdr'] * 100) / 100 + '</span><br>' +
                                    '<strong>APM</strong>: ' + Math.floor(v[$scope.match.mode + '_avg_apm'])
                     };

@@ -19,42 +19,12 @@
     <!-- build:js scripts/modernizr.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
+
   </head>
   <body>
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <div ng-view autoscroll="true"></div>
-
-    <!-- Facebook -->
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-
-    <!-- Footer -->
-    <br>
-    <footer id="footer">
-        <div class="container footer">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Created by <a href="https://twitter.com/scttcper">@scttcper</a></p>
-                    <p></p>
-                    <ul class="list-inline home-inline">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="https://github.com/scttcper/honbot-django">GitHub</a></li>
-                    </ul>
-                    <div class="fb-like" data-href="https://www.facebook.com/honbott" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- Google Analytics -->
     <script>
@@ -66,14 +36,36 @@
       ga('create','UA-38573142-1');ga('require', 'displayfeatures');ga('send','pageview');
     </script>
 
+    <!-- Google Adsense -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+
+    <div ng-view autoscroll="true"></div>
+
+    <!-- Footer -->
+    <br>
+    <footer id="footer">
+        <div class="container footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Created by <a href="https://twitter.com/scttcper">@scttcper</a></p>
+                    <p></p>
+                    <ul class="list-inline home-inline">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Changelog</a></li>
+                        <li><a href="https://github.com/scttcper/honbot-django">GitHub</a></li>
+                        <li><a href="https://www.facebook.com/honbott">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/highcharts/highcharts.js"></script>
     <script src="bower_components/highcharts/highcharts-more.js"></script>
@@ -85,6 +77,8 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
     <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+    <script src="bower_components/angular-cookie/angular-cookie.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -97,6 +91,7 @@
     <script src="scripts/main/PlayerHistoryController.js"></script>
     <script src="scripts/main/ItemsController.js"></script>
     <script src="scripts/main/ChartController.js"></script>
+    <script src="scripts/directives/adsense.js"></script>
     <!-- inject:partials -->
     <!-- endinject -->
     <!-- endbuild -->

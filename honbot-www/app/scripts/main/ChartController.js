@@ -13,7 +13,7 @@ angular.module('hbwww').controller('ChartController', function($scope, BaseUrl, 
             $scope.c = res;
         });
     };
-    $scope.$on('playerLoaded', function(event){
+    $scope.$on('playerLoaded', function(){
         $scope.chart();
     });
     if($scope.s !== undefined){

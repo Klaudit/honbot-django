@@ -2,7 +2,7 @@
 
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
-@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
+@import "../bower_components/bootstrap-sass-only/scss/bootstrap";
 
 /* HONBOT
 -------------------------------------------------- */
@@ -22,12 +22,12 @@ $text-color: #dddddd;
 
 /* Sticky footer styles
 -------------------------------------------------- */
-$footer-size: 80px;
 html {
     position: relative;
     min-height: 100%;
 }
 
+$footer-size: 90px;
 body {
     /* Margin bottom by footer height */
     margin-bottom: $footer-size;
@@ -252,4 +252,16 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .ptip-blue{
     color: #FF00FF;
+}
+.hero-container {
+    background-color: #222222;
+    background-position: 90% 55%;
+    background-size: 800px auto;
+    background-repeat: no-repeat;
+    padding: 0 0 100px;
+}
+.hero-container h1 {
+    padding: 40px 0 0;
+    font-size: 6em;
+    color: #fff;
 }

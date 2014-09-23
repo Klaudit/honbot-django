@@ -19,7 +19,7 @@ function secondsToTime(secs)
 }
 
 angular.module('hbwww')
-    .controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope, $sce) {
+    .controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope) {
         // tooltip information
         $http({
             method: 'GET',

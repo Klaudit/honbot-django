@@ -4,16 +4,14 @@
   "dependencies": {
     "modernizr": "2.8.x",
     "angular": "~1.2.25",
-    "jquery": "2.x.x",
     "angular-animate": "~1.2.25",
     "angular-route": "~1.2.25",
-    "bootstrap-sass-official": "~3.2.x",
     "highcharts": "~4.0.4",
     "ng-percentage-filter": "~1.0.0",
     "angular-loading-bar": "~0.5.2",
-    "angular-moment": "~0.8.2",
     "angular-strap": "~2.1.0",
     "angular-cookie": "~4.0.2",
-    "angular-sanitize": "~1.2.25"
+    "angular-sanitize": "~1.2.25",
+    "bootstrap-sass-only": "~3.2.0"
   }
 }

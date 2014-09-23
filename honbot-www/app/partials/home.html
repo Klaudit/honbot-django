@@ -1,5 +1,5 @@
 <!-- Main Hero -->
-<div id="hero-container" class="hero-container jumbotron">
+<div class="hero-container jumbotron" ng-style="{'background-image': 'url({{ image }})'}">
     <div class="container">
         <div class="row">
             <!-- search -->
@@ -8,7 +8,7 @@
                 <div class="input-group input-group-lg col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-sm-12">
                     <input type="text" ng-model="nickname" placeholder="Username" class="form-control input-md" spellcheck="false" autocorrect="off" autocapitalize="off" autofocus>
                     <span class="input-group-btn">
-                        <button class="btn btn-default btn-md" type="button"><i class="fa fa-search"></i> Go</button>
+                        <button class="btn btn-default btn-md" type="button">Go</button>
                     </span>
                 </div>
             </form>
@@ -24,10 +24,6 @@
         </div>
     </div>
 </div>
-<!-- Content -->
-<div class="text-center">
-<div adsense slot="7614685358"></div>
-</div>
 
 <div class="container">
     <div class="row">
@@ -40,8 +36,6 @@
                     Footer?
                 </div>
             </div>
-
-            
         </div>
 
         <!-- status pannel -->

@@ -6,8 +6,7 @@ angular.module('hbwww', [
     'ngSanitize',
     'percentage',
     'angular-loading-bar',
-    'mgcrea.ngStrap',
-    'angularMoment'])
+    'mgcrea.ngStrap'])
     .config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true).hashPrefix('!');
         $routeProvider

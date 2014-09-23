@@ -1,3 +1,6 @@
+# Scrapes all large art from avatars and heroes on offical pages
+# @scttcper 2014
+
 from bs4 import BeautifulSoup
 import requests
 

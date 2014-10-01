@@ -2,6 +2,7 @@
 
 angular.module('hbwww').controller('ChartController', function($scope, BaseUrl, $http) {
     $scope.view = 'chart';
+    $scope.title = 'DemoCtrl';
 
     $scope.chart = function(){
         var url = BaseUrl + '/player_cache/' + $scope.s.player_id + '/' + $scope.m + '/';
@@ -16,7 +17,4 @@ angular.module('hbwww').controller('ChartController', function($scope, BaseUrl, 
     $scope.$on('playerLoaded', function(){
         $scope.chart();
     });
-    if($scope.s !== undefined){
-        $scope.chart();
-    }
 });

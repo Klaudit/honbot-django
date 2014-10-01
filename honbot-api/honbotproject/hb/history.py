@@ -7,7 +7,7 @@ from .match import multimatch
 from .utils import pmoselect
 
 from json import dumps, loads
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 
 
@@ -15,6 +15,7 @@ return_size = 25
 
 
 @api_view(['GET'])
+@throttle_classes([])
 def player_history(request, pid, page, mode):
     """
     this is the main function of player history
@@ -79,6 +80,7 @@ def verify_matches(hist, mode):
 
 
 @api_view(['GET'])
+@throttle_classes([])
 def get_cached(request, pid, mode):
     matches = pmoselect(mode).objects.filter(player_id=pid).values()
     return Response(matches)

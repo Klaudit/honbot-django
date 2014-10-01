@@ -8,12 +8,13 @@ from .serializers import MatchSerializer
 from datetime import datetime
 from json import dumps
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 from pytz import utc, timezone
 
 
 @api_view(['GET'])
+@throttle_classes([])
 def match(request, mid):
     """
     Returns a single match from ID  

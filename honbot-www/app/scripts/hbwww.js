@@ -6,6 +6,8 @@ angular.module('hbwww', [
     'ngSanitize',
     'percentage',
     'angular-loading-bar',
+    'angularMoment',
+    'angular-underscore',
     'mgcrea.ngStrap'])
     .config(function($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true).hashPrefix('!');
@@ -66,7 +68,6 @@ angular.module('hbwww', [
                 return original.apply($location, [path]);
             };
 
-            // load in some default hon stuff
             $rootScope.pos_colors = ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29', '#ff44ab', '#727272', '#00a0da', '#006448', '#562507'];
         }
     ]);

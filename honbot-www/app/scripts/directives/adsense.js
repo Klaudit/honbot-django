@@ -1,4 +1,4 @@
-/*global window */
+/* jshint ignore:start */
 
 'use strict';
 
@@ -16,3 +16,5 @@ angular.module('hbwww')
         }
     };
 });
+
+/* jshint ignore:end */

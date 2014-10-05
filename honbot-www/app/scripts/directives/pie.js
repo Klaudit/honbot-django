@@ -1,31 +1,30 @@
 /* jshint ignore:start */
 'use strict';
 
-angular.module('hbwww').directive('pie', function(d3) {
+angular.module('hbwww').directive('pie', function(d3, _) {
 
     return {
         restrict: 'EA',
         scope: {
             data: '=',
             label: '@',
-            focus: '='
+            team: '='
         },
         link: function(scope, element, iAttrs) {
 
             var width = d3.select(element[0])[0][0].parentElement.clientWidth;
-            var height = 135,
+            var height = 250,
                 radius = Math.min(width, height) / 2;
 
-            var color = ['#27ae60', '#c0392b'];
+            var color = scope.$root.pos_colors;
 
             var arc = d3.svg.arc()
-                .outerRadius(radius - 10)
-                .innerRadius(radius - 40);
+                .outerRadius(radius - 10);
 
             var pie = d3.layout.pie()
                 .sort(null)
                 .value(function(d) {
-                    return d.total;
+                    return d.herodmg;
                 });
 
             var svg = d3.select(element[0]).append("svg")
@@ -37,7 +36,7 @@ angular.module('hbwww').directive('pie', function(d3) {
             var tip = d3.tip()
                 .attr('class', 'd3-tip')
                 .html(function(d) {
-                    return "<strong>" + d.nickname + ":</strong><span class='gold'> " + Math.floor(d.gpm) + "</span>";
+                    return "<strong>" + d.data.nickname + ":</strong><span class='gold'> " + Math.floor(d.value) + "</span>";
                 })
 
             // watch for data changes and re-render
@@ -51,34 +50,30 @@ angular.module('hbwww').directive('pie', function(d3) {
                 svg.call(tip);
                 if (!data) return;
                 var t1 = 0, t2 = 0;
-                angular.forEach(data, function(d){
-                    if(d.team===1){
-                        t1 += d[scope.focus];
-                    } else {
-                        t2 += d[scope.focus];
-                    }
-                });
-                data = [
-                    {
-                        team: 0,
-                        name: 'L',
-                        total: t1
-                    }, {
-                        team: 1,
-                        name: 'H',
-                        total: t2
-                    }
-                ]
+                data = _.groupBy(data, function(d){ return d.team })[scope.team];
+                console.log(data);
 
-                var g = svg.selectAll(".arc")
+                svg.selectAll(".arc")
                     .data(pie(data))
                     .enter().append("g")
                     .attr("class", "arc");
 
-                g.append("path")
+                svg.selectAll(".arc")
+                    .append("path")
                     .attr("d", arc)
-                    .style("fill", function(d) {
-                        return color[d.data.team];
+                    .attr("fill", function(d) {
+                        return color[d.data.position];
+                    })
+                    .attr("originalfill", function(d) {
+                        return color[d.data.position];
+                    })
+                    .on('mouseover', function(d) {
+                        tip.show(d);
+                        d3.select(this).style("fill", d3.rgb(this.attributes.fill.value).brighter());
+                    })
+                    .on("mouseout", function(d) {
+                        tip.hide(d);
+                        d3.select(this).style("fill", this.attributes.originialfill);
                     });
 
             };

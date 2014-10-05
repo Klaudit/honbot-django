@@ -3,13 +3,13 @@
 <header class="player-head">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
                 <h3>
                     <img class="pull-left" style="margin-top: -20px; margin-right: 5px;" ng-src="images/maps/{{ match.map_used || 'caldavar' }}.jpg" width="60">
                     Match: {{ match_id }}
                 </h3>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
                     <h4 style="margin-bottom: 2px;">Winner</h4>{{ winner }}
                 </div>
@@ -121,34 +121,44 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="panel panel-default">
-                <div style="padding: 5px;" class="panel-heading"><h4 class="text-center">Gold Per Minute</h4></div>
+                <div style="padding: 5px;" class="panel-heading">
+                    <h4 class="text-center" placement="bottom">Gold Per Minute</h4>
+                </div>
                 <div class="panel-body graph-padding">
-                    <d3-bars data="match.players"></d3-bars>
+                    <gpm data="match.players"></gpm>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="panel panel-default">
-                <div style="padding: 5px;" class="panel-heading"><h4 class="text-center">Team Totals</h4></div>
+                <div style="padding: 5px;" class="panel-heading">
+                    <h4 class="text-center">Team Totals</h4>
+                </div>
                 <div class="panel-body graph-padding">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                            <div id="kills" style="min-width: 50px; height: 180px; margin: 0 auto"></div>
+                            <h4 class="text-center">Kills</h4>
+                            <donut data="match.players" data-focus="'kills'"></donut>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
-                            <div id="assists" style="min-width: 50px; height: 180px; margin: 0 auto"></div>
+                            <h4 class="text-center">Deaths</h4>
+                            <donut data="match.players" data-focus="'deaths'"></donut>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
-                            <div id="xpm" style="min-width: 50px; height: 180px; margin: 0 auto"></div>
+                            <h4 class="text-center">XPM</h4>
+                            <donut data="match.players" data-focus="'xpm'"></donut>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
-                            <div id="creeps" style="min-width: 50px; height: 180px; margin: 0 auto"></div>
+                            <h4 class="text-center">XPM</h4>
+                            <donut data="match.players" data-focus="'cs'"></donut>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
-                            <div id="gpm" style="min-width: 50px; height: 180px; margin: 0 auto"></div>
+                            <h4 class="text-center">XPM</h4>
+                            <donut data="match.players" data-focus="'gpm'"></donut>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
-                            <div id="apm" style="min-width: 50px; height: 180px; margin: 0 auto"></div>
+                            <h4 class="text-center">APM</h4>
+                            <donut data="match.players" data-focus="'apm'"></donut>
                         </div>
                     </div>
                 </div>

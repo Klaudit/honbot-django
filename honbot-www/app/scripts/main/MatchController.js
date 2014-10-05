@@ -18,11 +18,10 @@ function secondsToTime(secs)
     return obj;
 }
 
-angular.module('hbwww').controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope, $log) {
+angular.module('hbwww').controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope, $log, _) {
 
     // init
     $scope.match_id = $routeParams.match;
-    
     
     var url = BaseUrl + '/match/' + $scope.match_id + '/';
     $log.log(url);
@@ -114,7 +113,7 @@ angular.module('hbwww').controller('MatchController', function($scope, $routePar
                 $scope.ptips[v.player_id] = {
                     'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + '</h4>',
                     'content': '<h4 class="ptiphead"><span class="ptip-success">' + v[$scope.match.mode + '_wins'] + ' </span> - <span class="ptip-warning"> ' + v[$scope.match.mode + '_losses'] + '</span></h4>' +
-                               'MMR: <span class="ptip-blue">' + Math.floor(v[$scope.match.mode + '_mmr']) + '</span><br>' +
+                               '<strong>MMR</strong>: <span class="ptip-blue">' + Math.floor(v[$scope.match.mode + '_mmr']) + '</span><br>' +
                                '<strong>KDR</strong>: ' + Math.round(v[$scope.match.mode + '_kdr'] * 100) / 100 + '</span><br>' +
                                '<strong>APM</strong>: ' + Math.floor(v[$scope.match.mode + '_avg_apm'])
                 };

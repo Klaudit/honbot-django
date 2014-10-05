@@ -1,7 +1,7 @@
 /* jshint ignore:start */
 'use strict';
 
-angular.module('hbwww').directive('donut', function(d3) {
+angular.module('hbwww').directive('pie', function(d3) {
 
     return {
         restrict: 'EA',

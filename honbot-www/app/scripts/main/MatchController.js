@@ -31,27 +31,21 @@ angular.module('hbwww').controller('MatchController', function($scope, $routePar
     })
     .success(function(res) {
         $scope.match = res;
+        $scope.len = secondsToTime($scope.match.length);
         var t1 = 0,
             t2 = 0,
-        d = {
-            l: [],
-            h: [],
-            hcolor: [],
-            lcolor: [],
-            lkills: 0,
-            hkills: 0,
-            lassists: 0,
-            hassists: 0,
-            lxpm: 0,
-            hxpm: 0,
-            lcreeps: 0,
-            hcreeps: 0,
-            lgpm: 0,
-            hgpm: 0,
-            lapm: 0,
-            hapm: 0
-        },
-        tgpm = [];
+            tgpm = [];
+
+        if(t1 > t2){
+            $scope.winner = 'Legion';
+        } else {
+            $scope.winner = 'Hellbourne';
+        }
+
+        // tooltips init
+        url = BaseUrl + '/ptip/';
+        $scope.ptips = {};
+
         angular.forEach($scope.match.players, function(p) {
             // load item arrays
             if(p.items !== ''){
@@ -65,49 +59,16 @@ angular.module('hbwww').controller('MatchController', function($scope, $routePar
                     t2 += p.win;
                 }
             }
-            // setup data for the silly graphs
-            if(p.team === 1){
-                d.l.push([p.nickname, p.herodmg]);
-                d.lcolor.push($rootScope.pos_colors[p.position]);
-                d.lkills += p.kills;
-                d.lassists += p.assists;
-                d.lxpm += p.xpm;
-                d.lcreeps += p.cs;
-                d.lgpm += p.gpm;
-                d.lapm += p.apm;
-            }
-            if(p.team === 2){
-                d.h.push([p.nickname, p.herodmg]);
-                d.hcolor.push($rootScope.pos_colors[p.position]);
-                d.hkills += p.kills;
-                d.hassists += p.assists;
-                d.hxpm += p.xpm;
-                d.hcreeps += p.cs;
-                d.hgpm += p.gpm;
-                d.hapm += p.apm;
-            }
             tgpm.push({name: p.nickname, data: [Math.floor(p.gpm)], color: $rootScope.pos_colors[p.position]});
-        });
 
-        // set winning team
-        $scope.len = secondsToTime($scope.match.length);
-        if(t1 > t2){
-            $scope.winner = 'Legion';
-        } else {
-            $scope.winner = 'Hellbourne';
-        }
-        
-
-        // tooltips
-        url = BaseUrl + '/ptip/';
-        $scope.ptips = {};
-        angular.forEach($scope.match.players, function(v) {
-            url += v.player_id + '/';
-            $scope.ptips[v.player_id] = {
-                'title': '<h4 class="ptiphead">' + v.nickname + '</h4>',
+            url += p.player_id + '/';
+            $scope.ptips[p.player_id] = {
+                'title': '<h4 class="ptiphead">' + p.nickname + '</h4>',
                 'content': '<span class="ptip-warning">Stats not loaded</span><br>'
             };
         });
+
+        // player tooltips
         $http({method: 'GET', url: url}).success(function(res){
             angular.forEach(res, function(v){
                 $scope.ptips[v.player_id] = {
@@ -119,6 +80,5 @@ angular.module('hbwww').controller('MatchController', function($scope, $routePar
                 };
             });
         });
-
-    });
+    }); 
 });

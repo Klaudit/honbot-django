@@ -15,9 +15,8 @@
                         <th class="text-center">Match #</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    <tr ng-repeat="(key, match) in history" ng-click="goMatch(match.match_id)" ng-class="{matchloss: !match.win, matchwin: match.win}">
+                    <tr ng-repeat="(key, match) in history track by $index" ng-click="goMatch(match.match_id)" ng-class="{matchloss: !match.win, matchwin: match.win}">
                         <td>
                             <img ng-src="/images/heroes/{{match.hero_id}}/icon_128.jpg">{{ match.level }}</td>
                         <td>{{ match.kills }} / {{ match.deaths }} / {{ match.assists }}</td>
@@ -33,8 +32,7 @@
             </table>
             </p>
             <p ng-show="nomore">Reached the end of available recent matches</p>
-            <a ng-click="previous()" ng-show="currentcount > 1" class="btn btn-default btn-small">Previous</a>
-            <a ng-click="next()" ng-show="!nomore" class="btn btn-default btn-small">Next</a>
+            <a ng-click="more()" ng-show="!nomore" class="btn btn-default btn-small">More</a>
         </div>
         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
             <div class="row">

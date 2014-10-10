@@ -17,7 +17,7 @@ from pytz import utc, timezone
 @throttle_classes([])
 def match(request, mid):
     """
-    Returns a single match from ID  
+    Returns a single match from ID
     Players are returned in an array and their items are a json array dumped into a string
     """
     m = Match.objects.filter(match_id=mid).first()

@@ -18,6 +18,7 @@ debug = settings.DEBUG
 
 
 class PlayerViewSet(viewsets.ViewSet):
+
     """
     Viewset for retreiving players
     """
@@ -143,7 +144,8 @@ def get_player(p, raw=None):
         p.rnk_avg_kills = div(p.rnk_herokills, p.rnk_games_played)
         p.rnk_avg_deaths = div(p.rnk_deaths, p.rnk_games_played)
         p.rnk_avg_assists = div(p.rnk_heroassists, p.rnk_games_played)
-        p.rnk_avg_creeps = div((p.rnk_neutralcreepkills + p.rnk_teamcreepkills), p.rnk_games_played)
+        p.rnk_avg_creeps = div(
+            (p.rnk_neutralcreepkills + p.rnk_teamcreepkills), p.rnk_games_played)
         p.rnk_avg_denies = div(p.rnk_denies, p.rnk_games_played)
         rnk_minutes = div(p.rnk_secs, 60)
         p.rnk_avg_xpm = div(p.rnk_exp, rnk_minutes)
@@ -224,7 +226,8 @@ def get_player(p, raw=None):
         p.cs_avg_kills = div(p.cs_herokills, p.cs_games_played)
         p.cs_avg_deaths = div(p.cs_deaths, p.cs_games_played)
         p.cs_avg_assists = div(p.cs_heroassists, p.cs_games_played)
-        p.cs_avg_creeps = div((p.cs_neutralcreepkills + p.cs_teamcreepkills), p.cs_games_played)
+        p.cs_avg_creeps = div(
+            (p.cs_neutralcreepkills + p.cs_teamcreepkills), p.cs_games_played)
         p.cs_avg_denies = div(p.cs_denies, p.cs_games_played)
         cs_minutes = div(p.cs_secs, 60)
         p.cs_avg_xpm = div(p.cs_exp, cs_minutes)
@@ -238,7 +241,7 @@ def get_player(p, raw=None):
         p.cs_kadr = div((p.cs_herokills + p.cs_heroassists), p.cs_deaths)
         try:
             p.cs_tsr = ((p.cs_herokills / p.cs_deaths / 1.15) * 0.65) + ((p.cs_heroassists / p.cs_deaths / 1.55) * 1.20) + (((p.cs_wins / (p.cs_wins + p.cs_losses)) / 0.55) * 0.9) + (((p.cs_gold / p.cs_secs * 60) / 230) * 0.35) + ((((p.cs_exp / p.cs_time_earning_exp * 60) / 380)) * 0.40) + (
-                        (((((p.cs_denies / p.cs_games_played) / 12)) * 0.70) + ((((p.cs_teamcreepkills / p.cs_games_played) / 93)) * 0.50) + ((p.cs_wards / p.cs_games_played) / 1.45 * 0.30)) * (37.5 / (p.cs_secs / p.cs_games_played / 60)))
+                (((((p.cs_denies / p.cs_games_played) / 12)) * 0.70) + ((((p.cs_teamcreepkills / p.cs_games_played) / 93)) * 0.50) + ((p.cs_wards / p.cs_games_played) / 1.45 * 0.30)) * (37.5 / (p.cs_secs / p.cs_games_played / 60)))
         except:
             p.cs_tsr = 0
         p.acc_games_played = int(raw['acc_games_played'])

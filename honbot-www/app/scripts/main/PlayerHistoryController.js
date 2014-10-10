@@ -1,36 +1,27 @@
 'use strict';
 
 angular.module('hbwww')
-    .controller('PlayerHistoryController', function($scope, $http, BaseUrl, $location, $timeout) {
-        $scope.currentcount = 1;
+    .controller('PlayerHistoryController', function($scope, $http, BaseUrl, $location, $timeout, $log) {
+        $scope.currentcount = 0;
+        $scope.history = [];
         $scope.more = function(){
-            if($scope.s){
-                $scope.url = BaseUrl + '/player_history/' + $scope.s.player_id + '/' + $scope.currentcount + '/' + $scope.m + '/';
-                $http({
-                    method: 'GET',
-                    url: $scope.url,
-                    cache: true
-                }).
-                success(function(res) {
-                    $scope.history = res;
-                    if($scope.history.length < 25){
-                        $scope.nomore = true;
-                    }
-                    $timeout(function(){
-                        $scope.apply();
-                    });
-                });
-            }
-        };
-        $scope.next = function(){
+            if(!$scope.s.player_id){return;}
             $scope.currentcount += 1;
-            $scope.more();
-        };
-        $scope.previous = function(){
-            if($scope.currentcount > 1){
-                $scope.currentcount = $scope.currentcount - 1;
-            }
-            $scope.more();
+            // TODO: disable additional calls of more here
+            $scope.url = BaseUrl + '/player_history/' + $scope.s.player_id + '/' + $scope.currentcount + '/' + $scope.m + '/';
+            $http({
+                method: 'GET',
+                url: $scope.url,
+                cache: true
+            }).
+            success(function(res) {
+                $log.debug(res);
+                $scope.history = $scope.history.concat(res);
+                if($scope.history.length < 25){
+                    $scope.nomore = true;
+                }
+                // TODO: enable more() again
+            });
         };
         $scope.goMatch = function(match_id){
             $location.path('/match/' + match_id + '/');
@@ -40,5 +31,5 @@ angular.module('hbwww')
             $scope.nomore = undefined;
             $scope.more();
         });
-        
+        $scope.more();
     });

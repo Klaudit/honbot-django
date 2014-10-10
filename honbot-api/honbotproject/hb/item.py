@@ -5,12 +5,15 @@ from .serializers import ItemSerializer
 
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.throttling import AnonRateThrottle
 
 
 class ItemsViewSet(viewsets.ViewSet):
     """
     Viewset for retreiving players
     """
+    throttle_classes = (AnonRateThrottle,)
+
     def list(self, request):
         data = cache.get('items')
         if not data:

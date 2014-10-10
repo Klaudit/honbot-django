@@ -45,11 +45,11 @@ angular.module('hbwww', [
     })
     .factory('BaseUrl', function($location, $rootScope) {
         if ($location.host().split(':')[0] === 'localhost') {
-            $rootScope.BaseUrl = 'http://localhost:8000';
-            return 'http://localhost:8000';
+            $rootScope.BaseUrl = '//localhost:8000';
+            return '//localhost:8000';
         } else {
-            $rootScope.BaseUrl = 'http://api.honbot.com';
-            return 'http://api.honbot.com';
+            $rootScope.BaseUrl = '//api.honbot.com';
+            return '//api.honbot.com';
         }
     })
     .run(['$route', '$rootScope', '$location',

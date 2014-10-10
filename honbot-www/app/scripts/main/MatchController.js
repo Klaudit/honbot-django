@@ -18,10 +18,12 @@ function secondsToTime(secs)
     return obj;
 }
 
-angular.module('hbwww').controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope, $log, _) {
+angular.module('hbwww').controller('MatchController', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope, $log, _, items, heroes) {
 
     // init
     $scope.match_id = $routeParams.match;
+    $scope.item_names = _.indexBy(items, 'id');
+    $scope.hero_names = heroes;
     
     var url = BaseUrl + '/match/' + $scope.match_id + '/';
     $log.log(url);
@@ -30,6 +32,7 @@ angular.module('hbwww').controller('MatchController', function($scope, $routePar
         url: url
     })
     .success(function(res) {
+        $log.debug(res);
         $scope.match = res;
         $scope.len = secondsToTime($scope.match.length);
         var t1 = 0,
@@ -67,9 +70,9 @@ angular.module('hbwww').controller('MatchController', function($scope, $routePar
                 'content': '<span class="ptip-warning">Stats not loaded</span><br>'
             };
         });
-
         // player tooltips
         $http({method: 'GET', url: url}).success(function(res){
+            $log.debug(res);
             angular.forEach(res, function(v){
                 $scope.ptips[v.player_id] = {
                     'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + '</h4>',

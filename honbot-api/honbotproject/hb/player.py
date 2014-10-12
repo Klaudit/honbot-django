@@ -18,7 +18,6 @@ debug = settings.DEBUG
 
 
 class PlayerViewSet(viewsets.ViewSet):
-
     """
     Viewset for retreiving players
     """

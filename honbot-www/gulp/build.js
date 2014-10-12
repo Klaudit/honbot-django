@@ -38,8 +38,10 @@ gulp.task('partials', function () {
 });
 
 gulp.task('html', ['styles', 'scripts', 'partials'], function () {
+  var htmlFilter = $.filter('*.html');
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
+  var assets;
 
   return gulp.src('app/*.html')
     .pipe($.inject(gulp.src('.tmp/partials/**/*.js'), {
@@ -48,19 +50,26 @@ gulp.task('html', ['styles', 'scripts', 'partials'], function () {
       addRootSlash: false,
       addPrefix: '../'
     }))
-    .pipe($.useref.assets())
+    .pipe(assets = $.useref.assets())
     .pipe($.rev())
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
     .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
-    .pipe($.replace('bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap','fonts'))
+    .pipe($.replace('bower_components/bootstrap-sass-official/assets/fonts/bootstrap','fonts'))
     .pipe($.csso())
     .pipe(cssFilter.restore())
-    .pipe($.useref.restore())
+    .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.revReplace())
+    .pipe(htmlFilter)
+    .pipe($.minifyHtml({
+      empty: true,
+      spare: true,
+      quotes: true
+    }))
+    .pipe(htmlFilter.restore())
     .pipe(gulp.dest('dist'))
     .pipe($.size());
 });

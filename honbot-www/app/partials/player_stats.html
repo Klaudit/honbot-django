@@ -1,0 +1,286 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 text-center" ng-controller="PlayerHistoryController">
+            <table id="history" class="table table-header recent-match">
+                <thead>
+                    <tr>
+                        <th class="text-center">Hero lvl</th>
+                        <th class="text-center">K/D/A</th>
+                        <th class="text-center">KDR</th>
+                        <th class="text-center">APM</th>
+                        <th class="text-center">GPM</th>
+                        <th class="text-center">XPM</th>
+                        <th class="text-center">+/-</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Match #</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key, match) in history track by $index" ng-click="goMatch(match.match_id)" ng-class="{matchloss: !match.win, matchwin: match.win}">
+                        <td>
+                            <img ng-src="/images/heroes/{{match.hero_id}}/icon_128.jpg">{{ match.level }}</td>
+                        <td>{{ match.kills }} / {{ match.deaths }} / {{ match.assists }}</td>
+                        <td>{{ match.kdr | number:1 }}</td>
+                        <td>{{ match.apm | number:0 }}</td>
+                        <td>{{ match.gpm | number:0 }}</td>
+                        <td>{{ match.xpm | number:0 }}</td>
+                        <td>{{ match.mmr_change | number:0 }}</td>
+                        <td am-time-ago="match.date"></td>
+                        <td>{{ match.match_id }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </p>
+            <p ng-show="nomore">Reached the end of available recent matches</p>
+            <a ng-click="more()" ng-show="!nomore" class="btn btn-default btn-small">More</a>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-center">Stats Average</h4>
+                        </div>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Game Length <span class="text-muted">(Minutes)</span>
+                                        <span class="pull-right">{{ s[m + '_avg_time'] | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kills
+                                        <span class="pull-right">{{ s[m + '_avg_kills'] | number:2 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Deaths
+                                        <span class="pull-right">{{ s[m + '_avg_deaths'] | number:2 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Assists
+                                        <span class="pull-right">{{ s[m + '_avg_assists'] | number:2 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kills:Death
+                                        <span class="text-muted">(KDR)</span>
+                                        <span class="pull-right">{{ s[m + '_kdr'] | number:2 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>K+A:D
+                                        <span class="pull-right">{{ s[m + '_kadr'] | number:2 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Exp/min
+                                        <span class="text-muted">(XPM)</span>
+                                        <span class="pull-right">{{ s[m + '_avg_xpm'] | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gold/min
+                                        <span class="text-muted">(GPM)</span>
+                                        <span class="pull-right">{{ s[m + '_avg_gpm'] | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Actions/min
+                                        <span class="text-muted">(APM)</span>
+                                        <span class="pull-right">{{ s[m + '_avg_apm'] | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Creep Kills
+                                        <span class="pull-right">{{ s[m + '_avg_creeps'] | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Creep Denies
+                                        <span class="pull-right">{{ s[m + '_avg_denies'] | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Wards
+                                        <span class="pull-right">{{ s[m + '_avg_wards'] | number:1 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Consumables
+                                        <span class="pull-right">{{ s[m + '_avg_consumables'] | number:1 }}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-center">Lifetime</h4>
+                        </div>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Hours Played
+                                        <span class="pull-right">{{ s[m + '_secs'] / 60 / 60 | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kills
+                                        <span class="pull-right">{{ s[m + '_herokills'] | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Deaths
+                                        <span class="pull-right">{{ s[m + '_deaths'] | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Assists
+                                        <span class="pull-right">{{ s[m + '_heroassists'] | number:0 }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Disconnects
+                                        <span class="pull-right">{{ s[m + '_discos'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ended in CC
+                                        <span class="pull-right">{{ s[m + '_concedes'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Called for CC
+                                        <span class="pull-right">{{ s[m + '_concedevotes'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kicked
+                                        <span class="pull-right">{{ s[m + '_kicked'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Humiliation
+                                        <span class="pull-right">{{ s[m + '_humiliation'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Smackdown
+                                        <span class="pull-right">{{ s[m + '_smackdown'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bloodlust
+                                        <span class="pull-right">{{ s[m + '_bloodlust'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Retribution
+                                        <span class="pull-right">{{ s[m + '_retribution'] }}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-center">Streaks</h4>
+                        </div>
+                        <table class="table table-striped align-right">
+                            <tbody>
+                                <tr>
+                                    <td>Serial Killer
+                                        <span class="text-muted">(3)</span>
+                                        <span class="pull-right">{{ s[m + '_ks3'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ultimate Warrior
+                                        <span class="text-muted">(4)</span>
+                                        <span class="pull-right">{{ s[m + '_ks4'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Legendary
+                                        <span class="text-muted">(5)</span>
+                                        <span class="pull-right">{{ s[m + '_ks5'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Onslaught
+                                        <span class="text-muted">(6)</span>
+                                        <span class="pull-right">{{ s[m + '_ks6'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Savage Sick
+                                        <span class="text-muted">(7)</span>
+                                        <span class="pull-right">{{ s[m + '_ks7'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Dominating
+                                        <span class="text-muted">(8)</span>
+                                        <span class="pull-right">{{ s[m + '_ks8'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Champion
+                                        <span class="text-muted">(9)</span>
+                                        <span class="pull-right">{{ s[m + '_ks9'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bloodbath
+                                        <span class="text-muted">(10)</span>
+                                        <span class="pull-right">{{ s[m + '_ks10'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Immortal
+                                        <span class="text-muted">(15)</span>
+                                        <span class="pull-right">{{ s[m + '_ks15'] }}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody style="border-top-color: grey;">
+                                <tr>
+                                    <td>Double Tap
+                                        <span class="text-muted">(2x)</span>
+                                        <span class="pull-right">{{ s[m + '_doublekill'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Hat-Trick
+                                        <span class="text-muted">(3x)</span>
+                                        <span class="pull-right">{{ s[m + '_triplekill'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Quad Kill
+                                        <span class="text-muted">(4x)</span>
+                                        <span class="pull-right">{{ s[m + '_quadkill'] }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Annihilation
+                                        <span class="text-muted">(5x)</span>
+                                        <span class="pull-right">{{ s[m + '_annihilation'] }}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

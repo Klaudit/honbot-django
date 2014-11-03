@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <ul class="nav nav-pills nav-justified" bs-navbar>
+                <li ng-class="{active: view == 'stats'}">
+                    <a ng-click="goplayer()">
+                        {{ modefull }} Stats
+                    </a>
+                </li>
+                <li ng-class="{active: view == 'chart'}">
+                    <a ng-click="gochart()">
+                        Charts
+                    </a>
+                </li>
+                <li ng-class="{active: view == 'hero'}">
+                    <a ng-click="gohero()">
+                        Heroes
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="banner()">
+                        Stats Banner
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<header class="player-head">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                <div class="btn-group-vertical pull-left">
+                    <a class="btn btn-xs noradius" ng-class="{'btn-default': m != 'rnk', 'btn-warning': m == 'rnk'}" ng-click="mode('rnk')">Ranked</a>
+                    <a class="btn btn-xs noradius" ng-class="{'btn-default': m != 'cs', 'btn-warning': m == 'cs'}" ng-click="mode('cs')">Casual</a>
+                    <a class="btn btn-xs noradius" ng-class="{'btn-default': m != 'acc', 'btn-warning': m == 'acc'}" ng-click="mode('acc')">Public</a>
+                </div>
+                <h1 class="pull-left"><img ng-src="{{ s.avatar }}" class="pull-left" width="65" height="65"> {{ nickname }}</h1>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-lg-offset-2 col-md-offset-2 text-center">
+                    <h4>mmr</h4>{{ Math.floor(s[m + '_mmr']) }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+                    <h4>tsr</h4>{{ s[m + '_tsr'] | number:2 }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+                    <h4>win</h4>{{ s[m + '_wins'] }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+                    <h4>loss</h4>{{ s[m + '_losses'] }}
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+                    <h4 style="margin-top: 21px;">{{ s[m + '_winpercent'] | percentage | number:1 }}%</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

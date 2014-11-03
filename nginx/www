@@ -1,0 +1,27 @@
+server {
+    listen   80;
+
+    server_name www.honbot.com honbot.com;
+    access_log /home/hb/honbot/honbot-django/honbot-www/access.log;
+    error_log /home/hb/honbot/honbot-django/honbot-www/error.log; 
+    root /home/hb/honbot/honbot-django/honbot-www/dist/;
+    set $host_path "/home/hb/honbot/honbot-django/honbot-www/dist/";
+    index index.html;
+ 
+    # SEO
+    if ($args ~ "_escaped_fragment_=/?(.+)") {
+        set $path $1;
+        rewrite ^ /snapshots/$path last;
+    }
+
+    # Re-route nested routes through index
+
+    # banner must redirect through api
+    location /banner {
+
+    }
+    location / {
+        try_files $uri $uri/ /index.html =404;
+    }
+
+}

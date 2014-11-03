@@ -1,3 +1,5 @@
+from app import app
+
 from requests import get, exceptions
 from time import sleep
 
@@ -10,6 +12,8 @@ token = '/?token=%s' % environ.get('API_TOKEN')
 
 def get_json(endpoint):
     url = ''.join([baseurl, endpoint, token])
+    if app.debug:
+        print(url)
     count = 0
     while True:
         try:

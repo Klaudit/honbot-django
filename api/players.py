@@ -2,7 +2,7 @@ from flask import jsonify, g
 from pytz import utc
 import rethinkdb as r
 from app import app, q, not_found
-from utils import div
+from utils import div, needs_update
 from api import get_json
 from avatar import avatar
 
@@ -12,6 +12,8 @@ from datetime import datetime
 @app.route('/player/<nickname>/')
 def player(nickname):
     player = get_or_update_player(nickname, 800)
+    if player is None:
+        return not_found()
     return jsonify(player)
 
 
@@ -23,15 +25,12 @@ def get_or_update_player(nickname, age):
             q.enqueue(avatar, new['id'])
             return new
         else:
-            return not_found()
-    nowutc = datetime.now(utc)
-    tdelta = nowutc - player['updated']
-    if tdelta.seconds + (tdelta.days * 86400) > age:
+            return None
+    if needs_update(player['updated'], age):
         updated = update_player(player['nickname'], player)
         if updated is not None:
             try:
-                adelta = nowutc - player['avatar_updated']
-                if adelta.seconds + (adelta.days * 86400) > 604800:
+                if needs_update(player['avatar_updated'], 604800):
                     q.enqueue(avatar, updated['id'])
             except:
                 q.enqueue(avatar, updated['id'])

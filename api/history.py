@@ -1,6 +1,7 @@
 from app import app, not_found
 from api import get_json
 from matches import multimatch
+from utils import needs_update
 
 from flask import g, jsonify
 from pytz import utc
@@ -19,6 +20,8 @@ def player_history(pid, page, mode):
     """
     count = int(page) * return_size
     player = get_or_update_history(pid)
+    if player is None:
+        return not_found()
     # loads up history and trims it to size
     hist = player[mode + '_history'][(count - return_size):count]
     ph = verify_matches(hist, mode)
@@ -45,17 +48,17 @@ def get_cached(pid, mode):
 def get_or_update_history(pid):
     p = r.table('players').get(pid).run(g.rconn)
     url = '/match_history/all/accountid/' + str(pid)
+    # player doesn't exist
     if p is None:
-        return not_found()
+        return None
+    # history never done
     if 'history_updated' not in p:
         raw = get_json(url)
         if raw:
             return update_history(p, raw)
         else:
-            return not_found()
-    nowutc = datetime.now(utc)
-    tdelta = nowutc - p['history_updated']
-    if tdelta.seconds + (tdelta.days * 86400) > 800:
+            return None
+    if needs_update(p['history_updated'], 800):
         raw = get_json(url)
         if raw:
             return update_history(p, raw)
@@ -78,7 +81,6 @@ def verify_matches(hist, mode):
     """
     checks for matches exist in the database. If they not exist, they soon will.
     """
-    print(hist)
     findexisting = list(r.table('matches').get_all(r.args(hist)).run(g.rconn))
     existing = set([int(match['id']) for match in findexisting])
     missing = [x for x in hist if x not in existing]

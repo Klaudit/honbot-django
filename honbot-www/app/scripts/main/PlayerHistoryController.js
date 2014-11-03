@@ -4,10 +4,10 @@ angular.module('hbwww').controller('PlayerHistoryController', function($scope, $
     $scope.currentcount = 0;
     $scope.history = [];
     $scope.more = function(){
-        if(!$scope.s.player_id){return;}
+        if(!$scope.s.id){return;}
         $scope.currentcount += 1;
         // TODO: disable additional calls of more here
-        $scope.url = BaseUrl + '/player_history/' + $scope.s.player_id + '/' + $scope.currentcount + '/' + $scope.m + '/';
+        $scope.url = BaseUrl + '/history/' + $scope.s.id + '/' + $scope.currentcount + '/' + $scope.m + '/';
         $http({
             method: 'GET',
             url: $scope.url,
@@ -15,7 +15,7 @@ angular.module('hbwww').controller('PlayerHistoryController', function($scope, $
         })
         .success(function(res) {
             $log.debug(res);
-            $scope.history = $scope.history.concat(res);
+            $scope.history = $scope.history.concat(res.result);
             if(res.length < 25){
                 $scope.nomore = true;
             }

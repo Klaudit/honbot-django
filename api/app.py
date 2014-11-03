@@ -1,4 +1,5 @@
 from flask import Flask, g, abort, jsonify, request
+from flask.ext.cors import CORS
 from flask_limiter import Limiter
 from redis import Redis
 from rethinkdb.errors import RqlDriverError
@@ -11,6 +12,7 @@ from os import environ
 app = Flask(__name__)
 app.config.from_object(__name__)
 limiter = Limiter(app)
+cors = CORS(app)
 
 PHP = environ.get('PHPSESSID')
 

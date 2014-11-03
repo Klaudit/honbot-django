@@ -46,8 +46,8 @@ angular.module('hbwww', [
     })
     .factory('BaseUrl', function($location, $rootScope) {
         if ($location.host().split(':')[0] === 'localhost') {
-            $rootScope.BaseUrl = '//localhost:8000';
-            return '//localhost:8000';
+            $rootScope.BaseUrl = '//localhost:5000';
+            return '//localhost:5000';
         } else {
             $rootScope.BaseUrl = '//api.honbot.com';
             return '//api.honbot.com';

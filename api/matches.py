@@ -1,10 +1,10 @@
-from pytz import utc
-from flask import g, jsonify
-import rethinkdb as r
-
 from api import get_json
 from utils import divmin, div
 from app import app, not_found
+
+from pytz import utc
+from flask import g, jsonify
+import rethinkdb as r
 
 from datetime import datetime
 
@@ -29,6 +29,7 @@ def multimatch(matches):
     raw = get_json('/multi_match/all/matchids/' + '+'.join(str(x) for x in matches))
     if raw is None:
         return None
+    result = []
     for m in raw[0]:
         temp = []
         temp.append([m])
@@ -36,11 +37,12 @@ def multimatch(matches):
         temp.append([x for x in raw[1] if x['match_id'] == c])
         temp.append([x for x in raw[2] if x['match_id'] == c])
         temp.append([x for x in raw[3] if x['match_id'] == c])
-        single_match(temp, c)
+        result.append(single_match(temp, c))
+    return result
 
 
 def single_match(raw, mid):
-    m = {'id': mid}
+    m = {'id': int(mid)}
     if raw[0][0]['officl'] == "1" and raw[0][0]['cas'] == "1":
         m['mode'] = 'cs'
     elif raw[0][0]['officl'] == "1" and raw[0][0]['cas'] == "0":
@@ -70,7 +72,7 @@ def single_match(raw, mid):
     players = []
     for p in raw[2]:
         players.append({
-            'id': p['account_id'],
+            'id': int(p['account_id']),
             'nickname': p['nickname'],
             'mid': mid,
             'clan_id': int(p['clan_id']),

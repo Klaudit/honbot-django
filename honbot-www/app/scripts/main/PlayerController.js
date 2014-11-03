@@ -32,6 +32,7 @@ angular.module('hbwww')
             url: url
         })
         .success(function(res) {
+            console.log(res);
             $scope.s = res;
             $scope.$broadcast('playerLoaded', $scope.s.player_id);
             $scope.Math = $window.Math;

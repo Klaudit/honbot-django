@@ -4,6 +4,7 @@ from rethinkdb.errors import RqlRuntimeError
 import rethinkdb as r
 import players
 import matches
+import history
 
 manager = Manager(app)
 

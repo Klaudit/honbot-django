@@ -1,7 +1,6 @@
 from flask import jsonify, g
 from pytz import utc
 import rethinkdb as r
-
 from app import app, q, not_found
 from utils import div
 from api import get_json
@@ -29,7 +28,7 @@ def get_or_update_player(nickname, age):
     tdelta = nowutc - player['updated']
     if tdelta.seconds + (tdelta.days * 86400) > age:
         updated = update_player(player['nickname'], player)
-        if updated:
+        if updated is not None:
             try:
                 adelta = nowutc - player['avatar_updated']
                 if adelta.seconds + (adelta.days * 86400) > 604800:
@@ -39,12 +38,11 @@ def get_or_update_player(nickname, age):
             return updated
         else:
             player['fallback'] = True
-            return player
     return player
 
 
 def get_player_nickname(nickname):
-    player = list(r.table('players').get_all(nickname, index='nickname').run(g.rconn))
+    player = list(r.table('players').get_all(nickname.lower(), index='nickname').run(g.rconn))
     if len(player) < 1:
         return None
     return player[0]

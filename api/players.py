@@ -1,19 +1,22 @@
-from flask import jsonify, g
-from pytz import utc
-import rethinkdb as r
-from app import app, q, not_found
-from utils import div, needs_update
+from __future__ import division
+
 from api import get_json
 from avatar import avatar
+from config import q, db
+from utils import div, needs_update
+
+from flask import jsonify, Blueprint, abort
 
 from datetime import datetime
 
+players = Blueprint('players', __name__)
 
-@app.route('/player/<nickname>/')
+
+@players.route('/player/<nickname>/')
 def player(nickname):
     player = get_or_update_player(nickname, 800)
     if player is None:
-        return not_found()
+        abort(404)
     return jsonify(player)
 
 
@@ -22,29 +25,32 @@ def get_or_update_player(nickname, age):
     if player is None:
         new = update_player(nickname)
         if new:
-            q.enqueue(avatar, new['id'])
+            q.enqueue(avatar, new['_id'])
             return new
         else:
             return None
     if needs_update(player['updated'], age):
         updated = update_player(player['nickname'], player)
         if updated is not None:
-            try:
-                if needs_update(player['avatar_updated'], 604800):
-                    q.enqueue(avatar, updated['id'])
-            except:
-                q.enqueue(avatar, updated['id'])
+            if 'avatar_updated' in updated:
+                # 14 days
+                if needs_update(player['avatar_updated'], 1209600):
+                    q.enqueue(avatar, updated['_id'])
+            else:
+                # avatar doesn't exist
+                q.enqueue(avatar, updated['_id'])
             return updated
         else:
+            # player not updated successfully
             player['fallback'] = True
     return player
 
 
 def get_player_nickname(nickname):
-    player = list(r.table('players').get_all(nickname.lower(), index='nickname').run(g.rconn))
-    if len(player) < 1:
+    player = db.hb.players.find_one({'nickname': nickname.lower()}, {'acc_history': 0, 'cs_history': 0, 'rnk_history': 0})
+    if player is None:
         return None
-    return player[0]
+    return player
 
 
 def update_player(nickname, p={}):
@@ -52,74 +58,20 @@ def update_player(nickname, p={}):
     # player is banned or non exist
     if raw is None or int(raw['account_id']) == 0:
         return None
+    p['_id'] = int(raw['account_id'])
     p['nickname'] = raw['nickname'].lower()
-    p['updated'] = datetime.now(utc)
-    p['id'] = int(raw['account_id'])
-    p['rnk_games_played'] = int(raw['rnk_games_played'])
-    p['rnk_wins'] = int(raw['rnk_wins'])
-    p['rnk_losses'] = int(raw['rnk_losses'])
-    p['rnk_concedes'] = int(raw['rnk_concedes'])
-    p['rnk_concedevotes'] = int(raw['rnk_concedevotes'])
-    p['rnk_buybacks'] = int(raw['rnk_buybacks'])
-    p['rnk_discos'] = int(raw['rnk_discos'])
-    p['rnk_kicked'] = int(raw['rnk_kicked'])
+    var = [
+        'rnk_games_played', 'rnk_wins', 'rnk_losses', 'rnk_concedes', 'rnk_concedevotes', 'rnk_buybacks', 'rnk_discos', 'rnk_kicked', 'rnk_herokills', 'rnk_herodmg', 'rnk_heroexp', 'rnk_herokillsgold', 'rnk_heroassists', 'rnk_deaths', 'rnk_goldlost2death', 'rnk_secs_dead', 'rnk_teamcreepkills', 'rnk_teamcreepdmg', 'rnk_teamcreepexp', 'rnk_teamcreepgold', 'rnk_neutralcreepkills', 'rnk_neutralcreepdmg', 'rnk_teamcreepexp', 'rnk_neutralcreepgold', 'rnk_bdmg', 'rnk_razed', 'rnk_bgold', 'rnk_denies', 'rnk_exp_denied', 'rnk_gold', 'rnk_gold_spent', 'rnk_exp', 'rnk_actions', 'rnk_secs', 'rnk_consumables', 'rnk_wards', 'rnk_level', 'rnk_level_exp', 'rnk_min_exp', 'rnk_max_exp', 'rnk_time_earning_exp', 'rnk_bloodlust', 'rnk_doublekill', 'rnk_triplekill', 'rnk_quadkill', 'rnk_annihilation', 'rnk_ks3', 'rnk_ks4', 'rnk_ks5', 'rnk_ks6', 'rnk_ks7', 'rnk_ks8', 'rnk_ks9', 'rnk_ks10', 'rnk_ks15', 'rnk_smackdown', 'rnk_humiliation', 'rnk_nemesis', 'rnk_retribution', 'cs_games_played', 'cs_wins', 'cs_losses', 'cs_concedes', 'cs_concedevotes', 'cs_buybacks', 'cs_discos', 'cs_kicked', 'cs_herokills', 'cs_herodmg', 'cs_heroexp', 'cs_herokillsgold', 'cs_heroassists', 'cs_deaths', 'cs_goldlost2death', 'cs_secs_dead', 'cs_teamcreepkills', 'cs_teamcreepdmg', 'cs_teamcreepexp', 'cs_teamcreepgold', 'cs_neutralcreepkills', 'cs_neutralcreepdmg', 'cs_teamcreepexp', 'cs_neutralcreepgold',
+        'cs_bdmg', 'cs_bdmgexp', 'cs_razed', 'cs_bgold', 'cs_denies', 'cs_exp_denied', 'cs_gold', 'cs_gold_spent', 'cs_exp', 'cs_actions', 'cs_secs', 'cs_consumables', 'cs_wards', 'cs_level', 'cs_level_exp', 'cs_min_exp', 'cs_max_exp', 'cs_time_earning_exp', 'cs_bloodlust', 'cs_doublekill', 'cs_triplekill', 'cs_quadkill', 'cs_annihilation', 'cs_ks3', 'cs_ks4', 'cs_ks5', 'cs_ks6', 'cs_ks7', 'cs_ks8', 'cs_ks9', 'cs_ks10', 'cs_ks15', 'cs_smackdown', 'cs_humiliation', 'cs_nemesis', 'cs_retribution', 'acc_games_played', 'acc_wins', 'acc_losses', 'acc_concedes', 'acc_concedevotes', 'acc_buybacks', 'acc_discos', 'acc_kicked', 'acc_herokills', 'acc_herodmg', 'acc_heroexp', 'acc_herokillsgold', 'acc_heroassists', 'acc_deaths', 'acc_goldlost2death', 'acc_secs_dead', 'acc_teamcreepkills', 'acc_teamcreepdmg', 'acc_teamcreepexp', 'acc_teamcreepgold', 'acc_neutralcreepkills', 'acc_neutralcreepdmg', 'acc_teamcreepexp', 'acc_neutralcreepgold', 'acc_bdmg', 'acc_bdmgexp', 'acc_razed', 'acc_bgold', 'acc_denies', 'acc_exp_denied', 'acc_gold', 'acc_gold_spent', 'acc_exp', 'acc_actions', 'acc_secs', 'acc_consumables', 'acc_wards', 'acc_time_earning_exp', 'acc_bloodlust', 'acc_doublekill', 'acc_triplekill', 'acc_quadkill', 'acc_annihilation', 'acc_ks3', 'acc_ks4', 'acc_ks5', 'acc_ks6', 'acc_ks7', 'acc_ks8', 'acc_ks9', 'acc_ks10', 'acc_ks15', 'acc_smackdown', 'acc_humiliation', 'acc_nemesis', 'acc_retribution'
+    ]
+    for v in var:
+        p[v] = int(raw[v])
+    p['updated'] = datetime.utcnow()
     p['rnk_mmr'] = float(raw['rnk_amm_team_rating'])
-    p['rnk_herokills'] = int(raw['rnk_herokills'])
-    p['rnk_herodmg'] = int(raw['rnk_herodmg'])
-    p['rnk_heroexp'] = int(raw['rnk_heroexp'])
-    p['rnk_herokillsgold'] = int(raw['rnk_herokillsgold'])
-    p['rnk_heroassists'] = int(raw['rnk_heroassists'])
-    p['rnk_deaths'] = int(raw['rnk_deaths'])
-    p['rnk_goldlost2death'] = int(raw['rnk_goldlost2death'])
-    p['rnk_secs_dead'] = int(raw['rnk_secs_dead'])
-    p['rnk_teamcreepkills'] = int(raw['rnk_teamcreepkills'])
-    p['rnk_teamcreepdmg'] = int(raw['rnk_teamcreepdmg'])
-    p['rnk_teamcreepexp'] = int(raw['rnk_teamcreepexp'])
-    p['rnk_teamcreepgold'] = int(raw['rnk_teamcreepgold'])
-    p['rnk_neutralcreepkills'] = int(raw['rnk_neutralcreepkills'])
-    p['rnk_neutralcreepdmg'] = int(raw['rnk_neutralcreepdmg'])
-    p['rnk_neutralcreepexp'] = int(raw['rnk_teamcreepexp'])
-    p['rnk_neutralcreepgold'] = int(raw['rnk_neutralcreepgold'])
-    p['rnk_bdmg'] = int(raw['rnk_bdmg'])
-    p['rnk_razed'] = int(raw['rnk_razed'])
-    p['rnk_bgold'] = int(raw['rnk_bgold'])
-    p['rnk_denies'] = int(raw['rnk_denies'])
-    p['rnk_exp_denied'] = int(raw['rnk_exp_denied'])
-    p['rnk_gold'] = int(raw['rnk_gold'])
-    p['rnk_gold_spent'] = int(raw['rnk_gold_spent'])
-    p['rnk_exp'] = int(raw['rnk_exp'])
-    p['rnk_actions'] = int(raw['rnk_actions'])
-    p['rnk_secs'] = int(raw['rnk_secs'])
-    p['rnk_consumables'] = int(raw['rnk_consumables'])
-    p['rnk_wards'] = int(raw['rnk_wards'])
-    p['rnk_level'] = int(raw['rnk_level'])
-    p['rnk_level_exp'] = int(raw['rnk_level_exp'])
-    p['rnk_min_exp'] = int(raw['rnk_min_exp'])
-    p['rnk_max_exp'] = int(raw['rnk_max_exp'])
-    p['rnk_time_earning_exp'] = int(raw['rnk_time_earning_exp'])
-    p['rnk_bloodlust'] = int(raw['rnk_bloodlust'])
-    p['rnk_doublekill'] = int(raw['rnk_doublekill'])
-    p['rnk_triplekill'] = int(raw['rnk_triplekill'])
-    p['rnk_quadkill'] = int(raw['rnk_quadkill'])
-    p['rnk_annihilation'] = int(raw['rnk_annihilation'])
-    p['rnk_ks3'] = int(raw['rnk_ks3'])
-    p['rnk_ks4'] = int(raw['rnk_ks4'])
-    p['rnk_ks5'] = int(raw['rnk_ks5'])
-    p['rnk_ks6'] = int(raw['rnk_ks6'])
-    p['rnk_ks7'] = int(raw['rnk_ks7'])
-    p['rnk_ks8'] = int(raw['rnk_ks8'])
-    p['rnk_ks9'] = int(raw['rnk_ks9'])
-    p['rnk_ks10'] = int(raw['rnk_ks10'])
-    p['rnk_ks15'] = int(raw['rnk_ks15'])
-    p['rnk_smackdown'] = int(raw['rnk_smackdown'])
-    p['rnk_humiliation'] = int(raw['rnk_humiliation'])
-    p['rnk_nemesis'] = int(raw['rnk_nemesis'])
-    p['rnk_retribution'] = int(raw['rnk_retribution'])
     p['rnk_avg_kills'] = div(p['rnk_herokills'], p['rnk_games_played'])
     p['rnk_avg_deaths'] = div(p['rnk_deaths'], p['rnk_games_played'])
     p['rnk_avg_assists'] = div(p['rnk_heroassists'], p['rnk_games_played'])
-    p['rnk_avg_creeps'] = div(
-        (p['rnk_neutralcreepkills'] + p['rnk_teamcreepkills']), p['rnk_games_played'])
+    p['rnk_avg_creeps'] = div((p['rnk_neutralcreepkills'] + p['rnk_teamcreepkills']), p['rnk_games_played'])
     p['rnk_avg_denies'] = div(p['rnk_denies'], p['rnk_games_played'])
     rnk_minutes = div(p['rnk_secs'], 60)
     p['rnk_avg_xpm'] = div(p['rnk_exp'], rnk_minutes)
@@ -133,75 +85,14 @@ def update_player(nickname, p={}):
     p['rnk_kadr'] = div((p['rnk_herokills'] + p['rnk_heroassists']), p['rnk_deaths'])
     try:
         p['rnk_tsr'] = ((p['rnk_herokills'] / p['rnk_deaths'] / 1.15) * 0.65) + ((p['rnk_heroassists'] / p['rnk_deaths'] / 1.55) * 1.20) + (((p['rnk_wins'] / (p['rnk_wins'] + p['rnk_losses'])) / 0.55) * 0.9) + (((p['rnk_gold'] / p['rnk_secs'] * 60) / 230) * 0.35) + ((((p['rnk_exp'] / p['rnk_time_earning_exp'] * 60) / 380)) * 0.40) + (
-                    (((((p['rnk_denies'] / p['rnk_games_played']) / 12)) * 0.70) + ((((p['rnk_teamcreepkills'] / p['rnk_games_played']) / 93)) * 0.50) + ((p['rnk_wards'] / p['rnk_games_played']) / 1.45 * 0.30)) * (37.5 / (p['rnk_secs'] / p['rnk_games_played'] / 60)))
+            (((((p['rnk_denies'] / p['rnk_games_played']) / 12)) * 0.70) + ((((p['rnk_teamcreepkills'] / p['rnk_games_played']) / 93)) * 0.50) + ((p['rnk_wards'] / p['rnk_games_played']) / 1.45 * 0.30)) * (37.5 / (p['rnk_secs'] / p['rnk_games_played'] / 60)))
     except:
         p['rnk_tsr'] = 0
-    p['cs_games_played'] = int(raw['cs_games_played'])
-    p['cs_wins'] = int(raw['cs_wins'])
-    p['cs_losses'] = int(raw['cs_losses'])
-    p['cs_concedes'] = int(raw['cs_concedes'])
-    p['cs_concedevotes'] = int(raw['cs_concedevotes'])
-    p['cs_buybacks'] = int(raw['cs_buybacks'])
-    p['cs_discos'] = int(raw['cs_discos'])
-    p['cs_kicked'] = int(raw['cs_kicked'])
     p['cs_mmr'] = float(raw['cs_amm_team_rating'])
-    p['cs_herokills'] = int(raw['cs_herokills'])
-    p['cs_herodmg'] = int(raw['cs_herodmg'])
-    p['cs_heroexp'] = int(raw['cs_heroexp'])
-    p['cs_herokillsgold'] = int(raw['cs_herokillsgold'])
-    p['cs_heroassists'] = int(raw['cs_heroassists'])
-    p['cs_deaths'] = int(raw['cs_deaths'])
-    p['cs_goldlost2death'] = int(raw['cs_goldlost2death'])
-    p['cs_secs_dead'] = int(raw['cs_secs_dead'])
-    p['cs_teamcreepkills'] = int(raw['cs_teamcreepkills'])
-    p['cs_teamcreepdmg'] = int(raw['cs_teamcreepdmg'])
-    p['cs_teamcreepexp'] = int(raw['cs_teamcreepexp'])
-    p['cs_teamcreepgold'] = int(raw['cs_teamcreepgold'])
-    p['cs_neutralcreepkills'] = int(raw['cs_neutralcreepkills'])
-    p['cs_neutralcreepdmg'] = int(raw['cs_neutralcreepdmg'])
-    p['cs_neutralcreepexp'] = int(raw['cs_teamcreepexp'])
-    p['cs_neutralcreepgold'] = int(raw['cs_neutralcreepgold'])
-    p['cs_bdmg'] = int(raw['cs_bdmg'])
-    p['cs_bdmgexp'] = int(raw['cs_bdmgexp'])
-    p['cs_razed'] = int(raw['cs_razed'])
-    p['cs_bgold'] = int(raw['cs_bgold'])
-    p['cs_denies'] = int(raw['cs_denies'])
-    p['cs_exp_denied'] = int(raw['cs_exp_denied'])
-    p['cs_gold'] = int(raw['cs_gold'])
-    p['cs_gold_spent'] = int(raw['cs_gold_spent'])
-    p['cs_exp'] = int(raw['cs_exp'])
-    p['cs_actions'] = int(raw['cs_actions'])
-    p['cs_secs'] = int(raw['cs_secs'])
-    p['cs_consumables'] = int(raw['cs_consumables'])
-    p['cs_wards'] = int(raw['cs_wards'])
-    p['cs_level'] = int(raw['cs_level'])
-    p['cs_level_exp'] = int(raw['cs_level_exp'])
-    p['cs_min_exp'] = int(raw['cs_min_exp'])
-    p['cs_max_exp'] = int(raw['cs_max_exp'])
-    p['cs_time_earning_exp'] = int(raw['cs_time_earning_exp'])
-    p['cs_bloodlust'] = int(raw['cs_bloodlust'])
-    p['cs_doublekill'] = int(raw['cs_doublekill'])
-    p['cs_triplekill'] = int(raw['cs_triplekill'])
-    p['cs_quadkill'] = int(raw['cs_quadkill'])
-    p['cs_annihilation'] = int(raw['cs_annihilation'])
-    p['cs_ks3'] = int(raw['cs_ks3'])
-    p['cs_ks4'] = int(raw['cs_ks4'])
-    p['cs_ks5'] = int(raw['cs_ks5'])
-    p['cs_ks6'] = int(raw['cs_ks6'])
-    p['cs_ks7'] = int(raw['cs_ks7'])
-    p['cs_ks8'] = int(raw['cs_ks8'])
-    p['cs_ks9'] = int(raw['cs_ks9'])
-    p['cs_ks10'] = int(raw['cs_ks10'])
-    p['cs_ks15'] = int(raw['cs_ks15'])
-    p['cs_smackdown'] = int(raw['cs_smackdown'])
-    p['cs_humiliation'] = int(raw['cs_humiliation'])
-    p['cs_nemesis'] = int(raw['cs_nemesis'])
-    p['cs_retribution'] = int(raw['cs_retribution'])
     p['cs_avg_kills'] = div(p['cs_herokills'], p['cs_games_played'])
     p['cs_avg_deaths'] = div(p['cs_deaths'], p['cs_games_played'])
     p['cs_avg_assists'] = div(p['cs_heroassists'], p['cs_games_played'])
-    p['cs_avg_creeps'] = div(
-        (p['cs_neutralcreepkills'] + p['cs_teamcreepkills']), p['cs_games_played'])
+    p['cs_avg_creeps'] = div((p['cs_neutralcreepkills'] + p['cs_teamcreepkills']), p['cs_games_played'])
     p['cs_avg_denies'] = div(p['cs_denies'], p['cs_games_played'])
     cs_minutes = div(p['cs_secs'], 60)
     p['cs_avg_xpm'] = div(p['cs_exp'], cs_minutes)
@@ -218,63 +109,7 @@ def update_player(nickname, p={}):
             (((((p['cs_denies'] / p['cs_games_played']) / 12)) * 0.70) + ((((p['cs_teamcreepkills'] / p['cs_games_played']) / 93)) * 0.50) + ((p['cs_wards'] / p['cs_games_played']) / 1.45 * 0.30)) * (37.5 / (p['cs_secs'] / p['cs_games_played'] / 60)))
     except:
         p['cs_tsr'] = 0
-    p['acc_games_played'] = int(raw['acc_games_played'])
-    p['acc_wins'] = int(raw['acc_wins'])
-    p['acc_losses'] = int(raw['acc_losses'])
-    p['acc_concedes'] = int(raw['acc_concedes'])
-    p['acc_concedevotes'] = int(raw['acc_concedevotes'])
-    p['acc_buybacks'] = int(raw['acc_buybacks'])
-    p['acc_discos'] = int(raw['acc_discos'])
-    p['acc_kicked'] = int(raw['acc_kicked'])
     p['acc_mmr'] = float(raw['acc_pub_skill'])
-    p['acc_herokills'] = int(raw['acc_herokills'])
-    p['acc_herodmg'] = int(raw['acc_herodmg'])
-    p['acc_heroexp'] = int(raw['acc_heroexp'])
-    p['acc_herokillsgold'] = int(raw['acc_herokillsgold'])
-    p['acc_heroassists'] = int(raw['acc_heroassists'])
-    p['acc_deaths'] = int(raw['acc_deaths'])
-    p['acc_goldlost2death'] = int(raw['acc_goldlost2death'])
-    p['acc_secs_dead'] = int(raw['acc_secs_dead'])
-    p['acc_teamcreepkills'] = int(raw['acc_teamcreepkills'])
-    p['acc_teamcreepdmg'] = int(raw['acc_teamcreepdmg'])
-    p['acc_teamcreepexp'] = int(raw['acc_teamcreepexp'])
-    p['acc_teamcreepgold'] = int(raw['acc_teamcreepgold'])
-    p['acc_neutralcreepkills'] = int(raw['acc_neutralcreepkills'])
-    p['acc_neutralcreepdmg'] = int(raw['acc_neutralcreepdmg'])
-    p['acc_neutralcreepexp'] = int(raw['acc_teamcreepexp'])
-    p['acc_neutralcreepgold'] = int(raw['acc_neutralcreepgold'])
-    p['acc_bdmg'] = int(raw['acc_bdmg'])
-    p['acc_bdmgexp'] = int(raw['acc_bdmgexp'])
-    p['acc_razed'] = int(raw['acc_razed'])
-    p['acc_bgold'] = int(raw['acc_bgold'])
-    p['acc_denies'] = int(raw['acc_denies'])
-    p['acc_exp_denied'] = int(raw['acc_exp_denied'])
-    p['acc_gold'] = int(raw['acc_gold'])
-    p['acc_gold_spent'] = int(raw['acc_gold_spent'])
-    p['acc_exp'] = int(raw['acc_exp'])
-    p['acc_actions'] = int(raw['acc_actions'])
-    p['acc_secs'] = int(raw['acc_secs'])
-    p['acc_consumables'] = int(raw['acc_consumables'])
-    p['acc_wards'] = int(raw['acc_wards'])
-    p['acc_time_earning_exp'] = int(raw['acc_time_earning_exp'])
-    p['acc_bloodlust'] = int(raw['acc_bloodlust'])
-    p['acc_doublekill'] = int(raw['acc_doublekill'])
-    p['acc_triplekill'] = int(raw['acc_triplekill'])
-    p['acc_quadkill'] = int(raw['acc_quadkill'])
-    p['acc_annihilation'] = int(raw['acc_annihilation'])
-    p['acc_ks3'] = int(raw['acc_ks3'])
-    p['acc_ks4'] = int(raw['acc_ks4'])
-    p['acc_ks5'] = int(raw['acc_ks5'])
-    p['acc_ks6'] = int(raw['acc_ks6'])
-    p['acc_ks7'] = int(raw['acc_ks7'])
-    p['acc_ks8'] = int(raw['acc_ks8'])
-    p['acc_ks9'] = int(raw['acc_ks9'])
-    p['acc_ks10'] = int(raw['acc_ks10'])
-    p['acc_ks15'] = int(raw['acc_ks15'])
-    p['acc_smackdown'] = int(raw['acc_smackdown'])
-    p['acc_humiliation'] = int(raw['acc_humiliation'])
-    p['acc_nemesis'] = int(raw['acc_nemesis'])
-    p['acc_retribution'] = int(raw['acc_retribution'])
     p['acc_avg_kills'] = div(p['acc_herokills'], p['acc_games_played'])
     p['acc_avg_deaths'] = div(p['acc_deaths'], p['acc_games_played'])
     p['acc_avg_assists'] = div(p['acc_heroassists'], p['acc_games_played'])
@@ -292,8 +127,8 @@ def update_player(nickname, p={}):
     p['acc_kadr'] = div((p['acc_herokills'] + p['acc_heroassists']), p['acc_deaths'])
     try:
         p['acc_tsr'] = ((p['acc_herokills'] / p['acc_deaths'] / 1.15) * 0.65) + ((p['acc_heroassists'] / p['acc_deaths'] / 1.55) * 1.20) + (((p['acc_wins'] / (p['acc_wins'] + p['acc_losses'])) / 0.55) * 0.9) + (((p['acc_gold'] / p['acc_secs'] * 60) / 230) * 0.35) + ((((p['acc_exp'] / p['acc_time_earning_exp'] * 60) / 380)) * 0.40) + (
-                    (((((p['acc_denies'] / p['acc_games_played']) / 12)) * 0.70) + ((((p['acc_teamcreepkills'] / p['acc_games_played']) / 93)) * 0.50) + ((p['acc_wards'] / p['acc_games_played']) / 1.45 * 0.30)) * (37.5 / (p['acc_secs'] / p['acc_games_played'] / 60)))
+            (((((p['acc_denies'] / p['acc_games_played']) / 12)) * 0.70) + ((((p['acc_teamcreepkills'] / p['acc_games_played']) / 93)) * 0.50) + ((p['acc_wards'] / p['acc_games_played']) / 1.45 * 0.30)) * (37.5 / (p['acc_secs'] / p['acc_games_played'] / 60)))
     except:
         p['acc_tsr'] = 0
-    r.table('players').insert(p).run(g.rconn)
+    db.hb.players.update({"_id": p['_id']}, {"$set": p}, upsert=True)
     return p

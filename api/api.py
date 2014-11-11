@@ -1,20 +1,19 @@
-from app import app
+from __future__ import print_function
+from config import token
 
+from flask import current_app
 from requests import get, exceptions
 from time import sleep
 
-from os import environ
-
 
 baseurl = 'http://api.heroesofnewerth.com'
-token = '/?token=%s' % environ.get('API_TOKEN')
 
 
 def get_json(endpoint):
     url = ''.join([baseurl, endpoint, token])
-    if app.debug:
-        print(url)
     count = 0
+    if current_app.debug:
+        print(url)
     while True:
         try:
             raw = get(url)

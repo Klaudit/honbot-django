@@ -1,31 +1,29 @@
-from flask.ext.script import Manager
-from app import app, RDB_HOST, RDB_PORT, HB_DB
-from rethinkdb.errors import RqlRuntimeError
-import rethinkdb as r
-import players
-import matches
-import history
+from app import create_app
+from config import db
 
+from pymongo import MongoClient
+from flask.ext.script import Manager, Shell, Server
+
+app = create_app()
 manager = Manager(app)
 
-# RethinkDB server.
+
+def _make_context():
+    """Return context dict for a shell session so you can access
+    app and db by default.
+    """
+    return {'app': app, 'db': db}
 
 
 # Setting up the app database
 @manager.command
 def setup():
-    conn = r.connect(host=RDB_HOST, port=RDB_PORT)
-    try:
-        r.db_create(HB_DB).run(conn)
-        r.db(HB_DB).table_create('players', durability='soft').run(conn)
-        r.db(HB_DB).table('players').index_create('nickname').run(conn)
-        r.db(HB_DB).table_create('matches', durability='soft').run(conn)
-        r.db(HB_DB).table('matches').index_create('player', r.row['players']['id'], multi=True).run(conn)
-        print('Database setup completed.')
-    except RqlRuntimeError:
-        print('App database already exists.')
-    finally:
-        conn.close()
+    db = MongoClient()
+    db.hb.players.ensure_index("nickname")
+    db.hb.matches.ensure_index("players.id")
+
+manager.add_command('server', Server())
+manager.add_command('shell', Shell(make_context=_make_context))
 
 if __name__ == "__main__":
     manager.run()

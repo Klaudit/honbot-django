@@ -1,53 +1,37 @@
-from flask import Flask, g, abort, jsonify, request
-from flask.ext.cors import CORS
-from flask_limiter import Limiter
-from redis import Redis
-from rethinkdb.errors import RqlDriverError
-from rq import Queue
-import rethinkdb as r
+from players import players
+from matches import matches
+from history import history
+from banner import bannerapp
+from extensions import limiter, cors
 
-from os import environ
+from flask import Flask
 
 
-app = Flask(__name__)
-app.config.from_object(__name__)
-limiter = Limiter(app)
-cors = CORS(app)
+def create_app():
+    '''An application factory, as explained here:
+        http://flask.pocoo.org/docs/patterns/appfactories/
 
-PHP = environ.get('PHPSESSID')
-
-# database settings
-RDB_HOST = environ.get('RDB_HOST') or 'localhost'
-RDB_PORT = environ.get('RDB_PORT') or 28015
-HB_DB = 'honbot'
-
-# redis queue
-q = Queue(connection=Redis())
+    :param config_object: The configuration object to use.
+    '''
+    app = Flask(__name__)
+    register_extensions(app)
+    register_blueprints(app)
+    return app
 
 
-@app.before_request
-def before_request():
-    try:
-        g.rconn = r.connect(host=RDB_HOST, port=RDB_PORT, db=HB_DB)
-    except RqlDriverError:
-        abort(503, "No database connection could be established.")
+def register_extensions(app):
+    limiter.init_app(app)
+    cors.init_app(app)
+    return None
 
 
-@app.teardown_request
-def teardown_request(exception):
-    try:
-        g.rconn.close()
-    except AttributeError:
-        pass
+def register_blueprints(app):
+    app.register_blueprint(players)
+    app.register_blueprint(matches)
+    app.register_blueprint(history)
+    app.register_blueprint(bannerapp)
+    return None
 
-
-@app.errorhandler(404)
-def not_found(error=None):
-    message = {
-        'status': 404,
-        'message': 'Not Found: ' + request.url,
-    }
-    resp = jsonify(message)
-    resp.status_code = 404
-
-    return resp
+if __name__ == '__main__':
+    app = create_app()
+    app.run()

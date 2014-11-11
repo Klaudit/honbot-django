@@ -1,27 +1,30 @@
 from api import get_json
 from utils import divmin, div
-from app import app, not_found
+from config import db
 
 from pytz import utc
-from flask import g, jsonify
-import rethinkdb as r
+from flask import jsonify, Blueprint
 
 from datetime import datetime
 
+matches = Blueprint('matches', __name__)
 
-@app.route('/match/<int:mid>/')
+
+@matches.route('/match/<int:mid>/')
 def match(mid):
     """
     Returns a single match from ID
     Players are returned in an array and their items are a json array dumped into a string
     """
-    m = r.table('matches').get(mid).run(g.rconn)
+    m = db.hb.matches.find_one({'_id': mid})
     if m is None:
         raw = get_json('/match/all/matchid/' + str(mid))
         if raw:
             m = single_match(raw, mid)
+            db.hb.matches.insert(m)
         else:
-            return not_found()
+            # return not_found()
+            return
     return jsonify(m)
 
 
@@ -38,25 +41,19 @@ def multimatch(matches):
         temp.append([x for x in raw[2] if x['match_id'] == c])
         temp.append([x for x in raw[3] if x['match_id'] == c])
         result.append(single_match(temp, c))
+    db.hb.matches.insert(result)
     return result
 
 
 def single_match(raw, mid):
-    m = {'id': int(mid)}
+    m = {'_id': int(mid)}
     if raw[0][0]['officl'] == "1" and raw[0][0]['cas'] == "1":
         m['mode'] = 'cs'
     elif raw[0][0]['officl'] == "1" and raw[0][0]['cas'] == "0":
         m['mode'] = "rnk"
     else:
         m['mode'] = "acc"
-    v = raw[3][0]['version'].split('.')
-    if len(v) > 1:
-        m['major'] = int(v[0])
-        m['minor'] = int(v[1])
-        if len(v) > 2:
-            m['revision'] = int(v[2])
-            if len(v) > 3:
-                m['build'] = int(v[3])
+    m['version'] = raw[3][0]['version']
     m['map_used'] = raw[3][0]['map']
     m['length'] = raw[3][0]['time_played']
     # '2014-07-27 01:31:18'
@@ -67,17 +64,15 @@ def single_match(raw, mid):
         items = []
         for item in range(1, 7):
             if p['slot_' + str(item)]:
-                items.append(p['slot_' + str(item)])
+                items.append(int(p['slot_' + str(item)]))
         pitems[p['account_id']] = items
     players = []
     for p in raw[2]:
         players.append({
             'id': int(p['account_id']),
             'nickname': p['nickname'],
-            'mid': mid,
             'clan_id': int(p['clan_id']),
             'hero_id': int(p['hero_id']),
-            'date': m['date'],
             'position': int(p['position']),
             'items': items,
             'team': int(p['team']),
@@ -107,5 +102,4 @@ def single_match(raw, mid):
         })
 
     m['players'] = players
-    r.table('matches').insert(m).run(g.rconn)
     return m

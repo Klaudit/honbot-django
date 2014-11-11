@@ -1,10 +1,7 @@
+from config import PHP, db
+
 from bs4 import BeautifulSoup
 from urllib.request import build_opener
-from pytz import utc
-from app import RDB_HOST, RDB_PORT, HB_DB
-import rethinkdb as r
-
-from app import PHP
 
 from datetime import datetime
 
@@ -24,6 +21,5 @@ def avatar(p):
         pass
     else:
         img = "images/default_avatar.png"
-    rconn = r.connect(host=RDB_HOST, port=RDB_PORT, db=HB_DB)
-    r.table('players').get(p).update({'avatar': img, 'avatar_updated': datetime.now(utc)}).run(rconn)
-    rconn.close()
+    update = {'avatar': img, 'avatar_updated': datetime.utcnow()}
+    db.hb.players.update({"_id": p}, {"$set": update}, upsert=True)

@@ -1,4 +1,4 @@
-from pytz import utc
+from __future__ import division
 from datetime import datetime
 
 
@@ -17,8 +17,7 @@ def divmin(x, y):
 
 
 def needs_update(previous_date, age_allowed):
-    nowutc = datetime.now(utc)
-    tdelta = nowutc - previous_date
+    tdelta = datetime.utcnow() - previous_date
     if (tdelta.seconds + (tdelta.days * 86400)) > age_allowed:
         return True
     return False

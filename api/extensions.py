@@ -6,3 +6,6 @@ limiter = Limiter()
 
 from flask.ext.cors import CORS
 cors = CORS()
+
+from raven.contrib.flask import Sentry
+sentry = Sentry()

@@ -1,11 +1,15 @@
 from app import create_app
 from config import db
+from items import items
+from heroes import heroes
 
 from pymongo import MongoClient
 from flask.ext.script import Manager, Shell, Server
 
 app = create_app()
 manager = Manager(app)
+manager.add_command('items', items())
+manager.add_command('heroes', heroes())
 
 
 def _make_context():

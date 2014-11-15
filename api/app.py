@@ -2,7 +2,7 @@ from players import players
 from matches import matches
 from history import history
 from banner import bannerapp
-from extensions import limiter, cors
+from extensions import limiter, cors, sentry
 
 from flask import Flask
 
@@ -22,6 +22,7 @@ def create_app():
 def register_extensions(app):
     limiter.init_app(app)
     cors.init_app(app)
+    sentry.init_app(app)
     return None
 
 

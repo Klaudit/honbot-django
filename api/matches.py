@@ -3,7 +3,7 @@ from utils import divmin, div
 from config import db
 
 from pytz import utc
-from flask import jsonify, Blueprint
+from flask import jsonify, Blueprint, abort
 
 from datetime import datetime
 
@@ -23,8 +23,7 @@ def match(mid):
             m = single_match(raw, mid)
             db.hb.matches.insert(m)
         else:
-            # return not_found()
-            return
+            abort(404)
     return jsonify(m)
 
 
@@ -74,7 +73,7 @@ def single_match(raw, mid):
             'clan_id': int(p['clan_id']),
             'hero_id': int(p['hero_id']),
             'position': int(p['position']),
-            'items': items,
+            'items': pitems[p['account_id']],
             'team': int(p['team']),
             'level': int(p['level']),
             'win': bool(int(p['wins'])),

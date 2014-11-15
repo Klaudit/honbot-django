@@ -1,0 +1,15 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div ng-include="'app/player/head.html'"></div>
+<div ng-include="'app/player/navigation.html'"></div>
+
+<ng-switch on="view">
+  <div ng-switch-when="stats">
+      <div ng-include="'app/player/stats.html'"></div>
+  </div>
+  <div ng-switch-when="chart">
+      <div ng-include="'app/player/chart.html'"></div>
+  </div>
+  <div ng-switch-when="hero">
+      <div ng-include="'app/player/hero.html'"></div>
+  </div>
+</ng-switch>

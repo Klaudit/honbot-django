@@ -1,6 +1,6 @@
 from players import get_or_update_player
 
-from flask import send_file, Blueprint
+from flask import send_file, Blueprint, abort
 from PIL import Image, ImageDraw, ImageFont
 
 from time import time
@@ -8,7 +8,7 @@ from os import remove, path
 
 bannerapp = Blueprint('banner', __name__)
 directory = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'api/banners')) + '/'
-fonts = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'api/fonts')) + '/'
+fonts = str(path.join(path.abspath(path.dirname(path.dirname(__file__))), 'api/static')) + '/'
 
 
 @bannerapp.route('/banner/<name>/')
@@ -38,7 +38,6 @@ def serve_banner(img):
 
 
 def new_banner(location, name, exists):
-    print('newbanner')
     stats = get_or_update_player(name, 86400)
     if stats:
         if exists:
@@ -46,6 +45,8 @@ def new_banner(location, name, exists):
         img = banner(stats)
         img.save(directory + str(name) + ".png")
         return serve_banner(directory + str(name) + ".png")
+    else:
+        abort(404)
 
 
 def banner(data):

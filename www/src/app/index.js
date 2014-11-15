@@ -10,8 +10,12 @@ angular.module('www', [
         'ngRaven',
         'mgcrea.ngStrap'
     ])
-    .config(function($routeProvider, $locationProvider) {
+    .config(function($routeProvider, $locationProvider, $sceDelegateProvider) {
         $locationProvider.html5Mode(true).hashPrefix('!');
+        $sceDelegateProvider.resourceUrlWhitelist([
+            'self',
+            '**'
+        ]);
         $routeProvider
             .when('/', {
                 templateUrl: 'app/main/main.html',
@@ -45,12 +49,10 @@ angular.module('www', [
                 redirectTo: '/'
             });
     })
-    .factory('BaseUrl', function($location, $rootScope) {
+    .factory('BaseUrl', function($location) {
         if ($location.host().split(':')[0] === 'localhost') {
-            $rootScope.BaseUrl = '//localhost:5000';
             return '//localhost:5000';
         } else {
-            $rootScope.BaseUrl = '//api.honbot.com';
             return '//api.honbot.com';
         }
     })

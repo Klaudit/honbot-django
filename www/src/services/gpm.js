@@ -10,7 +10,7 @@ angular.module('www').directive('gpm', function(d3) {
         },
         link: function(scope, element, iAttrs) {
 
-            var width = element.width();
+            var width = d3.select(element[0])[0][0].parentElement.clientWidth;
 
             var height = 350;
 
@@ -32,6 +32,7 @@ angular.module('www').directive('gpm', function(d3) {
             scope.$watch('data', function(newVals, oldVals) {
                 return scope.render(newVals);
             }, true);
+            
 
             // define render function
             scope.render = function(data) {

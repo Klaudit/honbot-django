@@ -67,6 +67,8 @@ def single_match(raw, mid):
         pitems[p['account_id']] = items
     players = []
     for p in raw[2]:
+        if p['account_id'] not in pitems:
+            pitems[p['account_id']] = []
         players.append({
             'id': int(p['account_id']),
             'nickname': p['nickname'],

@@ -12,15 +12,21 @@ angular.module('www').directive('donut', function(d3) {
         },
         link: function(scope, element, iAttrs) {
 
-            var width = d3.select(element[0])[0][0].parentElement.clientWidth;
+            function outerWidth(el){
+              var width = el.offsetWidth;
+              var style = getComputedStyle(el);
+              width = width - parseInt(style.paddingLeft) - parseInt(style.paddingRight);
+              return width;
+            }
+
+            var width = outerWidth(element[0].parentElement);
             var height = 135,
-                radius = Math.min(width, height) / 2;
+                radius = Math.min(width, height) / 2,
+                data,
+                g,
+                arc;
 
             var color = ['#27ae60', '#c0392b'];
-
-            var arc = d3.svg.arc()
-                .outerRadius(radius - 10)
-                .innerRadius(radius - 40);
 
             var pie = d3.layout.pie()
                 .sort(null)
@@ -31,8 +37,7 @@ angular.module('www').directive('donut', function(d3) {
             var svg = d3.select(element[0]).append("svg")
                 .attr("width", width)
                 .attr("height", height)
-                .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                .append("g");
 
             var tip = d3.tip()
                 .attr('class', 'd3-tip')
@@ -42,14 +47,8 @@ angular.module('www').directive('donut', function(d3) {
 
             // watch for data changes and re-render
             scope.$watch('data', function(newVals, oldVals) {
-                return scope.render(newVals);
-            }, true);
-
-            scope.render = function(data) {
-
-                svg.selectAll('*').remove();
-                svg.call(tip);
-                if (!data) return;
+                if (!newVals) return;
+                data = newVals;
                 var t1 = 0, t2 = 0;
                 angular.forEach(data, function(d){
                     if(d.team===1){
@@ -69,8 +68,28 @@ angular.module('www').directive('donut', function(d3) {
                         total: t2
                     }
                 ]
+                return scope.render();
+            }, true);
 
-                var g = svg.selectAll(".arc")
+
+            angular.element(window).on('resize', function(){
+                if(width === outerWidth(element[0].parentElement)) return;
+                scope.render();
+            });
+
+            scope.render = function() {
+                svg.call(tip);
+                width = outerWidth(element[0].parentElement);
+                radius = Math.min(width, height) / 2;
+                arc = d3.svg.arc()
+                        .outerRadius(radius - 10)
+                        .innerRadius(radius - 30);
+                svg.attr("width", width)
+                   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+                svg.selectAll(".arc").remove()
+                g = svg.selectAll(".arc")
                     .data(pie(data))
                     .enter().append("g")
                     .attr("class", "arc");

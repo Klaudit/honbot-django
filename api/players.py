@@ -5,11 +5,12 @@ from avatar import avatar
 from config import q, db
 from utils import div, needs_update
 
-from flask import jsonify, Blueprint, abort
+from flask import jsonify, Blueprint, abort, request
 
 from datetime import datetime
 
 players = Blueprint('players', __name__)
+nohistory = {'acc_history': 0, 'cs_history': 0, 'rnk_history': 0}
 
 
 @players.route('/player/<nickname>/')
@@ -18,6 +19,17 @@ def player(nickname):
     if player is None:
         abort(404)
     return jsonify(player)
+
+
+@players.route('/ptip/')
+def ptip():
+    users = request.args.get('players')
+    if users is None or users is '':
+        abort(404)
+    users = users.split(',')[:10]
+    users = [int(u) for u in users]
+    stats = list(db.players.find({'_id': {'$in': users}}, nohistory))
+    return jsonify({'result': stats})
 
 
 def get_or_update_player(nickname, age):
@@ -47,7 +59,7 @@ def get_or_update_player(nickname, age):
 
 
 def get_player_nickname(nickname):
-    player = db.hb.players.find_one({'nickname': nickname.lower()}, {'acc_history': 0, 'cs_history': 0, 'rnk_history': 0})
+    player = db.players.find_one({'nickname': nickname.lower()}, nohistory)
     if player is None:
         return None
     return player
@@ -130,5 +142,5 @@ def update_player(nickname, p={}):
             (((((p['acc_denies'] / p['acc_games_played']) / 12)) * 0.70) + ((((p['acc_teamcreepkills'] / p['acc_games_played']) / 93)) * 0.50) + ((p['acc_wards'] / p['acc_games_played']) / 1.45 * 0.30)) * (37.5 / (p['acc_secs'] / p['acc_games_played'] / 60)))
     except:
         p['acc_tsr'] = 0
-    db.hb.players.update({"_id": p['_id']}, {"$set": p}, upsert=True)
+    db.players.update({"_id": p['_id']}, {"$set": p}, upsert=True)
     return p

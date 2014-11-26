@@ -47,8 +47,8 @@
                 <div class="panel-body">
                     <strong>Database:</strong>
                     <ul class="list-unstyled list-push">
-                        <li>Players: {{ status.players }}</li>
-                        <li>Matches: {{ status.matches }}</li>
+                        <li>Players: {{ collection.players | number }}</li>
+                        <li>Matches: {{ collection.matches | number }}</li>
                     </ul>
                     <strong>S2 API:</strong>
                     <ul class="list-unstyled list-push">

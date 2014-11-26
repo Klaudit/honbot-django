@@ -10,9 +10,9 @@ angular.module('www').directive('gpm', function(d3) {
         },
         link: function(scope, element, iAttrs) {
 
-            var width = d3.select(element[0])[0][0].parentElement.clientWidth;
-
-            var height = 350;
+            var width = d3.select(element[0])[0][0].parentElement.clientWidth,
+                height = 350,
+                data;
 
             var x = d3.scale.ordinal().rangeRoundBands([0, width], 0.1);
 
@@ -30,16 +30,18 @@ angular.module('www').directive('gpm', function(d3) {
 
             // watch for data changes and re-render
             scope.$watch('data', function(newVals, oldVals) {
-                return scope.render(newVals);
+                if (!newVals) return;
+                data = newVals;
+                return scope.render();
             }, true);
             
 
             // define render function
-            scope.render = function(data) {
+            scope.render = function() {
                 // remove all previous items before render
                 svg.selectAll('*').remove();
                 svg.call(tip);
-                if (!data) return;
+               
 
                 x.domain(data.map(function(d) {
                     return d.nickname;

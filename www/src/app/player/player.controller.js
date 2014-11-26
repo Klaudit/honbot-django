@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('www')
-    .controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window) {
+    .controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log) {
         if ($routeParams.view === undefined) {
             $scope.view = 'stats';
         } else if ($routeParams.view === 'chart'){
@@ -9,7 +9,6 @@ angular.module('www')
         } else if ($routeParams.view === 'hero'){
             $scope.view = 'hero';
         }
-        console.log($routeParams.view);
         $scope.s = {};
         $scope.nickname = $routeParams.player;
         if ($routeParams.mode === undefined) {
@@ -27,19 +26,15 @@ angular.module('www')
         }
         $scope.player = $routeParams.player;
         var url = BaseUrl + '/player/' + $routeParams.player + '/';
-        $http({
-            method: 'GET',
-            url: url
-        })
+        $http.get(url)
         .success(function(res) {
-            console.log(res);
+            $log.debug(res);
             $scope.s = res;
             $scope.$broadcast('playerLoaded', $scope.s.player_id);
             $scope.Math = $window.Math;
         })
         .error(function(res) {
-            console.log(res);
-            console.log('ERORROROROR');
+            $log.debug(res);
         });
         $scope.mode = function(mode) {
             $scope.m = mode;

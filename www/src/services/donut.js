@@ -39,12 +39,6 @@ angular.module('www').directive('donut', function(d3) {
                 .attr("height", height)
                 .append("g");
 
-            var tip = d3.tip()
-                .attr('class', 'd3-tip')
-                .html(function(d) {
-                    return "<strong>" + d.nickname + ":</strong><span class='gold'> " + Math.floor(d.gpm) + "</span>";
-                })
-
             // watch for data changes and re-render
             scope.$watch('data', function(newVals, oldVals) {
                 if (!newVals) return;
@@ -78,7 +72,6 @@ angular.module('www').directive('donut', function(d3) {
             });
 
             scope.render = function() {
-                svg.call(tip);
                 width = outerWidth(element[0].parentElement);
                 radius = Math.min(width, height) / 2;
                 arc = d3.svg.arc()

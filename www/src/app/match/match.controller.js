@@ -18,41 +18,35 @@ function secondsToTime(secs)
     return obj;
 }
 
-angular.module('www').controller('MatchCtrl', function($scope, $routeParams, BaseUrl, $http, $timeout, $rootScope, $log, _, items, heroes) {
+angular.module('www').controller('MatchCtrl', function($scope, $routeParams, BaseUrl, $http, $rootScope, heroes, items, $filter) {
 
-    $scope.match_id = $routeParams.match;
     $scope.item_names = items;
     $scope.hero_names = heroes;
+    $scope.ptips = {};
+    $scope.pmmr = {};
+
+    var t1 = 0,
+        t2 = 0,
+        tgpm = [];
     
-    var url = BaseUrl + '/match/' + $scope.match_id + '/';
-    $log.log(url);
-    $http({
-        method: 'GET',
-        url: url
-    })
+    var url = BaseUrl + '/match/' + $routeParams.match + '/';
+    console.log(url);
+    $http.get(url)
     .success(function(res) {
-        $log.debug(res);
         $scope.match = res;
         $scope.len = secondsToTime($scope.match.length);
-        var t1 = 0,
-            t2 = 0,
-            tgpm = [];
-
+        
         if(t1 > t2){
             $scope.winner = 'Legion';
         } else {
             $scope.winner = 'Hellbourne';
         }
 
-        // tooltips init
-        url = BaseUrl + '/ptip/';
-        $scope.ptips = {};
+        url = BaseUrl + '/ptip/?players=';
 
-        angular.forEach($scope.match.players, function(p) {
-            // load item arrays
-            if(p.items !== ''){
-                p.items = angular.fromJson(p.items);
-            }
+        $scope.match.players = $filter('orderBy')($scope.match.players, 'position');
+
+        angular.forEach(res.players, function(p) {
             // calculate winning team
             if(p.discos !== 1){
                 if(p.team === 1){
@@ -63,24 +57,25 @@ angular.module('www').controller('MatchCtrl', function($scope, $routeParams, Bas
             }
             tgpm.push({name: p.nickname, data: [Math.floor(p.gpm)], color: $rootScope.pos_colors[p.position]});
 
-            url += p.player_id + '/';
-            $scope.ptips[p.player_id] = {
+            url += p.id + ',';
+            console.log(url);
+            $scope.ptips[p.id] = {
                 'title': '<h4 class="ptiphead">' + p.nickname + '</h4>',
                 'content': '<span class="ptip-warning">Stats not loaded</span><br>'
             };
+            $scope.pmmr[p.id] = '';
+        });
+        $http.get(url).success(function(res){
+            angular.forEach(res.result, function(v){
+                $scope.pmmr[v._id] = Math.floor(v[$scope.match.mode + '_mmr']);
+                $scope.ptips[v._id] = {
+                    'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + '</h4>',
+                    'content': '<h4 class="ptiphead"><span class="ptip-success">' + v[$scope.match.mode + '_wins'] + ' </span> - <span class="ptip-warning"> ' + v[$scope.match.mode + '_losses'] + '</span></h4>' +
+                               '<strong>MMR</strong>: <span class="ptip-blue">' + Math.floor(v[$scope.match.mode + '_mmr']) + '</span><br>' +
+                               '<strong>KDR</strong>: ' + Math.round(v[$scope.match.mode + '_kdr'] * 100) / 100 + '</span><br>' +
+                               '<strong>APM</strong>: ' + Math.floor(v[$scope.match.mode + '_avg_apm'])
+                };
+            });
         });
     });
-        // player tooltips
-        // $http({method: 'GET', url: url}).success(function(res){
-        //     $log.debug(res);
-        //     angular.forEach(res, function(v){
-        //         $scope.ptips[v.player_id] = {
-        //             'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + '</h4>',
-        //             'content': '<h4 class="ptiphead"><span class="ptip-success">' + v[$scope.match.mode + '_wins'] + ' </span> - <span class="ptip-warning"> ' + v[$scope.match.mode + '_losses'] + '</span></h4>' +
-        //                        '<strong>MMR</strong>: <span class="ptip-blue">' + Math.floor(v[$scope.match.mode + '_mmr']) + '</span><br>' +
-        //                        '<strong>KDR</strong>: ' + Math.round(v[$scope.match.mode + '_kdr'] * 100) / 100 + '</span><br>' +
-        //                        '<strong>APM</strong>: ' + Math.floor(v[$scope.match.mode + '_avg_apm'])
-        //         };
-        //     });
-        // });
 });

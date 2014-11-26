@@ -16,12 +16,12 @@ def match(mid):
     Returns a single match from ID
     Players are returned in an array and their items are a json array dumped into a string
     """
-    m = db.hb.matches.find_one({'_id': mid})
+    m = db.matches.find_one({'_id': mid})
     if m is None:
         raw = get_json('/match/all/matchid/' + str(mid))
         if raw:
             m = single_match(raw, mid)
-            db.hb.matches.insert(m)
+            db.matches.insert(m)
         else:
             abort(404)
     return jsonify(m)
@@ -40,7 +40,7 @@ def multimatch(matches):
         temp.append([x for x in raw[2] if x['match_id'] == c])
         temp.append([x for x in raw[3] if x['match_id'] == c])
         result.append(single_match(temp, c))
-    db.hb.matches.insert(result)
+    db.matches.insert(result)
     return result
 
 

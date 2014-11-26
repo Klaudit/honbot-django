@@ -36,7 +36,7 @@ def player_history(pid, page, mode):
 def get_cached(pid, mode):
     """Returns all matches for matching mode and pid
     """
-    matches = list(db.hb.matches.find({'players.id': pid, 'mode': mode}))
+    matches = list(db.matches.find({'players.id': pid, 'mode': mode}))
     res = {
         'matches': len(matches),
         'mode': mode,
@@ -46,7 +46,7 @@ def get_cached(pid, mode):
 
 
 def get_or_update_history(pid):
-    p = db.hb.players.find_one({'_id': pid})
+    p = db.players.find_one({'_id': pid})
     url = '/match_history/all/accountid/' + str(pid)
     # player doesn't exist
     if p is None:
@@ -73,7 +73,7 @@ def update_history(p, raw):
     p['cs_history'] = parsed[1][::-1]
     p['acc_history'] = parsed[2][::-1]
     update = {'history_updated': datetime.utcnow(), 'cs_history': p['cs_history'], 'acc_history': p['acc_history'], 'rnk_history': p['rnk_history']}
-    db.hb.players.update({'_id': p['_id']}, {'$set': update}, upsert=True)
+    db.players.update({'_id': p['_id']}, {'$set': update}, upsert=True)
     return p
 
 
@@ -81,7 +81,7 @@ def verify_matches(hist, mode):
     """
     checks for matches exist in the database. If they not exist, they soon will.
     """
-    findexisting = list(db.hb.matches.find({'_id': {'$in': hist}}))
+    findexisting = list(db.matches.find({'_id': {'$in': hist}}))
     existing = set([int(match['_id']) for match in findexisting])
     missing = [x for x in hist if x not in existing]
     # if any are missing USE SPECIAL SET OF SKILLS
@@ -90,4 +90,4 @@ def verify_matches(hist, mode):
         if others is not None:
             for o in others:
                 findexisting.append(o)
-    return findexisting
+    return sorted(findexisting, key=lambda x: x['_id'])

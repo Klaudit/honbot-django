@@ -23,8 +23,8 @@ def _make_context():
 @manager.command
 def setup():
     db = MongoClient()
-    db.hb.players.ensure_index("nickname")
-    db.hb.matches.ensure_index("players.id")
+    db.players.ensure_index("nickname")
+    db.matches.ensure_index("players.id")
 
 manager.add_command('server', Server())
 manager.add_command('shell', Shell(make_context=_make_context))

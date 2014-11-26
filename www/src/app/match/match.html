@@ -6,7 +6,7 @@
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
                 <h3>
                     <img class="pull-left" style="margin-top: -20px; margin-right: 5px;" ng-src="assets/images/maps/{{ match.map_used || 'caldavar' }}.jpg" width="60">
-                    Match: {{ match_id }}
+                    Match: {{ match._id }}
                 </h3>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
@@ -63,11 +63,12 @@
                             </a>
                             <a ng-href="/player/{{ player.nickname }}/"
                                data-trigger="hover"
-                               bs-popover="ptips[player.player_id]"
+                               bs-popover="ptips[player.id]"
                                data-animation="am-flip-x"
                                data-html="true">
                                 {{ player.nickname }}
                             </a>
+                            {{ pmmr[player.id] }}
                         </td>
                         <td>
                             <a ng-repeat="(key, i) in player.items" 

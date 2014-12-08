@@ -122,28 +122,37 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .recent-match th:nth-child(1) {
     text-align: left;
 }
-.recent-match thead {
-    margin-left: 5px;
-    border-radius: 4px;
-    border-bottom: 0;
-}
 .recent-match a{
     color: #dddddd;
 }
 .table-match > tbody > tr > td{
     padding: 2px 10px 2px 2px;
     vertical-align: middle;
-    border-color: $background-color;
+    border-color: $gray;
 }
-.table-match thead {
+.table > thead > tr > th {
+    border-bottom-width: 1px;
+}
+.table-border{
+    border: 1px solid $gray;
+    border-radius: 4px;
+}
+.table-match > thead {
     background-color: #3c3c3c;
     color: #c8c4cb;
     margin-left: 5px;
     border-radius: 4px;
+    border-color: #fff;
 }
+.table-match > th {
+    font-weight: 300;
+}
+.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+    border-top-width: 0px;}
 .matchwin {
     border-collapse: separate;
-    border-left: 2px solid #006600;
+    border-left: 1px solid #006600;
+    border-right: 1px solid $gray;
     padding-bottom: 0;
     background-color: rgba(0, 193, 158, .1);
 }
@@ -153,14 +162,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-bottom: -2px;
 }
 #history{
-    margin-top: 2px;
     background-color: #333;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
 }
 .matchloss {
     border-collapse: separate;
-    border-left: 2px solid #CC0000;
+    border-left: 1px solid #CC0000;
+    border-right: 1px solid $gray;
     background-color: rgba(255, 92, 92, .1);
 }
 @for $i from 0 through 9{
@@ -245,7 +254,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #FF00FF;
 }
 .hero-container {
-    background-color: #222222;
+    background-color: #191919;
     background-position: 90% 55%;
     background-size: 800px auto;
     background-repeat: no-repeat;
@@ -257,4 +266,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #fff;
 }
 
-@import "d3tip";
+.c3-chart-arc path {
+    stroke: $background-color;
+}
+.c3-tooltip{
+    color: #000;
+}
+.c3 .c3-axis-x path, .c3 .c3-axis-x line {
+    stroke: #222;
+}
+.c3 .c3-axis-y path, .c3 .c3-axis-y line {
+    stroke: #222;
+}

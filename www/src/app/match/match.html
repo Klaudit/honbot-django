@@ -79,7 +79,9 @@
                                data-html="True"
                                data-trigger="hover"
                                bs-popover>
-                                <img style="width:30px;" ng-src='assets/images/items/{{ i }}.jpg'>
+                                <span ng-if="i">
+                                    <img style="width:30px;" ng-src='assets/images/items/{{ i }}.jpg'>
+                                </span>
                             </a>
                         </td>
                         <td>{{ player.level }}</td>
@@ -107,10 +109,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <pie data="match.players" data-team="'1'"></pie>
+                            <c3-chart id="ldmg" config="ldmg"></c3-chart>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <pie data="match.players" data-team="'2'"></pie>
+                            <c3-chart id="hdmg" config="hdmg"></c3-chart>
                         </div>
                     </div>
                 </div>
@@ -118,17 +120,17 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="panel panel-default">
                 <div style="padding: 5px;" class="panel-heading">
                     <h4 class="text-center" placement="bottom">Gold Per Minute</h4>
                 </div>
                 <div class="panel-body graph-padding">
-                    <gpm data="match.players"></gpm>
+                    <c3-chart id="tgpm" config="gpm"></c3-chart>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="panel panel-default">
                 <div style="padding: 5px;" class="panel-heading">
                     <h4 class="text-center">Team Totals</h4>
@@ -137,27 +139,27 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                             <h4 class="text-center">Kills</h4>
-                            <donut data="match.players" data-focus="'kills'"></donut>
+                            <c3-chart id="kills" config="totals.kills"></c3-chart>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
                             <h4 class="text-center">Deaths</h4>
-                            <donut data="match.players" data-focus="'deaths'"></donut>
+                            <c3-chart id="deaths" config="totals.deaths"></c3-chart>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
                             <h4 class="text-center">XPM</h4>
-                            <donut data="match.players" data-focus="'xpm'"></donut>
+                            <c3-chart id="xpm" config="totals.xpm"></c3-chart>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
-                            <h4 class="text-center">XPM</h4>
-                            <donut data="match.players" data-focus="'cs'"></donut>
+                            <h4 class="text-center">CS</h4>
+                            <c3-chart id="cs" config="totals.cs"></c3-chart>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
-                            <h4 class="text-center">XPM</h4>
-                            <donut data="match.players" data-focus="'gpm'"></donut>
+                            <h4 class="text-center">GPM</h4>
+                            <c3-chart id="gpm" config="totals.gpm"></c3-chart>
                         </div>
                         <div class="col-lg-4 col-md-4  col-sm-4 col-xs-6">
                             <h4 class="text-center">APM</h4>
-                            <donut data="match.players" data-focus="'apm'"></donut>
+                            <c3-chart id="apm" config="totals.apm"></c3-chart>
                         </div>
                     </div>
                 </div>

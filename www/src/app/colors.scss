@@ -2,7 +2,7 @@
 //
 //## Gray and brand colors for use across Bootstrap.
 
-$darkest-dark:           #222;
+$darkest-dark:           #191919;
 $gray-darker:            lighten(#000, 13.5%);
 $gray-dark:              #303030;
 $gray:                   #464545;
@@ -95,7 +95,7 @@ $padding-xs-horizontal:     5px;
 $line-height-large:         1.33;
 $line-height-small:         1.5;
 
-$border-radius-base:        4px;
+$border-radius-base:        0px;
 $border-radius-large:       6px;
 $border-radius-small:       3px;
 
@@ -128,7 +128,7 @@ $table-bg-hover:                $gray;
 $table-bg-active:               $table-bg-hover;
 
 //** Border color for table and cell borders.
-$table-border-color:            $gray-dark;
+$table-border-color:            $gray;
 
 
 //== Buttons
@@ -603,7 +603,7 @@ $list-group-link-heading-color: darken($link-color, 5%);
 //
 //##
 
-$panel-bg:                    #222;
+$panel-bg:                    $darkest-dark;
 $panel-body-padding:          15px;
 $panel-heading-padding:       10px 15px;
 $panel-footer-padding:        $panel-heading-padding;
@@ -614,7 +614,7 @@ $panel-inner-border:          $gray;
 $panel-footer-bg:             $gray;
 
 $panel-default-text:          $text-color;
-$panel-default-border:        #222;
+$panel-default-border:        $gray;
 $panel-default-heading-bg:    $gray-dark;
 
 $panel-primary-text:          #fff;

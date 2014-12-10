@@ -6,7 +6,6 @@ angular.module('www').controller('PlayerHistoryCtrl', function($scope, $http, Ba
     $scope.more = function(){
         if(!$scope.s._id){return;}
         $scope.currentcount += 1;
-        // TODO: disable additional calls of more here
         $scope.url = BaseUrl + '/history/' + $scope.s._id + '/' + $scope.currentcount + '/' + $scope.m + '/';
         $http({
             method: 'GET',
@@ -27,14 +26,18 @@ angular.module('www').controller('PlayerHistoryCtrl', function($scope, $http, Ba
             if(res.length < 25){
                 $scope.nomore = true;
             }
-            // TODO: enable more() again
         });
     };
+
     $scope.goMatch = function(_id){
         $location.path('/match/' + _id + '/');
     };
-    $scope.$on('playerLoaded', function(){
+    $scope.$watch('s', function() {
         $scope.more();
     });
-    $scope.more();
+    $scope.$watch('m', function() {
+        $scope.currentcount = 0;
+        $scope.history = [];
+        $scope.more();
+    });
 });

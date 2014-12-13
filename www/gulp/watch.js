@@ -2,8 +2,8 @@
 
 var gulp = require('gulp');
 
-gulp.task('watch', ['styles'] ,function () {
-  gulp.watch('src/{app,components}/**/*.scss', ['styles']);
-  gulp.watch('src/{app,components}/**/*.js', ['scripts']);
+gulp.task('watch', ['wiredep', 'injector:css', 'injector:js'] ,function () {
+  gulp.watch('src/{app,components}/**/*.scss', ['injector:css']);
+  gulp.watch('src/{app,components}/**/*.js', ['injector:js']);
   gulp.watch('bower.json', ['wiredep']);
 });

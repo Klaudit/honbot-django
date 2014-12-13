@@ -13,7 +13,7 @@ angular.module('www').controller('ChartCtrl', function($scope, $http, BaseUrl, _
 
     $scope.run = function(){
         $scope.playermatches = [];
-        angular.forEach($scope.a, function(val, key){
+        angular.forEach($scope.a, function(val){
             $scope.playermatches.push(_.findWhere(val.players, {id: $scope.s._id}));
         });
         $scope.avg = _.reduce($scope.playermatches, function(memo, val){ return memo + val.apm; }, 0);

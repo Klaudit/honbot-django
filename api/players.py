@@ -26,8 +26,7 @@ def ptip():
     users = request.args.get('players')
     if users is None or users is '':
         abort(404)
-    users = users.split(',')[:10]
-    users = [int(u) for u in users]
+    users = [int(u) for u in users.split(',')[:10]]
     stats = list(db.players.find({'_id': {'$in': users}}, nohistory))
     return jsonify({'result': stats})
 

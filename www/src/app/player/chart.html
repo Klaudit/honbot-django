@@ -5,17 +5,20 @@
         </div>
      </div>
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-12">
+            <ul class="list-unstyled">
+                <li>Matches: {{ matches }}</li>
+            </ul>
+        </div>
+        <div class="col-lg-12">
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="text-center">MMR</h4>
+                </div>
                 <div class="panel-body">
-                    <ul class="list-unstyled">
-                        <li>Matches: {{ a.length }}</li>
-                    </ul>
+                    <c3-chart id="mmrchart" config="mmr"></c3-chart>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-9">
-            <c3-chart id="mmrchart" config="mmr"></c3-chart>
         </div>
         <div class="col-lg-12">
         {{ avg | number:0 }}

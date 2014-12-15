@@ -21,22 +21,6 @@ angular.module('www', [
                 templateUrl: 'app/main/main.html',
                 controller: 'MainCtrl'
             })
-            .when('/player/:player/', {
-                templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
-            })
-            .when('/player/:player/:view/', {
-                templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
-            })
-            .when('/:mode/player/:player/', {
-                templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
-            })
-            .when('/:mode/player/:player/:view/', {
-                templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
-            })
             .when('/match/:match/', {
                 templateUrl: 'app/match/match.html',
                 controller: 'MatchCtrl'
@@ -44,6 +28,27 @@ angular.module('www', [
             .when('/items/', {
                 templateUrl: 'partials/items.html',
                 controller: 'ItemsCtrl'
+            })
+            .when('/player/:player/', {
+                templateUrl: 'app/player/player.html',
+                controller: 'PlayerCtrl',
+                resolve: {
+                        message: function(){
+                            return 'hi';
+                    }
+                }
+            })
+            .when('/chart/:player/', {
+                templateUrl: 'app/player/player.html',
+                controller: 'PlayerCtrl'
+            })
+            .when('/:mode/player/:player/', {
+                templateUrl: 'app/player/player.html',
+                controller: 'PlayerCtrl'
+            })
+            .when('/:mode/chart/:player/', {
+                templateUrl: 'app/player/player.html',
+                controller: 'PlayerCtrl'
             })
             .otherwise({
                 redirectTo: '/'

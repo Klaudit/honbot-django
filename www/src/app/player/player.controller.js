@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log, $alert) {
+angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log, $alert, message) {
+    $scope.message = message;
     if ($routeParams.view === undefined) {
         $scope.view = 'stats';
     } else if ($routeParams.view === 'chart') {
@@ -69,11 +70,11 @@ angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $h
     };
     $scope.gochart = function() {
         $scope.view = 'chart';
-        $location.path($scope.mode_url + '/player/' + $scope.nickname + '/chart/', false);
+        $location.path($scope.mode_url + '/chart/' + $scope.nickname, false);
     };
     $scope.gohero = function() {
         $scope.view = 'hero';
-        $location.path($scope.mode_url + '/player/' + $scope.nickname + '/hero/', false);
+        $location.path($scope.mode_url + '/hero/' + $scope.nickname, false);
     };
     $scope.banner = function() {
         $scope.modalInstance = $modal.open({

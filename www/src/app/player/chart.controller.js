@@ -2,7 +2,9 @@
 
 angular.module('www').controller('ChartCtrl', function($scope, $http, BaseUrl, _, $alert, $log) {
     $scope.mmr = {
-        color: {},
+        color: {
+            pattern: ['#ded204']
+        },
         data: {
             x: 'x',
             type: 'line',
@@ -12,7 +14,7 @@ angular.module('www').controller('ChartCtrl', function($scope, $http, BaseUrl, _
         tooltip: {
             format: {
                 value: function(value) {
-                    return value;
+                    return Math.floor(value);
                 }
             }
         },
@@ -20,6 +22,11 @@ angular.module('www').controller('ChartCtrl', function($scope, $http, BaseUrl, _
             x: {
                 type: 'category',
                 show: false
+            }
+        },
+        grid: {
+            y: {
+                lines: []
             }
         }
     };
@@ -29,6 +36,7 @@ angular.module('www').controller('ChartCtrl', function($scope, $http, BaseUrl, _
         $http.get($scope.url).success(function(res) {
             $log.debug(res);
             if (res.matches !== 0) {
+                $scope.matches = res.matches;
                 $scope.a = res.result;
                 $scope.run();
             } else {
@@ -44,7 +52,7 @@ angular.module('www').controller('ChartCtrl', function($scope, $http, BaseUrl, _
 
     $scope.run = function() {
         $scope.playermatches = [];
-        var mmr = ['matches', $scope.s[$scope.m + '_mmr']],
+        var mmr = [$scope.s[$scope.m + '_mmr']],
             mid = ['x'],
             current = $scope.s[$scope.m + '_mmr'];
         angular.forEach($scope.a, function(val) {
@@ -52,9 +60,12 @@ angular.module('www').controller('ChartCtrl', function($scope, $http, BaseUrl, _
             $scope.playermatches.push(_.findWhere(val.players, {id: $scope.s._id}));
         });
         angular.forEach($scope.playermatches, function(val) {
-            mmr.push(current - val.mmr_change);
+            mmr.unshift(current - val.mmr_change);
             current = current - val.mmr_change;
         });
+        $scope.mmr_avg = _.reduce(mmr, function(memo, num){ return memo + num; }, 0) / $scope.matches;
+        mmr.unshift('MMR');
+        $scope.mmr.grid.y.lines = [{value: $scope.mmr_avg, text: 'Average'}];
         $scope.mmr.data.columns = [mid, mmr];
         $scope.avg = _.reduce($scope.playermatches, function(memo, val) {return memo + val.apm;}, 0) / $scope.a.length;
     };

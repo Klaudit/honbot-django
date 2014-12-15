@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log) {
+angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log, $alert) {
     if ($routeParams.view === undefined) {
         $scope.view = 'stats';
     } else if ($routeParams.view === 'chart') {
@@ -8,7 +8,6 @@ angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $h
     } else if ($routeParams.view === 'hero') {
         $scope.view = 'hero';
     }
-    $scope.s = {};
     $scope.nickname = $routeParams.player;
     if ($routeParams.mode === undefined) {
         $scope.m = 'rnk';
@@ -29,8 +28,22 @@ angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $h
         $log.debug(res);
         $scope.s = res;
         $scope.Math = $window.Math;
+        if(res.fallback){
+            $alert({
+                title: 'Fallback:',
+                content: 'Stats were not updated as the API is unreachable or something.',
+                container: '#alerts-container',
+                type: 'info'
+            });
+        }
     }).error(function(res) {
         $log.debug(res);
+        $alert({
+            title: 'ERROR!',
+            content: 'The API may be down, the player was banned, or never existed.',
+            container: '#alerts-container',
+            type: 'danger'
+        });
     });
     $scope.mode = function(mode) {
         $scope.m = mode;

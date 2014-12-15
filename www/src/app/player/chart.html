@@ -1,7 +1,24 @@
 <div class="container" ng-controller="ChartCtrl">
     <div class="row">
         <div class="col-lg-12">
-        {{ avg }}
+            <div id="alerts-container"></div>
+        </div>
+     </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li>Matches: {{ a.length }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <c3-chart id="mmrchart" config="mmr"></c3-chart>
+        </div>
+        <div class="col-lg-12">
+        {{ avg | number:0 }}
         </div>
     </div>
     <a href="{{ url }}">Raw Data</a>

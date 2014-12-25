@@ -1,6 +1,6 @@
 from api import get_json
 from utils import divmin, div
-from config import db
+from app import db
 
 from pytz import utc
 from flask import jsonify, Blueprint, abort

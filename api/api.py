@@ -1,5 +1,5 @@
 from __future__ import print_function
-from config import token, q
+from config import token
 from stats import count_increment
 
 from flask import current_app
@@ -13,7 +13,7 @@ baseurl = 'http://api.heroesofnewerth.com'
 def get_json(endpoint):
     url = ''.join([baseurl, endpoint, token])
     count = 0
-    q.enqueue(count_increment, 'api')
+    # q.enqueue(count_increment, 'api')
     if current_app.debug:
         print(url)
     while True:

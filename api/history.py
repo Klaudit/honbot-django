@@ -1,5 +1,5 @@
 from api import get_json
-from config import db
+from app import db
 from matches import multimatch
 from utils import needs_update
 

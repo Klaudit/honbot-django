@@ -1,11 +1,14 @@
-from config import PHP, db
+from config import PHP
+from app import db
 
 from bs4 import BeautifulSoup
 from urllib.request import build_opener
+from flask.ext.rq import job
 
 from datetime import datetime
 
 
+@job
 def avatar(p):
     opener = build_opener()
     opener.addheaders.append(('Cookie', PHP))
@@ -21,5 +24,6 @@ def avatar(p):
         pass
     else:
         img = "images/default_avatar.png"
-    update = {'avatar': img, 'avatar_updated': datetime.utcnow()}
-    db.players.update({"_id": p}, {"$set": update}, upsert=True)
+    p.avatar = img
+    p.avatar_updated = datetime.utcnow()
+    db.session.commit()

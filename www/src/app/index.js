@@ -3,7 +3,6 @@
 angular.module('www', [
         'ngAnimate',
         'ngRoute',
-        'ngSanitize',
         'percentage',
         'angular-loading-bar',
         'angularMoment',

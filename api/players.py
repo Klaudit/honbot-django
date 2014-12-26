@@ -20,8 +20,7 @@ def player(nickname):
     player = get_or_update_player(nickname, 800)
     if player is None:
         abort(404)
-    schema = PlayerSchema()
-    result = schema.dump(player)
+    result = PlayerSchema().dump(player)
     return jsonify(result.data)
 
 
@@ -31,8 +30,9 @@ def ptip():
     if users is None or users is '':
         abort(404)
     users = [int(u) for u in users.split(',')[:10]]
-    stats = list(db.players.find({'_id': {'$in': users}}, nohistory))
-    return jsonify({'result': stats})
+    stats = Player.query.filter(Player.id.in_(users)).all()
+    result = PlayerSchema().dump(stats, many=True)
+    return jsonify({'result': result})
 
 
 def get_or_update_player(nickname, age):

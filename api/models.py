@@ -16,7 +16,7 @@ class PlayerMatch(db.Model):
 class Player(db.Model):
     __tablename__ = 'player'
     id = db.Column(db.Integer, primary_key=True)
-    nickname = db.Column(db.String(20))
+    nickname = db.Column(db.String(20), index=True)
     avatar = db.Column(db.Text())
     avatar_updated = db.Column(db.DateTime())
     updated = db.Column(db.DateTime())

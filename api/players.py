@@ -1,11 +1,11 @@
 from __future__ import division
 
 from api import get_json
-from avatar import avatar
 from app import db
-from utils import div, needs_update
+from avatar import avatar
 from models import Player
 from serialize import PlayerSchema
+from utils import div, needs_update
 
 from flask import jsonify, Blueprint, abort, request
 

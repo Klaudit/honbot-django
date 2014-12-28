@@ -1,16 +1,52 @@
 from app import db
+from sqlalchemy.dialects.postgresql import JSONB
 
 
 class Match(db.Model):
     __tablename__ = 'match'
     id = db.Column(db.Integer, primary_key=True)
-    players = db.relationship("PlayerMatch")
+    players = db.relationship('PlayerMatch', backref='match', lazy='joined')
+    version = db.Column(db.String(10), index=True)
+    map_used = db.Column(db.String(20), index=True)
+    length = db.Column(db.Integer)
+    date = db.Column(db.DateTime())
+    # mode 1 Ranked 2 casual 3 public
+    mode = db.Column(db.Integer, index=True)
 
 
 class PlayerMatch(db.Model):
     __tablename__ = 'playermatch'
     id = db.Column(db.Integer, primary_key=True)
-    match = db.Column(db.Integer, db.ForeignKey('match.id'))
+    player_id = db.Column(db.Integer)
+    nickname = db.Column(db.String(20))
+    match_id = db.Column(db.Integer, db.ForeignKey('match.id'))
+    deaths = db.Column(db.Integer)
+    win = db.Column(db.Boolean)
+    apm = db.Column(db.Float)
+    cs = db.Column(db.Integer)
+    concedevotes = db.Column(db.Integer)
+    kdr = db.Column(db.Float)
+    denies = db.Column(db.Integer)
+    gpm = db.Column(db.Float)
+    bdmg = db.Column(db.Integer)
+    herodmg = db.Column(db.Integer)
+    xpm = db.Column(db.Float)
+    secs_dead = db.Column(db.Integer)
+    clan_id = db.Column(db.Integer)
+    goldlost2death = db.Column(db.Integer)
+    hero_id = db.Column(db.Integer)
+    concedes = db.Column(db.Integer)
+    mmr_change = db.Column(db.Float)
+    kills = db.Column(db.Integer)
+    consumables = db.Column(db.Integer)
+    assists = db.Column(db.Integer)
+    buybacks = db.Column(db.Integer)
+    level = db.Column(db.Integer)
+    items = db.Column(db.Integer)
+    wards = db.Column(db.Integer)
+    team = db.Column(db.Integer)
+    position = db.Column(db.Integer)
+    exp_denied = db.Column(db.Integer)
 
 
 class Player(db.Model):
@@ -20,6 +56,10 @@ class Player(db.Model):
     avatar = db.Column(db.Text())
     avatar_updated = db.Column(db.DateTime())
     updated = db.Column(db.DateTime())
+    history_updated = db.Column(db.DateTime())
+    rnk_history = db.Column(JSONB)
+    acc_history = db.Column(JSONB)
+    cs_history = db.Column(JSONB)
     acc_actions = db.Column(db.Integer)
     acc_annihilation = db.Column(db.Integer)
     acc_avg_apm = db.Column(db.Float)

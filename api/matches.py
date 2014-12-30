@@ -43,8 +43,10 @@ def multimatch(matches):
         temp.append([x for x in raw[1] if x['match_id'] == c])
         temp.append([x for x in raw[2] if x['match_id'] == c])
         temp.append([x for x in raw[3] if x['match_id'] == c])
-        result.append(single_match(temp, c))
-    db.matches.insert(result)
+        match = single_match(temp, c)
+        result.append(match)
+        db.session.add(match)
+    db.session.commit()
     return result
 
 

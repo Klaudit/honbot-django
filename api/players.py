@@ -46,8 +46,8 @@ def get_or_update_player(nickname, age):
     if needs_update(player.updated, age):
         updated = update_player(player.nickname, player)
         if updated is not None:
-            if needs_update(player.avatar_updated, 1209600):
-                avatar.delay(updated, db)
+            if updated.avatar is None or needs_update(player.avatar_updated, 1209600):
+                avatar.delay(updated.id)
             return updated
         else:
             # player not updated successfully
@@ -69,8 +69,6 @@ def update_player(nickname, p=None):
     if p is None:
         p = Player(id=int(raw['account_id']))
         not_exists = True
-        p.avatar_updated = datetime.utcnow()
-        avatar.delay(p)
     else:
         not_exists = False
     p.nickname = raw['nickname'].lower()
@@ -146,5 +144,7 @@ def update_player(nickname, p=None):
         p.acc_tsr = 0
     if not_exists:
         db.session.add(p)
+        db.session.commit()
+        avatar.delay(p.id)
     db.session.commit()
     return p

@@ -1,15 +1,16 @@
 from __future__ import division
+from datetime import datetime
 
 from api import get_json
 from app import db
-from avatar import avatar
 from models import Player
 from serialize import PlayerSchema
 from utils import div, needs_update
 
 from flask import jsonify, Blueprint, abort, request
+from flask.ext.rq import job
+import requests
 
-from datetime import datetime
 
 players = Blueprint('players', __name__)
 nohistory = {'acc_history': 0, 'cs_history': 0, 'rnk_history': 0}
@@ -17,10 +18,12 @@ nohistory = {'acc_history': 0, 'cs_history': 0, 'rnk_history': 0}
 
 @players.route('/player/<nickname>/')
 def player(nickname):
-    player = get_or_update_player(nickname, 800)
+    player, fallback = get_or_update_player(nickname, 800)
     if player is None:
         abort(404)
     result = PlayerSchema().dump(player)
+    if fallback:
+        result['fallback'] = fallback
     return jsonify(result.data)
 
 
@@ -35,24 +38,31 @@ def ptip():
     return jsonify({'result': result})
 
 
+@job
+def avatar(player_id):
+    req = requests.get("https://www.heroesofnewerth.com/getAvatar_SSL.php?id=" + str(player_id))
+    db.session.query(Player).filter_by(id=player_id).update({'avatar': req.url, 'avatar_updated': datetime.utcnow()})
+    db.session.commit()
+
+
 def get_or_update_player(nickname, age):
     player = get_player_nickname(nickname)
+    fallback = False
     if player is None:
         new = update_player(nickname)
         if new:
-            return new
+            return (new, fallback)
         else:
-            return None
+            return (None, fallback)
     if needs_update(player.updated, age):
         updated = update_player(player.nickname, player)
         if updated is not None:
-            if updated.avatar is None or needs_update(player.avatar_updated, 1209600):
+            if updated.avatar_updated is None or needs_update(player.avatar_updated, 1209600):
                 avatar.delay(updated.id)
-            return updated
+            return (updated, fallback)
         else:
-            # player not updated successfully
-            player['fallback'] = True
-    return player
+            fallback = True
+    return (player, fallback)
 
 
 def get_player_nickname(nickname):

@@ -1,35 +1,27 @@
 'use strict';
 
-angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log, $alert, message) {
-    $scope.message = message;
-    if ($routeParams.view === undefined) {
+angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log, $alert) {
+    if ($routeParams.view === 'chart' || $routeParams.view === 'hero') {
+        $scope.view = $routeParams.view;
+    } else {
         $scope.view = 'stats';
-    } else if ($routeParams.view === 'chart') {
-        $scope.view = 'chart';
-    } else if ($routeParams.view === 'hero') {
-        $scope.view = 'hero';
     }
+    var modetranslate = {
+        'undefined': 'rnk',
+        'ranked': 'rnk',
+        'casual': 'cs',
+        'public': 'acc'
+    };
     $scope.nickname = $routeParams.player;
-    if ($routeParams.mode === undefined) {
-        $scope.m = 'rnk';
-        $scope.modefull = 'Ranked';
-        $scope.mode_url = '';
-    } else if ($routeParams.mode === 'c') {
-        $scope.m = 'cs';
-        $scope.modefull = 'Casual';
-        $scope.mode_url = '/c';
-    } else if ($routeParams.mode === 'p') {
-        $scope.m = 'acc';
-        $scope.modefull = 'Public';
-        $scope.mode_url = '/p';
-    }
+    $scope.mode = $routeParams.mode;
+    $scope.m = modetranslate[$scope.mode];
     $scope.player = $routeParams.player;
     var url = BaseUrl + '/player/' + $routeParams.player + '/';
     $http.get(url).success(function(res) {
         $log.debug(res);
         $scope.s = res;
         $scope.Math = $window.Math;
-        if(res.fallback){
+        if (res.fallback) {
             $alert({
                 title: 'Fallback:',
                 content: 'Stats were not updated as the API is unreachable or something.',
@@ -46,35 +38,24 @@ angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $h
             type: 'danger'
         });
     });
-    $scope.mode = function(mode) {
-        $scope.m = mode;
-        if (mode === 'cs') {
-            $scope.mode_url = '/c';
-            $scope.modefull = 'Casual';
-        } else if (mode === 'acc') {
-            $scope.modefull = 'Public';
-            $scope.mode_url = '/p';
+    $scope.changelocation = function(mode) {
+        $scope.mode = mode;
+        $scope.m = modetranslate[$scope.mode];
+        var view;
+        if ($scope.view === 'stats') {
+            view = '/player/';
         } else {
-            $scope.mode_url = '';
-            $scope.modefull = 'Ranked';
+            view = '/' + $scope.view + '/';
         }
-        if ($scope.view !== 'stats') {
-            $location.path($scope.mode_url + '/player/' + $scope.nickname + '/' + $scope.view + '/', false);
+        if (mode !== 'ranked') {
+            $location.path(view + $scope.nickname + '/' + mode + '/', false);
         } else {
-            $location.path($scope.mode_url + '/player/' + $scope.nickname + '/', false);
+            $location.path(view + $scope.nickname + '/', false);
         }
     };
-    $scope.goplayer = function() {
-        $scope.view = 'stats';
-        $location.path($scope.mode_url + '/player/' + $scope.nickname + '/', false);
-    };
-    $scope.gochart = function() {
-        $scope.view = 'chart';
-        $location.path($scope.mode_url + '/chart/' + $scope.nickname, false);
-    };
-    $scope.gohero = function() {
-        $scope.view = 'hero';
-        $location.path($scope.mode_url + '/hero/' + $scope.nickname, false);
+    $scope.changeview = function(view) {
+        $scope.view = view;
+        $scope.changelocation($scope.mode);
     };
     $scope.banner = function() {
         $scope.modalInstance = $modal.open({

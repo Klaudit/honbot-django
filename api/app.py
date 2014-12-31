@@ -6,11 +6,16 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask_limiter import Limiter
 from raven.contrib.flask import Sentry
 
+from os import environ
+
 app = Flask(__name__)
 
 # database connection
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/hb'
 db = SQLAlchemy(app)
+
+# api token for api.heroesofnewerth.com
+api_token = '/?token=%s' % environ.get('API_TOKEN')
 
 # task queue
 rq = RQ(app)

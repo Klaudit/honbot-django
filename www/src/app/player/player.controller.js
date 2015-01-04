@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log, $alert) {
-    if ($routeParams.view === 'chart' || $routeParams.view === 'hero') {
-        $scope.view = $routeParams.view;
+angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log, $alert, view) {
+    if (view === 'chart' || view === 'hero') {
+        $scope.view = view;
     } else {
         $scope.view = 'stats';
     }
@@ -13,7 +13,7 @@ angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $h
         'public': 'acc'
     };
     $scope.nickname = $routeParams.player;
-    $scope.mode = $routeParams.mode;
+    $scope.mode = $routeParams.mode || 'ranked';
     $scope.m = modetranslate[$scope.mode];
     $scope.player = $routeParams.player;
     var url = BaseUrl + '/player/' + $routeParams.player + '/';

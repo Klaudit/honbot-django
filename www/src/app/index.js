@@ -30,23 +30,35 @@ angular.module('www', [
             })
             .when('/player/:player/', {
                 templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
+                controller: 'PlayerCtrl',
+                resolve: {
+                    view: function(){return 'stats';}
+                }
             })
-            .when('/player/:player/:view/', {
+            .when('/player/:player/:mode/', {
                 templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
+                controller: 'PlayerCtrl',
+                resolve: {
+                    view: function(){return 'stats';}
+                }
             })
             .when('/chart/:player/', {
                 templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
+                controller: 'PlayerCtrl',
+                resolve: {
+                    view: function(){return 'chart';}
+                }
             })
-            .when('/chart/:player/:view/', {
+            .when('/chart/:player/:mode/', {
                 templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
+                controller: 'PlayerCtrl',
+                resolve: {
+                    view: function(){return 'chart';}
+                }
             })
-            // .otherwise({
-            //     redirectTo: '/'
-            // });
+            .otherwise({
+                redirectTo: '/'
+            });
     })
     .factory('BaseUrl', function($location) {
         if ($location.host().split(':')[0] === 'localhost') {

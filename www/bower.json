@@ -13,7 +13,7 @@
     "d3": "~3.5.3",
     "raven-js": "~1.1.16",
     "angular-raven": "~0.5.8",
-    "angular-strap": "~2.1.4",
+    "angular-strap": "~2.1.5",
     "c3": "~0.4.8"
   }
 }

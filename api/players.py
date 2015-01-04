@@ -35,7 +35,7 @@ def ptip():
     users = [int(u) for u in users.split(',')[:10]]
     stats = Player.query.filter(Player.id.in_(users)).all()
     result = PlayerSchema().dump(stats, many=True)
-    return jsonify({'result': result})
+    return jsonify({'result': result[0]})
 
 
 @job

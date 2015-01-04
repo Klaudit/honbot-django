@@ -23,6 +23,11 @@ angular.module('www').controller('MatchCtrl', function($scope, $routeParams, Bas
     $scope.hero_names = heroes;
     $scope.ptips = {};
     $scope.pmmr = {};
+    var matchmode = {
+        1: ['rnk', 'Ranked'],
+        2: ['cs', 'Casual'],
+        3: ['acc', 'Public']
+    };
     angular.forEach(['ldmg', 'hdmg'], function(i){
         $scope[i] = {
             color: {},
@@ -108,6 +113,7 @@ angular.module('www').controller('MatchCtrl', function($scope, $routeParams, Bas
     console.log(url);
     $http.get(url).success(function(res) {
         $scope.match = res;
+        $scope.mode = matchmode[res.mode];
         $scope.len = secondsToTime($scope.match.length);
 
         if (t1 > t2) {
@@ -153,12 +159,12 @@ angular.module('www').controller('MatchCtrl', function($scope, $routeParams, Bas
                 color: $rootScope.pos_colors[p.position]
             });
 
-            url += p.id + ',';
-            $scope.ptips[p.id] = {
+            url += p.player_id + ',';
+            $scope.ptips[p.player_id] = {
                 'title': '<h4 class="ptiphead">' + p.nickname + '</h4>',
                 'content': '<span class="ptip-warning">Stats not loaded</span><br>'
             };
-            $scope.pmmr[p.id] = '';
+            $scope.pmmr[p.player_id] = '';
         });
         $scope.ldmg.color.pattern = lcolors;
         $scope.hdmg.color.pattern = hcolors;
@@ -174,16 +180,17 @@ angular.module('www').controller('MatchCtrl', function($scope, $routeParams, Bas
         $scope.totals.cs.data.columns = [['Legion', lcs],['Hellbourne', hcs]];
         $log.debug(url);
 
+
         // get tooltips
         $http.get(url).success(function(res) {
-            angular.forEach(res.result, function(v) {
-                $scope.pmmr[v._id] = Math.floor(v[$scope.match.mode + '_mmr']);
-                $scope.ptips[v._id] = {
-                    'title': '<h4 class="ptiphead"><img src="' + v.avatar + '" width=30> ' + v.nickname + '</h4>',
-                    'content': '<h4 class="ptiphead"><span class="ptip-success">' + v[$scope.match.mode + '_wins'] + ' </span> - <span class="ptip-warning"> ' + v[$scope.match.mode + '_losses'] + '</span></h4>' +
-                        '<strong>MMR</strong>: <span class="ptip-blue">' + Math.floor(v[$scope.match.mode + '_mmr']) + '</span><br>' +
-                        '<strong>KDR</strong>: ' + Math.round(v[$scope.match.mode + '_kdr'] * 100) / 100 + '</span><br>' +
-                        '<strong>APM</strong>: ' + Math.floor(v[$scope.match.mode + '_avg_apm'])
+            angular.forEach(res.result, function(player, key) {
+                $scope.pmmr[player.id] = Math.floor(player[$scope.mode[0] + '_mmr']);
+                $scope.ptips[player.id] = {
+                    'title': '<h4 class="ptiphead"><img src="' + player.avatar + '" width=30> ' + player.nickname + '</h4>',
+                    'content': '<h4 class="ptiphead"><span class="ptip-success">' + player[$scope.mode[0] + '_wins'] + ' </span> - <span class="ptip-warning"> ' + player[$scope.mode[0] + '_losses'] + '</span></h4>' +
+                        '<strong>MMR</strong>: <span class="ptip-blue">' + Math.floor(player[$scope.mode[0] + '_mmr']) + '</span><br>' +
+                        '<strong>KDR</strong>: ' + Math.round(player[$scope.mode[0] + '_kdr'] * 100) / 100 + '</span><br>' +
+                        '<strong>APM</strong>: ' + Math.floor(player[$scope.mode[0] + '_avg_apm'])
                 };
             });
         });

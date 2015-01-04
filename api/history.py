@@ -26,7 +26,7 @@ def player_history(pid, page, mode):
     hist = getattr(player, mode + '_history')
     hist = hist[(count - return_size):count]
     ph = verify_matches(hist, mode)
-    ph = MatchSchema().dump(ph, many=True)
+    ph = MatchSchema().dump(ph, many=True)[0]
     res = {
         'matches': len(ph),
         'page': page,

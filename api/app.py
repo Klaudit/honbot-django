@@ -13,6 +13,7 @@ app = Flask(__name__)
 # database connection
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/hb'
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('postgres')
+app.debug = True
 db = SQLAlchemy(app)
 
 # api token for api.heroesofnewerth.com

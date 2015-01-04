@@ -1,40 +1,34 @@
-from players import players
-from matches import matches
-from history import history
-from stats import stats
-from banner import bannerapp
-from extensions import limiter, cors, sentry
-
 from flask import Flask
+from flask.ext.cors import CORS
+from flask.ext.marshmallow import Marshmallow
+from flask.ext.rq import RQ
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask_limiter import Limiter
+from raven.contrib.flask import Sentry
 
+from os import environ
 
-def create_app():
-    '''An application factory, as explained here:
-        http://flask.pocoo.org/docs/patterns/appfactories/
+app = Flask(__name__)
 
-    :param config_object: The configuration object to use.
-    '''
-    app = Flask(__name__)
-    register_extensions(app)
-    register_blueprints(app)
-    return app
+# database connection
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/hb'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('postgres')
+db = SQLAlchemy(app)
 
+# api token for api.heroesofnewerth.com
+api_token = '/?token=%s' % environ.get('API_TOKEN')
 
-def register_extensions(app):
-    limiter.init_app(app)
-    cors.init_app(app)
-    sentry.init_app(app)
-    return None
+# task queue
+rq = RQ(app)
 
+# api limiting
+limiter = Limiter(app)
 
-def register_blueprints(app):
-    app.register_blueprint(players)
-    app.register_blueprint(matches)
-    app.register_blueprint(history)
-    app.register_blueprint(stats)
-    app.register_blueprint(bannerapp)
-    return None
+# serializing models
+ma = Marshmallow(app)
 
-app = create_app()
-if __name__ == "__main__":
-    app.run()
+# cross origin requests
+cors = CORS(app)
+
+# bug tracking
+sentry = Sentry(app)

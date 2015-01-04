@@ -1,8 +1,7 @@
 from __future__ import print_function
-from config import token, q
+from app import api_token, app
 from stats import count_increment
 
-from flask import current_app
 from requests import get, exceptions
 from time import sleep
 
@@ -11,10 +10,10 @@ baseurl = 'http://api.heroesofnewerth.com'
 
 
 def get_json(endpoint):
-    url = ''.join([baseurl, endpoint, token])
+    url = ''.join([baseurl, endpoint, api_token])
     count = 0
-    q.enqueue(count_increment, 'api')
-    if current_app.debug:
+    # q.enqueue(count_increment, 'api')
+    if app.debug:
         print(url)
     while True:
         try:

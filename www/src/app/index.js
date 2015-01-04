@@ -3,7 +3,6 @@
 angular.module('www', [
         'ngAnimate',
         'ngRoute',
-        'ngSanitize',
         'percentage',
         'angular-loading-bar',
         'angularMoment',
@@ -33,22 +32,29 @@ angular.module('www', [
                 templateUrl: 'app/player/player.html',
                 controller: 'PlayerCtrl',
                 resolve: {
-                        message: function(){
-                            return 'hi';
-                    }
+                    view: function(){return 'stats';}
+                }
+            })
+            .when('/player/:player/:mode/', {
+                templateUrl: 'app/player/player.html',
+                controller: 'PlayerCtrl',
+                resolve: {
+                    view: function(){return 'stats';}
                 }
             })
             .when('/chart/:player/', {
                 templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
+                controller: 'PlayerCtrl',
+                resolve: {
+                    view: function(){return 'chart';}
+                }
             })
-            .when('/:mode/player/:player/', {
+            .when('/chart/:player/:mode/', {
                 templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
-            })
-            .when('/:mode/chart/:player/', {
-                templateUrl: 'app/player/player.html',
-                controller: 'PlayerCtrl'
+                controller: 'PlayerCtrl',
+                resolve: {
+                    view: function(){return 'chart';}
+                }
             })
             .otherwise({
                 redirectTo: '/'

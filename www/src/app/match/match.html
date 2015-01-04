@@ -6,7 +6,7 @@
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
                 <h3>
                     <img class="pull-left" style="margin-top: -20px; margin-right: 5px;" ng-src="assets/images/maps/{{ match.map_used || 'caldavar' }}.jpg" width="60">
-                    Match: {{ match._id }}
+                    Match: {{ match.id }}
                 </h3>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
@@ -61,18 +61,19 @@
                                bs-tooltip>
                                 <img ng-src="assets/images/heroes/{{ player.hero_id }}/icon_128.jpg" width="30">
                             </a>
-                            <a ng-href="/player/{{ player.nickname }}/"
+                            <a href="/player/{{ player.nickname }}/"
+                               bs-popover
+                               data-title="{{ ptips[player.player_id].title }}"
+                               data-content="{{ ptips[player.player_id].content }}"
                                data-trigger="hover"
-                               bs-popover="ptips[player.id]"
                                data-animation="am-flip-x"
-                               data-html="true">
+                               data-html="True">
                                 {{ player.nickname }}
                             </a>
-                            {{ pmmr[player.id] }}
+                            {{ pmmr[player.player_id] }}
                         </td>
                         <td>
-                            <a ng-repeat="(key, i) in player.items" 
-                               class="itemicon"
+                            <a ng-repeat="(key, i) in player.items"
                                href="/item/{{ i }}/"
                                data-title="<strong>{{ item_names[i].name }}</strong> <span style='color: gold'>{{ item_names[i].cost }}</span>"
                                data-content="{{ item_names[i].description }}"

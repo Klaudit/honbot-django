@@ -32,7 +32,7 @@ angular.module('www').controller('ChartCtrl', function($scope, $http, BaseUrl, _
     };
 
     $scope.$watchGroup(['s', 'm'], function() {
-        $scope.url = BaseUrl + '/cache/' + $scope.s._id + '/' + $scope.m;
+        $scope.url = BaseUrl + '/cache/' + $scope.s.id + '/' + $scope.m;
         $http.get($scope.url).success(function(res) {
             $log.debug(res);
             if (res.matches !== 0) {

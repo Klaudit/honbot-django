@@ -3,24 +3,16 @@
         <div class="col-lg-12 col-md-12">
             <ul class="nav nav-pills nav-justified" bs-navbar>
                 <li ng-class="{active: view == 'stats'}">
-                    <a ng-click="goplayer()">
-                        {{ modefull }} Stats
-                    </a>
+                    <a ng-click="changeview('stats')">Stats</a>
                 </li>
                 <li ng-class="{active: view == 'chart'}">
-                    <a ng-click="gochart()">
-                        Charts
-                    </a>
+                    <a ng-click="changeview('chart')">Charts</a>
                 </li>
                 <li ng-class="{active: view == 'hero'}">
-                    <a ng-click="gohero()">
-                        Heroes
-                    </a>
+                    <a ng-click="changeview('hero')">Heroes</a>
                 </li>
                 <li>
-                    <a ng-click="banner()">
-                        Stats Banner
-                    </a>
+                    <a ng-click="banner()">Stats Banner</a>
                 </li>
             </ul>
         </div>

@@ -1,15 +1,17 @@
-from app import create_app
-from config import db
+from app import db, app
+from main import register_blueprints
 from items import items
 from heroes import heroes
 
-from pymongo import MongoClient
 from flask.ext.script import Manager, Shell, Server
+from flask.ext.migrate import Migrate, MigrateCommand
 
-app = create_app()
+register_blueprints(app)
+migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('items', items())
 manager.add_command('heroes', heroes())
+manager.add_command('db', MigrateCommand)
 
 
 def _make_context():
@@ -22,9 +24,7 @@ def _make_context():
 # Setting up the app database
 @manager.command
 def setup():
-    db = MongoClient()
-    db.players.ensure_index("nickname")
-    db.matches.ensure_index("players.id")
+    print('setup')
 
 manager.add_command('server', Server())
 manager.add_command('shell', Shell(make_context=_make_context))

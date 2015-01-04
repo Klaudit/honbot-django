@@ -4,9 +4,9 @@ angular.module('www').controller('PlayerHistoryCtrl', function($scope, $http, Ba
     $scope.currentcount = 0;
     $scope.history = [];
     $scope.more = function(){
-        if(!$scope.s._id){return;}
+        if($scope.s.id === undefined){return;}
         $scope.currentcount += 1;
-        $scope.url = BaseUrl + '/history/' + $scope.s._id + '/' + $scope.currentcount + '/' + $scope.m + '/';
+        $scope.url = BaseUrl + '/history/' + $scope.s.id + '/' + $scope.currentcount + '/' + $scope.m + '/';
         $http({
             method: 'GET',
             url: $scope.url,
@@ -16,9 +16,8 @@ angular.module('www').controller('PlayerHistoryCtrl', function($scope, $http, Ba
             $log.debug(res);
             if(res.matches === 0){$scope.nomore = true; return;}
             var hist = [];
-            angular.forEach(res.result, function(value) {
-                var t = _.find(value.players, function(p){return p.id === $scope.s._id;});
-                t._id = value._id;
+            angular.forEach(res.result, function(value, key) {
+                var t = _.find(value.players, function(p){return p.player_id === $scope.s.id;});
                 t.date = value.date;
                 this.push(t);
             }, hist);
@@ -29,8 +28,8 @@ angular.module('www').controller('PlayerHistoryCtrl', function($scope, $http, Ba
         });
     };
 
-    $scope.goMatch = function(_id){
-        $location.path('/match/' + _id + '/');
+    $scope.goMatch = function(id){
+        $location.path('/match/' + id + '/');
     };
     $scope.$watch('s', function() {
         $scope.more();

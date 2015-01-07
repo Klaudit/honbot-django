@@ -2,10 +2,10 @@ server {
     listen   80;
 
     server_name www.honbot.com honbot.com;
-    access_log /home/hb/honbot/honbot-django/honbot-www/access.log;
-    error_log /home/hb/honbot/honbot-django/honbot-www/error.log; 
-    root /home/hb/honbot/honbot-django/honbot-www/dist/;
-    set $host_path "/home/hb/honbot/honbot-django/honbot-www/dist/";
+    access_log /home/hb/honbot-django/www/access.log;
+    error_log /home/hb/honbot-django/www/error.log; 
+    root /home/hb/honbot-django/www/dist/;
+    set $host_path "/home/hb/honbot-django/www/dist/";
     index index.html;
  
     # SEO

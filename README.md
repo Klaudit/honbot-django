@@ -22,3 +22,4 @@ export API_TOKEN
 
 ####honbot server
 
+gunicorn -b 127.0.0.1:5000 manage:app

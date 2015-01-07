@@ -12,7 +12,7 @@ def register_blueprints(app):
     app.register_blueprint(history)
     app.register_blueprint(stats)
     app.register_blueprint(bannerapp)
-    return None
+    return app
 
 
 if __name__ == '__main__':

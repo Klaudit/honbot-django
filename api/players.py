@@ -21,10 +21,10 @@ def player(nickname):
     player, fallback = get_or_update_player(nickname, 800)
     if player is None:
         abort(404)
-    result = PlayerSchema().dump(player)
+    result = PlayerSchema().dump(player).data
     if fallback:
         result['fallback'] = fallback
-    return jsonify(result.data)
+    return jsonify(result)
 
 
 @players.route('/ptip/')

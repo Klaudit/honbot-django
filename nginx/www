@@ -1,7 +1,7 @@
 server {
     listen   80;
 
-    server_name www.honbot.com honbot.com;
+    server_name www.honbot.com honbot.com beta.honbot.com;
     access_log /home/hb/honbot-django/www/access.log;
     error_log /home/hb/honbot-django/www/error.log; 
     root /home/hb/honbot-django/www/dist/;

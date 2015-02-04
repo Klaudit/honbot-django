@@ -4,9 +4,8 @@ from flask.ext.marshmallow import Marshmallow
 from flask.ext.rq import RQ
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_limiter import Limiter
+from flask_redis import Redis
 from raven.contrib.flask import Sentry
-
-from os import environ
 
 app = Flask(__name__)
 
@@ -20,6 +19,9 @@ api_token = '/?token=%s' % app.config['API_TOKEN']
 
 # task queue
 rq = RQ(app)
+
+# redis
+redis_store = Redis(app)
 
 # api limiting
 limiter = Limiter(app)

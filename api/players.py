@@ -5,6 +5,7 @@ from api import get_json
 from app import db
 from models import Player
 from serialize import PlayerSchema
+from stats import player_increment
 from utils import div, needs_update
 
 from flask import jsonify, Blueprint, abort, request
@@ -156,5 +157,6 @@ def update_player(nickname, p=None):
         db.session.add(p)
         db.session.commit()
         avatar.delay(p.id)
+        player_increment(1)
     db.session.commit()
     return p

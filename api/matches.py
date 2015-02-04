@@ -1,8 +1,9 @@
 from api import get_json
-from utils import divmin, div
 from app import db
 from models import Match, PlayerMatch
 from serialize import MatchSchema
+from stats import match_increment
+from utils import divmin, div
 
 from pytz import utc
 from flask import jsonify, Blueprint, abort
@@ -52,6 +53,7 @@ def multimatch(matches):
 
 def single_match(raw, mid):
     m = Match(id=mid)
+    match_increment(1)
     if raw[0][0]['officl'] == "1" and raw[0][0]['cas'] == "1":
         # m.mode = 'cs'
         m.mode = 2

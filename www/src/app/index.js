@@ -67,10 +67,10 @@ angular.module('www', [
             return '//api.honbot.com';
         }
     })
-    .run(['$route', '$rootScope', '$location',
-        function($route, $rootScope, $location) {
+    .run(function($route, $rootScope, $location, BaseUrl) {
             // this lets the path change without reloading route
             var original = $location.path;
+            $rootScope.BaseUrl = BaseUrl;
             $location.path = function(path, reload) {
                 if (reload === false) {
                     var lastRoute = $route.current;
@@ -84,4 +84,4 @@ angular.module('www', [
 
             $rootScope.pos_colors = ['#002c9f', '#00c19e', '#770092', '#f2d500', '#ff7d29', '#ff44ab', '#727272', '#00a0da', '#006448', '#562507'];
         }
-    ]);
+    );

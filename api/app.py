@@ -11,12 +11,12 @@ from os import environ
 app = Flask(__name__)
 
 # database connection
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/hb'
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('postgres')
+app.config.from_object('config')
+
 db = SQLAlchemy(app)
 
 # api token for api.heroesofnewerth.com
-api_token = '/?token=%s' % environ.get('API_TOKEN')
+api_token = '/?token=%s' % app.config['API_TOKEN']
 
 # task queue
 rq = RQ(app)

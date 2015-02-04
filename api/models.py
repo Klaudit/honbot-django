@@ -17,7 +17,7 @@ class Match(db.Model):
 class PlayerMatch(db.Model):
     __tablename__ = 'playermatch'
     id = db.Column(db.Integer, primary_key=True)
-    player_id = db.Column(db.Integer)
+    player_id = db.Column(db.Integer, index=True)
     nickname = db.Column(db.String(20))
     match_id = db.Column(db.Integer, db.ForeignKey('match.id'))
     deaths = db.Column(db.Integer)

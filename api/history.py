@@ -1,7 +1,7 @@
 from api import get_json
 from app import db
 from matches import multimatch
-from models import Player, Match
+from models import Player, Match, PlayerMatch
 from utils import needs_update
 from serialize import MatchSchema
 
@@ -40,11 +40,14 @@ def player_history(pid, page, mode):
 def get_cached(pid, mode):
     """Returns all matches for matching mode and pid
     """
-    matches = list(db.matches.find({'players.id': pid, 'mode': mode}))
+    player = Player.query.filter_by(id=pid).first()
+    find = getattr(player, mode + '_history')
+    matches = Match.query.filter(Match.id.in_(find))
+    result = MatchSchema().dump(matches, many=True)[0]
     res = {
-        'matches': len(matches),
+        'matches': len(result),
         'mode': mode,
-        'result': matches
+        'result': result
     }
     return jsonify(res)
 

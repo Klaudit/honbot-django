@@ -50,6 +50,7 @@
                         <th title="Experience per minute">XP</th>
                         <th title="Actions Per Minute">APM</th>
                         <th title="Wards">W</th>
+                        <th title="Tower Damage">TD</th>
                     </tr>
                 </thead>
                 <tbody ng-repeat="(key, t) in [1, 2]">
@@ -96,6 +97,7 @@
                         <td>{{ player.xpm | number:0 }}</td>
                         <td>{{ player.apm | number:0 }}</td>
                         <td>{{ player.wards }}</td>
+                        <td>{{ player.bdmg }}</td>
                     </tr>
                 </tbody>
             </table>

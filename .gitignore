@@ -19,3 +19,4 @@ honbot-www/dist
 .sass-cache
 */app/bower_components
 */banners/*.png
+config.py

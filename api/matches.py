@@ -103,6 +103,7 @@ def single_match(raw, mid):
             cs=int(p['teamcreepkills']) + int(p['neutralcreepkills']),
             bdmg=p['bdmg'],
             denies=p['denies'],
+            exp_denied=p['exp_denied'],
             gpm=divmin(p['gold'], m.length),
             xpm=divmin(p['exp'], m.length),
             apm=divmin(p['actions'], m.length),

@@ -14,9 +14,6 @@ app.config.from_object('config')
 
 db = SQLAlchemy(app)
 
-# api token for api.heroesofnewerth.com
-api_token = '/?token=%s' % app.config['API_TOKEN']
-
 # task queue
 rq = RQ(app)
 
@@ -33,4 +30,4 @@ ma = Marshmallow(app)
 cors = CORS(app)
 
 # bug tracking
-sentry = Sentry(app)
+# sentry = Sentry(app)

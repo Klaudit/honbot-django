@@ -47,13 +47,14 @@
                 <div class="panel-body">
                     <strong>Database:</strong>
                     <ul class="list-unstyled list-push">
-                        <li>Players: {{ collection.players | number }}</li>
-                        <li>Matches: {{ collection.matches | number }}</li>
+                        <li>Players: {{ stats.players | number }}</li>
+                        <li>Matches: {{ stats.matches | number }}</li>
                     </ul>
                     <strong>S2 API:</strong>
                     <ul class="list-unstyled list-push">
-                        <li>Status: {{ status.status }}</li>
-                        <li>API calls today: {{ status.calls }}</li>
+                        <li ng-if="status">Status: Working</li>
+                        <li ng-if="!status">Status: Possibly not working</li>
+                        <li>API calls today: {{ stats.daily }}</li>
                     </ul>
                 </div>
                 <div class="panel-footer"><a href="/sitestats/">Site Statistics</a>

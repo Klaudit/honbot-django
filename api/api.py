@@ -1,6 +1,6 @@
 from __future__ import print_function
-from app import api_token, app
-from stats import count_increment
+from app import app
+from stats import api_success_incr, api_failure_incr, api_daily_incr
 
 from requests import get, exceptions
 from time import sleep
@@ -10,9 +10,9 @@ baseurl = 'http://api.heroesofnewerth.com'
 
 
 def get_json(endpoint):
-    url = ''.join([baseurl, endpoint, api_token])
+    url = ''.join([baseurl, endpoint, app.config['API_TOKEN']])
     count = 0
-    # q.enqueue(count_increment, 'api')
+    api_daily_incr()
     if app.debug:
         print(url)
     while True:
@@ -24,6 +24,8 @@ def get_json(endpoint):
             count += 1
             sleep(0.4)
         elif raw.status_code == 200:
+            api_success_incr()
             return raw.json()
         else:
+            api_failure_incr()
             return None

@@ -1,4 +1,4 @@
-from app import db, app
+from app import db, app, redis_store
 from main import register_blueprints
 from items import items
 from heroes import heroes
@@ -18,7 +18,7 @@ def _make_context():
     """Return context dict for a shell session so you can access
     app and db by default.
     """
-    return {'app': app, 'db': db}
+    return {'app': app, 'db': db, 'redis_store': redis_store}
 
 
 # Setting up the app database

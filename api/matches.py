@@ -2,7 +2,7 @@ from api import get_json
 from app import db
 from models import Match, PlayerMatch
 from serialize import MatchSchema
-from stats import match_increment
+from stats import match_incr
 from utils import divmin, div
 
 from pytz import utc
@@ -53,7 +53,7 @@ def multimatch(matches):
 
 def single_match(raw, mid):
     m = Match(id=mid)
-    match_increment(1)
+    match_incr()
     if raw[0][0]['officl'] == "1" and raw[0][0]['cas'] == "1":
         # m.mode = 'cs'
         m.mode = 2

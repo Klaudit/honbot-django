@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('www').controller('PlayerCtrl', function($scope, $routeParams, $http, BaseUrl, $location, $modal, $timeout, $window, $log, $alert, view) {
+    $scope.s = {};
     if (view === 'chart' || view === 'hero') {
         $scope.view = view;
     } else {

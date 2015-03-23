@@ -42,7 +42,7 @@ def api_daily_incr():
     redis_store.incr('api_daily', amount=1)
     if not current:
         now = datetime.now()
-        expire = now.replace(day=(now.day + 1), minute=0, second=0, microsecond=0)
+        expire = now.replace(day=(now.day + 1), hour=0, minute=0, second=0, microsecond=0)
         redis_store.expireat('api_daily', expire)
 
 

@@ -1,15 +1,13 @@
 <header class="player-head">
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                <div class="btn-group-vertical pull-left">
-                    <a class="btn btn-xs noradius" ng-class="{'btn-default': m != 'rnk', 'btn-warning': m == 'rnk'}" ng-click="changelocation('ranked')">Ranked</a>
-                    <a class="btn btn-xs noradius" ng-class="{'btn-default': m != 'cs', 'btn-warning': m == 'cs'}" ng-click="changelocation('casual')">Casual</a>
-                    <a class="btn btn-xs noradius" ng-class="{'btn-default': m != 'acc', 'btn-warning': m == 'acc'}" ng-click="changelocation('public')">Public</a>
-                </div>
-                <h1 class="pull-left"><img ng-src="{{ s.avatar || '/assets/images/default_avatar.png' }}" class="pull-left" width="65" height="65"> {{ nickname }}</h1>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                <h1><img ng-src="{{ s.avatar || '/assets/images/default_avatar.png' }}" width="65" height="65"> {{ nickname }}</h1>
+                <a class="btn btn-xs noradius" ng-class="{'btn-default': m != 'rnk', 'btn-warning': m == 'rnk'}" ng-click="changelocation('ranked')">Ranked</a>
+                <a class="btn btn-xs noradius" ng-class="{'btn-default': m != 'cs', 'btn-warning': m == 'cs'}" ng-click="changelocation('casual')">Casual</a>
+                <a class="btn btn-xs noradius" ng-class="{'btn-default': m != 'acc', 'btn-warning': m == 'acc'}" ng-click="changelocation('public')">Public</a>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-lg-offset-2 col-md-offset-2 text-center">
                     <h4>mmr</h4>{{ Math.floor(s[m + '_mmr']) }}
                 </div>

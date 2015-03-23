@@ -3,45 +3,12 @@
         <div class="col-lg-12">
             <div id="alerts-container"></div>
         </div>
-        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 text-center" ng-controller="PlayerHistoryCtrl">
-            <table id="history" class="table table-header recent-match">
-                <thead class="table-border">
-                    <tr>
-                        <th class="text-center">Hero lvl</th>
-                        <th class="text-center">K/D/A</th>
-                        <th class="text-center">KDR</th>
-                        <th class="text-center">APM</th>
-                        <th class="text-center">GPM</th>
-                        <th class="text-center">XPM</th>
-                        <th class="text-center">+/-</th>
-                        <th class="text-center">Date</th>
-                        <th class="text-center">Match #</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="(key, match) in history track by $index" ng-click="goMatch(match.match_id)" ng-class="{matchloss: !match.win, matchwin: match.win}">
-                        <td><img ng-src="/assets/images/heroes/{{match.hero_id}}/icon_128.jpg">{{ match.level }}</td>
-                        <td>{{ match.kills }} / {{ match.deaths }} / {{ match.assists }}</td>
-                        <td>{{ match.kdr | number:1 }}</td>
-                        <td>{{ match.apm | number:0 }}</td>
-                        <td>{{ match.gpm | number:0 }}</td>
-                        <td>{{ match.xpm | number:0 }}</td>
-                        <td>{{ match.mmr_change | number:0 }}</td>
-                        <td am-time-ago="match.date"></td>
-                        <td>{{ match.match_id }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            </p>
-            <p ng-show="nomore">Reached the end of available recent matches</p>
-            <a ng-click="more()" ng-show="!nomore" class="btn btn-default btn-small">More</a>
-        </div>
-        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title text-center">Stats Average</h4>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="">
+                        <div class="">
+                            <h4 class="text-center">Averages</h4>
                         </div>
                         <table class="table table-striped">
                             <tbody>
@@ -118,10 +85,10 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title text-center">Lifetime</h4>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="">
+                        <div class="">
+                            <h4 class=" text-center">Lifetime</h4>
                         </div>
                         <table class="table table-striped">
                             <tbody>
@@ -189,12 +156,10 @@
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title text-center">Streaks</h4>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="">
+                        <div class="">
+                            <h4 class=" text-center">Streaks</h4>
                         </div>
                         <table class="table table-striped align-right">
                             <tbody>

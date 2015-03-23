@@ -1,5 +1,5 @@
 <!-- Main Hero -->
-<div class="hero-container jumbotron" ng-style="{'background-image': 'url({{ image }})'}">
+<div class="jumbotron" ng-style="{'background-image': 'url({{ image }})'}">
     <div class="container">
         <div class="row">
             <!-- search -->
@@ -45,15 +45,15 @@
                     <h3 class="panel-title text-center">Server Stats</h3>
                 </div>
                 <div class="panel-body">
-                    <strong>Database:</strong>
-                    <ul class="list-unstyled list-push">
+                    <strong>Database</strong>
+                    <ul class="list-unstyled">
                         <li>Players: {{ stats.players | number }}</li>
                         <li>Matches: {{ stats.matches | number }}</li>
                     </ul>
-                    <strong>S2 API:</strong>
-                    <ul class="list-unstyled list-push">
-                        <li ng-if="status">Status: Working</li>
-                        <li ng-if="!status">Status: Possibly not working</li>
+                    <strong>S2 API</strong>
+                    <ul class="list-unstyled">
+                        <li ng-if="status">Status: <span class="text-success">Working</span></li>
+                        <li ng-if="!status">Status: <span class="text-danger">Possibly not working</span></li>
                         <li>API calls today: {{ stats.daily }}</li>
                     </ul>
                 </div>

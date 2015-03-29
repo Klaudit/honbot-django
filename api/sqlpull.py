@@ -130,8 +130,11 @@ class sqlpull(Command):
                     consumables=int(p['consumables']),
                     wards=int(p['wards'])
                 ))
-            db.session.add(newmatch)
-            db.session.commit()
+            try:
+                db.session.add(newmatch)
+                db.session.commit()
+            except:
+                continue
             my_prbar.update(item_id=m)
 
         print(my_prbar)

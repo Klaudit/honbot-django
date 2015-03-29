@@ -6,6 +6,7 @@ import pytz
 from models import Match, PlayerMatch
 from flask.ext.script import Command
 from sqlalchemy import create_engine
+from config import remote
 from app import db
 
 
@@ -46,7 +47,7 @@ def psetup(data):
 
 class sqlpull(Command):
     def run(self):
-        engine = create_engine('fromurl', pool_recycle=3600)
+        engine = create_engine(remote, pool_recycle=3600)
         conn = engine.connect()
         result = engine.execute("select match_id from honbot_matches where mode = 'rnk'")
         matches = [int(m[0]) for m in result]

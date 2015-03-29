@@ -54,8 +54,9 @@ class sqlpull(Command):
 
         print(len(matches))
 
-        my_prbar = pyprind.ProgBar(len(matches), monitor=True, width=90)
+        my_prbar = pyprind.ProgBar(len(matches), monitor=True, title="sqlpull")
         for m in matches:
+            print(m)
             exists = Match.query.filter_by(id=m).exists()
             if exists:
                 continue
@@ -130,3 +131,5 @@ class sqlpull(Command):
             db.session.add(newmatch)
             db.session.commit()
             my_prbar.update()
+
+        print(my_prbar)

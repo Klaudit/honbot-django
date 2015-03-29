@@ -55,7 +55,7 @@ class sqlpull(Command):
 
         my_prbar = pyprind.ProgBar(len(matches), monitor=True, width=90)
         for m in matches:
-            exists = Match.query.filter_by(id=m).first()
+            exists = Match.query.filter_by(id=m).exists()
             if exists:
                 continue
             match = list(engine.execute("select * from honbot_matches where match_id = %i" % m))[0]

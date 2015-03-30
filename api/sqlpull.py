@@ -53,15 +53,13 @@ class sqlpull(Command):
         matches = [int(m[0]) for m in result]
 
         print(len(matches))
-        skip = Match.query.count()
-        matches = matches[skip:]
-        print(len(matches))
 
         my_prbar = pyprind.ProgBar(len(matches), monitor=True, title="sqlpull")
         for m in matches:
-            # exists = Match.query.get(m) or None
-            # if exists:
-            #     continue
+            exists = Match.query.get(m) or None
+            if exists:
+                my_prbar.update(item_id=m)
+                continue
             match = list(engine.execute("select * from honbot_matches where match_id = %i" % m))[0]
             # if match[4] == 'rnk':
             #     newmode = 1

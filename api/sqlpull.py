@@ -6,6 +6,7 @@ import pytz
 from models import Match, PlayerMatch
 from flask.ext.script import Command
 from sqlalchemy import create_engine
+from sqlalchemy.orm import load_only
 from config import remote
 from app import db
 
@@ -49,24 +50,29 @@ class sqlpull(Command):
     def run(self):
         engine = create_engine(remote, pool_recycle=3600)
         conn = engine.connect()
-        result = engine.execute("select match_id from honbot_matches where mode = 'rnk'")
+        result = engine.execute("select match_id from honbot_matches")
         matches = [int(m[0]) for m in result]
-
         print(len(matches))
 
+        existing = Match.query.options(load_only('id')).all()
+        exists = [m.id for m in existing]
+
+        filtered = [int(m) for m in matches if int(m) not in exists]
+
+        print(len(filtered))
+
+
+
+
         my_prbar = pyprind.ProgBar(len(matches), monitor=True, title="sqlpull")
-        for m in matches:
-            exists = Match.query.get(m) or None
-            if exists:
-                my_prbar.update(item_id=m)
-                continue
+        for m in filtered:
             match = list(engine.execute("select * from honbot_matches where match_id = %i" % m))[0]
-            # if match[4] == 'rnk':
-            #     newmode = 1
-            # if match[4] == 'cs':
-            #     newmode = 2
-            # if match[4] == 'acc':
-            #     newmode = 3
+            if match[4] == 'rnk':
+                newmode = 1
+            elif match[4] == 'cs':
+                newmode = 2
+            elif match[4] == 'acc':
+                newmode = 3
 
 
             temptime = match[3].split(':')
@@ -88,7 +94,7 @@ class sqlpull(Command):
                 map_used=match[5],
                 length=totaltime,
                 date=pytz.utc.localize(match[1]),
-                mode=1,
+                mode=newmode,
             )
             players = list(engine.execute("select * from honbot_playermatches where match_id = %i" % m))
             if len(players) < 1:
@@ -128,11 +134,8 @@ class sqlpull(Command):
                     consumables=int(p['consumables']),
                     wards=int(p['wards'])
                 ))
-            try:
-                db.session.add(newmatch)
-                db.session.commit()
-            except:
-                continue
+            db.session.add(newmatch)
+            db.session.commit()
             my_prbar.update(item_id=m)
 
         print(my_prbar)

@@ -54,14 +54,12 @@ class sqlpull(Command):
         matches = [int(m[0]) for m in result]
         print(len(matches))
 
-        existing = Match.query.options(load_only('id')).all()
-        exists = [m.id for m in existing]
+        findexisting = db.engine.execute('select id from match')
+        exists = [int(m[0]) for m in findexisting]
 
         filtered = [int(m) for m in matches if int(m) not in exists]
 
         print(len(filtered))
-
-
 
 
         my_prbar = pyprind.ProgBar(len(matches), monitor=True, title="sqlpull")

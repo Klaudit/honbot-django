@@ -51,19 +51,22 @@ class sqlpull(Command):
         engine = create_engine(remote, pool_recycle=3600)
         conn = engine.connect()
         result = engine.execute("select match_id from honbot_matches")
-        matches = [int(m[0]) for m in result]
-        print(len(matches))
+        matches = []
 
         findexisting = db.engine.execute('select id from match')
-        exists = [int(m[0]) for m in findexisting]
+        exists = [m[0] for m in findexisting]
+        print(len(exists))
 
-        filtered = [int(m) for m in matches if int(m) not in exists]
+        for m in result:
+            if m in exists:
+                continue
+            matches.append(m)
 
-        print(len(filtered))
+        print(len(matches))
 
 
         my_prbar = pyprind.ProgBar(len(matches), monitor=True, title="sqlpull")
-        for m in filtered:
+        for m in matches:
             match = list(engine.execute("select * from honbot_matches where match_id = %i" % m))[0]
             if match[4] == 'rnk':
                 newmode = 1

@@ -69,10 +69,13 @@ class sqlpull(Command):
             match = list(engine.execute("select * from honbot_matches where match_id = %i" % m))[0]
             if match[4] == 'rnk':
                 newmode = 1
+                playerlocation = "select * from honbot_playermatches where match_id = %i"
             elif match[4] == 'cs':
                 newmode = 2
+                playerlocation = "select * from honbot_playermatchescasual where match_id = %i"
             elif match[4] == 'acc':
                 newmode = 3
+                playerlocation = "select * from honbot_playermatchespublic where match_id = %i"
 
 
             temptime = match[3].split(':')
@@ -96,7 +99,7 @@ class sqlpull(Command):
                 date=pytz.utc.localize(match[1]),
                 mode=newmode,
             )
-            players = list(engine.execute("select * from honbot_playermatches where match_id = %i" % m))
+            players = list(engine.execute(playerlocation % m))
             if len(players) < 1:
                 continue
             for player in players:

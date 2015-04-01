@@ -1,0 +1,51 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# honbot
+
+This backend powers the website honbot.com. It's pretty cool.
+
+## Group Player
+
+Get a player.
+
+## Player [/player/{player_nickname}]
+
+A Question object has the following attributes:
+
++ question
++ published_at - An ISO8601 date when the question was published.
++ url
++ choices - An array of Choice objects.
+
++ Parameters
+    + player_nickname (required, number, `1`) ... ID of the Question in form of an integer
+
+### View a Questions Detail [GET]
+
++ Response 200 (application/json)
+
+                {
+                    "question": "Favourite programming language?",
+                    "published_at": "2014-11-11T08:40:51.620Z",
+                    "url": "/questions/1",
+                    "choices": [
+                        {
+                            "choice": "Swift",
+                            "url": "/questions/1/choices/1",
+                            "votes": 2048
+                        }, {
+                            "choice": "Python",
+                            "url": "/questions/1/choices/2",
+                            "votes": 1024
+                        }, {
+                            "choice": "Objective-C",
+                            "url": "/questions/1/choices/3",
+                            "votes": 512
+                        }, {
+                            "choice": "Ruby",
+                            "url": "/questions/1/choices/4",
+                            "votes": 256
+                        }
+                    ]
+                }

@@ -19,7 +19,7 @@ class PlayerMatch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     player_id = db.Column(db.Integer, index=True)
     nickname = db.Column(db.String(20))
-    match_id = db.Column(db.Integer, db.ForeignKey('match.id'))
+    match_id = db.Column(db.Integer, db.ForeignKey('match.id'), index=True)
     deaths = db.Column(db.Integer)
     win = db.Column(db.Boolean)
     apm = db.Column(db.Float)

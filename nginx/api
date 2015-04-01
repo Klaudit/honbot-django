@@ -2,9 +2,9 @@ server {
     listen   80;
 
     server_name api.honbot.com;
-    access_log /home/hb/accessapi.log;
-    error_log /home/hb/errorapi.log; 
-    root /home/hb/honbot-django/api;
+    access_log /home/sc/honbot-django/accessapi.log;
+    error_log /home/sc/honbot-django/errorapi.log; 
+    root /home/sc/honbot-django/api;
 
     location /
     {

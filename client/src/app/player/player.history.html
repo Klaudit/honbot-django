@@ -1,0 +1,31 @@
+<table id="history" class="table table-header recent-match">
+    <thead class="table-border">
+        <tr>
+            <th class="text-center">Hero lvl</th>
+            <th class="text-center">KDA</th>
+            <th class="text-center">KDR</th>
+            <th class="text-center">APM</th>
+            <th class="text-center">GPM</th>
+            <th class="text-center">XPM</th>
+            <th class="text-center">+/-</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Match #</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(key, match) in ctrl.history track by $index" ng-click="goMatch(match.match_id)" ng-class="{matchloss: !match.win, matchwin: match.win}">
+            <td><img ng-src="/assets/images/heroes/{{match.hero_id}}/icon_128.jpg" width="30">{{ match.level }}</td>
+            <td>{{ match.kills }} | {{ match.deaths }} | {{ match.assists }}</td>
+            <td>{{ match.kdr | number:1 }}</td>
+            <td>{{ match.apm | number:0 }}</td>
+            <td>{{ match.gpm | number:0 }}</td>
+            <td>{{ match.xpm | number:0 }}</td>
+            <td>{{ match.mmr_change | number:0 }}</td>
+            <td am-time-ago="match.date"></td>
+            <td>{{ match.match_id }}</td>
+        </tr>
+    </tbody>
+</table>
+</p>
+<p ng-show="nomore">Reached the end of available recent matches</p>
+<a ng-click="more()" ng-show="!nomore" class="btn btn-default btn-small">More</a>

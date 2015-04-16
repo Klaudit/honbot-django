@@ -1,0 +1,82 @@
+<!-- Main Hero -->
+<div class="home" ng-style="main.jumbostyle">
+    <div class="mainjumbo">
+        <div class="container">
+            <div class="row">
+                <!-- search -->
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <img src="/assets/images/mainlogo.png">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <form ng-submit="main.search()">
+                        
+                        <div class="input-group">
+                            <input type="text" ng-model="main.nickname" placeholder="Username" class="form-control input-lg" spellcheck="false" autocorrect="off" autocapitalize="off" autofocus>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default btn-lg" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <br>
+                    <ul class="list-inline text-muted text-center home-inline">
+                        <li><a href="/player/">Players</a></li>
+                        <li><a href="/match/">Matches</a></li>
+                        <li><a href="/hero/">Heroes</a></li>
+                        <li><a href="/item/">Items</a></li>
+                    </ul>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">Recent Changes</h3>
+                    </div>
+                    <div class="panel-body">Footer?</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- status pannel -->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">Server Stats</h3>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <ul class="list-unstyled">
+                            <li><strong>Database</strong></li>
+                            <ul class="list-unstyled list-bump">
+                                <li>Players: {{ main.stats.players | number }}</li>
+                                <li>Matches: {{ main.stats.matches | number }}</li>
+                            </ul>
+                        </ul>
+                        <ul class="list-unstyled">
+                            <li><strong>S2 API</strong></li>
+                            <ul class="list-unstyled list-bump">
+                            <li>Status:
+                                <span ng-if="main.stats.status" class="text-success">Working</span>
+                                <span ng-if="!main.stats.status && main.stats.status != undefined" class="text-danger">Possibly not working</span>
+                            </li>
+                            <li>API calls today: {{ main.stats.daily | number }}</li>
+                            </ul>
+                        </ul>
+                        <a href="/sitestats/">More</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

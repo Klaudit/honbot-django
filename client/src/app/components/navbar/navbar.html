@@ -1,0 +1,21 @@
+<div id="navbar" class="navbar navbar-default navbar-static-top" role="navigation" ng-model="collapsed" bs-collapse ng-controller="NavbarCtrl as navctrl">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" bs-collapse-toggle>
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">HonBot</a>
+        </div>
+        <div class="navbar-collapse collapse" bs-collapse-target>
+            <form ng-submit="navctrl.search()" class="navbar-form navbar-left" role="search">
+                <input type="text" ng-model="navctrl.nick" class="form-control col-lg-8" placeholder="Username" autocorrect="off" autocapitalize="off" spellcheck="false">
+            </form>
+            <ul class="nav navbar-nav">
+                <li><a href="/">Hello</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

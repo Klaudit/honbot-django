@@ -1,13 +1,12 @@
+from datetime import datetime
+
 from api import get_json
 from app import db
+from flask import abort, Blueprint, jsonify
 from matches import multimatch
-from models import Player, Match, PlayerMatch
-from utils import needs_update
+from models import Match, Player
 from serialize import MatchSchema
-
-from flask import jsonify, Blueprint, abort
-
-from datetime import datetime
+from utils import needs_update
 
 return_size = 25
 history = Blueprint('history', __name__)
@@ -53,7 +52,7 @@ def get_cached(pid, mode):
 
 
 def get_or_update_history(pid):
-    p = Player.query.filter_by(id=pid).first()
+    p = Player.query.get(pid)
     url = '/match_history/all/accountid/' + str(pid)
     # player doesn't exist
     if p is None:

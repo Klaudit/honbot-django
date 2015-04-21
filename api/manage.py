@@ -3,6 +3,7 @@ from main import register_blueprints
 from items import items
 from heroes import heroes
 from sqlpull import sqlpull
+from mongoimport import mongoimport
 
 from flask.ext.script import Manager, Shell, Server
 from flask.ext.migrate import Migrate, MigrateCommand
@@ -14,6 +15,7 @@ manager.add_command('items', items())
 manager.add_command('heroes', heroes())
 manager.add_command('db', MigrateCommand)
 manager.add_command('sqlpull', sqlpull())
+manager.add_command('mongoimport', mongoimport())
 
 
 def _make_context():

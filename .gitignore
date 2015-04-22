@@ -20,3 +20,4 @@ honbot-www/dist
 */app/bower_components
 */banners/*.png
 config.py
+config.js

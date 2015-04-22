@@ -18,15 +18,17 @@ class mongoimport(Command):
         setexists = set(exists)
 
         mon = MongoClient()
-        matches = set(mon.hb.matches.distinct('id'))
+        matches = mon.hb.matches.aggregate([{'$group': {'_id': '$id'}}])
+        matches = [x['_id'] for x in matches]
 
-        filtered = list(setexists - matches)
+        matchesset = set(matches)
+
+        filtered = list(setexists - matchesset)
         print(len(filtered))
 
         prbar = pyprind.ProgBar(len(filtered), monitor=True, title="sqlpull")
-        for group in chunker(filtered, 100):
+        for group in chunker(filtered, 1000):
             matches = Match.query.filter(Match.id.in_(group))
             result = MatchSchema().dump(matches, many=True)[0]
             mon.hb.matches.insert(result)
             prbar.update()
-

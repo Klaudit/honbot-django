@@ -1,0 +1,43 @@
+{
+  "name": "honbot",
+  "version": "1.0.0",
+  "description": "honbot javascript backend",
+  "main": "index.js",
+  "dependencies": {
+    "JSONStream": "^0.10.0",
+    "bson": "^0.3.1",
+    "co": "^4.5.2",
+    "concat-stream": "^1.4.8",
+    "config": "^1.12.0",
+    "generic-pool": "^2.2.0",
+    "koa-compress": "^1.0.8",
+    "koa-cors": "0.0.14",
+    "koa-logger": "^1.2.2",
+    "koa-response-time": "^1.0.2",
+    "koa-router": "^4.3.2",
+    "koa.io": "0.0.3",
+    "lodash": "^3.7.0",
+    "moment": "^2.10.2",
+    "mongodb": "^2.0.27",
+    "thunkify-wrap": "^1.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scttcper/honbot-django.git"
+  },
+  "keywords": [
+    "hon",
+    "honbot"
+  ],
+  "author": "scttcper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scttcper/honbot-django/issues"
+  },
+  "homepage": "https://github.com/scttcper/honbot-django#readme"
+}
